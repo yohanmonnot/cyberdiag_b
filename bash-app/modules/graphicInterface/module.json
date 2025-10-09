@@ -1,0 +1,10 @@
+{
+    "name": "graphicInterface",
+    "version": "1.0",
+    "type": "interface",
+    "description": "A simple graphic interface to launch diagnostic tools with style.",
+    "author": "Célian Touzeau",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": []
+}

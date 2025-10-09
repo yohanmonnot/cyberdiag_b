@@ -1,0 +1,47 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  JAVA_HOME: "/usr/lib/jvm/java-21-openjdk"
+  PATH: "$JAVA_HOME/bin:$PATH"
+
+before_script:
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
+
+build_java_ui:
+  stage: build
+  image: gradle:8.3-jdk21
+  script:
+    - cd java-ui
+    - gradle clean build
+  artifacts:
+    paths:
+      - java-ui/build/libs/java-ui-1.0.jar
+    expire_in: 1 hour
+
+test_jar_launch:
+  stage: test
+  image: eclipse-temurin:21
+  dependencies:
+    - build_java_ui
+  script:
+    - test -f java-ui/build/libs/java-ui-1.0.jar || (exit 1)
+    - java -jar java-ui/build/libs/java-ui-1.0.jar --headless &
+    - sleep 5
+    - JAR_PID=$!
+    - if ps -p $JAR_PID > /dev/null; then kill $JAR_PID; else exit 1; fi
+
+deploy_to_interface:
+  stage: deploy
+  image: alpine:latest
+  dependencies:
+    - test_jar_launch
+  script:
+    - mkdir -p bash-app/modules/interface
+    - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/interface/
+  artifacts:
+    paths:
+      - bash-app/modules/interface/java-ui-1.0.jar
+    expire_in: 1 week

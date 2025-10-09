@@ -1,0 +1,10 @@
+{
+    "name": "cliInterface",
+    "version": "1.0",
+    "type": "interface",
+    "description": "A command-line interface for launching diagnostic tools like a hacker.",
+    "author": "Célian Touzeau",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": []
+}
