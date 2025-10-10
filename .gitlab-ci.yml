@@ -12,16 +12,23 @@ before_script:
 
 build_java_ui:
   stage: build
-  image: 
+  image:
     name: gradle:8.3-jdk20
     entrypoint: [""]
   script:
     - cd java-ui
-    - gradle clean build
+    - echo "Cleaning and building JavaFX project..."
+    - gradle --no-daemon clean build
+    - echo "Build complete. Checking JAR existence..."
+    - test -f build/libs/java-ui-1.0.jar || (echo "JAR not found!" && exit 1)
   artifacts:
     paths:
       - java-ui/build/libs/java-ui-1.0.jar
     expire_in: 1 hour
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - .gradle/
 
 test_jar_launch:
   stage: test
@@ -29,11 +36,19 @@ test_jar_launch:
   dependencies:
     - build_java_ui
   script:
-    - test -f java-ui/build/libs/java-ui-1.0.jar || (exit 1)
+    - echo "Checking for built JAR..."
+    - test -f java-ui/build/libs/java-ui-1.0.jar || (echo 'JAR missing!' && exit 1)
+    - echo "Launching the JAR in headless mode..."
     - java -jar java-ui/build/libs/java-ui-1.0.jar --headless &
-    - sleep 5
     - JAR_PID=$!
-    - if ps -p $JAR_PID > /dev/null; then kill $JAR_PID; else exit 1; fi
+    - sleep 5
+    - if ps -p $JAR_PID > /dev/null; then
+          echo "JAR launched successfully. Killing process...";
+          kill $JAR_PID;
+      else
+          echo "JAR did not start properly.";
+          exit 1;
+      fi
 
 deploy_to_interface:
   stage: deploy
@@ -41,8 +56,10 @@ deploy_to_interface:
   dependencies:
     - test_jar_launch
   script:
+    - echo "Deploying built JAR to bash-app/modules/interface/"
     - mkdir -p bash-app/modules/interface
     - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/interface/
+    - ls -lh bash-app/modules/interface/
   artifacts:
     paths:
       - bash-app/modules/interface/java-ui-1.0.jar
