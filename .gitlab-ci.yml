@@ -12,7 +12,9 @@ before_script:
 
 build_java_ui:
   stage: build
-  image: gradle:8.3-jdk20
+  image: 
+    name: gradle:8.3-jdk20
+    entrypoint: [""]
   script:
     - cd java-ui
     - gradle clean build
