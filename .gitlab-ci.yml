@@ -4,49 +4,43 @@ stages:
   - deploy
 
 variables:
-  JAVA_HOME: "/usr/lib/jvm/java-21-openjdk"
-  PATH: "$JAVA_HOME/bin:$PATH"
+  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
 
 before_script:
-  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
 
-build_java_ui:
+build_gradle_project:
   stage: build
-  image:
-    name: gradle:8.3-jdk20
-    entrypoint: [""]
+  image: eclipse-temurin:latest
   script:
     - cd java-ui
-    - echo "Cleaning and building JavaFX project..."
-    - gradle --no-daemon clean build
-    - echo "Build complete. Checking JAR existence..."
-    - test -f build/libs/java-ui-1.0.jar || (echo "JAR not found!" && exit 1)
+    - echo "Running Gradle build..."
+    - chmod +x ./gradlew
+    - ./gradlew clean build
   artifacts:
     paths:
       - java-ui/build/libs/java-ui-1.0.jar
+    reports:
+      junit: '**/build/test-results/**/TEST-*.xml'
     expire_in: 1 hour
-  cache:
-    key: "$CI_COMMIT_REF_SLUG"
-    paths:
-      - .gradle/
 
 test_jar_launch:
   stage: test
-  image: eclipse-temurin:21
+  image: eclipse-temurin:latest
   dependencies:
-    - build_java_ui
+    - build_gradle_project
   script:
-    - echo "Checking for built JAR..."
-    - test -f java-ui/build/libs/java-ui-1.0.jar || (echo 'JAR missing!' && exit 1)
-    - echo "Launching the JAR in headless mode..."
+    - echo "Checking built JAR..."
+    - test -f java-ui/build/libs/java-ui-1.0.jar || (echo "JAR not found!" && exit 1)
+    - echo "Launching JAR in headless mode..."
     - java -jar java-ui/build/libs/java-ui-1.0.jar --headless &
     - JAR_PID=$!
     - sleep 5
     - if ps -p $JAR_PID > /dev/null; then
-          echo "JAR launched successfully. Killing process...";
+          echo "JAR started successfully.";
           kill $JAR_PID;
       else
-          echo "JAR did not start properly.";
+          echo "JAR failed to start.";
           exit 1;
       fi
 
