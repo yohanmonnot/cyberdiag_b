@@ -49,6 +49,7 @@ deploy_to_interface:
   image: alpine:latest
   dependencies:
     - test_jar_launch
+    - build_gradle_project
   script:
     - echo "Deploying built JAR to bash-app/modules/interface/"
     - mkdir -p bash-app/modules/interface
