@@ -1,5 +1,5 @@
-package Controllers;
+package ui.Controllers;
 
-public class exampleController {
-    
+public class ExampleController {
+
 }
