@@ -19,7 +19,7 @@ build_gradle_project:
     - ./gradlew clean build
   artifacts:
     paths:
-      - java-ui/build/libs/java-ui-1.0.jar  # ✅ chemin corrigé (relatif à la racine du projet)
+      - build/libs/java-ui-1.0.jar
     reports:
       junit: '**/build/test-results/**/TEST-*.xml'
     expire_in: 1 hour
