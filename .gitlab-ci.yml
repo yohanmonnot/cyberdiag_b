@@ -71,7 +71,7 @@ deploy_to_interface:
     - git checkout dev
     - git add bash-app/modules/interface/java-ui-1.0.jar
     - 'git commit -m "CI: updated interface JAR [pipeline ${CI_PIPELINE_ID}]" || echo "No changes to commit"'
-    - 'git push "https://${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" dev'
+    - git push "https://${CI_JOB_TOKEN}@forgens.univ-ubs.fr/gitlab/${CI_PROJECT_PATH}.git" dev
   artifacts:
     paths:
       - bash-app/modules/interface/java-ui-1.0.jar
