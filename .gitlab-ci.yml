@@ -2,6 +2,7 @@ stages:
   - build
   - test
   - deploy
+  - verify
 
 variables:
   GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
@@ -20,8 +21,6 @@ build_gradle_project:
   artifacts:
     paths:
       - java-ui/build/libs/java-ui-1.0.jar
-    reports:
-      junit: '**/build/test-results/**/TEST-*.xml'
     expire_in: 1 hour
 
 test_jar_launch:
@@ -46,16 +45,32 @@ test_jar_launch:
 
 deploy_to_interface:
   stage: deploy
-  image: alpine:latest
+  image: alpine/git
   dependencies:
-    - test_jar_launch
     - build_gradle_project
   script:
     - echo "Deploying built JAR to bash-app/modules/interface/"
     - mkdir -p bash-app/modules/interface
     - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/interface/
-    - ls -lh bash-app/modules/interface/
+    - git config --global user.email "ci-bot@forge.ubs.fr"
+    - git config --global user.name "GitLab CI Bot"
+    - git fetch origin dev
+    - git checkout dev
+    - git add bash-app/modules/interface/java-ui-1.0.jar
+    - git commit -m "Auto-deploy: update JAR via pipeline $CI_PIPELINE_ID" || echo "No changes to commit"
+    - git push https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git dev
+  only:
+    - dev
   artifacts:
     paths:
       - bash-app/modules/interface/java-ui-1.0.jar
     expire_in: 1 week
+
+check_deploy:
+  stage: verify
+  image: alpine:latest
+  script:
+    - echo "Verifying that the JAR exists..."
+    - test -f bash-app/modules/interface/java-ui-1.0.jar || (echo "JAR missing! Merge blocked." && exit 1)
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
