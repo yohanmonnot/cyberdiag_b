@@ -57,11 +57,21 @@ deploy_to_interface:
   image: alpine:latest
   dependencies:
     - test_jar_launch
+  before_script:
+    - apk add --no-cache git
   script:
     - echo "Deploying built JAR to bash-app/modules/interface/"
     - mkdir -p bash-app/modules/interface
     - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/interface/
     - ls -lh bash-app/modules/interface/
+    - echo "Configuring Git for CI push..."
+    - git config --global user.email "ci-bot@gitlab.local"
+    - git config --global user.name "GitLab CI Bot"
+    - git fetch origin dev
+    - git checkout dev
+    - git add bash-app/modules/interface/java-ui-1.0.jar
+    - 'git commit -m "CI: updated interface JAR [pipeline ${CI_PIPELINE_ID}]" || echo "No changes to commit"'
+    - 'git push "https://${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" dev'
   artifacts:
     paths:
       - bash-app/modules/interface/java-ui-1.0.jar
