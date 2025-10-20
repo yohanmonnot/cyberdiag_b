@@ -2,6 +2,7 @@ stages:
   - build
   - test
   - deploy
+  - verify
 
 variables:
   GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
@@ -9,6 +10,7 @@ variables:
 before_script:
   - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
 
+# ---------- BUILD ----------
 build_gradle_project:
   stage: build
   image: eclipse-temurin:latest
@@ -24,6 +26,7 @@ build_gradle_project:
       junit: '**/build/test-results/**/TEST-*.xml'
     expire_in: 1 hour
 
+# ---------- TEST ----------
 test_jar_launch:
   stage: test
   image: eclipse-temurin:latest
@@ -37,25 +40,57 @@ test_jar_launch:
     - JAR_PID=$!
     - sleep 5
     - if ps -p $JAR_PID > /dev/null; then
-          echo "JAR started successfully.";
-          kill $JAR_PID;
+        echo "JAR started successfully.";
+        kill $JAR_PID;
       else
-          echo "JAR failed to start.";
-          exit 1;
+        echo "JAR failed to start.";
+        exit 1;
       fi
+  artifacts:
+    paths:
+      - java-ui/build/libs/java-ui-1.0.jar
+    expire_in: 1 hour
 
+# ---------- DEPLOY ----------
 deploy_to_interface:
   stage: deploy
   image: alpine:latest
   dependencies:
     - test_jar_launch
-    - build_gradle_project
   script:
+    - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
+    - apk add --no-cache git
     - echo "Deploying built JAR to bash-app/modules/interface/"
     - mkdir -p bash-app/modules/interface
     - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/interface/
     - ls -lh bash-app/modules/interface/
-  artifacts:
-    paths:
-      - bash-app/modules/interface/java-ui-1.0.jar
-    expire_in: 1 week
+    - echo "Configuring Git for CI push..."
+    - git config --global user.email "ci-bot@gitlab.local"
+    - git config --global user.name "GitLab CI Bot"
+    - git fetch origin dev
+    - cp java-ui/build/libs/java-ui-1.0.jar /tmp/java-ui-1.0.jar
+    - git reset --hard
+    - git clean -fd
+    - git checkout dev
+    - git pull origin dev --rebase
+    - mkdir -p bash-app/modules/interface
+    - echo "Deploying built JAR to graphicInterface module"
+    - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/graphicInterface/
+    - git add bash-app/modules/graphicInterface/java-ui-1.0.jar
+    - 'git commit -m "CI: update built JAR [skip ci]" || echo "No changes to commit"'
+    - git push origin dev
+
+# ---------- VERIFY (MERGE CHECK) ----------
+check_merge:
+  stage: verify
+  image: alpine:latest
+  script:
+    - apk add --no-cache git
+    - echo "Cloning fresh copy of dev branch..."
+    - git clone --branch dev https://gitlab-ci-token:$CI_JOB_TOKEN@forgens.univ-ubs.fr/gitlab/but2info/cyberdiag_b.git repo-check
+    - cd repo-check
+    - echo "Checking if JAR exists in graphicInterface module..."
+    - test -f bash-app/modules/graphicInterface/java-ui-1.0.jar || (echo "❌ JAR missing — merge forbidden!" && exit 1)
+    - echo "✅ JAR found — safe to merge."
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
