@@ -46,6 +46,10 @@ test_jar_launch:
         echo "JAR failed to start.";
         exit 1;
       fi
+  artifacts:
+    paths:
+      - java-ui/build/libs/java-ui-1.0.jar
+    expire_in: 1 hour
 
 # ---------- DEPLOY ----------
 deploy_to_interface:
