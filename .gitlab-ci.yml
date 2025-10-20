@@ -4,43 +4,57 @@ stages:
   - deploy
 
 variables:
-  JAVA_HOME: "/usr/lib/jvm/java-21-openjdk"
-  PATH: "$JAVA_HOME/bin:$PATH"
+  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
 
 before_script:
-  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
 
-build_java_ui:
+build_gradle_project:
   stage: build
-  image: gradle:8.3-jdk21
+  image: eclipse-temurin:latest
   script:
     - cd java-ui
-    - gradle clean build
+    - echo "Running Gradle build..."
+    - chmod +x ./gradlew
+    - ./gradlew clean build
   artifacts:
     paths:
       - java-ui/build/libs/java-ui-1.0.jar
+    reports:
+      junit: '**/build/test-results/**/TEST-*.xml'
     expire_in: 1 hour
 
 test_jar_launch:
   stage: test
-  image: eclipse-temurin:21
+  image: eclipse-temurin:latest
   dependencies:
-    - build_java_ui
+    - build_gradle_project
   script:
-    - test -f java-ui/build/libs/java-ui-1.0.jar || (exit 1)
+    - echo "Checking built JAR..."
+    - test -f java-ui/build/libs/java-ui-1.0.jar || (echo "JAR not found!" && exit 1)
+    - echo "Launching JAR in headless mode..."
     - java -jar java-ui/build/libs/java-ui-1.0.jar --headless &
-    - sleep 5
     - JAR_PID=$!
-    - if ps -p $JAR_PID > /dev/null; then kill $JAR_PID; else exit 1; fi
+    - sleep 5
+    - if ps -p $JAR_PID > /dev/null; then
+          echo "JAR started successfully.";
+          kill $JAR_PID;
+      else
+          echo "JAR failed to start.";
+          exit 1;
+      fi
 
 deploy_to_interface:
   stage: deploy
   image: alpine:latest
   dependencies:
     - test_jar_launch
+    - build_gradle_project
   script:
+    - echo "Deploying built JAR to bash-app/modules/interface/"
     - mkdir -p bash-app/modules/interface
     - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/interface/
+    - ls -lh bash-app/modules/interface/
   artifacts:
     paths:
       - bash-app/modules/interface/java-ui-1.0.jar
