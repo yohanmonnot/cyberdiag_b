@@ -10,6 +10,7 @@ variables:
 before_script:
   - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
 
+# ---------- BUILD ----------
 build_gradle_project:
   stage: build
   image: eclipse-temurin:latest
@@ -21,8 +22,11 @@ build_gradle_project:
   artifacts:
     paths:
       - java-ui/build/libs/java-ui-1.0.jar
+    reports:
+      junit: '**/build/test-results/**/TEST-*.xml'
     expire_in: 1 hour
 
+# ---------- TEST ----------
 test_jar_launch:
   stage: test
   image: eclipse-temurin:latest
@@ -36,41 +40,38 @@ test_jar_launch:
     - JAR_PID=$!
     - sleep 5
     - if ps -p $JAR_PID > /dev/null; then
-          echo "JAR started successfully.";
-          kill $JAR_PID;
+        echo "JAR started successfully.";
+        kill $JAR_PID;
       else
-          echo "JAR failed to start.";
-          exit 1;
+        echo "JAR failed to start.";
+        exit 1;
       fi
 
+# ---------- DEPLOY ----------
 deploy_to_interface:
   stage: deploy
-  image: alpine/git
+  image: alpine:latest
   dependencies:
-    - build_gradle_project
+    - test_jar_launch
   script:
     - echo "Deploying built JAR to bash-app/modules/interface/"
     - mkdir -p bash-app/modules/interface
     - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/interface/
-    - git config --global user.email "ci-bot@forge.ubs.fr"
-    - git config --global user.name "GitLab CI Bot"
-    - git fetch origin dev
-    - git checkout dev
-    - git add bash-app/modules/interface/java-ui-1.0.jar
-    - git commit -m "Auto-deploy: update JAR via pipeline $CI_PIPELINE_ID" || echo "No changes to commit"
-    - git push https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git dev
-  only:
-    - dev
+    - ls -lh bash-app/modules/interface/
   artifacts:
     paths:
       - bash-app/modules/interface/java-ui-1.0.jar
     expire_in: 1 week
 
-check_deploy:
+# ---------- VERIFY (MERGE CHECK) ----------
+check_merge:
   stage: verify
   image: alpine:latest
+  dependencies:
+    - deploy_to_interface
   script:
-    - echo "Verifying that the JAR exists..."
-    - test -f bash-app/modules/interface/java-ui-1.0.jar || (echo "JAR missing! Merge blocked." && exit 1)
+    - echo "Checking if everything is ready for merge..."
+    - test -f bash-app/modules/interface/java-ui-1.0.jar || (echo "❌ JAR missing — merge forbidden!" && exit 1)
+    - echo "✅ All checks passed — safe to merge."
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
