@@ -74,8 +74,9 @@ deploy_to_interface:
     - git checkout dev
     - git pull origin dev --rebase
     - mkdir -p bash-app/modules/interface
-    - cp /tmp/java-ui-1.0.jar bash-app/modules/interface/java-ui-1.0.jar
-    - git add bash-app/modules/interface/java-ui-1.0.jar
+    - echo "Deploying built JAR to graphicInterface module"
+    - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/graphicInterface/
+    - git add bash-app/modules/graphicInterface/java-ui-1.0.jar
     - 'git commit -m "CI: update built JAR [skip ci]" || echo "No changes to commit"'
     - git push origin dev
 
@@ -87,7 +88,7 @@ check_merge:
     - deploy_to_interface
   script:
     - echo "Checking if everything is ready for merge..."
-    - test -f bash-app/modules/interface/java-ui-1.0.jar || (echo "❌ JAR missing — merge forbidden!" && exit 1)
+    - test -f bash-app/modules/graphicInterface/java-ui-1.0.jar
     - echo "✅ All checks passed — safe to merge."
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
