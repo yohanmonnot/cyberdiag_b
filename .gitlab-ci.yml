@@ -68,12 +68,11 @@ deploy_to_interface:
     - git config --global user.email "ci-bot@gitlab.local"
     - git config --global user.name "GitLab CI Bot"
     - git fetch origin dev
-    # sauvegarde du jar avant nettoyage
     - cp java-ui/build/libs/java-ui-1.0.jar /tmp/java-ui-1.0.jar
     - git reset --hard
     - git clean -fd
     - git checkout dev
-    # on restaure le jar proprement
+    - git pull origin dev --rebase
     - mkdir -p bash-app/modules/interface
     - cp /tmp/java-ui-1.0.jar bash-app/modules/interface/java-ui-1.0.jar
     - git add bash-app/modules/interface/java-ui-1.0.jar
