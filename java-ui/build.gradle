@@ -15,6 +15,12 @@ dependencies {
     implementation 'org.openjfx:javafx-fxml:21'
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 application {
     mainClass = 'ui.Main'
 }
