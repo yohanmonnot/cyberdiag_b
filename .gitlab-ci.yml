@@ -13,7 +13,7 @@ before_script:
 # ---------- BUILD ----------
 build_gradle_project:
   stage: build
-  image: eclipse-temurin:latest
+  image: eclipse-temurin:17
   script:
     - cd java-ui
     - echo "Running Gradle build..."
@@ -29,7 +29,7 @@ build_gradle_project:
 # ---------- TEST ----------
 test_jar_launch:
   stage: test
-  image: eclipse-temurin:latest
+  image: eclipse-temurin:17
   dependencies:
     - build_gradle_project
   script:
