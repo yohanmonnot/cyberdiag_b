@@ -74,3 +74,29 @@
 [2025-10-09 14:17:02] [INFO] exampleModule: starting example module
 [2025-10-09 14:17:02] [INFO] exampleModule: finished example module
 [2025-10-09 14:17:02] [INFO] Finished module 'exampleModule'
+[2025-10-22 13:51:25] [INFO] Launching interface module 'graphicInterface'
+[2025-10-22 13:51:25] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
+[2025-10-22 13:51:35] [INFO] JavaFX GUI finished
+[2025-10-22 13:51:35] [INFO] Finished interface module 'graphicInterface'
+[2025-10-22 14:25:39] [INFO] Starting module 'diskUsage'
+[2025-10-22 14:25:39] [INFO] Finished module 'diskUsage'
+[2025-10-22 14:25:58] [INFO] Launching interface module 'graphicInterface'
+[2025-10-22 14:25:58] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
+[2025-10-22 14:26:08] [INFO] JavaFX GUI finished
+[2025-10-22 14:26:08] [INFO] Finished interface module 'graphicInterface'
+[2025-10-22 14:27:38] [ERROR] Unknown argument: -i
+[2025-10-22 14:27:38] [INFO] Usage: ./main.sh [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-10-22 14:27:59] [INFO] Launching interface module 'diskUsage'
+[2025-10-22 14:27:59] [INFO] Finished interface module 'diskUsage'
+[2025-10-22 14:30:30] [ERROR] Unknown argument: -i
+[2025-10-22 14:30:30] [INFO] Usage: ./main.sh [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-10-22 14:30:42] [ERROR] Module exempleModule not found.
+[2025-10-22 14:30:54] [ERROR] Unknown argument: exempleModule
+[2025-10-22 14:30:54] [INFO] Usage: ./main.sh [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-10-22 14:31:04] [ERROR] Unknown argument: exempleModule
+[2025-10-22 14:31:04] [INFO] Usage: ./main.sh [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-10-22 14:31:20] [ERROR] Interface module 'exempleModule' not found.
+[2025-10-22 14:32:22] [INFO] Launching interface module 'diskUsage'
+[2025-10-22 14:32:22] [INFO] diskUsage: starting disk usage check
+[2025-10-22 14:32:22] [INFO] diskUsage: finished disk usage check
+[2025-10-22 14:32:22] [INFO] Finished interface module 'diskUsage'
