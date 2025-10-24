@@ -1,154 +1,109 @@
-"""
-Module Documentation
----------------------
+# diskUsage
 
-This module provides functionality for [briefly describe the purpose of the module]. 
-It includes [list key features or components of the module, e.g., classes, functions, or utilities].
+## Description
 
-Key Features:
-- [Feature 1]: [Description of feature 1].
-- [Feature 2]: [Description of feature 2].
-- [Feature 3]: [Description of feature 3].
+**diskUsage** est un module Bash conçu pour surveiller l'utilisation de l'espace disque de votre système Linux.
 
-Usage:
--------
-[Provide a brief example or explanation of how to use the module.]
+Il collecte les métriques détaillées de tous les systèmes de fichiers montés et calcule un score sur 5 basé sur le pourcentage d'utilisation moyen.
 
-Dependencies:
--------------
-[List any external libraries or modules required for this module to function.]
+## Fonctionnalités
 
-Author:
--------
-[Your Name or Organization]
+- Détection automatique des systèmes de fichiers montés
+- Vérification de la disponibilité de la commande `df`
+- Collecte de toutes les métriques disque (taille, utilisé, disponible, pourcentage)
+- Filtrage automatique des systèmes de fichiers temporaires (tmpfs, devtmpfs, snap)
+- Calcul d'un score de performance de 1 à 5 selon l'utilisation moyenne
+- Retour structuré en JSON, incluant :
+  - `status` : OK ou FAIL
+  - `error` : message d'erreur le cas échéant
+  - `score` : note sur 5
+  - `recommendation` : texte de recommandation
+  - `disk_data` : tableau contenant les métriques de chaque système de fichiers
+  - `average_usage_percentage` : pourcentage d'utilisation moyen
+- Intégration complète avec le système de logging du projet (logger.sh)
 
-Date:
------
-[Date of creation or last modification]
-
-"""
-
-# Module: diskUsage
-
-Description
------------
-This module collects disk usage information for mounted filesystems and calculates a global score based on average usage percentage. It prints a JSON object containing two keys: `disk_usage` (an array of filesystem details) and `score` (an integer score).
-
-Metadata
---------
-- Name: `diskUsage`
-- Version: `1.0`
-- Type: `tool`
-- Author: Nolhan B.D.
-- Main entry: `main.sh`
-
-Prerequisites
--------------
-- The `df` command must be available in the system PATH. If `df` is missing, the module exits with a non-zero code and prints an error JSON.
-- The script sources the logging helper `../../utils/logger.sh` to write info/error logs. Check `bash-app/logs/app.log` or the configured logger destination.
-
-Output format
--------------
-The script prints a JSON object to stdout with the following structure:
-
-{
-  "disk_usage": [
-    {
-      "filesystem": "<value>",
-      "size": "<value>",
-      "used": "<value>",
-      "available": "<value>",
-      "use_percentage": "<value>",
-      "mounted_on": "<value>"
-    }
-  ],
-  "score": <value>
-}
-
-The expected keys and types are declared in `module.json`. Example output:
+## Structure
 
 ```
-{
-  "disk_usage": [
-    {"filesystem": "/dev/sda1", "size": "50G", "used": "20G", "available": "28G", "use_percentage": "42%", "mounted_on": "/"}
-  ],
-  "score": 3
-}
+diskUsage/
+├── main.sh
+├── module.json
+└── README.md
 ```
 
-Implementation details
-----------------------
-- The script checks for `df` availability and logs start/finish via `log_info` and errors via `log_error` from the shared logger.
-- It runs `df -h` and parses output lines (skipping a header that matches the French `Sys. de fichiers` string). It extracts fields using `awk` by positional indices to populate: `filesystem`, `size`, `used`, `available`, `use_percentage`, `mounted_on` for each line.
-- The script calculates the average usage percentage across all filesystems and assigns a `score` based on thresholds:
-  - <20%: 5
-  - 20-39%: 4
-  - 40-59%: 3
-  - 60-79%: 2
-  - >=80%: 1
-- Exit codes:
-  - 0: success (JSON object printed to stdout)
-  - 1: critical error (e.g. `df` not available). Example error output:
-    `{"error": "df command is not available"}`
+- `main.sh` : script principal du module
+- `module.json` : métadonnées du module
+- `README.md` : cette documentation
 
-Limitations and edge cases
---------------------------
-- Parsing depends on the exact output format of `df`. Column positions and header text can vary by locale or distribution (the script currently skips a header containing "Sys. de fichiers" which is language-dependent). This makes parsing fragile on systems using different locales or when `df` output wraps columns.
-- Filesystem names or mount points that contain spaces may break the simple whitespace-based `awk` extraction. Consider using `df -P` (POSIX output) or parsing with more robust logic.
-- Values are returned as strings (per `module.json`). Convert them to numbers where appropriate on the consumer side, and strip percent signs if needed for numeric calculations.
+## Utilisation
 
-Usage
------
-From the module directory:
+### En ligne de commande
 
 ```bash
-cd bash-app/modules/diskUsage
-./main.sh
+./main.sh --script diskUsage
 ```
 
-The module may also be invoked by the application's main runner if it executes the `main` specified in `module.json`.
+### Exemple de sortie JSON
 
-Examples
---------
-- Successful run (stdout contains JSON object):
-
-```
-$ ./main.sh
+```json
 {
-  "disk_usage": [
-    {"filesystem": "/dev/sda1", "size": "50G", "used": "20G", "available": "28G", "use_percentage": "42%", "mounted_on": "/"}
+  "status": "OK",
+  "error": "",
+  "score": 4,
+  "recommendation": "Espace disque confortable.",
+  "disk_data": [
+    {
+      "filesystem": "/dev/sda1",
+      "size": "100G",
+      "used": "30G",
+      "available": "70G",
+      "use_percentage": 30,
+      "mounted_on": "/"
+    },
+    {
+      "filesystem": "/dev/sda2",
+      "size": "500G",
+      "used": "200G",
+      "available": "300G",
+      "use_percentage": 40,
+      "mounted_on": "/home"
+    }
   ],
-  "score": 3
+  "average_usage_percentage": 35
 }
 ```
 
-- Run when `df` is missing:
+### Description des champs
 
-```
-$ ./main.sh
-{"error": "df command is not available"}
-```
+- **status** : indique si la vérification s'est correctement déroulée
+- **error** : contient un message si une erreur est survenue
+- **score** : note de performance sur 5
+  - 5 : Utilisation très faible (<20%)
+  - 4 : Utilisation faible (20-40%)
+  - 3 : Utilisation modérée (40-60%)
+  - 2 : Utilisation élevée (60-80%)
+  - 1 : Utilisation critique (>80%)
+- **recommendation** : suggestion d'action basée sur l'utilisation disque
+- **disk_data** : tableau contenant les détails de chaque partition/disque
+- **average_usage_percentage** : moyenne d'utilisation de tous les disques
 
-Logs
-----
-Events are logged via `utils/logger.sh`. Check `bash-app/logs/app.log` (or your logger destination) for start/finish and errors.
+## Dépendances
 
-Troubleshooting
----------------
-- If you get the error JSON indicating `df` is missing, install the `coreutils`/`util-linux`/`procps` packages as appropriate for your distribution (usually `df` is part of the coreutils or util-linux package).
-  - Debian/Ubuntu: `sudo apt install coreutils` (or ensure `util-linux` is installed)
-  - RedHat/CentOS/Fedora: `sudo dnf install util-linux` or similar
-- If mount points or filesystem names include spaces or columns appear shifted, try `df -P` (POSIX output) or adjust parsing logic to handle fields safely.
+- Bash >= 4
+- `df` pour collecter les données disque
+- `jq` pour générer le JSON
 
-Recommended improvements
-------------------------
-- Use `df -P` to ensure a stable column layout or parse `/proc/mounts` combined with `statvfs`-style queries for robust programmatic access.
-- Normalize numeric outputs (strip units and percent signs, and return numeric JSON types) if consumers need to perform arithmetic.
+## Notes
 
-Contact
--------
-For questions or changes, contact the author listed in `module.json` (Nolhan B.D.).
+- Le module utilise `df -h` pour obtenir les valeurs en format humain (K, M, G)
+- Les systèmes de fichiers temporaires (tmpfs, devtmpfs) sont automatiquement exclus
+- Les partitions snap sont également exclues pour éviter le bruit
+- Le score est basé sur l'utilisation moyenne de tous les disques analysés
+- Les systèmes autres que Linux ne sont pas pris en charge
 
-License
--------
-See the main project license if present, or add an appropriate license here.
+## Filtres appliqués
+
+Le module exclut automatiquement :
+- `tmpfs` : systèmes de fichiers temporaires en RAM
+- `devtmpfs` : systèmes de fichiers de périphériques
+- Partitions `/snap/*` : packages snap montés

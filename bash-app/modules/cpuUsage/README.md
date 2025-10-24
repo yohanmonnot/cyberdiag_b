@@ -1,111 +1,91 @@
-# Module: cpuUsage
+# cpuUsage
 
-Description
------------
-This module collects the system CPU usage and prints a JSON object with several measurements: user, system, nice, idle, wait, hardware_interrupts, software_interrupts, and stolen.
+## Description
 
-Metadata
---------
-- Name: `cpuUsage`
-- Version: `1.0`
-- Type: `tool`
-- Author: Nolhan B.D.
-- Main entry: `main.sh`
+**cpuUsage** est un module Bash conçu pour surveiller l'utilisation du processeur (CPU) de votre système Linux.
 
-Prerequisites
--------------
-- The `top` command must be available in the system PATH. If `top` is missing, the module exits with a non-zero code and prints an error JSON.
-- The script sources the logging helper `../../utils/logger.sh` to write info/error logs. Check `bash-app/logs/app.log` or the configured logger destination.
+Il collecte les différentes métriques CPU (user, system, nice, idle, etc.) et calcule un score sur 5 basé sur le pourcentage d'utilisation global du processeur.
 
-Output format
--------------
-The script prints a JSON object to stdout with the following structure:
+## Fonctionnalités
 
-{
-  "user": "<value>",
-  "system": "<value>",
-  "nice": "<value>",
-  "idle": "<value>",
-  "wait": "<value>",
-  "hardware_interrupts": "<value>",
-  "software_interrupts": "<value>",
-  "stolen": "<value>",
-  "score": "<value>"
-}
+- Détection automatique du système Linux
+- Vérification de la disponibilité de la commande `top`
+- Collecte de toutes les métriques CPU détaillées
+- Calcul d'un score de performance de 1 à 5 selon l'utilisation CPU
+- Retour structuré en JSON, incluant :
+  - `status` : OK ou FAIL
+  - `error` : message d'erreur le cas échéant
+  - `score` : note sur 5
+  - `recommendation` : texte de recommandation
+  - `cpu_data` : objet contenant toutes les métriques CPU
+- Intégration complète avec le système de logging du projet (logger.sh)
 
-The expected keys and types are also declared in `module.json` (strings). Example output:
+## Structure
 
 ```
-{"user": "1.2", "system": "0.5", "nice": "0.0", "idle": "98.0", "wait": "0.1", "hardware_interrupts": "0.0", "software_interrupts": "0.0", "stolen": "0.0", "score": "5", }
+cpuUsage/
+├── main.sh
+├── module.json
+└── README.md
 ```
 
-Implementation details
-----------------------
-- The script runs `top -bn1 | grep "Cpu(s)"` to capture the CPU percentage line, then parses fields using `awk` by positional indices to populate variables: `user`, `system`, `nice`, `idle`, `wait`, `hardware_interrupts`, `software_interrupts`, `stolen` and `score`.
-- Commas are removed from parsed values with `tr -d ','`.
-- The script logs start and finish using `log_info` and logs errors using `log_error` from the shared logger.
-- Exit codes:
-  - 0: success (JSON metrics printed to stdout)
-  - 1: critical error (for example, `top` not available). In this case the script prints:
-    `{"error": "top command is not available"}`
+- `main.sh` : script principal du module
+- `module.json` : métadonnées du module
+- `README.md` : cette documentation
 
-Limitations and edge cases
---------------------------
-- The parsing relies on the exact output format of `top`. The order and format of `top` columns can vary across distributions, top versions or locales (for example decimal separator `,` vs `.`). This can break the positional `awk` indexes.
-- For a more robust approach consider using `/proc/stat` or `mpstat` (from the `sysstat` package) which provide more stable data sources.
-- Values are returned as strings (per `module.json`). Convert them to numbers where needed on the consumer side.
+## Utilisation
 
-Usage
------
-From the module directory:
+### En ligne de commande
 
 ```bash
-cd bash-app/modules/cpuUsage
-./main.sh
+./main.sh --script cpuUsage
 ```
 
-The module may also be invoked by the application's main runner if it executes the `main` specified in `module.json`.
+### Exemple de sortie JSON
 
-Examples
---------
-- Successful run (stdout contains metrics JSON):
-
+```json
+{
+  "status": "OK",
+  "error": "",
+  "score": 4,
+  "recommendation": "Utilisation CPU faible, système peu sollicité.",
+  "cpu_data": {
+    "user": "5.2",
+    "system": "2.1",
+    "nice": "0.0",
+    "idle": "92.0",
+    "wait": "0.5",
+    "hardware_interrupts": "0.0",
+    "software_interrupts": "0.2",
+    "stolen": "0.0",
+    "used_percentage": 8
+  }
+}
 ```
-$ ./main.sh
-{"user": "1.2", "system": "0.5", "nice": "0.0", "idle": "98.0", "wait": "0.1", "hardware_interrupts": "0.0", "software_interrupts": "0.0", "stolen": "0.0", "stolen": "
-"}
-```
 
-- Run when `top` is missing:
+### Description des champs
 
-```
-$ ./main.sh
-{"error": "top command is not available"}
-```
+- **status** : indique si la vérification s'est correctement déroulée
+- **error** : contient un message si une erreur est survenue
+- **score** : note de performance sur 5
+  - 5 : Utilisation très faible (<20%)
+  - 4 : Utilisation faible (20-40%)
+  - 3 : Utilisation modérée (40-60%)
+  - 2 : Utilisation élevée (60-80%)
+  - 1 : Utilisation critique (>80%)
+- **recommendation** : suggestion d'action basée sur l'utilisation CPU
+- **cpu_data** : objet contenant les métriques détaillées du CPU
 
-Logs
-----
-Events are logged via `utils/logger.sh`. Check `bash-app/logs/app.log` (or your logger destination) for start/finish and errors.
+## Dépendances
 
-Troubleshooting
----------------
-- If you get the error JSON indicating `top` is missing, install `top` (usually provided by the `procps` package):
+- Bash >= 4
+- `top` pour collecter les données CPU
+- `jq` pour générer le JSON
+- `bc` pour les calculs arithmétiques
 
-  - Debian/Ubuntu: `sudo apt install procps`
-  - RedHat/CentOS/Fedora: `sudo dnf install procps-ng` or `sudo yum install procps-ng`
+## Notes
 
-- If values are incorrect or empty, inspect the raw output of `top -bn1 | grep "Cpu(s)"` and adjust parsing indexes or locale settings accordingly.
-
-Recommended improvements
-------------------------
-- Replace positional parsing with regex-based extraction or use `/proc/stat` to make metric collection more robust.
-- Normalize numeric formats (force `.` decimal) and return numbers in JSON (not strings) if consumers need to perform calculations.
-
-Contact
--------
-For questions or changes, contact the author listed in `module.json` (Nolhan B.D.).
-
-License
--------
-See the main project license if present, or add an appropriate license here.
-
+- Le module utilise `top -bn1` pour obtenir un snapshot instantané de l'utilisation CPU
+- Le pourcentage d'utilisation est calculé comme : `100 - idle`
+- Toutes les valeurs sont récupérées depuis la ligne "Cpu(s)" de la sortie de `top`
+- Les systèmes autres que Linux ne sont pas pris en charge

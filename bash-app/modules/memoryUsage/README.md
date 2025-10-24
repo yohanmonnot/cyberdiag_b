@@ -1,166 +1,96 @@
-"""
-Module Documentation
----------------------
+# memoryUsage
 
-This module provides functionality for [briefly describe the purpose of the module].
-It includes [list the main features or components of the module].
+## Description
 
-Classes:
-- [ClassName]: [Brief description of the class and its purpose].
+**memoryUsage** est un module Bash conçu pour surveiller l'utilisation de la mémoire RAM et du swap de votre système Linux.
 
-Functions:
-- [FunctionName]: [Brief description of the function and its purpose].
+Il collecte les métriques détaillées de la mémoire (totale, utilisée, disponible, buffers/cache, etc.) et calcule un score sur 5 basé sur le pourcentage d'utilisation de la RAM.
 
-Usage:
-------
-[Provide an example or explanation of how to use the module, if applicable.]
+## Fonctionnalités
 
-Dependencies:
--------------
-[List any external libraries or modules required for this module to function.]
+- Détection automatique du système Linux
+- Vérification de la disponibilité de la commande `free`
+- Collecte de toutes les métriques mémoire (RAM et swap)
+- Calcul d'un score de performance de 1 à 5 selon l'utilisation mémoire
+- Retour structuré en JSON, incluant :
+  - `status` : OK ou FAIL
+  - `error` : message d'erreur le cas échéant
+  - `score` : note sur 5
+  - `recommendation` : texte de recommandation
+  - `memory_data` : objet contenant toutes les métriques RAM
+  - `swap_data` : objet contenant toutes les métriques swap
+- Intégration complète avec le système de logging du projet (logger.sh)
 
-Author:
--------
-[Your Name or Author's Name]
-
-Date:
------
-[Date of creation or last modification]
-
-"""
-
-# Module: memoryUsage
-
-Description
------------
-This module collects system memory and swap usage and calculates a global score based on memory usage percentage. It prints a JSON object containing three keys: `memory` (detailed memory usage), `swap` (detailed swap usage), and `score` (an integer score).
-
-Metadata
---------
-- Name: `memoryUsage`
-- Version: `1.0`
-- Type: `tool`
-- Author: Nolhan B.D.
-- Main entry: `main.sh`
-
-Prerequisites
--------------
-- The `free` command must be available in the system PATH. If `free` is missing, the module exits with a non-zero code and prints an error JSON.
-- The script sources the logging helper `../../utils/logger.sh` to write info/error logs. Check `bash-app/logs/app.log` or the configured logger destination.
-
-Output format
--------------
-The script prints a JSON object to stdout with this structure:
-
-{
-  "memory": {
-    "total": "<value>",
-    "used": "<value>",
-    "free": "<value>",
-    "shared": "<value>",
-    "buff_cache": "<value>",
-    "available": "<value>",
-    "used_percentage": <value>
-  },
-  "swap": {
-    "total": "<value>",
-    "used": "<value>",
-    "free": "<value>"
-  },
-  "score": <value>
-}
-
-The expected keys and types are declared in `module.json`. Example output:
+## Structure
 
 ```
-{
-  "memory": {
-    "total": "15G", "used": "4G", "free": "9G", "shared": "0G", "buff_cache": "2G", "available": "11G", "used_percentage": 27
-  },
-  "swap": {
-    "total": "2G", "used": "0G", "free": "2G"
-  },
-  "score": 4
-}
+memoryUsage/
+├── main.sh
+├── module.json
+└── README.md
 ```
 
-Implementation details
-----------------------
-- The script checks for `free` availability and logs start/finish via `log_info` and errors via `log_error` from the shared logger.
-- It runs `free -h` and parses the `Mem:` line to extract `total`, `used`, `free`, `shared`, `buff_cache`, `available`, and calculates `used_percentage` as `(used / total) * 100`.
-- It also parses the `Échange:` (French for "Swap:") line to extract swap `total`, `used`, and `free` fields. The parsed values are assembled into JSON objects for `memory` and `swap`, then combined into the final JSON printed to stdout.
-- The script calculates a `score` based on `used_percentage` thresholds:
-  - <20%: 5
-  - 20-39%: 4
-  - 40-59%: 3
-  - 60-79%: 2
-  - >=80%: 1
-- Exit codes:
-  - 0: success (JSON object printed to stdout)
-  - 1: critical error (e.g. `free` not available). Example error output:
-    `{"error": "free command is not available"}`
+- `main.sh` : script principal du module
+- `module.json` : métadonnées du module
+- `README.md` : cette documentation
 
-Limitations and edge cases
---------------------------
-- The script's parsing depends on the output format and language of `free`. It currently expects the memory line to contain `Mem:` and the swap line to match `Échange:` (French). On systems using different locales or language settings the script may fail to find the expected lines. Consider normalizing locale or matching on English `Mem:` / `Swap:` as needed.
-- The script uses simple whitespace-based `awk` extraction; if `free` output formatting differs or includes extra columns, indexes may need adjustment.
-- Values are returned as strings (per `module.json`). Convert them to numbers where needed on the consumer side (and strip units like `G` or `M` for arithmetic).
+## Utilisation
 
-Usage
------
-From the module directory:
+### En ligne de commande
 
 ```bash
-cd bash-app/modules/memoryUsage
-./main.sh
+./main.sh --script memoryUsage
 ```
 
-The module may also be invoked by the application's main runner if it executes the `main` specified in `module.json`.
+### Exemple de sortie JSON
 
-Examples
---------
-- Successful run (stdout contains JSON):
-
-```
-$ ./main.sh
+```json
 {
-  "memory": {
-    "total": "15G", "used": "4G", "free": "9G", "shared": "0G", "buff_cache": "2G", "available": "11G", "used_percentage": 27
+  "status": "OK",
+  "error": "",
+  "score": 4,
+  "recommendation": "Utilisation mémoire faible, système optimal.",
+  "memory_data": {
+    "total_mb": 16384,
+    "used_mb": 4096,
+    "free_mb": 8192,
+    "shared_mb": 256,
+    "buff_cache_mb": 4096,
+    "available_mb": 12288,
+    "used_percentage": 25
   },
-  "swap": {
-    "total": "2G", "used": "0G", "free": "2G"
-  },
-  "score": 4
+  "swap_data": {
+    "total_mb": 2048,
+    "used_mb": 0,
+    "free_mb": 2048
+  }
 }
 ```
 
-- Run when `free` is missing:
+### Description des champs
 
-```
-$ ./main.sh
-{"error": "free command is not available"}
-```
+- **status** : indique si la vérification s'est correctement déroulée
+- **error** : contient un message si une erreur est survenue
+- **score** : note de performance sur 5
+  - 5 : Utilisation très faible (<20%)
+  - 4 : Utilisation faible (20-40%)
+  - 3 : Utilisation modérée (40-60%)
+  - 2 : Utilisation élevée (60-80%)
+  - 1 : Utilisation critique (>80%)
+- **recommendation** : suggestion d'action basée sur l'utilisation mémoire
+- **memory_data** : objet contenant les métriques détaillées de la RAM (en MB)
+- **swap_data** : objet contenant les métriques détaillées du swap (en MB)
 
-Logs
-----
-Events are logged via `utils/logger.sh`. Check `bash-app/logs/app.log` (or your logger destination) for start/finish and errors.
+## Dépendances
 
-Troubleshooting
----------------
-- If you get the error JSON indicating `free` is missing, install the `procps` (or equivalent) package that provides `free`:
-  - Debian/Ubuntu: `sudo apt install procps`
-  - RedHat/CentOS/Fedora: `sudo dnf install procps-ng` or `sudo yum install procps-ng`
-- If values are missing or incorrect, inspect the raw output of `free -h` to confirm the expected line labels and field positions, and adjust parsing logic or locale settings accordingly.
+- Bash >= 4
+- `free` pour collecter les données mémoire
+- `jq` pour générer le JSON
 
-Recommended improvements
-------------------------
-- Use a locale-insensitive parsing strategy (e.g. match numeric fields by position in `free -b` or parse `/proc/meminfo` directly for robust values).
-- Normalize and return numeric JSON types (strip units and convert to bytes) if consumers need to perform calculations.
+## Notes
 
-Contact
--------
-For questions or changes, contact the author listed in `module.json` (Nolhan B.D.).
-
-License
--------
-See the main project license if present, or add an appropriate license here.
+- Le module utilise `free -m` pour obtenir les valeurs en mégaoctets (MB)
+- Le pourcentage d'utilisation est calculé comme : `(used / total) * 100`
+- Les valeurs incluent la mémoire physique (RAM) et la mémoire d'échange (swap)
+- Si le swap n'est pas configuré, les valeurs seront à 0
+- Les systèmes autres que Linux ne sont pas pris en charge

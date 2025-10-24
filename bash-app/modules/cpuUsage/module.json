@@ -6,29 +6,19 @@
     "author": "Nolhan B.D.",
     "main": "main.sh",
     "args": [],
-    "dependencies": [],
+    "dependencies": ["jq"],
     "return_type": {
         "keys": [
-            "user",
-            "system",
-            "nice",
-            "idle",
-            "wait",
-            "hardware_interrupts",
-            "software_interrupts",
-            "stolen",
-            "score"
+            "status",
+            "error",
+            "score",
+            "recommendation"
         ],
         "types": {
-            "user": "string",
-            "system": "string",
-            "nice": "string",
-            "idle": "string",
-            "wait": "string",
-            "hardware_interrupts": "string",
-            "software_interrupts": "string",
-            "stolen": "string",
-            "score": "integer"
+            "status": "string",
+            "error": "string",
+            "score": "number",
+            "recommendation": "string"
         }
     }
 }
