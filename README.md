@@ -1,8 +1,5 @@
 # SAÉ CyberDiag
 
-[![Pipeline GitLab](https://gitlab.com/username/cyberdiag_b/badges/main/pipeline.svg)](https://gitlab.com/username/cyberdiag_b/-/pipelines)
-[![Coverage](https://gitlab.com/username/cyberdiag_b/badges/main/coverage.svg)](https://gitlab.com/username/cyberdiag_b/-/jobs)
-
 ## Table des matières
 
 * [Description](#description)
