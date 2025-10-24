@@ -1,16 +1,14 @@
 #!/bin/bash
 
-# --- Mode verbeux global ---
+# --- Vérification de l'argument -v pour le mode verbeux ---
 VERBOSE=false
-ARGS=()
 for arg in "$@"; do
     if [[ "$arg" == "-v" ]]; then
         VERBOSE=true
-    else
-        ARGS+=("$arg")
+        set -- "${@//-v/}"
+        break
     fi
 done
-set -- "${ARGS[@]}"
 export VERBOSE
 
 source "$(dirname "$0")/utils/logger.sh"
