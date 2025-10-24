@@ -42,7 +42,7 @@ list_modules() {
             local DESC=$(jq -r '.description // empty' "$META")
 
             if [[ -z "$FILTER" || "$TYPE" == "$FILTER" ]]; then
-                modules_json=$(echo "$modules_json" | jq --arg name "$NAME" --arg type "$TYPE" --arg description "$DESC" \
+                modules_json=$(echo "$modules_json" | jq -c --arg name "$NAME" --arg type "$TYPE" --arg description "$DESC" \
                     '. += [{"name": $name, "type": $type, "description": $description}]')
             fi
         fi
@@ -50,10 +50,10 @@ list_modules() {
 
     # Tri selon le champ demandé
     case "$SORT_FIELD" in
-        name) modules_json=$(echo "$modules_json" | jq 'sort_by(.name)') ;;
-        type) modules_json=$(echo "$modules_json" | jq 'sort_by(.type)') ;;
-        description) modules_json=$(echo "$modules_json" | jq 'sort_by(.description)') ;;
-        *) modules_json=$(echo "$modules_json" | jq 'sort_by(.name)') ;;
+        name) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.name)') ;;
+        type) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.type)') ;;
+        description) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.description)') ;;
+        *) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.name)') ;;
     esac
 
     echo "$modules_json"
