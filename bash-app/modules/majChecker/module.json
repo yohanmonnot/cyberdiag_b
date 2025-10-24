@@ -9,10 +9,18 @@
 	"dependencies": [],
     "return_type": {
         "keys": [
-            "xx"
+            "status",
+			"error",
+			"score",
+			"recommendations",
+			"updates"
         ],
         "types": {
-            "xx": "string"
+            "status": "string",
+            "error": "string",
+            "score": "number",
+            "recommendations": "string",
+            "updates": "number"
         }
     }
 }
