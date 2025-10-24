@@ -1,0 +1,32 @@
+{
+    "name": "cpuUsage",
+    "version": "1.0",
+    "type": "tool",
+    "description": "A module to check CPU usage on the system.",
+    "author": "Nolhan B.D.",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": [],
+    "return_type": {
+        "keys": [
+            "user",
+            "system",
+            "nice",
+            "idle",
+            "wait",
+            "hardware_interrupts",
+            "software_interrupts",
+            "stolen"
+        ],
+        "types": {
+            "user": "string",
+            "system": "string",
+            "nice": "string",
+            "idle": "string",
+            "wait": "string",
+            "hardware_interrupts": "string",
+            "software_interrupts": "string",
+            "stolen": "string"
+        }
+    }
+}
