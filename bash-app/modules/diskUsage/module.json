@@ -6,18 +6,20 @@
     "author": "Nolhan B.D.",
     "main": "main.sh",
     "args": [],
-    "dependencies": [],
+    "dependencies": ["jq"],
     "return_type": {
-        "disk_usage": [
-            {
-                "filesystem": "string",
-                "size": "string",
-                "used": "string",
-                "available": "string",
-                "use_percentage": "string",
-                "mounted_on": "string"
-            }
+        "keys": [
+            "status",
+            "error",
+            "score",
+            "recommendation",
+            "disk_data"
         ],
-        "score": "integer"
+        "types": {
+            "status": "string",
+            "error": "string",
+            "score": "number",
+            "recommendation": "string"
+        }
     }
 }
