@@ -29,18 +29,19 @@ The script prints a JSON object to stdout with the following structure:
   "wait": "<value>",
   "hardware_interrupts": "<value>",
   "software_interrupts": "<value>",
-  "stolen": "<value>"
+  "stolen": "<value>",
+  "score": "<value>"
 }
 
 The expected keys and types are also declared in `module.json` (strings). Example output:
 
 ```
-{"user": "1.2", "system": "0.5", "nice": "0.0", "idle": "98.0", "wait": "0.1", "hardware_interrupts": "0.0", "software_interrupts": "0.0", "stolen": "0.0"}
+{"user": "1.2", "system": "0.5", "nice": "0.0", "idle": "98.0", "wait": "0.1", "hardware_interrupts": "0.0", "software_interrupts": "0.0", "stolen": "0.0", "score": "5", }
 ```
 
 Implementation details
 ----------------------
-- The script runs `top -bn1 | grep "Cpu(s)"` to capture the CPU percentage line, then parses fields using `awk` by positional indices to populate variables: `user`, `system`, `nice`, `idle`, `wait`, `hardware_interrupts`, `software_interrupts`, and `stolen`.
+- The script runs `top -bn1 | grep "Cpu(s)"` to capture the CPU percentage line, then parses fields using `awk` by positional indices to populate variables: `user`, `system`, `nice`, `idle`, `wait`, `hardware_interrupts`, `software_interrupts`, `stolen` and `score`.
 - Commas are removed from parsed values with `tr -d ','`.
 - The script logs start and finish using `log_info` and logs errors using `log_error` from the shared logger.
 - Exit codes:
@@ -71,7 +72,8 @@ Examples
 
 ```
 $ ./main.sh
-{"user": "1.2", "system": "0.5", "nice": "0.0", "idle": "98.0", "wait": "0.1", "hardware_interrupts": "0.0", "software_interrupts": "0.0", "stolen": "0.0"}
+{"user": "1.2", "system": "0.5", "nice": "0.0", "idle": "98.0", "wait": "0.1", "hardware_interrupts": "0.0", "software_interrupts": "0.0", "stolen": "0.0", "stolen": "
+"}
 ```
 
 - Run when `top` is missing:

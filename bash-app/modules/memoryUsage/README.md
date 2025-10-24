@@ -33,7 +33,7 @@ Date:
 
 Description
 -----------
-This module collects system memory and swap usage and prints a JSON object containing two sections: `memory` (total, used, free, shared, buff_cache, available) and `swap` (total, used, free).
+This module collects system memory and swap usage and calculates a global score based on memory usage percentage. It prints a JSON object containing three keys: `memory` (detailed memory usage), `swap` (detailed swap usage), and `score` (an integer score).
 
 Metadata
 --------
@@ -59,28 +59,44 @@ The script prints a JSON object to stdout with this structure:
     "free": "<value>",
     "shared": "<value>",
     "buff_cache": "<value>",
-    "available": "<value>"
+    "available": "<value>",
+    "used_percentage": <value>
   },
   "swap": {
     "total": "<value>",
     "used": "<value>",
     "free": "<value>"
-  }
+  },
+  "score": <value>
 }
 
-The expected keys and types are declared in `module.json` (strings). Example output:
+The expected keys and types are declared in `module.json`. Example output:
 
 ```
-{"memory": {"total": "15G", "used": "4G", "free": "9G", "shared": "0G", "buff_cache": "2G", "available": "11G"}, "swap": {"total": "2G", "used": "0G", "free": "2G"}}
+{
+  "memory": {
+    "total": "15G", "used": "4G", "free": "9G", "shared": "0G", "buff_cache": "2G", "available": "11G", "used_percentage": 27
+  },
+  "swap": {
+    "total": "2G", "used": "0G", "free": "2G"
+  },
+  "score": 4
+}
 ```
 
 Implementation details
 ----------------------
 - The script checks for `free` availability and logs start/finish via `log_info` and errors via `log_error` from the shared logger.
-- It runs `free -h` and parses the `Mem:` line to extract `total`, `used`, `free`, `shared`, `buff_cache`, and `available` using `awk` positional fields.
+- It runs `free -h` and parses the `Mem:` line to extract `total`, `used`, `free`, `shared`, `buff_cache`, `available`, and calculates `used_percentage` as `(used / total) * 100`.
 - It also parses the `Échange:` (French for "Swap:") line to extract swap `total`, `used`, and `free` fields. The parsed values are assembled into JSON objects for `memory` and `swap`, then combined into the final JSON printed to stdout.
+- The script calculates a `score` based on `used_percentage` thresholds:
+  - <20%: 5
+  - 20-39%: 4
+  - 40-59%: 3
+  - 60-79%: 2
+  - >=80%: 1
 - Exit codes:
-  - 0: success (JSON printed to stdout)
+  - 0: success (JSON object printed to stdout)
   - 1: critical error (e.g. `free` not available). Example error output:
     `{"error": "free command is not available"}`
 
@@ -107,7 +123,15 @@ Examples
 
 ```
 $ ./main.sh
-{"memory": {"total": "15G", "used": "4G", "free": "9G", "shared": "0G", "buff_cache": "2G", "available": "11G"}, "swap": {"total": "2G", "used": "0G", "free": "2G"}}
+{
+  "memory": {
+    "total": "15G", "used": "4G", "free": "9G", "shared": "0G", "buff_cache": "2G", "available": "11G", "used_percentage": 27
+  },
+  "swap": {
+    "total": "2G", "used": "0G", "free": "2G"
+  },
+  "score": 4
+}
 ```
 
 - Run when `free` is missing:

@@ -8,21 +8,16 @@
     "args": [],
     "dependencies": [],
     "return_type": {
-        "keys": [
-            "filesystem",
-            "size",
-            "used",
-            "available",
-            "use_percentage",
-            "mounted_on"
+        "disk_usage": [
+            {
+                "filesystem": "string",
+                "size": "string",
+                "used": "string",
+                "available": "string",
+                "use_percentage": "string",
+                "mounted_on": "string"
+            }
         ],
-        "types": {
-            "filesystem": "string",
-            "size": "string",
-            "used": "string",
-            "available": "string",
-            "use_percentage": "string",
-            "mounted_on": "string"
-        }
+        "score": "integer"
     }
 }

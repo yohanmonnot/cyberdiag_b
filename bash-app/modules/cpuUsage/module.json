@@ -16,7 +16,8 @@
             "wait",
             "hardware_interrupts",
             "software_interrupts",
-            "stolen"
+            "stolen",
+            "score"
         ],
         "types": {
             "user": "string",
@@ -26,7 +27,8 @@
             "wait": "string",
             "hardware_interrupts": "string",
             "software_interrupts": "string",
-            "stolen": "string"
+            "stolen": "string",
+            "score": "integer"
         }
     }
 }

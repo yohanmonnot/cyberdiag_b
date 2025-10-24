@@ -32,7 +32,7 @@ Date:
 
 Description
 -----------
-This module collects disk usage information for mounted filesystems and prints a JSON array where each item describes one filesystem (filesystem, size, used, available, use_percentage, mounted_on).
+This module collects disk usage information for mounted filesystems and calculates a global score based on average usage percentage. It prints a JSON object containing two keys: `disk_usage` (an array of filesystem details) and `score` (an integer score).
 
 Metadata
 --------
@@ -49,36 +49,51 @@ Prerequisites
 
 Output format
 -------------
-The script prints a JSON array to stdout. Each element has the structure:
+The script prints a JSON object to stdout with the following structure:
 
 {
-  "filesystem": "<value>",
-  "size": "<value>",
-  "used": "<value>",
-  "available": "<value>",
-  "use_percentage": "<value>",
-  "mounted_on": "<value>"
+  "disk_usage": [
+    {
+      "filesystem": "<value>",
+      "size": "<value>",
+      "used": "<value>",
+      "available": "<value>",
+      "use_percentage": "<value>",
+      "mounted_on": "<value>"
+    }
+  ],
+  "score": <value>
 }
 
-The expected keys and types are declared in `module.json` (strings). Example output:
+The expected keys and types are declared in `module.json`. Example output:
 
 ```
-[{"filesystem": "/dev/sda1", "size": "50G", "used": "20G", "available": "28G", "use_percentage": "42%", "mounted_on": "/"}, {"filesystem": "tmpfs", "size": "2G", "used": "0G", "available": "2G", "use_percentage": "0%", "mounted_on": "/run"}]
+{
+  "disk_usage": [
+    {"filesystem": "/dev/sda1", "size": "50G", "used": "20G", "available": "28G", "use_percentage": "42%", "mounted_on": "/"}
+  ],
+  "score": 3
+}
 ```
 
 Implementation details
 ----------------------
 - The script checks for `df` availability and logs start/finish via `log_info` and errors via `log_error` from the shared logger.
 - It runs `df -h` and parses output lines (skipping a header that matches the French `Sys. de fichiers` string). It extracts fields using `awk` by positional indices to populate: `filesystem`, `size`, `used`, `available`, `use_percentage`, `mounted_on` for each line.
-- The script builds a JSON array by concatenating per-line JSON objects and removing the trailing comma before closing the array.
+- The script calculates the average usage percentage across all filesystems and assigns a `score` based on thresholds:
+  - <20%: 5
+  - 20-39%: 4
+  - 40-59%: 3
+  - 60-79%: 2
+  - >=80%: 1
 - Exit codes:
-  - 0: success (JSON array printed to stdout)
+  - 0: success (JSON object printed to stdout)
   - 1: critical error (e.g. `df` not available). Example error output:
     `{"error": "df command is not available"}`
 
 Limitations and edge cases
-+--------------------------
-- Parsing depends on the exact output format of `df`. Column positions and header text can vary by locale or distribution (the script currently skips a header containing "Sys. de fichiers" which is language-dependent). This makes parsing fragile on systems using different locales or when `df` outFait la même chose pour les moduleput wraps columns.
+--------------------------
+- Parsing depends on the exact output format of `df`. Column positions and header text can vary by locale or distribution (the script currently skips a header containing "Sys. de fichiers" which is language-dependent). This makes parsing fragile on systems using different locales or when `df` output wraps columns.
 - Filesystem names or mount points that contain spaces may break the simple whitespace-based `awk` extraction. Consider using `df -P` (POSIX output) or parsing with more robust logic.
 - Values are returned as strings (per `module.json`). Convert them to numbers where appropriate on the consumer side, and strip percent signs if needed for numeric calculations.
 
@@ -95,11 +110,16 @@ The module may also be invoked by the application's main runner if it executes t
 
 Examples
 --------
-- Successful run (stdout contains JSON array):
+- Successful run (stdout contains JSON object):
 
 ```
 $ ./main.sh
-[{"filesystem": "/dev/sda1", "size": "50G", "used": "20G", "available": "28G", "use_percentage": "42%", "mounted_on": "/"}]
+{
+  "disk_usage": [
+    {"filesystem": "/dev/sda1", "size": "50G", "used": "20G", "available": "28G", "use_percentage": "42%", "mounted_on": "/"}
+  ],
+  "score": 3
+}
 ```
 
 - Run when `df` is missing:
@@ -121,7 +141,7 @@ Troubleshooting
 - If mount points or filesystem names include spaces or columns appear shifted, try `df -P` (POSIX output) or adjust parsing logic to handle fields safely.
 
 Recommended improvements
-+------------------------
+------------------------
 - Use `df -P` to ensure a stable column layout or parse `/proc/mounts` combined with `statvfs`-style queries for robust programmatic access.
 - Normalize numeric outputs (strip units and percent signs, and return numeric JSON types) if consumers need to perform arithmetic.
 
