@@ -109,9 +109,7 @@ run_script() {
 
     if [[ "${SCRIPT_ARGS[0]}" == "list" ]]; then
         log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
-        list_modules "$LIST_FILTER" "$LIST_SORT" | while read -r line; do
-            log_info "$line"
-        done
+        list_modules "$LIST_FILTER" "$LIST_SORT"
     else
         for MODULE in "${SCRIPT_ARGS[@]}"; do
             run_module "$MODULE"
