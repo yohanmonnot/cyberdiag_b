@@ -19,27 +19,31 @@ fi
 list_modules() {
     local FILTER="$1"
     local SORT_FIELD="$2"
-    MODULE_LIST=()
+    local modules_json="[]"
+
     for d in "$MODULES_DIR"/*/; do
-        META="$d/module.json"
+        local META="$d/module.json"
         if [[ -f "$META" ]]; then
-            NAME=$(jq -r '.name // empty' "$META")
-            TYPE=$(jq -r '.type // empty' "$META")
-            DESC=$(jq -r '.description // empty' "$META")
+            local NAME=$(jq -r '.name // empty' "$META")
+            local TYPE=$(jq -r '.type // empty' "$META")
+            local DESC=$(jq -r '.description // empty' "$META")
+
             if [[ -z "$FILTER" || "$TYPE" == "$FILTER" ]]; then
-                MODULE_LIST+=("$NAME|$TYPE|$DESC")
+                modules_json=$(echo "$modules_json" | jq --arg name "$NAME" --arg type "$TYPE" --arg description "$DESC" \
+                    '. += [{"name": $name, "type": $type, "description": $description}]')
             fi
         fi
     done
 
+    # Tri selon le champ demandé
     case "$SORT_FIELD" in
-        name) sort_field=1 ;;
-        type) sort_field=2 ;;
-        description) sort_field=3 ;;
-        *) sort_field=1 ;;
+        name) modules_json=$(echo "$modules_json" | jq 'sort_by(.name)') ;;
+        type) modules_json=$(echo "$modules_json" | jq 'sort_by(.type)') ;;
+        description) modules_json=$(echo "$modules_json" | jq 'sort_by(.description)') ;;
+        *) modules_json=$(echo "$modules_json" | jq 'sort_by(.name)') ;;
     esac
 
-    printf "%s\n" "${MODULE_LIST[@]}" | sort -t '|' -k"$sort_field"
+    echo "$modules_json"
 }
 
 # Function to run a module by its "name" field in module.json
