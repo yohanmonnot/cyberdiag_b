@@ -1,14 +1,16 @@
 #!/bin/bash
 
-# --- Vérification de l'argument -v pour le mode verbeux ---
+# --- Mode verbeux global ---
 VERBOSE=false
+ARGS=()
 for arg in "$@"; do
     if [[ "$arg" == "-v" ]]; then
         VERBOSE=true
-        set -- "${@//-v/}"
-        break
+    else
+        ARGS+=("$arg")
     fi
 done
+set -- "${ARGS[@]}"
 export VERBOSE
 
 source "$(dirname "$0")/utils/logger.sh"
@@ -131,6 +133,10 @@ run_script() {
 # Argument parsing (after functions so variables exist)
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        -v)
+            # déjà géré, on peut l'ignorer
+            shift
+            ;;
         --cli)
             MODE="cli"
             shift
@@ -142,7 +148,7 @@ while [[ $# -gt 0 ]]; do
         --script)
             MODE="script"
             shift
-            while [[ $# -gt 0 && "$1" != --* ]]; do
+            while [[ $# -gt 0 && "$1" != --* && "$1" != "-v" ]]; do
                 SCRIPT_ARGS+=("$1")
                 shift
             done
@@ -164,7 +170,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             log_error "Unknown argument: $1"
-            log_info "Usage: $0 [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
+            log_info "Usage: $0 [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
             exit 1
             ;;
     esac
