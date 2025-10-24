@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# --- Mode verbeux global ---
+VERBOSE=false
+ARGS=()
+for arg in "$@"; do
+    if [[ "$arg" == "-v" ]]; then
+        VERBOSE=true
+    else
+        ARGS+=("$arg")
+    fi
+done
+set -- "${ARGS[@]}"
+export VERBOSE
+
 source "$(dirname "$0")/utils/logger.sh"
 
 MODE="gui"
@@ -19,27 +32,31 @@ fi
 list_modules() {
     local FILTER="$1"
     local SORT_FIELD="$2"
-    MODULE_LIST=()
+    local modules_json="[]"
+
     for d in "$MODULES_DIR"/*/; do
-        META="$d/module.json"
+        local META="$d/module.json"
         if [[ -f "$META" ]]; then
-            NAME=$(jq -r '.name // empty' "$META")
-            TYPE=$(jq -r '.type // empty' "$META")
-            DESC=$(jq -r '.description // empty' "$META")
+            local NAME=$(jq -r '.name // empty' "$META")
+            local TYPE=$(jq -r '.type // empty' "$META")
+            local DESC=$(jq -r '.description // empty' "$META")
+
             if [[ -z "$FILTER" || "$TYPE" == "$FILTER" ]]; then
-                MODULE_LIST+=("$NAME|$TYPE|$DESC")
+                modules_json=$(echo "$modules_json" | jq -c --arg name "$NAME" --arg type "$TYPE" --arg description "$DESC" \
+                    '. += [{"name": $name, "type": $type, "description": $description}]')
             fi
         fi
     done
 
+    # Tri selon le champ demandé
     case "$SORT_FIELD" in
-        name) sort_field=1 ;;
-        type) sort_field=2 ;;
-        description) sort_field=3 ;;
-        *) sort_field=1 ;;
+        name) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.name)') ;;
+        type) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.type)') ;;
+        description) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.description)') ;;
+        *) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.name)') ;;
     esac
 
-    printf "%s\n" "${MODULE_LIST[@]}" | sort -t '|' -k"$sort_field"
+    echo "$modules_json"
 }
 
 # Function to run a module by its "name" field in module.json
@@ -105,9 +122,7 @@ run_script() {
 
     if [[ "${SCRIPT_ARGS[0]}" == "list" ]]; then
         log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
-        list_modules "$LIST_FILTER" "$LIST_SORT" | while read -r line; do
-            log_info "$line"
-        done
+        list_modules "$LIST_FILTER" "$LIST_SORT"
     else
         for MODULE in "${SCRIPT_ARGS[@]}"; do
             run_module "$MODULE"
@@ -118,6 +133,10 @@ run_script() {
 # Argument parsing (after functions so variables exist)
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        -v)
+            # déjà géré, on peut l'ignorer
+            shift
+            ;;
         --cli)
             MODE="cli"
             shift
@@ -129,7 +148,7 @@ while [[ $# -gt 0 ]]; do
         --script)
             MODE="script"
             shift
-            while [[ $# -gt 0 && "$1" != --* ]]; do
+            while [[ $# -gt 0 && "$1" != --* && "$1" != "-v" ]]; do
                 SCRIPT_ARGS+=("$1")
                 shift
             done
@@ -151,7 +170,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             log_error "Unknown argument: $1"
-            log_info "Usage: $0 [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
+            log_info "Usage: $0 [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
             exit 1
             ;;
     esac
