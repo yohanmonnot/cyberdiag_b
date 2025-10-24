@@ -17,37 +17,6 @@ CHECK_CMD=""
 NEEDS_SUDO=false
 ERROR_MESSAGE=""
 
-# case "$OS" in
-#     "Linux")
-#         if command -v apt &>/dev/null; then
-#             PACKAGE_MANAGER="apt"
-#             CHECK_CMD="apt list --upgradeable 2>/dev/null | grep -c upgradeable"
-#             NEEDS_SUDO=false
-#         elif command -v dnf &>/dev/null; then
-#             PACKAGE_MANAGER="dnf"
-#             CHECK_CMD="dnf check-update --refresh | grep -c '^[a-zA-Z0-9]'"
-#             NEEDS_SUDO=true
-#         elif command -v yum &>/dev/null; then
-#             PACKAGE_MANAGER="yum"
-#             CHECK_CMD="yum check-update | grep -c '^[a-zA-Z0-9]'"
-#             NEEDS_SUDO=true
-#         elif command -v pacman &>/dev/null; then
-#             PACKAGE_MANAGER="pacman"
-#             CHECK_CMD="checkupdates | wc -l"
-#             NEEDS_SUDO=false
-#         elif command -v zypper &>/dev/null; then
-#             PACKAGE_MANAGER="zypper"
-#             CHECK_CMD="zypper lu | grep -c '^v '"
-#             NEEDS_SUDO=true
-#         else
-#             ERROR_MESSAGE="Aucun gestionnaire de paquets compatible détecté."
-#         fi
-#         ;;
-#     *)
-#         ERROR_MESSAGE="Système non pris en charge : $OS"
-#         ;;
-# esac
-
 case "$OS" in
     "Linux")
         if command -v apt-get &>/dev/null; then
@@ -93,8 +62,12 @@ fi
 log_info "[majChecker] Gestionnaire détecté : $PACKAGE_MANAGER"
 
 # --- Exécution du check ---
-UPDATE_COUNT=$(bash -c "$CHECK_CMD")
-if [[ $? -ne 0 ]]; then
+UPDATE_COUNT=$($CHECK_CMD || true)
+if [[ -z "$UPDATE_COUNT" ]]; then
+    UPDATE_COUNT=0
+fi
+
+if ! [[ "$UPDATE_COUNT" =~ ^[0-9]+$ ]]; then
     ERROR_MESSAGE="Erreur lors de la vérification des mises à jour via $PACKAGE_MANAGER."
     log_error "[majChecker] $ERROR_MESSAGE"
     echo "{\"status\":\"FAIL\",\"error\":\"$ERROR_MESSAGE\"}"
