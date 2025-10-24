@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# --- Vérification de l'argument -v pour le mode verbeux ---
+VERBOSE=false
+for arg in "$@"; do
+    if [[ "$arg" == "-v" ]]; then
+        VERBOSE=true
+        set -- "${@//-v/}"
+        break
+    fi
+done
+export VERBOSE
+
 source "$(dirname "$0")/utils/logger.sh"
 
 MODE="gui"
