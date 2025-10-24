@@ -100,3 +100,97 @@
 [2025-10-22 14:32:22] [INFO] diskUsage: starting disk usage check
 [2025-10-22 14:32:22] [INFO] diskUsage: finished disk usage check
 [2025-10-22 14:32:22] [INFO] Finished interface module 'diskUsage'
+[2025-10-23 11:07:02] [WARN] No arguments passed for --script
+[2025-10-23 11:07:10] [INFO] Starting module 'diskUsage'
+[2025-10-23 11:07:10] [INFO] diskUsage: starting disk usage check
+[2025-10-23 11:07:11] [INFO] diskUsage: finished disk usage check
+[2025-10-23 11:07:11] [INFO] Finished module 'diskUsage'
+[2025-10-23 11:09:10] [INFO] Starting module 'diskUsage'
+[2025-10-23 11:09:10] [INFO] diskUsage: starting disk usage check
+[2025-10-23 11:09:10] [INFO] diskUsage: finished disk usage check
+[2025-10-23 11:09:10] [INFO] Finished module 'diskUsage'
+[2025-10-23 11:13:16] [INFO] Starting module 'diskUsage'
+[2025-10-23 11:13:16] [INFO] diskUsage: starting disk usage check
+[2025-10-23 11:13:16] [INFO] diskUsage: finished disk usage check
+[2025-10-23 11:13:16] [INFO] Finished module 'diskUsage'
+[2025-10-23 11:22:26] [ERROR] Module diskUsage not found.
+[2025-10-23 11:22:38] [INFO] Starting module 'diskUsage'
+[2025-10-23 11:22:38] [INFO] disk_usage: starting disk usage check
+[2025-10-23 11:22:38] [INFO] disk_usage: finished disk usage check
+[2025-10-23 11:22:38] [INFO] Finished module 'diskUsage'
+[2025-10-23 11:23:14] [INFO] Starting module 'memoryUsage'
+[2025-10-23 11:23:14] [INFO] memory_usage: starting memory usage check
+[2025-10-23 11:23:14] [INFO] memory_usage: finished memory usage check
+[2025-10-23 11:23:14] [INFO] Finished module 'memoryUsage'
+[2025-10-23 11:23:23] [INFO] Starting module 'cpuUsage'
+[2025-10-23 11:23:23] [INFO] cpu_usage: starting CPU usage check
+[2025-10-23 11:23:23] [INFO] cpu_usage: finished CPU usage check
+[2025-10-23 11:23:23] [INFO] Finished module 'cpuUsage'
+[2025-10-24 11:53:39] [INFO] Starting module 'cpuUsage'
+[2025-10-24 11:53:39] [INFO] cpu_usage: starting CPU usage check
+[2025-10-24 11:53:39] [INFO] cpu_usage: finished CPU usage check
+[2025-10-24 11:53:39] [INFO] Finished module 'cpuUsage'
+[2025-10-24 11:54:38] [INFO] Starting module 'diskUsage'
+[2025-10-24 11:54:38] [INFO] disk_usage: starting disk usage check
+[2025-10-24 11:54:38] [INFO] disk_usage: finished disk usage check
+[2025-10-24 11:54:38] [INFO] Finished module 'diskUsage'
+[2025-10-24 11:55:35] [INFO] Starting module 'diskUsage'
+[2025-10-24 11:55:35] [INFO] disk_usage: starting disk usage check
+[2025-10-24 11:55:35] [INFO] disk_usage: finished disk usage check
+[2025-10-24 11:55:35] [INFO] Finished module 'diskUsage'
+[2025-10-24 11:56:49] [INFO] Starting module 'diskUsage'
+[2025-10-24 11:56:49] [INFO] disk_usage: starting disk usage check
+[2025-10-24 11:56:49] [INFO] disk_usage: finished disk usage check
+[2025-10-24 11:56:49] [INFO] Finished module 'diskUsage'
+[2025-10-24 11:58:44] [INFO] Starting module 'diskUsage'
+[2025-10-24 11:58:44] [INFO] disk_usage: starting disk usage check
+[2025-10-24 11:58:44] [INFO] disk_usage: finished disk usage check
+[2025-10-24 11:58:44] [INFO] Finished module 'diskUsage'
+[2025-10-24 11:59:24] [INFO] Starting module 'cpuUsage'
+[2025-10-24 11:59:24] [INFO] cpu_usage: starting CPU usage check
+[2025-10-24 11:59:24] [INFO] cpu_usage: finished CPU usage check
+[2025-10-24 11:59:24] [INFO] Finished module 'cpuUsage'
+[2025-10-24 12:02:16] [INFO] Starting module 'diskUsage'
+[2025-10-24 12:02:16] [INFO] disk_usage: starting disk usage check
+[2025-10-24 12:02:17] [INFO] disk_usage: finished disk usage check
+[2025-10-24 12:02:17] [INFO] Finished module 'diskUsage'
+[2025-10-24 12:06:04] [INFO] Starting module 'memoryUsage'
+[2025-10-24 12:06:04] [INFO] memory_usage: starting memory usage check
+[2025-10-24 12:06:04] [INFO] memory_usage: finished memory usage check
+[2025-10-24 12:06:04] [INFO] Finished module 'memoryUsage'
+[2025-10-24 12:07:47] [INFO] Starting module 'memoryUsage'
+[2025-10-24 12:07:47] [INFO] memory_usage: starting memory usage check
+[2025-10-24 12:07:47] [INFO] memory_usage: finished memory usage check
+[2025-10-24 12:07:47] [INFO] Finished module 'memoryUsage'
+[2025-10-24 12:09:46] [INFO] Starting module 'memoryUsage'
+[2025-10-24 12:09:46] [INFO] memory_usage: starting memory usage check
+[2025-10-24 12:09:46] [INFO] memory_usage: finished memory usage check
+[2025-10-24 12:09:46] [INFO] Finished module 'memoryUsage'
+[2025-10-24 12:10:23] [INFO] Starting module 'memoryUsage'
+[2025-10-24 12:10:23] [INFO] memory_usage: starting memory usage check
+[2025-10-24 12:10:23] [INFO] memory_usage: finished memory usage check
+[2025-10-24 12:10:23] [INFO] Finished module 'memoryUsage'
+[2025-10-24 13:25:24] [INFO] Starting module 'cpuUsage'
+[2025-10-24 13:25:24] [INFO] cpu_usage: starting CPU usage check
+[2025-10-24 13:25:24] [INFO] cpu_usage: finished CPU usage check with score 5/5
+[2025-10-24 13:25:24] [INFO] Finished module 'cpuUsage'
+[2025-10-24 13:25:53] [INFO] Starting module 'cpuUsage'
+[2025-10-24 13:25:53] [INFO] cpu_usage: starting CPU usage check
+[2025-10-24 13:25:53] [INFO] cpu_usage: finished CPU usage check with score 5/5
+[2025-10-24 13:25:53] [INFO] Finished module 'cpuUsage'
+[2025-10-24 13:26:05] [INFO] Starting module 'diskUsage'
+[2025-10-24 13:26:05] [INFO] disk_usage: starting disk usage check
+[2025-10-24 13:26:05] [INFO] disk_usage: finished disk usage check with score 5/5
+[2025-10-24 13:26:05] [INFO] Finished module 'diskUsage'
+[2025-10-24 13:26:20] [INFO] Starting module 'memoryUsage'
+[2025-10-24 13:26:20] [INFO] memory_usage: starting memory usage check
+[2025-10-24 13:26:20] [INFO] memory_usage: finished memory usage check with score 5/5
+[2025-10-24 13:26:20] [INFO] Finished module 'memoryUsage'
+[2025-10-24 13:26:24] [INFO] Starting module 'cpuUsage'
+[2025-10-24 13:26:24] [INFO] cpu_usage: starting CPU usage check
+[2025-10-24 13:26:24] [INFO] cpu_usage: finished CPU usage check with score 5/5
+[2025-10-24 13:26:24] [INFO] Finished module 'cpuUsage'
+[2025-10-24 13:26:44] [INFO] Starting module 'cpuUsage'
+[2025-10-24 13:26:44] [INFO] cpu_usage: starting CPU usage check
+[2025-10-24 13:26:44] [INFO] cpu_usage: finished CPU usage check with score 5/5
+[2025-10-24 13:26:44] [INFO] Finished module 'cpuUsage'

@@ -1,0 +1,27 @@
+{
+    "name": "memoryUsage",
+    "version": "1.0",
+    "type": "tool",
+    "description": "A module to check memory usage on the system.",
+    "author": "Nolhan B.D.",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": [],
+    "return_type": {
+        "memory": {
+            "total": "string",
+            "used": "string",
+            "free": "string",
+            "shared": "string",
+            "buff_cache": "string",
+            "available": "string",
+            "used_percentage": "integer"
+        },
+        "swap": {
+            "total": "string",
+            "used": "string",
+            "free": "string"
+        },
+        "score": "integer"
+    }
+}

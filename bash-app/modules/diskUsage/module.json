@@ -1,10 +1,23 @@
 {
-	"name": "diskUsage",
-	"version": "1.0",
-	"type": "tool",
-	"description": "A module to check disk usage on the system.",
-	"author": "Nolhan B.D.",
-	"main": "main.sh",
-	"args": [],
-	"dependencies": []
+    "name": "diskUsage",
+    "version": "1.0",
+    "type": "tool",
+    "description": "A module to check disk usage on the system.",
+    "author": "Nolhan B.D.",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": [],
+    "return_type": {
+        "disk_usage": [
+            {
+                "filesystem": "string",
+                "size": "string",
+                "used": "string",
+                "available": "string",
+                "use_percentage": "string",
+                "mounted_on": "string"
+            }
+        ],
+        "score": "integer"
+    }
 }
