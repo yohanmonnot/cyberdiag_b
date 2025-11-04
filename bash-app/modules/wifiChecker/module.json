@@ -1,0 +1,24 @@
+{
+	"name": "wifiChecker",
+	"version": "1.0",
+	"type": "tool",
+	"description": "A module to check network connections and provide security recommendations.",
+	"author": "Nolhan BLANCHETIÈRE--DRÔLON",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": [],
+    "return_type": {
+        "keys": [
+            "status",
+			"error",
+			"score",
+			"recommendation"
+        ],
+        "types": {
+            "status": "string",
+            "error": "string",
+            "score": "number",
+            "recommendation": "string"
+        }
+    }
+}
