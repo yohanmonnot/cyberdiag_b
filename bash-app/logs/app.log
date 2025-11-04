@@ -240,3 +240,142 @@
 [2025-10-24 14:20:59] [INFO] [cpuUsage] CPU utilisé : -366%
 [2025-10-24 14:20:59] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
 [2025-10-24 14:21:00] [INFO] Finished module 'cpuUsage'
+[2025-10-24 14:34:39] [INFO] Starting module 'wifiChecker'
+[2025-10-24 14:34:39] [INFO] [wifiChecker] Démarrage du module de vérification du réseau Wi-Fi...
+[2025-10-24 14:34:41] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-10-24 14:34:41] [INFO] Finished module 'wifiChecker'
+[2025-10-24 14:43:48] [INFO] Starting module 'wifiChecker'
+[2025-10-24 14:43:48] [INFO] [wifiChecker] Démarrage du module de vérification Wi-Fi...
+[2025-10-24 14:43:48] [INFO] [wifiChecker] Système détecté : Linux
+[2025-10-24 14:43:48] [INFO] [wifiChecker] Connexion automatique activée pour certains réseaux.
+[2025-10-24 14:43:48] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-10-24 14:43:48] [INFO] Finished module 'wifiChecker'
+[2025-10-24 14:44:02] [INFO] Starting module 'wifiChecker'
+[2025-10-24 14:44:02] [INFO] [wifiChecker] Démarrage du module de vérification Wi-Fi...
+[2025-10-24 14:44:02] [INFO] [wifiChecker] Système détecté : Linux
+[2025-10-24 14:44:02] [INFO] [wifiChecker] Bluetooth est activé.
+[2025-10-24 14:44:02] [INFO] [wifiChecker] Connexion automatique activée pour certains réseaux.
+[2025-10-24 14:44:02] [INFO] [wifiChecker] Vérification terminée avec un score de 3/5
+[2025-10-24 14:44:02] [INFO] Finished module 'wifiChecker'
+[2025-10-24 14:44:16] [INFO] Starting module 'wifiChecker'
+[2025-10-24 14:44:16] [INFO] [wifiChecker] Démarrage du module de vérification Wi-Fi...
+[2025-10-24 14:44:16] [INFO] [wifiChecker] Système détecté : Linux
+[2025-10-24 14:44:17] [INFO] [wifiChecker] Connexion automatique activée pour certains réseaux.
+[2025-10-24 14:44:17] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-10-24 14:44:17] [INFO] Finished module 'wifiChecker'
+[2025-10-24 14:48:36] [INFO] Starting module 'wifiChecker'
+[2025-10-24 14:48:36] [INFO] [wifiChecker] Démarrage du module de vérification Wi-Fi...
+[2025-10-24 14:48:36] [INFO] [wifiChecker] Système détecté : Linux
+[2025-10-24 14:48:36] [INFO] [wifiChecker] Connexion automatique activée pour certains réseaux.
+[2025-10-24 14:48:36] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-10-24 14:48:36] [INFO] Finished module 'wifiChecker'
+[2025-10-24 14:49:48] [INFO] Starting module 'wifiChecker'
+[2025-10-24 14:49:48] [INFO] [wifiChecker] Démarrage du module de vérification Wi-Fi...
+[2025-10-24 14:49:48] [INFO] [wifiChecker] Système détecté : Linux
+[2025-10-24 14:49:49] [INFO] [wifiChecker] Connexion automatique activée pour certains réseaux.
+[2025-10-24 14:49:49] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-10-24 14:49:49] [INFO] Finished module 'wifiChecker'
+[2025-11-04 11:13:14] [INFO] Starting module 'wifiChecker'
+[2025-11-04 11:13:14] [INFO] [wifiChecker] Démarrage du module de vérification Wi-Fi...
+[2025-11-04 11:13:14] [INFO] [wifiChecker] Système détecté : Linux
+[2025-11-04 11:13:14] [INFO] [wifiChecker] Interfaces détectées : lo
+enp2s0
+wlo1
+[2025-11-04 11:13:14] [INFO] [wifiChecker] Interfaces actives : wlo1
+[2025-11-04 11:13:14] [INFO] [wifiChecker] Wi-Fi est activé : true
+[2025-11-04 11:13:23] [INFO] [wifiChecker] Connexion automatique activée pour certains réseaux.
+[2025-11-04 11:13:23] [INFO] [wifiChecker] Vérification terminée avec un score de 3/5
+[2025-11-04 11:13:23] [INFO] Finished module 'wifiChecker'
+[2025-11-04 11:16:59] [INFO] Starting module 'wifiChecker'
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Démarrage du module de vérification Wi-Fi...
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Système détecté : Linux
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Interfaces détectées : lo
+enp2s0
+wlo1
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Interfaces actives : wlo1
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Interfaces Wi-Fi détectées : wlo1
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Interface wlo1 - Mode: Managed
+[2025-11-04 11:16:59] [INFO] [wifiChecker] =========================================
+[2025-11-04 11:16:59] [INFO] [wifiChecker] DÉTAILS DU RÉSEAU WI-FI ACTIF
+[2025-11-04 11:16:59] [INFO] [wifiChecker] =========================================
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Interface: wlo1
+[2025-11-04 11:16:59] [INFO] [wifiChecker] SSID: eduroam
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Mode: Managed
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Fréquence: 5.18
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Point d'accès (BSSID): 6C:E8:74:D1:DE:70
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Débit: 309.7 Mb/s
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Puissance TX: 3
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Qualité du lien: 54/70
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Niveau de signal: -56
+[2025-11-04 11:16:59] [INFO] [wifiChecker] Adresse IP: 10.2.134.244/14
+[2025-11-04 11:16:59] [INFO] [wifiChecker] =========================================
+[2025-11-04 11:16:59] [INFO] [wifiChecker] ⚠️  ALERTE: Connecté à un réseau Wi-Fi public : eduroam
+[2025-11-04 11:16:59] [INFO] [wifiChecker] État Wi-Fi (nmcli): enabled
+[2025-11-04 11:17:00] [INFO] [wifiChecker] Réseau Wi-Fi public à proximité : eduroam
+[2025-11-04 11:17:00] [INFO] [wifiChecker] Réseau Wi-Fi public à proximité : eduroam
+[2025-11-04 11:17:00] [INFO] [wifiChecker] Réseau Wi-Fi public à proximité : eduroam
+[2025-11-04 11:17:01] [INFO] [wifiChecker] Connexion automatique activée pour certains réseaux.
+[2025-11-04 11:17:01] [INFO] [wifiChecker] Vérification terminée avec un score de 1/5
+[2025-11-04 11:17:01] [INFO] Finished module 'wifiChecker'
+[2025-11-04 11:36:59] [INFO] Starting module 'wifiChecker'
+[2025-11-04 11:36:59] [INFO] [wifiChecker] Démarrage (mode simplifié — uniquement Wi-Fi)
+[2025-11-04 11:36:59] [INFO] [wifiChecker] Système détecté : Linux
+[2025-11-04 11:36:59] [INFO] [wifiChecker] Utilisation de nmcli pour récupérer l'état Wi-Fi
+[2025-11-04 11:37:07] [INFO] [wifiChecker] Pas de connexion Wi-Fi active détectée via nmcli.
+[2025-11-04 11:37:07] [INFO] [wifiChecker] Vérification portail captif (si curl/wget disponible)...
+[2025-11-04 11:37:08] [INFO] [wifiChecker] Pas de portail captif détecté (curl HTTP 200).
+[2025-11-04 11:37:08] [INFO] [wifiChecker] Wi-Fi actif — SSID: (inconnu) — Security: (inconnu) — Score: 5/5
+[2025-11-04 11:37:08] [INFO] Finished module 'wifiChecker'
+[2025-11-04 11:43:10] [INFO] Starting module 'wifiChecker'
+[2025-11-04 11:43:18] [INFO] Finished module 'wifiChecker'
+[2025-11-04 11:50:31] [INFO] Starting module 'wifiChecker'
+[2025-11-04 11:50:35] [INFO] Finished module 'wifiChecker'
+[2025-11-04 11:50:46] [INFO] Starting module 'wifiChecker'
+[2025-11-04 11:50:50] [INFO] Finished module 'wifiChecker'
+[2025-11-04 11:55:15] [INFO] Starting module 'wifiChecker'
+[2025-11-04 11:55:19] [INFO] Finished module 'wifiChecker'
+[2025-11-04 15:07:55] [INFO] Starting module 'wifiChecker'
+[2025-11-04 15:07:55] [INFO] [wifiChecker] Démarrage du module Wi‑Fi...
+[2025-11-04 15:07:55] [INFO] [wifiChecker] OS détecté : Linux
+[2025-11-04 15:07:56] [INFO] [wifiChecker] Pas de portail captif détecté (curl).
+[2025-11-04 15:07:56] [INFO] [wifiChecker] Réseaux publics/ouverts détectés à proximité : 1
+[2025-11-04 15:07:56] [INFO] [wifiChecker] Résultat : SSID='none' SCORE=2 RECO='Connecté à un réseau inconnu. Évitez les opérations sensibles et utilisez un VPN si nécessaire.'
+[2025-11-04 15:07:56] [INFO] Finished module 'wifiChecker'
+[2025-11-04 15:10:30] [INFO] Starting module 'wifiChecker'
+[2025-11-04 15:10:30] [INFO] [wifiChecker] Démarrage du module Wi-Fi simplifié...
+[2025-11-04 15:10:31] [INFO] [wifiChecker] Aucun Wi-Fi connecté actuellement.
+[2025-11-04 15:10:31] [INFO] Finished module 'wifiChecker'
+[2025-11-04 15:12:05] [INFO] Starting module 'wifiChecker'
+[2025-11-04 15:12:05] [INFO] [wifiChecker] Démarrage du module Wi-Fi simplifié...
+[2025-11-04 15:12:05] [INFO] [wifiChecker] Aucun Wi-Fi connecté actuellement.
+[2025-11-04 15:12:05] [INFO] Finished module 'wifiChecker'
+[2025-11-04 15:16:21] [INFO] Starting module 'wifiChecker'
+[2025-11-04 15:16:21] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-04 15:16:21] [INFO] [wifiChecker] Aucun Wi-Fi connecté actuellement.
+[2025-11-04 15:16:21] [INFO] Finished module 'wifiChecker'
+[2025-11-04 15:18:01] [INFO] Starting module 'wifiChecker'
+[2025-11-04 15:18:01] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-04 15:18:03] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-04 15:18:03] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-04 15:18:03] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-04 15:18:03] [INFO] Finished module 'wifiChecker'
+[2025-11-04 15:19:16] [INFO] Starting module 'wifiChecker'
+[2025-11-04 15:19:16] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-04 15:19:24] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-04 15:19:24] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-04 15:19:24] [INFO] [wifiChecker] VPN inactif.
+[2025-11-04 15:19:24] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-04 15:19:24] [INFO] Finished module 'wifiChecker'

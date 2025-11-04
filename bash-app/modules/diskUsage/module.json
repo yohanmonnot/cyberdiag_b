@@ -3,7 +3,7 @@
     "version": "1.0",
     "type": "tool",
     "description": "A module to check disk usage on the system.",
-    "author": "Nolhan B.D.",
+    "author": "Nolhan BLANCHETIÈRE--DRÔLON",
     "main": "main.sh",
     "args": [],
     "dependencies": ["jq"],
