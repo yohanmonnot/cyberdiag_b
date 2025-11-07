@@ -5,7 +5,7 @@
 # Auteur : Yohan
 # =============================================================================
 
-source "$(dirname "$0")/utils/logger.sh"
+source "$(dirname "$0")../utils/logger.sh"
 
 log_info "check_password: starting password policy check"
 
