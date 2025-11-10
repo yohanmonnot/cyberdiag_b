@@ -379,3 +379,139 @@ WPA2 802.1X
 [2025-11-04 15:19:24] [INFO] [wifiChecker] VPN inactif.
 [2025-11-04 15:19:24] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
 [2025-11-04 15:19:24] [INFO] Finished module 'wifiChecker'
+[2025-11-07 13:14:44] [INFO] Starting module 'wifiChecker'
+[2025-11-07 13:14:44] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:14:44] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-07 13:14:44] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-07 13:14:44] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:14:44] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:14:44] [INFO] Finished module 'wifiChecker'
+[2025-11-07 13:14:56] [INFO] 🧪 Running tests for module 'wifiChecker'...
+[2025-11-07 13:18:58] [INFO] 🧪 Running tests for module 'wifiChecker'...
+[2025-11-07 13:19:35] [INFO] Starting module 'wifiChecker'
+[2025-11-07 13:19:35] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:19:35] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-07 13:19:35] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-07 13:19:36] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:19:36] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:19:36] [INFO] Finished module 'wifiChecker'
+[2025-11-07 13:24:57] [INFO] Starting module 'wifiChecker'
+[2025-11-07 13:24:57] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:25:05] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:25:05] [INFO] [wifiChecker] Type de sécurité : WPA3
+WPA3
+[2025-11-07 13:25:05] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:25:05] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:25:05] [INFO] Finished module 'wifiChecker'
+[2025-11-07 13:29:24] [ERROR] Unknown argument: --json
+[2025-11-07 13:29:24] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:29:28] [INFO] Starting module 'wifiChecker'
+[2025-11-07 13:29:28] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:29:36] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:29:36] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:29:36] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:29:36] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:29:36] [INFO] Finished module 'wifiChecker'
+[2025-11-07 13:29:40] [ERROR] Unknown argument: --test
+[2025-11-07 13:29:40] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:30:11] [ERROR] Unknown argument: --test
+[2025-11-07 13:30:11] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:30:58] [ERROR] Unknown argument: --json
+[2025-11-07 13:30:58] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:31:59] [INFO] Starting module 'wifiChecker'
+[2025-11-07 13:31:59] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:32:07] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:32:07] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:32:07] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:32:07] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:32:07] [INFO] Finished module 'wifiChecker'
+[2025-11-07 13:32:26] [INFO] Starting module 'cpuUsage'
+[2025-11-07 13:32:26] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-07 13:32:27] [INFO] [cpuUsage] CPU utilisé : -813%
+[2025-11-07 13:32:27] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-07 13:32:27] [INFO] Finished module 'cpuUsage'
+[2025-11-07 13:34:11] [INFO] Starting module 'wifiChecker'
+[2025-11-07 13:34:11] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:34:19] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:34:19] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:34:19] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:34:19] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:34:19] [INFO] Finished module 'wifiChecker'
+[2025-11-07 13:34:29] [ERROR] Unknown argument: --test
+[2025-11-07 13:34:29] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:40:34] [ERROR] Unknown argument: --test
+[2025-11-07 13:40:34] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:41:50] [ERROR] Unknown argument: --test
+[2025-11-07 13:41:50] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:41:56] [INFO] Starting module 'wifiChecker'
+[2025-11-07 13:41:56] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:42:04] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:42:04] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:42:04] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:42:04] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:42:04] [INFO] Finished module 'wifiChecker'
+[2025-11-07 13:42:47] [ERROR] Unknown argument: --test
+[2025-11-07 13:42:47] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:43:06] [ERROR] Unknown argument: --test
+[2025-11-07 13:43:06] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:45:31] [INFO] Starting module 'wifiChecker'
+[2025-11-07 13:45:31] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:45:39] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:45:39] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:45:39] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:45:39] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:45:39] [INFO] Finished module 'wifiChecker'
+[2025-11-07 13:46:01] [ERROR] Unknown argument: --test
+[2025-11-07 13:46:01] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:46:23] [ERROR] Unknown argument: --test
+[2025-11-07 13:46:23] [INFO] Usage: ./main.sh [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]
+[2025-11-07 13:49:37] [INFO] Running tests for module 'wifiChecker'
+[2025-11-07 13:49:37] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:49:45] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:49:45] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:49:45] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:49:45] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:52:01] [INFO] Running tests for module 'wifiChecker'
+[2025-11-07 13:52:01] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:52:09] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:52:09] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:52:09] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:52:09] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:55:45] [INFO] Running tests for module 'wifiChecker'
+[2025-11-07 13:55:45] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:55:53] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:55:53] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:55:53] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:55:53] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:57:02] [INFO] Running tests for module 'wifiChecker'
+[2025-11-07 13:57:02] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:57:02] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:57:02] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:57:02] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:57:02] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-07 13:59:48] [INFO] Running tests for module 'wifiChecker'
+[2025-11-07 13:59:48] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-07 13:59:56] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-07 13:59:56] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-07 13:59:56] [INFO] [wifiChecker] VPN inactif.
+[2025-11-07 13:59:56] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
