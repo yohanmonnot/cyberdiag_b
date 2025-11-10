@@ -123,14 +123,40 @@ run_script() {
     if [[ "${SCRIPT_ARGS[0]}" == "list" ]]; then
         log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
         list_modules "$LIST_FILTER" "$LIST_SORT"
-    else
-        for MODULE in "${SCRIPT_ARGS[@]}"; do
-            run_module "$MODULE"
-        done
+        return
     fi
+
+    local MODULE_NAME="${SCRIPT_ARGS[0]}"
+    local MODULE_DIR="$MODULES_DIR/$MODULE_NAME"
+    local TEST_MODE=false
+
+    # Vérifie la présence du flag --test
+    for arg in "${SCRIPT_ARGS[@]:1}"; do
+        if [[ "$arg" == "--test" ]]; then
+            TEST_MODE=true
+        fi
+    done
+
+    if [[ "$TEST_MODE" == true ]]; then
+        local TEST_SCRIPT="$MODULE_DIR/test.sh"
+        if [[ -f "$TEST_SCRIPT" ]]; then
+            log_info "Running tests for module '$MODULE_NAME'"
+            bash "$TEST_SCRIPT"
+        else
+            log_error "No test.sh found for module '$MODULE_NAME'"
+        fi
+        return
+    fi
+
+    # Sinon, exécution normale
+    for MODULE in "${SCRIPT_ARGS[@]}"; do
+        run_module "$MODULE"
+    done
 }
 
+
 # Argument parsing (after functions so variables exist)
+echo "🔍 [DEBUG] Arguments bruts reçus : $@"
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -v)
@@ -148,7 +174,8 @@ while [[ $# -gt 0 ]]; do
         --script)
             MODE="script"
             shift
-            while [[ $# -gt 0 && "$1" != --* && "$1" != "-v" ]]; do
+            # Collecte tous les arguments jusqu'au prochain flag global connu
+            while [[ $# -gt 0 && "$1" != "--cli" && "$1" != "--gui" && "$1" != "--interface" && "$1" != "--filter" && "$1" != "--sort" ]]; do
                 SCRIPT_ARGS+=("$1")
                 shift
             done
@@ -181,6 +208,15 @@ if [[ -n "$CUSTOM_INTERFACE" ]]; then
     run_interface_module "$CUSTOM_INTERFACE"
     exit $?
 fi
+
+
+# --- Debug: état des variables après parsing ---
+echo "🔧 [DEBUG] Mode sélectionné : $MODE"
+echo "🔧 [DEBUG] Arguments de script : ${SCRIPT_ARGS[*]}"
+echo "🔧 [DEBUG] Interface personnalisée : $CUSTOM_INTERFACE"
+echo "🔧 [DEBUG] Filtre de liste : $LIST_FILTER"
+echo "🔧 [DEBUG] Tri de liste : $LIST_SORT"
+echo "🔧 [DEBUG] Mode verbeux : $VERBOSE"
 
 # Main execution based on mode
 case "$MODE" in
