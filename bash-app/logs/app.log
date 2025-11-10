@@ -515,3 +515,931 @@ lo
 [2025-11-07 13:59:56] [INFO] [wifiChecker] Type de sécurité : WPA3
 [2025-11-07 13:59:56] [INFO] [wifiChecker] VPN inactif.
 [2025-11-07 13:59:56] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:02:56] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:02:56] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:02:57] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:02:57] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:02:57] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:02:57] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:02:57] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:03:08] [INFO] Running tests for module 'wifiChecker'
+[2025-11-10 13:03:08] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:03:08] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:03:08] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:03:08] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:03:08] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:25:58] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:25:58] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:26:06] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:26:06] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:26:06] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:26:06] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:26:06] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:26:15] [INFO] Running tests for module 'wifiChecker'
+[2025-11-10 13:26:15] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:26:15] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:26:15] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:26:15] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:26:15] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:33:26] [INFO] Running tests for module 'wifiChecker'
+[2025-11-10 13:33:26] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:33:34] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:33:34] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:33:34] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:33:34] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:38:48] [INFO] Running module 'wifiChecker'
+[2025-11-10 13:38:48] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:38:48] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:38:56] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:38:56] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:38:56] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:38:56] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:38:56] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:38:56] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:38:56] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:38:56] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:38:56] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:38:56] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:38:56] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:40:07] [INFO] Running module 'wifiChecker'
+[2025-11-10 13:40:07] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:40:07] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:40:15] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:40:15] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:40:15] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:40:15] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:40:15] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:40:15] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:40:15] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:40:15] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:40:15] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:40:15] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:40:15] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:40:34] [INFO] Running module 'wifiChecker'
+[2025-11-10 13:40:34] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:40:34] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:40:34] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:40:34] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:40:34] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:40:34] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:40:34] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:40:34] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:40:34] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:40:34] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:40:34] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:40:34] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:40:34] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:42:28] [INFO] Running module 'wifiChecker'
+[2025-11-10 13:42:28] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:42:28] [INFO] ================================
+[2025-11-10 13:42:28] [INFO]   wifiChecker Module Execution
+[2025-11-10 13:42:28] [INFO] ================================
+[2025-11-10 13:42:28] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:42:28] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:42:28] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:42:28] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:42:28] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:42:28] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:42:28] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:42:28] [INFO] ================================
+[2025-11-10 13:42:28] [INFO]   wifiChecker Module Execution
+[2025-11-10 13:42:28] [INFO] ================================
+[2025-11-10 13:42:28] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:42:29] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:42:29] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:42:29] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:42:29] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:45:16] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 13:45:16] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:45:16] [INFO] -e \n===========================================
+[2025-11-10 13:45:16] [INFO]   Running internal function tests (wifiChecker)
+[2025-11-10 13:45:16] [INFO] ===========================================
+[2025-11-10 13:45:16] [INFO] ✔ PASS - output_json returns valid JSON
+[2025-11-10 13:45:24] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:45:24] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:45:24] [INFO] ✔ PASS - check_connected_wifi executes without crash
+[2025-11-10 13:45:24] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:45:24] [INFO] ✔ PASS - check_vpn executes without crash
+[2025-11-10 13:45:24] [INFO] ✔ PASS - calculate_score logic OK
+[2025-11-10 13:45:24] [INFO] -------------------------------------------
+[2025-11-10 13:45:24] [INFO] Total: 4 | Passed: 4 | Failed: 0
+[2025-11-10 13:45:24] [INFO] -------------------------------------------
+[2025-11-10 13:45:24] [INFO] ✅ All internal tests passed.
+[2025-11-10 13:45:24] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:45:24] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:45:24] [INFO] ================================
+[2025-11-10 13:45:24] [INFO]   wifiChecker Module Execution
+[2025-11-10 13:45:24] [INFO] ================================
+[2025-11-10 13:45:24] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:45:24] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:45:24] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:45:24] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:45:24] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:45:40] [INFO] Running module 'wifiChecker'
+[2025-11-10 13:45:40] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:45:40] [INFO] ================================
+[2025-11-10 13:45:40] [INFO]   wifiChecker Module Execution
+[2025-11-10 13:45:40] [INFO] ================================
+[2025-11-10 13:45:40] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:45:40] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:45:40] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:45:40] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:45:40] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:45:40] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:45:40] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:45:40] [INFO] ================================
+[2025-11-10 13:45:40] [INFO]   wifiChecker Module Execution
+[2025-11-10 13:45:40] [INFO] ================================
+[2025-11-10 13:45:40] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:45:40] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:45:40] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:45:40] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:45:40] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:48:09] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 13:48:09] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:48:09] [INFO] -e \n===========================================
+[2025-11-10 13:48:09] [INFO]   Running internal function tests (wifiChecker)
+[2025-11-10 13:48:09] [INFO] ===========================================
+[2025-11-10 13:48:09] [INFO] ✔ PASS - output_json returns valid JSON
+[2025-11-10 13:48:17] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:48:17] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:48:17] [INFO] ✔ PASS - check_connected_wifi executes without crash
+[2025-11-10 13:48:17] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:48:17] [INFO] ✔ PASS - check_vpn executes without crash
+[2025-11-10 13:48:17] [INFO] ✔ PASS - calculate_score logic OK
+[2025-11-10 13:48:17] [INFO] -------------------------------------------
+[2025-11-10 13:48:17] [INFO] Total: 4 | Passed: 4 | Failed: 0
+[2025-11-10 13:48:17] [INFO] -------------------------------------------
+[2025-11-10 13:48:17] [INFO] ✅ All internal tests passed.
+[2025-11-10 13:48:17] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:48:17] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:48:17] [INFO] ================================
+[2025-11-10 13:48:17] [INFO]   wifiChecker Module Execution
+[2025-11-10 13:48:17] [INFO] ================================
+[2025-11-10 13:48:18] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:48:18] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:48:18] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:48:18] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:48:18] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:52:26] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 13:52:26] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:52:33] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:52:33] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:53:20] [INFO] Running module 'wifiChecker' with args: 
+[2025-11-10 13:53:20] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:53:29] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:54:12] [INFO] Running module 'wifiChecker' with args: 
+[2025-11-10 13:54:12] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:54:12] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:54:20] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:54:20] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:54:20] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:54:20] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:54:20] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:54:26] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 13:54:26] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:54:26] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:54:26] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:54:26] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:54:26] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:54:26] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:54:26] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:54:26] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:54:26] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:54:26] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:54:26] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:57:29] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 13:57:29] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:57:37] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:57:37] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:57:37] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:57:37] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:57:37] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:57:37] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:57:37] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:57:37] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:57:37] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:57:37] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 13:58:34] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 13:58:34] [INFO] Starting module 'wifiChecker'
+[2025-11-10 13:58:42] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:58:42] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:58:42] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:58:42] [INFO] Finished module 'wifiChecker'
+[2025-11-10 13:58:42] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 13:58:42] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 13:58:42] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 13:58:42] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 13:58:42] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 13:58:42] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:00:18] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:00:18] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:00:26] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:00:26] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:00:26] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:00:26] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:00:26] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:00:26] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:00:26] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:00:26] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:00:26] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:00:26] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:00:36] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:00:36] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:00:36] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:00:36] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:00:36] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:00:36] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:00:36] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:00:36] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:00:36] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:00:36] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:00:36] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:00:36] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:03:30] [INFO] Running module 'wifiChecker' with args: --tes
+[2025-11-10 14:03:30] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:03:30] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:03:39] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:03:39] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:03:39] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:03:39] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:03:39] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:03:39] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:03:39] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:03:39] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:03:39] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:03:39] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:03:39] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:03:39] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:11:10] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:11:10] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:11:18] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:11:18] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:11:18] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:11:18] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:11:18] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:11:18] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:11:18] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:11:18] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:11:18] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:11:18] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:16:56] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:16:56] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:17:04] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:17:04] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:17:04] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:17:04] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:17:04] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:17:04] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:17:04] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:17:04] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:17:04] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:17:04] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:23:52] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:23:52] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:24:00] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:24:00] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:24:00] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:24:00] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:24:00] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:24:00] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:24:00] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:24:00] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:24:00] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:24:00] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:28:01] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:28:01] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:28:09] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:28:09] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:28:09] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:28:09] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:28:09] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:28:09] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:28:09] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:28:09] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:28:09] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:28:09] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:29:12] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:29:12] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:29:19] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:29:19] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:29:19] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:29:19] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:29:20] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:29:20] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:29:20] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:29:20] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:29:20] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:29:20] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:31:12] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:31:12] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:31:20] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:31:20] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:31:20] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:31:20] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:31:20] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:31:20] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:31:20] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:31:20] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:31:20] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:31:20] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:41:47] [INFO] Running module 'wifiChecker' with args: 
+[2025-11-10 14:41:47] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:41:47] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:41:55] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:41:55] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:41:55] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:41:55] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:41:55] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:41:58] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:41:58] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:41:58] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:41:58] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:41:58] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:41:58] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:41:58] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:41:58] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
+[2025-11-10 14:42:08] [INFO] JavaFX GUI finished
+[2025-11-10 14:43:45] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:43:45] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:43:53] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:43:53] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:43:53] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:43:53] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:43:53] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:43:53] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
+[2025-11-10 14:44:03] [INFO] JavaFX GUI finished
+[2025-11-10 14:50:48] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:50:48] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:50:48] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:50:48] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
+[2025-11-10 14:50:58] [INFO] JavaFX GUI finished
+[2025-11-10 14:53:42] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:53:42] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:53:42] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:53:42] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
+[2025-11-10 14:53:48] [INFO] JavaFX GUI finished
+[2025-11-10 14:53:49] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:53:49] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:53:49] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:53:49] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:53:49] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:53:49] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:53:49] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:53:49] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
+[2025-11-10 14:53:59] [INFO] JavaFX GUI finished
+[2025-11-10 14:54:02] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:54:02] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:54:02] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:54:02] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:54:02] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:54:02] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:54:02] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:54:02] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
+[2025-11-10 14:54:12] [INFO] JavaFX GUI finished
+[2025-11-10 14:54:16] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:54:16] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:54:25] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:54:25] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:54:25] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:54:25] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:54:25] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:54:25] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:54:25] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:54:25] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:54:25] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:54:25] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:54:31] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:54:31] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:54:31] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:54:31] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:54:31] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:54:31] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:54:31] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:54:31] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:54:57] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:54:57] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:55:05] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:55:05] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:55:05] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:55:05] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:55:05] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:55:05] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:55:05] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:55:05] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:55:05] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:55:05] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 14:55:36] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 14:55:36] [INFO] Starting module 'wifiChecker'
+[2025-11-10 14:55:44] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:55:44] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:55:44] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:55:44] [INFO] Finished module 'wifiChecker'
+[2025-11-10 14:55:44] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 14:55:44] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 14:55:44] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 14:55:44] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 14:55:44] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 14:55:44] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:06:51] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:06:51] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:06:59] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:06:59] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:06:59] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:06:59] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:06:59] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:06:59] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:06:59] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:06:59] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:06:59] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:06:59] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:07:13] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:07:13] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:07:13] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:07:13] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:07:13] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:07:13] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:07:13] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:07:13] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:07:13] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:07:13] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:07:13] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:07:13] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:09:25] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:09:25] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:09:33] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:09:33] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:09:33] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:09:33] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:09:33] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:09:33] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:09:34] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:09:34] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:09:34] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:09:34] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:10:13] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:10:13] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:10:21] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:10:21] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:10:21] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:10:21] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:10:21] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:10:21] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:10:21] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:10:21] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:10:22] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:10:22] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:13:49] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:13:49] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:13:58] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:13:58] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:13:58] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:13:58] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:13:58] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:13:58] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:13:58] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:13:58] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:13:58] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:13:58] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:14:29] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:14:29] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:14:37] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:14:37] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:14:37] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:14:37] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:14:37] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:14:37] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:14:37] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:14:37] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:14:37] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:14:37] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:16:30] [INFO] Running module 'wifiChecker' with args: 
+[2025-11-10 15:16:30] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:16:30] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:16:38] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:16:38] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:16:38] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:16:38] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:16:38] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:18:14] [INFO] Running module 'wifiChecker' with args: 
+[2025-11-10 15:18:14] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:18:14] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:18:22] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:18:22] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:18:22] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:18:22] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:18:22] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:19:08] [INFO] Running module 'wifiChecker' with args: 
+[2025-11-10 15:19:08] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:19:08] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:19:16] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:19:16] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:19:16] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:19:16] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:19:16] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:19:28] [INFO] Running module 'wifiChecker' with args: 
+[2025-11-10 15:19:28] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:19:28] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:19:28] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:19:28] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:19:28] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:19:28] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:19:28] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:20:45] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:20:45] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:20:53] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:20:53] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:20:53] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:20:53] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:20:53] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:20:53] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:20:53] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:20:53] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:20:53] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:20:53] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:21:24] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:21:24] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:21:33] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:21:33] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:21:33] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:21:33] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:21:33] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:21:33] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:21:33] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:21:33] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:21:33] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:21:33] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:21:58] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:21:58] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:21:58] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:21:58] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:21:58] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:21:58] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:21:58] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:21:58] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:21:58] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:21:58] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:21:58] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:21:58] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:22:38] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:22:38] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:22:46] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:22:46] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:22:46] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:22:46] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:22:46] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:22:46] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:22:46] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:22:46] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:22:46] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:22:46] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:23:01] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-10 15:23:01] [INFO] Starting module 'wifiChecker'
+[2025-11-10 15:23:01] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:23:01] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:23:01] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:23:01] [INFO] Finished module 'wifiChecker'
+[2025-11-10 15:23:01] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-10 15:23:01] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-10 15:23:01] [INFO] [wifiChecker] Wi-Fi connecté : eduroam
+lo
+[2025-11-10 15:23:01] [INFO] [wifiChecker] Type de sécurité : WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+WPA2 802.1X
+[2025-11-10 15:23:01] [INFO] [wifiChecker] VPN inactif.
+[2025-11-10 15:23:01] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
+[2025-11-10 15:24:19] [INFO] Launching interface module 'graphicInterface'
+[2025-11-10 15:24:19] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
+[2025-11-10 15:24:29] [INFO] JavaFX GUI finished
+[2025-11-10 15:24:29] [INFO] Finished interface module 'graphicInterface'

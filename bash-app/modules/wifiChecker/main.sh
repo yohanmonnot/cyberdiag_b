@@ -4,6 +4,14 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 source "$PROJECT_ROOT/utils/env.sh"
 source "$PROJECT_ROOT/utils/logger.sh"
 
+# Couleurs ANSI
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+BLUE="\033[0;34m"
+CYAN="\033[0;36m"
+RESET="\033[0m"
+
 ERROR_MESSAGE=""
 SCORE=5
 RECOMMENDATION="Toutes les connexions sans fil sont désactivées."
@@ -12,6 +20,7 @@ CURRENT_SECURITY=""
 CONNECTED_TO_PUBLIC_WIFI=false
 VPN_ENABLED=false
 
+# --- Output JSON Result ---
 output_json() {
     local STATUS="$1"
     local ERROR="$2"
@@ -25,26 +34,25 @@ output_json() {
         '{status: $status, error: $error, score: $score, recommendation: $recommendation}')
 }
 
+# --- Check Connected Wi-Fi ---
 check_connected_wifi() {
     if ! command -v nmcli &>/dev/null; then
         ERROR_MESSAGE="nmcli n'est pas installé."
         log_error "[wifiChecker] $ERROR_MESSAGE"
         output_json "FAIL" "$ERROR_MESSAGE" 0 "Installer NetworkManager"
-        exit 0
+        return 1
     fi
 
-    # Récupère la connexion active (plus fiable)
     local ACTIVE_CONN
     ACTIVE_CONN=$(nmcli -t -f NAME,DEVICE,TYPE,STATE connection show --active)
 
     if [[ -z "$ACTIVE_CONN" ]]; then
         log_info "[wifiChecker] Aucun Wi-Fi connecté actuellement."
         output_json "OK" "" 5 "$RECOMMENDATION"
-        exit 0
+        return 0
     fi
 
     CURRENT_SSID=$(echo "$ACTIVE_CONN" | cut -d':' -f1)
-    # Sécurité : récupérer via nmcli dev wifi list et filtrer par SSID
     CURRENT_SECURITY=$(nmcli -t -f SSID,SECURITY dev wifi list | grep "^$CURRENT_SSID:" | cut -d':' -f2)
     log_info "[wifiChecker] Wi-Fi connecté : $CURRENT_SSID"
     log_info "[wifiChecker] Type de sécurité : ${CURRENT_SECURITY:-Inconnu}"
@@ -58,8 +66,10 @@ check_connected_wifi() {
         SCORE=5
         RECOMMENDATION="Réseau Wi-Fi sécurisé. Continuez à suivre les bonnes pratiques ANSSI."
     fi
+    return 0
 }
 
+# --- Check VPN Status ---
 check_vpn() {
     if command -v nmcli &>/dev/null; then
         if nmcli connection show --active | grep -qi "vpn"; then
@@ -70,8 +80,10 @@ check_vpn() {
             log_info "[wifiChecker] VPN inactif."
         fi
     fi
+    return 0
 }
 
+# --- Calculate final score ---
 calculate_score() {
     if [ "$CONNECTED_TO_PUBLIC_WIFI" = true ] && [ "$VPN_ENABLED" = false ]; then
         SCORE=1
@@ -80,9 +92,72 @@ calculate_score() {
         SCORE=3
         RECOMMENDATION="Connecté à un réseau public avec VPN, prudence recommandée."
     fi
+    return 0
 }
 
+# --- Self-testing functionality ---
+run_self_tests() {
+    echo "============================================="
+    echo "Running internal function tests (wifiChecker)"
+    echo "============================================="
+
+    local passed=0
+    local failed=0
+
+    test_case() {
+        local name="$1"
+        shift
+        if "$@"; then
+            echo -e "${GREEN}PASS${RESET} - $name"
+            ((passed++))
+        else
+            echo -e "${RED}FAIL${RESET} - $name"
+            ((failed++))
+        fi
+    }
+
+    # Test output_json
+    test_case "output_json returns valid JSON" bash -c 'output_json "OK" "" 5 "Test" | jq . >/dev/null 2>&1'
+
+    # Test check_connected_wifi (mock mode)
+    if command -v nmcli &>/dev/null; then
+        test_case "check_connected_wifi executes without crash" check_connected_wifi
+    else
+        echo "SKIP - nmcli non disponible"
+    fi
+
+    # Test check_vpn
+    test_case "check_vpn executes without crash" check_vpn
+
+    # Test calculate_score modifies SCORE variable
+    SCORE=5; CONNECTED_TO_PUBLIC_WIFI=true; VPN_ENABLED=false
+    calculate_score
+    if [[ "$SCORE" -eq 1 ]]; then
+        echo -e "${GREEN}PASS${RESET} - calculate_score logic correct"
+        ((passed++))
+    else
+        echo -e "${RED}FAIL${RESET} - calculate_score logic incorrect"
+        ((failed++))
+    fi
+
+    echo -e "-------------------------------------------"
+    echo -e "${CYAN}Total:${RESET} $((passed+failed)) | ${GREEN}Passed:${RESET} $passed | ${RED}Failed:${RESET} $failed"
+    echo -e "-------------------------------------------"
+
+    if [[ $failed -eq 0 ]]; then
+        echo -e "${GREEN}All internal tests passed.${RESET}"
+    else
+        echo -e "${RED}Some internal tests failed.${RESET}"
+    fi
+}
+
+# --- Main Execution ---
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_self_tests
+        exit 0
+    fi
+
     log_info "[wifiChecker] Démarrage du module Wi-Fi..."
     check_connected_wifi
     check_vpn
