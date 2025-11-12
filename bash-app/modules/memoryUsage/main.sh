@@ -6,6 +6,14 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 source "$PROJECT_ROOT/utils/env.sh"
 source "$PROJECT_ROOT/utils/logger.sh"
 
+# Couleurs ANSI
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+BLUE="\033[0;34m"
+CYAN="\033[0;36m"
+RESET="\033[0m"
+
 # --- Variables globales ---
 ERROR_MESSAGE=""
 MEM_TOTAL=""
@@ -123,8 +131,88 @@ calculate_score() {
     fi
 }
 
+# --- Self-testing functionality ---
+# --- Self-testing functionality ---
+run_self_tests() {
+    echo "============================================="
+    echo "Running internal function tests (memoryUsage)"
+    echo "============================================="
+
+    local passed=0
+    local failed=0
+
+    test_case() {
+        local name="$1"
+        shift
+        if "$@"; then
+            echo -e "${GREEN}PASS${RESET} - $name"
+            ((passed++))
+        else
+            echo -e "${RED}FAIL${RESET} - $name"
+            ((failed++))
+        fi
+    }
+
+    # --- Test : output_json ---
+    test_case "output_json produces valid JSON" bash -c 'output_json "OK" "" 5 "Test" | jq . >/dev/null 2>&1'
+
+    # --- Test : check_requirements ---
+    if command -v free &>/dev/null && command -v jq &>/dev/null; then
+        test_case "check_requirements executes without error" check_requirements
+    else
+        echo -e "${YELLOW}SKIP${RESET} - command 'free' or 'jq' not available"
+    fi
+
+    # --- Test : collect_memory_data ---
+    test_case "collect_memory_data runs without crash" collect_memory_data
+    if [[ $USED_PERCENTAGE -ge 0 && $USED_PERCENTAGE -le 100 ]]; then
+        echo -e "${GREEN}PASS${RESET} - USED_PERCENTAGE value valid (${USED_PERCENTAGE}%)"
+        ((passed++))
+    else
+        echo -e "${RED}FAIL${RESET} - USED_PERCENTAGE value invalid (${USED_PERCENTAGE}%)"
+        ((failed++))
+    fi
+
+    # --- Test : collect_swap_data ---
+    test_case "collect_swap_data runs without crash" collect_swap_data
+    if [[ -n "$SWAP_TOTAL" && -n "$SWAP_USED" ]]; then
+        echo -e "${GREEN}PASS${RESET} - Swap data collected (${SWAP_USED}/${SWAP_TOTAL} MB)"
+        ((passed++))
+    else
+        echo -e "${RED}FAIL${RESET} - Swap data not collected properly"
+        ((failed++))
+    fi
+
+    # --- Test : calculate_score ---
+    USED_PERCENTAGE=85
+    calculate_score
+    if [[ "$SCORE" -eq 1 && "$RECOMMENDATION" == *"critique"* ]]; then
+        echo -e "${GREEN}PASS${RESET} - calculate_score logic consistent"
+        ((passed++))
+    else
+        echo -e "${RED}FAIL${RESET} - calculate_score logic inconsistent"
+        ((failed++))
+    fi
+
+    # --- Résumé ---
+    echo -e "-------------------------------------------"
+    echo -e "${CYAN}Total:${RESET} $((passed + failed)) | ${GREEN}Passed:${RESET} $passed | ${RED}Failed:${RESET} $failed"
+    echo -e "-------------------------------------------"
+
+    if [[ $failed -eq 0 ]]; then
+        echo -e "${GREEN}All internal tests passed.${RESET}"
+    else
+        echo -e "${RED}Some internal tests failed.${RESET}"
+    fi
+}
+
 # --- Main ---
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_self_tests
+        exit 0
+    fi
+
     log_info "[memoryUsage] Démarrage du module de vérification mémoire..."
     
     check_requirements

@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# --- Load environment and logger ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 source "$PROJECT_ROOT/utils/env.sh"
@@ -96,6 +98,7 @@ calculate_score() {
 }
 
 # --- Self-testing functionality ---
+# --- Self-testing functionality ---
 run_self_tests() {
     echo "============================================="
     echo "Running internal function tests (wifiChecker)"
@@ -116,32 +119,61 @@ run_self_tests() {
         fi
     }
 
-    # Test output_json
-    test_case "output_json returns valid JSON" bash -c 'output_json "OK" "" 5 "Test" | jq . >/dev/null 2>&1'
+    # --- Test : output_json ---
+    test_case "output_json produces valid JSON" bash -c 'output_json "OK" "" 5 "Test" | jq . >/dev/null 2>&1'
 
-    # Test check_connected_wifi (mock mode)
+    # --- Test : check_connected_wifi ---
     if command -v nmcli &>/dev/null; then
         test_case "check_connected_wifi executes without crash" check_connected_wifi
+        if [[ -n "$CURRENT_SSID" || "$CONNECTED_TO_PUBLIC_WIFI" == true || "$CONNECTED_TO_PUBLIC_WIFI" == false ]]; then
+            echo -e "${GREEN}PASS${RESET} - check_connected_wifi output valid"
+            ((passed++))
+        else
+            echo -e "${RED}FAIL${RESET} - check_connected_wifi did not set expected variables"
+            ((failed++))
+        fi
     else
-        echo "SKIP - nmcli non disponible"
+        echo -e "${YELLOW}SKIP${RESET} - nmcli not available on system"
     fi
 
-    # Test check_vpn
+    # --- Test : check_vpn ---
     test_case "check_vpn executes without crash" check_vpn
-
-    # Test calculate_score modifies SCORE variable
-    SCORE=5; CONNECTED_TO_PUBLIC_WIFI=true; VPN_ENABLED=false
-    calculate_score
-    if [[ "$SCORE" -eq 1 ]]; then
-        echo -e "${GREEN}PASS${RESET} - calculate_score logic correct"
+    if [[ "$VPN_ENABLED" == true || "$VPN_ENABLED" == false ]]; then
+        echo -e "${GREEN}PASS${RESET} - VPN status variable valid"
         ((passed++))
     else
-        echo -e "${RED}FAIL${RESET} - calculate_score logic incorrect"
+        echo -e "${RED}FAIL${RESET} - VPN status variable invalid"
         ((failed++))
     fi
 
+    # --- Test : calculate_score ---
+    CONNECTED_TO_PUBLIC_WIFI=true
+    VPN_ENABLED=false
+    SCORE=5
+    calculate_score
+    if [[ "$SCORE" -eq 1 && "$RECOMMENDATION" == *"public sans VPN"* ]]; then
+        echo -e "${GREEN}PASS${RESET} - calculate_score logic (public + no VPN) correct"
+        ((passed++))
+    else
+        echo -e "${RED}FAIL${RESET} - calculate_score logic (public + no VPN) incorrect"
+        ((failed++))
+    fi
+
+    CONNECTED_TO_PUBLIC_WIFI=true
+    VPN_ENABLED=true
+    SCORE=5
+    calculate_score
+    if [[ "$SCORE" -eq 3 && "$RECOMMENDATION" == *"public avec VPN"* ]]; then
+        echo -e "${GREEN}PASS${RESET} - calculate_score logic (public + VPN) correct"
+        ((passed++))
+    else
+        echo -e "${RED}FAIL${RESET} - calculate_score logic (public + VPN) incorrect"
+        ((failed++))
+    fi
+
+    # --- Résumé ---
     echo -e "-------------------------------------------"
-    echo -e "${CYAN}Total:${RESET} $((passed+failed)) | ${GREEN}Passed:${RESET} $passed | ${RED}Failed:${RESET} $failed"
+    echo -e "${CYAN}Total:${RESET} $((passed + failed)) | ${GREEN}Passed:${RESET} $passed | ${RED}Failed:${RESET} $failed"
     echo -e "-------------------------------------------"
 
     if [[ $failed -eq 0 ]]; then
@@ -159,9 +191,11 @@ main() {
     fi
 
     log_info "[wifiChecker] Démarrage du module Wi-Fi..."
+
     check_connected_wifi
     check_vpn
     calculate_score
+    
     log_info "[wifiChecker] Vérification terminée avec un score de $SCORE/5"
     output_json "OK" "" "$SCORE" "$RECOMMENDATION"
 }

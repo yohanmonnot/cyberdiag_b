@@ -1443,3 +1443,189 @@ WPA2 802.1X
 [2025-11-10 15:24:19] [INFO] Launching JavaFX GUI from ./modules/graphicInterface/java-ui-1.0.jar
 [2025-11-10 15:24:29] [INFO] JavaFX GUI finished
 [2025-11-10 15:24:29] [INFO] Finished interface module 'graphicInterface'
+[2025-11-12 18:36:11] [INFO] Running module 'wifiChecker' with args: 
+[2025-11-12 18:36:11] [INFO] Starting module 'wifiChecker'
+[2025-11-12 18:36:11] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-12 18:36:11] [INFO] [wifiChecker] Wi-Fi connecté : lo
+[2025-11-12 18:36:11] [INFO] [wifiChecker] Type de sécurité : Inconnu
+[2025-11-12 18:36:11] [INFO] [wifiChecker] VPN inactif.
+[2025-11-12 18:36:11] [INFO] [wifiChecker] Vérification terminée avec un score de 1/5
+[2025-11-12 18:36:11] [INFO] Finished module 'wifiChecker'
+[2025-11-12 18:36:19] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-12 18:36:19] [INFO] Starting module 'wifiChecker'
+[2025-11-12 18:36:20] [INFO] [wifiChecker] Wi-Fi connecté : lo
+[2025-11-12 18:36:20] [INFO] [wifiChecker] Type de sécurité : Inconnu
+[2025-11-12 18:36:20] [INFO] [wifiChecker] VPN inactif.
+[2025-11-12 18:36:20] [INFO] Finished module 'wifiChecker'
+[2025-11-12 18:36:20] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-12 18:36:20] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-12 18:36:20] [INFO] [wifiChecker] Wi-Fi connecté : lo
+[2025-11-12 18:36:20] [INFO] [wifiChecker] Type de sécurité : Inconnu
+[2025-11-12 18:36:20] [INFO] [wifiChecker] VPN inactif.
+[2025-11-12 18:36:20] [INFO] [wifiChecker] Vérification terminée avec un score de 1/5
+[2025-11-12 18:36:40] [INFO] Running module 'cpuUsage' with args: --test
+[2025-11-12 18:36:40] [INFO] Starting module 'cpuUsage'
+[2025-11-12 18:36:40] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:36:40] [INFO] [cpuUsage] CPU utilisé : -873%
+[2025-11-12 18:36:40] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:36:40] [INFO] Finished module 'cpuUsage'
+[2025-11-12 18:36:40] [WARN] No 'test' field found in module.json for 'cpuUsage'
+[2025-11-12 18:36:40] [INFO] Running tests for module 'cpuUsage' (file: test.sh)
+[2025-11-12 18:36:40] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:36:41] [INFO] [cpuUsage] CPU utilisé : -880%
+[2025-11-12 18:36:41] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:36:59] [INFO] Running module 'diskUsage' with args: --test
+[2025-11-12 18:36:59] [INFO] Starting module 'diskUsage'
+[2025-11-12 18:36:59] [INFO] [diskUsage] Démarrage du module de vérification disque...
+[2025-11-12 18:36:59] [INFO] [diskUsage] Nombre de systèmes de fichiers analysés : 3
+[2025-11-12 18:36:59] [INFO] [diskUsage] Utilisation moyenne : 33%
+[2025-11-12 18:36:59] [INFO] [diskUsage] Vérification terminée avec un score de 4/5
+[2025-11-12 18:36:59] [INFO] Finished module 'diskUsage'
+[2025-11-12 18:36:59] [WARN] No 'test' field found in module.json for 'diskUsage'
+[2025-11-12 18:36:59] [INFO] Running tests for module 'diskUsage' (file: test.sh)
+[2025-11-12 18:37:00] [INFO] [diskUsage] Démarrage du module de vérification disque...
+[2025-11-12 18:37:00] [INFO] [diskUsage] Nombre de systèmes de fichiers analysés : 3
+[2025-11-12 18:37:00] [INFO] [diskUsage] Utilisation moyenne : 33%
+[2025-11-12 18:37:00] [INFO] [diskUsage] Vérification terminée avec un score de 4/5
+[2025-11-12 18:37:19] [INFO] Running module 'memoryUsage' with args: --test
+[2025-11-12 18:37:19] [INFO] Starting module 'memoryUsage'
+[2025-11-12 18:37:19] [INFO] [memoryUsage] Démarrage du module de vérification mémoire...
+[2025-11-12 18:37:19] [INFO] [memoryUsage] Mémoire utilisée : 28% (4379MB/15167MB)
+[2025-11-12 18:37:19] [INFO] [memoryUsage] Swap utilisé : 0MB/0MB
+[2025-11-12 18:37:19] [INFO] [memoryUsage] Vérification terminée avec un score de 4/5
+[2025-11-12 18:37:19] [INFO] Finished module 'memoryUsage'
+[2025-11-12 18:37:19] [WARN] No 'test' field found in module.json for 'memoryUsage'
+[2025-11-12 18:37:19] [INFO] Running tests for module 'memoryUsage' (file: test.sh)
+[2025-11-12 18:37:19] [INFO] [memoryUsage] Démarrage du module de vérification mémoire...
+[2025-11-12 18:37:19] [INFO] [memoryUsage] Mémoire utilisée : 28% (4380MB/15167MB)
+[2025-11-12 18:37:19] [INFO] [memoryUsage] Swap utilisé : 0MB/0MB
+[2025-11-12 18:37:19] [INFO] [memoryUsage] Vérification terminée avec un score de 4/5
+[2025-11-12 18:43:52] [INFO] Running module 'cpuUsage' with args: --test
+[2025-11-12 18:43:52] [INFO] Starting module 'cpuUsage'
+[2025-11-12 18:43:52] [INFO] [cpuUsage] CPU utilisé : -880%
+[2025-11-12 18:43:52] [INFO] Finished module 'cpuUsage'
+[2025-11-12 18:43:53] [WARN] No 'test' field found in module.json for 'cpuUsage'
+[2025-11-12 18:43:53] [INFO] Running tests for module 'cpuUsage' (file: test.sh)
+[2025-11-12 18:43:53] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:43:53] [INFO] [cpuUsage] CPU utilisé : -885%
+[2025-11-12 18:43:53] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:53:55] [INFO] Running module 'cpuUsage' with args: --test
+[2025-11-12 18:53:55] [INFO] Starting module 'cpuUsage'
+[2025-11-12 18:53:55] [INFO] [cpuUsage] CPU utilisé : -880%
+[2025-11-12 18:53:55] [INFO] Finished module 'cpuUsage'
+[2025-11-12 18:53:55] [WARN] No 'test' field found in module.json for 'cpuUsage'
+[2025-11-12 18:53:55] [INFO] Running tests for module 'cpuUsage' (file: test.sh)
+[2025-11-12 18:53:55] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:53:55] [INFO] [cpuUsage] CPU utilisé : -885%
+[2025-11-12 18:53:55] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 17:57:00] [INFO] Running module 'cpuUsage' with args: --test
+[2025-11-12 17:57:00] [INFO] Starting module 'cpuUsage'
+[2025-11-12 17:57:01] [INFO] [cpuUsage] CPU utilisé : -880%
+[2025-11-12 17:57:01] [INFO] Finished module 'cpuUsage'
+[2025-11-12 17:57:01] [WARN] No 'test' field found in module.json for 'cpuUsage'
+[2025-11-12 17:57:01] [INFO] Running tests for module 'cpuUsage' (file: test.sh)
+[2025-11-12 17:57:01] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 17:57:01] [INFO] [cpuUsage] CPU utilisé : -890%
+[2025-11-12 17:57:01] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 17:57:55] [INFO] Running module 'cpuUsage' with args: --test
+[2025-11-12 17:57:55] [INFO] Starting module 'cpuUsage'
+[2025-11-12 17:57:55] [INFO] [cpuUsage] CPU utilisé : -875%
+[2025-11-12 17:57:55] [INFO] Finished module 'cpuUsage'
+[2025-11-12 17:57:55] [WARN] No 'test' field found in module.json for 'cpuUsage'
+[2025-11-12 17:57:55] [INFO] Running tests for module 'cpuUsage' (file: test.sh)
+[2025-11-12 17:57:55] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 17:57:55] [INFO] [cpuUsage] CPU utilisé : -885%
+[2025-11-12 17:57:55] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:00:19] [INFO] Running module 'cpuUsage' with args: --test
+[2025-11-12 18:00:19] [INFO] Starting module 'cpuUsage'
+[2025-11-12 18:00:19] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:00:19] [INFO] [cpuUsage] CPU utilisé : -818%
+[2025-11-12 18:00:19] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:00:20] [INFO] [cpuUsage] CPU utilisé : -880%
+[2025-11-12 18:00:20] [INFO] Finished module 'cpuUsage'
+[2025-11-12 18:00:20] [WARN] No 'test' field found in module.json for 'cpuUsage'
+[2025-11-12 18:00:20] [INFO] Running tests for module 'cpuUsage' (file: test.sh)
+[2025-11-12 18:00:20] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:00:20] [INFO] [cpuUsage] CPU utilisé : -880%
+[2025-11-12 18:00:20] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:04:28] [INFO] Running module 'cpuUsage' with args: --test
+[2025-11-12 18:04:28] [INFO] Starting module 'cpuUsage'
+[2025-11-12 18:04:28] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:04:28] [INFO] [cpuUsage] CPU utilisé : -875%
+[2025-11-12 18:04:28] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:04:28] [INFO] [cpuUsage] CPU utilisé : -869%
+[2025-11-12 18:04:28] [INFO] Finished module 'cpuUsage'
+[2025-11-12 18:04:28] [WARN] No 'test' field found in module.json for 'cpuUsage'
+[2025-11-12 18:04:28] [INFO] Running tests for module 'cpuUsage' (file: test.sh)
+[2025-11-12 18:04:29] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:04:29] [INFO] [cpuUsage] CPU utilisé : -778%
+[2025-11-12 18:04:29] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:04:34] [INFO] Running module 'diskUsage' with args: --test
+[2025-11-12 18:04:34] [INFO] Starting module 'diskUsage'
+[2025-11-12 18:04:34] [INFO] [diskUsage] Démarrage du module de vérification disque...
+[2025-11-12 18:04:34] [INFO] [diskUsage] Nombre de systèmes de fichiers analysés : 3
+[2025-11-12 18:04:34] [INFO] [diskUsage] Utilisation moyenne : 33%
+[2025-11-12 18:04:34] [INFO] [diskUsage] Vérification terminée avec un score de 4/5
+[2025-11-12 18:04:34] [INFO] [diskUsage] Nombre de systèmes de fichiers analysés : 3
+[2025-11-12 18:04:34] [INFO] [diskUsage] Utilisation moyenne : 33%
+[2025-11-12 18:04:34] [INFO] Finished module 'diskUsage'
+[2025-11-12 18:04:34] [WARN] No 'test' field found in module.json for 'diskUsage'
+[2025-11-12 18:04:34] [INFO] Running tests for module 'diskUsage' (file: test.sh)
+[2025-11-12 18:04:34] [INFO] [diskUsage] Démarrage du module de vérification disque...
+[2025-11-12 18:04:34] [INFO] [diskUsage] Nombre de systèmes de fichiers analysés : 3
+[2025-11-12 18:04:34] [INFO] [diskUsage] Utilisation moyenne : 33%
+[2025-11-12 18:04:34] [INFO] [diskUsage] Vérification terminée avec un score de 4/5
+[2025-11-12 18:09:23] [INFO] Running module 'memoryUsage' with args: --test
+[2025-11-12 18:09:23] [INFO] Starting module 'memoryUsage'
+[2025-11-12 18:09:23] [INFO] [memoryUsage] Mémoire utilisée : 37% (5634MB/15167MB)
+[2025-11-12 18:09:23] [INFO] [memoryUsage] Swap utilisé : 0MB/0MB
+[2025-11-12 18:09:23] [INFO] Finished module 'memoryUsage'
+[2025-11-12 18:09:23] [WARN] No 'test' field found in module.json for 'memoryUsage'
+[2025-11-12 18:09:23] [INFO] Running tests for module 'memoryUsage' (file: test.sh)
+[2025-11-12 18:09:23] [INFO] [memoryUsage] Démarrage du module de vérification mémoire...
+[2025-11-12 18:09:23] [INFO] [memoryUsage] Mémoire utilisée : 37% (5636MB/15167MB)
+[2025-11-12 18:09:23] [INFO] [memoryUsage] Swap utilisé : 0MB/0MB
+[2025-11-12 18:09:23] [INFO] [memoryUsage] Vérification terminée avec un score de 4/5
+[2025-11-12 18:09:41] [INFO] Running module 'diskUsage' with args: --test
+[2025-11-12 18:09:41] [INFO] Starting module 'diskUsage'
+[2025-11-12 18:09:41] [INFO] [diskUsage] Démarrage du module de vérification disque...
+[2025-11-12 18:09:41] [INFO] [diskUsage] Nombre de systèmes de fichiers analysés : 3
+[2025-11-12 18:09:41] [INFO] [diskUsage] Utilisation moyenne : 33%
+[2025-11-12 18:09:41] [INFO] [diskUsage] Vérification terminée avec un score de 4/5
+[2025-11-12 18:09:42] [INFO] [diskUsage] Nombre de systèmes de fichiers analysés : 3
+[2025-11-12 18:09:42] [INFO] [diskUsage] Utilisation moyenne : 33%
+[2025-11-12 18:09:42] [INFO] Finished module 'diskUsage'
+[2025-11-12 18:09:42] [WARN] No 'test' field found in module.json for 'diskUsage'
+[2025-11-12 18:09:42] [INFO] Running tests for module 'diskUsage' (file: test.sh)
+[2025-11-12 18:09:42] [INFO] [diskUsage] Démarrage du module de vérification disque...
+[2025-11-12 18:09:42] [INFO] [diskUsage] Nombre de systèmes de fichiers analysés : 3
+[2025-11-12 18:09:42] [INFO] [diskUsage] Utilisation moyenne : 33%
+[2025-11-12 18:09:42] [INFO] [diskUsage] Vérification terminée avec un score de 4/5
+[2025-11-12 18:09:49] [INFO] Running module 'cpuUsage' with args: --test
+[2025-11-12 18:09:49] [INFO] Starting module 'cpuUsage'
+[2025-11-12 18:09:49] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:09:49] [INFO] [cpuUsage] CPU utilisé : -885%
+[2025-11-12 18:09:49] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:09:50] [INFO] [cpuUsage] CPU utilisé : -875%
+[2025-11-12 18:09:50] [INFO] Finished module 'cpuUsage'
+[2025-11-12 18:09:50] [WARN] No 'test' field found in module.json for 'cpuUsage'
+[2025-11-12 18:09:50] [INFO] Running tests for module 'cpuUsage' (file: test.sh)
+[2025-11-12 18:09:50] [INFO] [cpuUsage] Démarrage du module de vérification CPU...
+[2025-11-12 18:09:50] [INFO] [cpuUsage] CPU utilisé : -864%
+[2025-11-12 18:09:50] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
+[2025-11-12 18:10:01] [ERROR] Module directory or metadata not found for 'wifiUsage'
+[2025-11-12 18:10:12] [ERROR] Module directory or metadata not found for 'wifiCheker'
+[2025-11-12 18:10:18] [INFO] Running module 'wifiChecker' with args: --test
+[2025-11-12 18:10:18] [INFO] Starting module 'wifiChecker'
+[2025-11-12 18:10:26] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-12 18:10:26] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-12 18:10:26] [INFO] [wifiChecker] VPN inactif.
+[2025-11-12 18:10:26] [INFO] Finished module 'wifiChecker'
+[2025-11-12 18:10:26] [INFO] Running tests for module 'wifiChecker' (file: test.sh)
+[2025-11-12 18:10:26] [INFO] [wifiChecker] Démarrage du module Wi-Fi...
+[2025-11-12 18:10:26] [INFO] [wifiChecker] Wi-Fi connecté : S24 Nolhan
+lo
+[2025-11-12 18:10:26] [INFO] [wifiChecker] Type de sécurité : WPA3
+[2025-11-12 18:10:26] [INFO] [wifiChecker] VPN inactif.
+[2025-11-12 18:10:26] [INFO] [wifiChecker] Vérification terminée avec un score de 5/5
