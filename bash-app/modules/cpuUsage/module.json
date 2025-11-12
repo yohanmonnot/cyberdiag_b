@@ -1,0 +1,24 @@
+{
+    "name": "cpuUsage",
+    "version": "1.0",
+    "type": "tool",
+    "description": "A module to check CPU usage on the system.",
+    "author": "Nolhan BLANCHETIÈRE--DRÔLON",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"],
+    "return_type": {
+        "keys": [
+            "status",
+            "error",
+            "score",
+            "recommendation"
+        ],
+        "types": {
+            "status": "string",
+            "error": "string",
+            "score": "number",
+            "recommendation": "string"
+        }
+    }
+}

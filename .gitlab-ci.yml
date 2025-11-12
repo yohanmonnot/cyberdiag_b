@@ -13,7 +13,7 @@ before_script:
 # ---------- BUILD ----------
 build_gradle_project:
   stage: build
-  image: eclipse-temurin:17
+  image: openjdk:17-slim
   script:
     - cd java-ui
     - echo "Running Gradle build..."
