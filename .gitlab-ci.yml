@@ -96,3 +96,9 @@ check_merge:
     - echo "✅ JAR found — safe to merge."
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
+
+test_runner:
+  stage: test
+  image: alpine:latest
+  script:
+    - echo "Runner is working"
