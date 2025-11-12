@@ -240,3 +240,4 @@
 [2025-10-24 14:20:59] [INFO] [cpuUsage] CPU utilisé : -366%
 [2025-10-24 14:20:59] [INFO] [cpuUsage] Vérification terminée avec un score de 5/5
 [2025-10-24 14:21:00] [INFO] Finished module 'cpuUsage'
+[2025-11-12 11:21:27] [INFO] Listing modules with filter='', sort='name'
