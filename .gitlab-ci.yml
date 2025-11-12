@@ -8,13 +8,14 @@ variables:
   GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
 
 before_script:
-  - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
+  - echo "Using Gradle wrapper and system JDK from Debian image"
 
 # ---------- BUILD ----------
 build_gradle_project:
   stage: build
-  image: openjdk:17-jdk-slim
+  image: debian:bookworm
   script:
+    - apt-get update && apt-get install -y openjdk-17-jdk
     - cd java-ui
     - echo "Running Gradle build..."
     - chmod +x ./gradlew
@@ -29,10 +30,11 @@ build_gradle_project:
 # ---------- TEST ----------
 test_jar_launch:
   stage: test
-  image: eclipse-temurin:17
+  image: debian:bookworm
   dependencies:
     - build_gradle_project
   script:
+    - apt-get update && apt-get install -y openjdk-17-jdk
     - echo "Checking built JAR..."
     - test -f java-ui/build/libs/java-ui-1.0.jar || (echo "JAR not found!" && exit 1)
     - echo "Launching JAR in headless mode..."
@@ -58,7 +60,7 @@ deploy_to_interface:
   dependencies:
     - test_jar_launch
   script:
-    - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
+    - echo "Using Gradle wrapper and JDK from Debian build"
     - apk add --no-cache git
     - echo "Deploying built JAR to bash-app/modules/interface/"
     - mkdir -p bash-app/modules/interface
@@ -73,9 +75,9 @@ deploy_to_interface:
     - git clean -fd
     - git checkout dev
     - git pull origin dev --rebase
-    - mkdir -p bash-app/modules/interface
+    - mkdir -p bash-app/modules/graphicInterface
     - echo "Deploying built JAR to graphicInterface module"
-    - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/graphicInterface/
+    - cp /tmp/java-ui-1.0.jar bash-app/modules/graphicInterface/
     - git add bash-app/modules/graphicInterface/java-ui-1.0.jar
     - 'git commit -m "CI: update built JAR [skip ci]" || echo "No changes to commit"'
     - git push origin dev
