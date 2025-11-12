@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Couleurs ANSI
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+BLUE="\033[0;34m"
+CYAN="\033[0;36m"
+RESET="\033[0m"
+
 # --- Mode verbeux global ---
 VERBOSE=false
 ARGS=()
@@ -131,7 +139,9 @@ run_script() {
 
     local MODULE_NAME="${SCRIPT_ARGS[0]}"
     local MODULE_DIR="$MODULES_DIR/$MODULE_NAME"
+    local META_FILE="$MODULE_DIR/module.json"
     local TEST_MODE=false
+    local PASSTHRU_ARGS=("${SCRIPT_ARGS[@]:1}") # tout ce qui suit le nom du module
 
     # Vérifie la présence du flag --test
     for arg in "${SCRIPT_ARGS[@]:1}"; do
@@ -140,26 +150,41 @@ run_script() {
         fi
     done
 
-    if [[ "$TEST_MODE" == true ]]; then
-        local TEST_SCRIPT="$MODULE_DIR/test.sh"
-        if [[ -f "$TEST_SCRIPT" ]]; then
-            log_info "Running tests for module '$MODULE_NAME'"
-            bash "$TEST_SCRIPT"
-        else
-            log_error "No test.sh found for module '$MODULE_NAME'"
-        fi
-        return
+    if [[ -d "$MODULE_DIR" && -f "$META_FILE" ]]; then
+        log_info "Running module '$MODULE_NAME' with args: ${PASSTHRU_ARGS[*]}"
+        run_module "$MODULE_NAME" "${PASSTHRU_ARGS[@]}"
+    else
+        log_error "Module directory or metadata not found for '$MODULE_NAME'"
+        return 1
     fi
 
-    # Sinon, exécution normale
-    for MODULE in "${SCRIPT_ARGS[@]}"; do
-        run_module "$MODULE"
-    done
+    if [[ "$TEST_MODE" == true ]]; then
+        local TEST_SCRIPT
+        TEST_SCRIPT=$(jq -r '.test // empty' "$META_FILE" 2>/dev/null)
+
+        if [[ -z "$TEST_SCRIPT" ]]; then
+            log_warn "No 'test' field found in module.json for '$MODULE_NAME'"
+            TEST_SCRIPT="$MODULE_DIR/test.sh"
+        else
+            TEST_SCRIPT="$MODULE_DIR/$TEST_SCRIPT"
+        fi
+
+        if [[ -f "$TEST_SCRIPT" ]]; then
+            log_info "Running tests for module '$MODULE_NAME' (file: $(basename "$TEST_SCRIPT"))"
+            bash "$TEST_SCRIPT"
+        else
+            log_error "Test script not found: $TEST_SCRIPT"
+        fi
+    fi
 }
 
 
 # Argument parsing (after functions so variables exist)
-echo "🔍 [DEBUG] Arguments bruts reçus : $@"
+echo "============================================="
+echo "DEBUG"
+echo "============================================="
+echo -e "${CYAN}Arguments bruts reçus :${RESET} $@"
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -v)
@@ -214,12 +239,12 @@ fi
 
 
 # --- Debug: état des variables après parsing ---
-echo "🔧 [DEBUG] Mode sélectionné : $MODE"
-echo "🔧 [DEBUG] Arguments de script : ${SCRIPT_ARGS[*]}"
-echo "🔧 [DEBUG] Interface personnalisée : $CUSTOM_INTERFACE"
-echo "🔧 [DEBUG] Filtre de liste : $LIST_FILTER"
-echo "🔧 [DEBUG] Tri de liste : $LIST_SORT"
-echo "🔧 [DEBUG] Mode verbeux : $VERBOSE"
+echo -e "${CYAN}Mode sélectionné :${RESET} $MODE"
+echo -e "${CYAN}Arguments de script :${RESET} ${SCRIPT_ARGS[*]}"
+echo -e "${CYAN}Interface personnalisée :${RESET} $CUSTOM_INTERFACE"
+echo -e "${CYAN}Filtre de liste :${RESET} $LIST_FILTER"
+echo -e "${CYAN}Tri de liste :${RESET} $LIST_SORT"
+echo -e "${CYAN}Mode verbeux :${RESET} $VERBOSE\n"
 
 # Main execution based on mode
 case "$MODE" in

@@ -6,6 +6,14 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 source "$PROJECT_ROOT/utils/env.sh"
 source "$PROJECT_ROOT/utils/logger.sh"
 
+# Couleurs ANSI
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+BLUE="\033[0;34m"
+CYAN="\033[0;36m"
+RESET="\033[0m"
+
 # --- Variables globales ---
 ERROR_MESSAGE=""
 CPU_USER=""
@@ -102,8 +110,72 @@ calculate_score() {
     fi
 }
 
+# --- Self-testing functionality ---
+run_self_tests() {
+    echo "============================================="
+    echo "Running internal function tests (cpuUsage)"
+    echo "============================================="
+
+    local passed=0
+    local failed=0
+
+    test_case() {
+        local name="$1"
+        shift
+        if "$@"; then
+            echo -e "${GREEN}PASS${RESET} - $name"
+            ((passed++))
+        else
+            echo -e "${RED}FAIL${RESET} - $name"
+            ((failed++))
+        fi
+    }
+
+    # --- Test output_json ---
+    test_case "output_json returns valid JSON" bash -c '
+        source "'"$PROJECT_ROOT/utils/env.sh"'" 2>/dev/null || true
+        source "'"$PROJECT_ROOT/utils/logger.sh"'" 2>/dev/null || true
+        source "'"$SCRIPT_DIR/$(basename "$0")"'" output_json >/dev/null 2>&1
+        declare -f output_json >/dev/null &&
+        output_json "OK" "" 5 "Test" | jq . >/dev/null 2>&1
+    '
+
+    # --- Test check_requirements ---
+    test_case "check_requirements executes without crash" check_requirements
+
+    # --- Test collect_cpu_data ---
+    test_case "collect_cpu_data executes without crash" collect_cpu_data
+
+    # --- Test calculate_score ---
+    USED_PERCENTAGE=85  # Simule une forte utilisation
+    calculate_score
+    if [[ "$SCORE" -eq 1 ]]; then
+        echo -e "${GREEN}PASS${RESET} - calculate_score logic correct"
+        ((passed++))
+    else
+        echo -e "${RED}FAIL${RESET} - calculate_score logic incorrect"
+        ((failed++))
+    fi
+
+    echo -e "-------------------------------------------"
+    echo -e "${CYAN}Total:${RESET} $((passed+failed)) | ${GREEN}Passed:${RESET} $passed | ${RED}Failed:${RESET} $failed"
+    echo -e "-------------------------------------------"
+
+    if [[ $failed -eq 0 ]]; then
+        echo -e "${GREEN}All internal tests passed.${RESET}"
+    else
+        echo -e "${RED}Some internal tests failed.${RESET}"
+    fi
+}
+
+
 # --- Main ---
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_self_tests
+        exit 0
+    fi
+
     log_info "[cpuUsage] Démarrage du module de vérification CPU..."
     
     check_requirements
