@@ -98,7 +98,6 @@ check_merge:
     - if: '$CI_COMMIT_BRANCH == "dev"'
 
 test_runner:
-  stage: test
   image: alpine:latest
   script:
     - echo "Runner is working"
