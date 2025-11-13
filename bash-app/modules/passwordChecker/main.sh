@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Script : check_password.sh
+# Script : check_passwords.sh
 # Description : Vérifie la politique de mot de passe PAM et génère un JSON
 # Auteur : Yohan
 # =============================================================================
@@ -184,3 +184,82 @@ EOF
 echo "$json"
 
 log_info "check_password: finished password policy check"
+
+# =============================================================================
+# --- Self-testing functionality ----------------------------------------------
+# =============================================================================
+run_self_tests() {
+    echo "========================================="
+    echo "Running internal tests for check_password"
+    echo "========================================="
+
+    local passed=0
+    local failed=0
+
+    GREEN="\033[0;32m"
+    RED="\033[0;31m"
+    CYAN="\033[0;36m"
+    RESET="\033[0m"
+
+    test_case() {
+        local name="$1"
+        shift
+        if "$@"; then
+            echo -e "${GREEN}PASS${RESET} - $name"
+            ((passed++))
+        else
+            echo -e "${RED}FAIL${RESET} - $name"
+            ((failed++))
+        fi
+    }
+
+    # --- Test 1: Vérification que la fonction check_numeric détecte bien les valeurs ---
+    test_case "check_numeric returns ok for valid value" bash -c '
+        source "$(dirname "$0")/main.sh"
+        check_numeric "minlen" 15 12 ge &>/dev/null
+    '
+
+    test_case "check_numeric warns on low value" bash -c '
+        source "$(dirname "$0")/main.sh"
+        check_numeric "minlen" 8 12 ge &>/dev/null
+    '
+
+    # --- Test 2: Vérification que get_option_value ne crash pas ---
+    test_case "get_option_value executes without error" bash -c '
+        source "$(dirname "$0")/main.sh"
+        get_option_value "minlen" >/dev/null 2>&1
+    '
+
+    # --- Test 3: Test de sortie JSON valide ---
+    test_case "JSON output is valid" bash -c '
+        SCRIPT_DIR="$(dirname "$0")"
+        "$SCRIPT_DIR/check_passwords.sh" | jq empty >/dev/null 2>&1
+    '
+
+    echo
+    echo -e "${CYAN}Résultat global:${RESET} $((passed+failed)) tests exécutés | ${GREEN}$passed passés${RESET} | ${RED}$failed échoués${RESET}"
+    echo
+
+    if [[ $failed -eq 0 ]]; then
+        echo -e "${GREEN} Tous les tests internes sont passés avec succès.${RESET}"
+    else
+        echo -e "${RED} Certains tests internes ont échoué.${RESET}"
+    fi
+}
+
+# =============================================================================
+# --- Main execution ----------------------------------------------------------
+# =============================================================================
+main() {
+    if [[ "$1" == "--test" ]]; then
+        run_self_tests
+        exit 0
+    fi
+
+    # Exécution normale
+    log_info "[check_password] Lancement du module ..."
+    # ton code d’analyse s’exécute ici automatiquement
+}
+
+main "$@"
+
