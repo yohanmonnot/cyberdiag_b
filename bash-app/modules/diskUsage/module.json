@@ -1,25 +1,10 @@
 {
-    "name": "diskUsage",
-    "version": "1.0",
-    "type": "tool",
-    "description": "A module to check disk usage on the system.",
-    "author": "Nolhan BLANCHETIÈRE--DRÔLON",
-    "main": "main.sh",
-    "args": [],
-    "dependencies": ["jq"],
-    "return_type": {
-        "keys": [
-            "status",
-            "error",
-            "score",
-            "recommendation",
-            "disk_data"
-        ],
-        "types": {
-            "status": "string",
-            "error": "string",
-            "score": "number",
-            "recommendation": "string"
-        }
-    }
+	"name": "diskUsage",
+	"version": "1.0",
+	"type": "tool",
+	"description": "A module to check disk usage on the system.",
+	"author": "Nolhan B.D.",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": []
 }

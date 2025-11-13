@@ -1,7 +1,6 @@
 #!/bin/bash
 
 LOG_FILE="./logs/app.log"
-VERBOSE="${VERBOSE:-false}"
 
 mkdir -p "$(dirname "$LOG_FILE")"
 
@@ -11,12 +10,7 @@ _log() {
     local MESSAGE="$*"
     local TIMESTAMP
     TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
-
-    echo "[$TIMESTAMP] [$LEVEL] $MESSAGE" >> "$LOG_FILE"
-
-    if [[ "$VERBOSE" == "true" ]]; then
-        echo "[$TIMESTAMP] [$LEVEL] $MESSAGE"
-    fi
+    echo "[$TIMESTAMP] [$LEVEL] $MESSAGE" | tee -a "$LOG_FILE"
 }
 
 log_info() {
