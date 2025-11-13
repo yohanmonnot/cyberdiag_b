@@ -1,5 +1,26 @@
 #!/bin/bash
 
+# Couleurs ANSI
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+BLUE="\033[0;34m"
+CYAN="\033[0;36m"
+RESET="\033[0m"
+
+# --- Mode verbeux global ---
+VERBOSE=false
+ARGS=()
+for arg in "$@"; do
+    if [[ "$arg" == "-v" ]]; then
+        VERBOSE=true
+    else
+        ARGS+=("$arg")
+    fi
+done
+set -- "${ARGS[@]}"
+export VERBOSE
+
 source "$(dirname "$0")/utils/logger.sh"
 
 MODE="gui"
@@ -19,27 +40,31 @@ fi
 list_modules() {
     local FILTER="$1"
     local SORT_FIELD="$2"
-    MODULE_LIST=()
+    local modules_json="[]"
+
     for d in "$MODULES_DIR"/*/; do
-        META="$d/module.json"
+        local META="$d/module.json"
         if [[ -f "$META" ]]; then
-            NAME=$(jq -r '.name // empty' "$META")
-            TYPE=$(jq -r '.type // empty' "$META")
-            DESC=$(jq -r '.description // empty' "$META")
+            local NAME=$(jq -r '.name // empty' "$META")
+            local TYPE=$(jq -r '.type // empty' "$META")
+            local DESC=$(jq -r '.description // empty' "$META")
+
             if [[ -z "$FILTER" || "$TYPE" == "$FILTER" ]]; then
-                MODULE_LIST+=("$NAME|$TYPE|$DESC")
+                modules_json=$(echo "$modules_json" | jq -c --arg name "$NAME" --arg type "$TYPE" --arg description "$DESC" \
+                    '. += [{"name": $name, "type": $type, "description": $description}]')
             fi
         fi
     done
 
+    # Tri selon le champ demandé
     case "$SORT_FIELD" in
-        name) sort_field=1 ;;
-        type) sort_field=2 ;;
-        description) sort_field=3 ;;
-        *) sort_field=1 ;;
+        name) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.name)') ;;
+        type) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.type)') ;;
+        description) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.description)') ;;
+        *) modules_json=$(echo "$modules_json" | jq -c 'sort_by(.name)') ;;
     esac
 
-    printf "%s\n" "${MODULE_LIST[@]}" | sort -t '|' -k"$sort_field"
+    echo "$modules_json"
 }
 
 # Function to run a module by its "name" field in module.json
@@ -105,19 +130,67 @@ run_script() {
 
     if [[ "${SCRIPT_ARGS[0]}" == "list" ]]; then
         log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
-        list_modules "$LIST_FILTER" "$LIST_SORT" | while read -r line; do
-            log_info "$line"
-        done
+        list_modules "$LIST_FILTER" "$LIST_SORT"
     else
         for MODULE in "${SCRIPT_ARGS[@]}"; do
             run_module "$MODULE"
         done
     fi
+
+    local MODULE_NAME="${SCRIPT_ARGS[0]}"
+    local MODULE_DIR="$MODULES_DIR/$MODULE_NAME"
+    local META_FILE="$MODULE_DIR/module.json"
+    local TEST_MODE=false
+    local PASSTHRU_ARGS=("${SCRIPT_ARGS[@]:1}") # tout ce qui suit le nom du module
+
+    # Vérifie la présence du flag --test
+    for arg in "${SCRIPT_ARGS[@]:1}"; do
+        if [[ "$arg" == "--test" ]]; then
+            TEST_MODE=true
+        fi
+    done
+
+    if [[ -d "$MODULE_DIR" && -f "$META_FILE" ]]; then
+        log_info "Running module '$MODULE_NAME' with args: ${PASSTHRU_ARGS[*]}"
+        run_module "$MODULE_NAME" "${PASSTHRU_ARGS[@]}"
+    else
+        log_error "Module directory or metadata not found for '$MODULE_NAME'"
+        return 1
+    fi
+
+    if [[ "$TEST_MODE" == true ]]; then
+        local TEST_SCRIPT
+        TEST_SCRIPT=$(jq -r '.test // empty' "$META_FILE" 2>/dev/null)
+
+        if [[ -z "$TEST_SCRIPT" ]]; then
+            log_warn "No 'test' field found in module.json for '$MODULE_NAME'"
+            TEST_SCRIPT="$MODULE_DIR/test.sh"
+        else
+            TEST_SCRIPT="$MODULE_DIR/$TEST_SCRIPT"
+        fi
+
+        if [[ -f "$TEST_SCRIPT" ]]; then
+            log_info "Running tests for module '$MODULE_NAME' (file: $(basename "$TEST_SCRIPT"))"
+            bash "$TEST_SCRIPT"
+        else
+            log_error "Test script not found: $TEST_SCRIPT"
+        fi
+    fi
 }
 
+
 # Argument parsing (after functions so variables exist)
+echo "============================================="
+echo "DEBUG"
+echo "============================================="
+echo -e "${CYAN}Arguments bruts reçus :${RESET} $@"
+
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        -v)
+            # déjà géré, on peut l'ignorer
+            shift
+            ;;
         --cli)
             MODE="cli"
             shift
@@ -129,7 +202,8 @@ while [[ $# -gt 0 ]]; do
         --script)
             MODE="script"
             shift
-            while [[ $# -gt 0 && "$1" != --* ]]; do
+            # Collecte tous les arguments jusqu'au prochain flag global connu
+            while [[ $# -gt 0 && "$1" != "--cli" && "$1" != "--gui" && "$1" != "--interface" && "$1" != "--filter" && "$1" != "--sort" ]]; do
                 SCRIPT_ARGS+=("$1")
                 shift
             done
@@ -151,7 +225,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             log_error "Unknown argument: $1"
-            log_info "Usage: $0 [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
+            log_info "Usage: $0 [-v] [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
             exit 1
             ;;
     esac
@@ -162,6 +236,15 @@ if [[ -n "$CUSTOM_INTERFACE" ]]; then
     run_interface_module "$CUSTOM_INTERFACE"
     exit $?
 fi
+
+
+# --- Debug: état des variables après parsing ---
+echo -e "${CYAN}Mode sélectionné :${RESET} $MODE"
+echo -e "${CYAN}Arguments de script :${RESET} ${SCRIPT_ARGS[*]}"
+echo -e "${CYAN}Interface personnalisée :${RESET} $CUSTOM_INTERFACE"
+echo -e "${CYAN}Filtre de liste :${RESET} $LIST_FILTER"
+echo -e "${CYAN}Tri de liste :${RESET} $LIST_SORT"
+echo -e "${CYAN}Mode verbeux :${RESET} $VERBOSE\n"
 
 # Main execution based on mode
 case "$MODE" in
