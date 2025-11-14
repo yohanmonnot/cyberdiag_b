@@ -71,12 +71,12 @@ Le script `bash-app/main.sh` centralise tous les modules et modes.
 
 ### Modes disponibles
 
-| Mode                        | Description                                          |
-| --------------------------- | ---------------------------------------------------- |
-| `--gui`                     | Lance l’interface graphique (`graphicInterface`)     |
-| `--cli`                     | Lance l’interface textuelle (`cliInterface`)         |
-| `--script [modules...]`     | Exécute un ou plusieurs modules en ligne de commande |
-| `--interface <module_name>` | Lance un module d’interface spécifique               |
+| Mode                         | Description                                                         |
+| ---------------------------- | ------------------------------------------------------------------- |
+| `--gui`                      | Lance l’interface graphique (`graphicInterface`)                    |
+| `--cli`                      | Lance l’interface textuelle (`cliInterface`)                        |
+| `--script <module> [args...]`| Exécute un module en ligne de commande avec ses arguments éventuels |
+| `--interface <module_name>`  | Lance un module d’interface spécifique                              |
 
 ### Options pour `--script`
 
