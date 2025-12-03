@@ -24,6 +24,7 @@ export VERBOSE
 source "$(dirname "$0")/utils/logger.sh"
 
 MODE="gui"
+SCRIPT_NAME=""
 SCRIPT_ARGS=()
 CUSTOM_INTERFACE=""
 LIST_FILTER=""
@@ -123,12 +124,8 @@ run_cli() {
 
 # SCRIPT mode
 run_script() {
-    if [[ ${#SCRIPT_ARGS[@]} -eq 0 ]]; then
-        log_warn "No arguments passed for --script"
-        return
-    fi
-
-    if [[ "${SCRIPT_ARGS[0]}" == "list" ]]; then
+    # Cas spécial : list
+    if [[ "$SCRIPT_NAME" == "list" ]]; then
         log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
         list_modules "$LIST_FILTER" "$LIST_SORT"
     else
