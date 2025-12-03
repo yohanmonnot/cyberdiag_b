@@ -1,5 +1,4 @@
 stages:
-  - prepare
   - build
   - test
   - deploy
@@ -9,14 +8,13 @@ variables:
   GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
 
 before_script:
-  - echo "Using Gradle wrapper and system JDK from Debian image"
+  - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
 
 # ---------- BUILD ----------
 build_gradle_project:
   stage: build
-  image: debian:bookworm
+  image: eclipse-temurin:17
   script:
-    - apt-get update && apt-get install -y openjdk-17-jdk
     - cd java-ui
     - echo "Running Gradle build..."
     - chmod +x ./gradlew
@@ -31,11 +29,10 @@ build_gradle_project:
 # ---------- TEST ----------
 test_jar_launch:
   stage: test
-  image: debian:bookworm
+  image: eclipse-temurin:17
   dependencies:
     - build_gradle_project
   script:
-    - apt-get update && apt-get install -y openjdk-17-jdk
     - echo "Checking built JAR..."
     - test -f java-ui/build/libs/java-ui-1.0.jar || (echo "JAR not found!" && exit 1)
     - echo "Launching JAR in headless mode..."
@@ -61,7 +58,7 @@ deploy_to_interface:
   dependencies:
     - test_jar_launch
   script:
-    - echo "Using Gradle wrapper and JDK from Debian build"
+    - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
     - apk add --no-cache git
     - echo "Deploying built JAR to bash-app/modules/interface/"
     - mkdir -p bash-app/modules/interface
@@ -76,9 +73,9 @@ deploy_to_interface:
     - git clean -fd
     - git checkout dev
     - git pull origin dev --rebase
-    - mkdir -p bash-app/modules/graphicInterface
+    - mkdir -p bash-app/modules/interface
     - echo "Deploying built JAR to graphicInterface module"
-    - cp /tmp/java-ui-1.0.jar bash-app/modules/graphicInterface/
+    - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/graphicInterface/
     - git add bash-app/modules/graphicInterface/java-ui-1.0.jar
     - 'git commit -m "CI: update built JAR [skip ci]" || echo "No changes to commit"'
     - git push origin dev
@@ -97,9 +94,3 @@ check_merge:
     - echo "✅ JAR found — safe to merge."
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
-
-test_runner:
-  stage: prepare
-  image: alpine:latest
-  script:
-    - echo "Runner is working"
