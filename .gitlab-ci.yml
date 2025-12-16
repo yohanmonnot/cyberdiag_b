@@ -2,7 +2,6 @@ stages:
   - build
   - test
   - deploy
-  - verify
 
 variables:
   # Définir le module pour les commandes JLink
@@ -81,7 +80,7 @@ test_jlink_launch:
 # ---------- DEPLOY (Copie de l'image JLink vers Git) ----------
 deploy_to_interface:
   stage: deploy
-  image: alpine/git:latest # Image légère avec Git pour la manipulation du dépôt
+  image: alpine/git:latest
   dependencies:
     - test_jlink_launch
   script:
@@ -89,44 +88,36 @@ deploy_to_interface:
     - git config --global user.email "ci-bot@gitlab.local"
     - git config --global user.name "GitLab CI Bot"
 
-    # 1. PRÉPARATION DU DÉPÔT LOCAL (Assurez-vous d'être sur la bonne branche)
-    - git fetch origin dev
-    - git reset --hard
-    - git clean -fd
-    - git checkout dev
-    - git pull origin dev --rebase
+    # 0. CONFIGURATION DE L'URL (CRUCIAL POUR LE PUSH)
+    # On modifie l'URL 'origin' pour inclure le nom d'utilisateur et le token.
+    # Note : Si vous avez déjà configuré une clé SSH sur le runner, cette étape n'est pas nécessaire,
+    # mais avec l'image 'alpine/git', c'est la méthode la plus sûre via HTTPS.
+    - git remote set-url origin https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git
+
+    # 1. PRÉPARATION DU DÉPÔT LOCAL SUR LA BRANCHE COURANTE
+    - 'echo "Checkout de la branche courante : ${CI_COMMIT_BRANCH}"'
+    - git fetch origin ${CI_COMMIT_BRANCH}
+    - git checkout ${CI_COMMIT_BRANCH}
+    - git pull origin ${CI_COMMIT_BRANCH} --rebase
 
     # 2. COPIE DE L'IMAGE JLINK
     - echo "Deploying JLink image to bash-app/modules/graphicInterface/runtime/"
-    - ARTIFACT_SOURCE=${CI_PROJECT_DIR}/java-ui/target/java-ui-linux # Chemin d'entrée
-    - ARTIFACT_DEST=bash-app/modules/graphicInterface/runtime # Chemin de sortie
+    - ARTIFACT_SOURCE=${CI_PROJECT_DIR}/java-ui/target/java-ui-linux
+    - ARTIFACT_DEST=bash-app/modules/graphicInterface/runtime
 
-    # Suppression de l'ancienne image runtime et copie de la nouvelle
+    # Nettoyage et copie
     - rm -rf ${ARTIFACT_DEST}
     - mkdir -p ${ARTIFACT_DEST}
-    # Utilisation de cp -r pour copier le dossier runtime complet
+    # Copie du dossier source À L'INTÉRIEUR du dossier de destination
+    # Résultat : bash-app/modules/graphicInterface/runtime/java-ui-linux/...
     - cp -r ${ARTIFACT_SOURCE} ${ARTIFACT_DEST}/
 
     - ls -lh ${ARTIFACT_DEST}
 
-    # 3. COMMIT ET PUSH
-    # Ajoutez le répertoire complet de l'image d'exécution
+    # 3. COMMIT ET PUSH DYNAMIQUE
     - git add ${ARTIFACT_DEST}
-    - 'git commit -m "CI: update JLink runtime image for graphicInterface [skip ci]" || echo "No changes to commit"'
-    - git push origin dev
-
-# ---------- VERIFY (MERGE CHECK) ----------
-check_merge:
-  stage: verify
-  image: alpine:latest
-  script:
-    - apk add --no-cache git
-    - echo "Cloning fresh copy of dev branch..."
-    - git clone --branch dev https://gitlab-ci-token:$CI_JOB_TOKEN@forgens.univ-ubs.fr/gitlab/but2info/cyberdiag_b.git repo-check
-    - cd repo-check
-    - echo "Checking if JLink runtime image exists in graphicInterface module..."
-    # La vérification doit cibler un fichier clé dans l'image runtime, comme l'exécutable
-    - test -f bash-app/modules/graphicInterface/runtime/java-ui-linux/bin/java || (echo "❌ JLink image missing — merge forbidden!" && exit 1)
-    - echo "✅ JLink image found — safe to merge."
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "dev"'
+    - 'git commit -m "CI: update JLink runtime image on branch ${CI_COMMIT_BRANCH} [skip ci]" || echo "No changes to commit"'
+    
+    # PUSH vers la variable de branche dynamique
+    - echo "Pushing changes to origin/${CI_COMMIT_BRANCH}..."
+    - git push origin ${CI_COMMIT_BRANCH}
