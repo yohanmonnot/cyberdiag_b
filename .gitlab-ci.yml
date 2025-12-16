@@ -17,14 +17,21 @@ variables:
 # ---------- BUILD (Maven + JLink pour Linux) ----------
 build_maven_jlink:
   stage: build
-  # CORRECTION DU TAG DE L'IMAGE
   image: maven:3.9-eclipse-temurin-17
   script:
-    - cd java-ui
-    - echo "Running Maven build and creating JLink runtime image for Linux..."
-    # Vérification de la version pour être sûr
-    - mvn -version
-    - mvn clean package javafx:jlink
+    # 1. On ne fait PAS de 'cd java-ui'. On reste à la racine.
+    - echo "Running Maven build from root..."
+    
+    # 2. On utilise l'option '-f' pour indiquer le fichier pom.xml
+    # On exécute seulement 'package'. Le profil 'linux-jlink' lié à la phase package 
+    # s'occupera de lancer jlink avec le bon nom (java-ui-linux).
+    - mvn -f java-ui/pom.xml clean package
+    
+    # 3. Debug : Listons le contenu de target pour être sûr du nom du dossier
+    - echo "Contenu de target :"
+    - ls -l java-ui/target/
+    
+    # 4. Vérification finale avec la variable
     - ls -l ${JLINK_IMAGE_DIR}
   artifacts:
     paths:
