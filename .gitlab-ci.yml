@@ -17,15 +17,16 @@ variables:
 # ---------- BUILD (Maven + JLink pour Linux) ----------
 build_maven_jlink:
   stage: build
-  image: maven:3.9.6-eclipse-temurin-17-jdk-focal # Utilisation d'un JDK complet pour JLink
+  # CORRECTION DU TAG DE L'IMAGE
+  image: maven:3.9-eclipse-temurin-17
   script:
     - cd java-ui
     - echo "Running Maven build and creating JLink runtime image for Linux..."
-    # Exécute package (crée JAR) puis jlink (crée image runtime dans target/java-ui-linux)
+    # Vérification de la version pour être sûr
+    - mvn -version
     - mvn clean package javafx:jlink
     - ls -l ${JLINK_IMAGE_DIR}
   artifacts:
-    # L'artefact à conserver est le DOSSIER JLink complet, compressé.
     paths:
       - ${JLINK_IMAGE_DIR}
     expire_in: 1 hour
