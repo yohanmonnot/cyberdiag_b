@@ -80,36 +80,40 @@ test_jlink_launch:
 # ---------- DEPLOY (Copie de l'image JLink vers Git) ----------
 deploy_to_interface:
   stage: deploy
-  image: alpine/git:latest
+  # CORRECTION 1 : On utilise alpine (neutre) au lieu de alpine/git
+  image: alpine:latest 
   dependencies:
     - test_jlink_launch
   script:
+    # CORRECTION 2 : On installe git nous-mêmes
+    - apk add --no-cache git
+
     - echo "Configuring Git for CI push..."
     - git config --global user.email "ci-bot@gitlab.local"
     - git config --global user.name "GitLab CI Bot"
 
     # 0. CONFIGURATION DE L'URL (CRUCIAL POUR LE PUSH)
-    # On modifie l'URL 'origin' pour inclure le nom d'utilisateur et le token.
-    # Note : Si vous avez déjà configuré une clé SSH sur le runner, cette étape n'est pas nécessaire,
-    # mais avec l'image 'alpine/git', c'est la méthode la plus sûre via HTTPS.
+    # Utilisation du CI_JOB_TOKEN pour s'authentifier
     - git remote set-url origin https://oauth2:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git
 
     # 1. PRÉPARATION DU DÉPÔT LOCAL SUR LA BRANCHE COURANTE
-    - 'echo "Checkout de la branche courante : ${CI_COMMIT_BRANCH}"'
+    # On utilise la variable ${CI_COMMIT_BRANCH} pour cibler la branche active (ex: fix/gradleToMvn)
+    - echo "Checkout de la branche courante : ${CI_COMMIT_BRANCH}"
     - git fetch origin ${CI_COMMIT_BRANCH}
     - git checkout ${CI_COMMIT_BRANCH}
     - git pull origin ${CI_COMMIT_BRANCH} --rebase
 
     # 2. COPIE DE L'IMAGE JLINK
     - echo "Deploying JLink image to bash-app/modules/graphicInterface/runtime/"
+    # Attention : Vérifiez bien que la variable JLINK_IMAGE_DIR est définie globalement ou en dur ici
+    # Si la variable globale n'est pas passée, utilisez le chemin direct :
     - ARTIFACT_SOURCE=${CI_PROJECT_DIR}/java-ui/target/java-ui-linux
     - ARTIFACT_DEST=bash-app/modules/graphicInterface/runtime
 
     # Nettoyage et copie
     - rm -rf ${ARTIFACT_DEST}
     - mkdir -p ${ARTIFACT_DEST}
-    # Copie du dossier source À L'INTÉRIEUR du dossier de destination
-    # Résultat : bash-app/modules/graphicInterface/runtime/java-ui-linux/...
+    # Copie du contenu de l'image DANS le dossier runtime
     - cp -r ${ARTIFACT_SOURCE} ${ARTIFACT_DEST}/
 
     - ls -lh ${ARTIFACT_DEST}
