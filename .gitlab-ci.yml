@@ -5,79 +5,96 @@ stages:
   - verify
 
 variables:
-  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+  # Définir le module pour les commandes JLink
+  APP_MODULE: edu.cyclonicforce.fr.java.ui
+  # Définir la classe principale pour les commandes JLink
+  APP_MAIN: edu.cyclonicforce.fr.ui.Main
+  # Définir le chemin de l'image d'exécution générée par JLink (dossier)
+  JLINK_IMAGE_DIR: java-ui/target/java-ui-linux
+  # Nom du lanceur générique dans l'image JLink sur Linux
+  JLINK_LAUNCHER: java-ui/target/java-ui-linux/bin/java
 
-before_script:
-  - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
-
-# ---------- BUILD ----------
-build_gradle_project:
+# ---------- BUILD (Maven + JLink pour Linux) ----------
+build_maven_jlink:
   stage: build
-  image: eclipse-temurin:17
+  image: eclipse-temurin:17-jdk # Utilisation d'un JDK complet pour JLink
   script:
     - cd java-ui
-    - echo "Running Gradle build..."
-    - chmod +x ./gradlew
-    - ./gradlew clean build
+    - echo "Running Maven build and creating JLink runtime image for Linux..."
+    # Exécute package (crée JAR) puis jlink (crée image runtime dans target/java-ui-linux)
+    - mvn clean package javafx:jlink
+    - ls -l ${JLINK_IMAGE_DIR}
   artifacts:
+    # L'artefact à conserver est le DOSSIER JLink complet, compressé.
     paths:
-      - java-ui/build/libs/java-ui-1.0.jar
-    reports:
-      junit: '**/build/test-results/**/TEST-*.xml'
+      - ${JLINK_IMAGE_DIR}
     expire_in: 1 hour
 
-# ---------- TEST ----------
-test_jar_launch:
+# ---------- TEST (Lancement de l'image JLink) ----------
+test_jlink_launch:
   stage: test
-  image: eclipse-temurin:17
+  image: eclipse-temurin:17-jdk # Encore besoin du JDK pour certaines opérations internes
   dependencies:
-    - build_gradle_project
+    - build_maven_jlink
   script:
-    - echo "Checking built JAR..."
-    - test -f java-ui/build/libs/java-ui-1.0.jar || (echo "JAR not found!" && exit 1)
-    - echo "Launching JAR in headless mode..."
-    - java -jar java-ui/build/libs/java-ui-1.0.jar --headless &
-    - JAR_PID=$!
+    - echo "Checking JLink image directory..."
+    - test -d ${JLINK_IMAGE_DIR} || (echo "JLink image not found!" && exit 1)
+
+    - echo "Launching JLink image with modular command..."
+    # COMMANDE CLE : Lance l'exécutable JRE dans le dossier JLink avec les options modulaires
+    - ${JLINK_LAUNCHER} --module ${APP_MODULE}/${APP_MAIN} &
+
+    - APP_PID=$!
     - sleep 5
-    - if ps -p $JAR_PID > /dev/null; then
-        echo "JAR started successfully.";
-        kill $JAR_PID;
+    - if ps -p $APP_PID > /dev/null; then
+      echo "Application started successfully.";
+      # Arrête le processus après le test de lancement
+      kill $APP_PID;
       else
-        echo "JAR failed to start.";
-        exit 1;
+      echo "❌ Application failed to start.";
+      exit 1;
       fi
   artifacts:
+    # On conserve l'image JLink pour la phase DEPLOY
     paths:
-      - java-ui/build/libs/java-ui-1.0.jar
+      - ${JLINK_IMAGE_DIR}
     expire_in: 1 hour
 
-# ---------- DEPLOY ----------
+# ---------- DEPLOY (Copie de l'image JLink vers Git) ----------
 deploy_to_interface:
   stage: deploy
-  image: alpine:latest
+  image: alpine/git:latest # Image légère avec Git pour la manipulation du dépôt
   dependencies:
-    - test_jar_launch
+    - test_jlink_launch
   script:
-    - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
-    - apk add --no-cache git
-    - echo "Deploying built JAR to bash-app/modules/interface/"
-    - mkdir -p bash-app/modules/interface
-    - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/interface/
-    - ls -lh bash-app/modules/interface/
     - echo "Configuring Git for CI push..."
     - git config --global user.email "ci-bot@gitlab.local"
     - git config --global user.name "GitLab CI Bot"
+
+    # 1. PRÉPARATION DU DÉPÔT LOCAL (Assurez-vous d'être sur la bonne branche)
     - git fetch origin dev
-    - cp java-ui/build/libs/java-ui-1.0.jar /tmp/java-ui-1.0.jar
     - git reset --hard
     - git clean -fd
     - git checkout dev
     - git pull origin dev --rebase
-    - mkdir -p bash-app/modules/interface
-    - echo "Deploying built JAR to graphicInterface module"
-    - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/graphicInterface/
-    - git add bash-app/modules/graphicInterface/java-ui-1.0.jar
-    - 'git commit -m "CI: update built JAR [skip ci]" || echo "No changes to commit"'
+
+    # 2. COPIE DE L'IMAGE JLINK
+    - echo "Deploying JLink image to bash-app/modules/graphicInterface/runtime/"
+    - ARTIFACT_SOURCE=${CI_PROJECT_DIR}/java-ui/target/java-ui-linux # Chemin d'entrée
+    - ARTIFACT_DEST=bash-app/modules/graphicInterface/runtime # Chemin de sortie
+
+    # Suppression de l'ancienne image runtime et copie de la nouvelle
+    - rm -rf ${ARTIFACT_DEST}
+    - mkdir -p ${ARTIFACT_DEST}
+    # Utilisation de cp -r pour copier le dossier runtime complet
+    - cp -r ${ARTIFACT_SOURCE} ${ARTIFACT_DEST}/
+
+    - ls -lh ${ARTIFACT_DEST}
+
+    # 3. COMMIT ET PUSH
+    # Ajoutez le répertoire complet de l'image d'exécution
+    - git add ${ARTIFACT_DEST}
+    - 'git commit -m "CI: update JLink runtime image for graphicInterface [skip ci]" || echo "No changes to commit"'
     - git push origin dev
 
 # ---------- VERIFY (MERGE CHECK) ----------
@@ -89,8 +106,9 @@ check_merge:
     - echo "Cloning fresh copy of dev branch..."
     - git clone --branch dev https://gitlab-ci-token:$CI_JOB_TOKEN@forgens.univ-ubs.fr/gitlab/but2info/cyberdiag_b.git repo-check
     - cd repo-check
-    - echo "Checking if JAR exists in graphicInterface module..."
-    - test -f bash-app/modules/graphicInterface/java-ui-1.0.jar || (echo "❌ JAR missing — merge forbidden!" && exit 1)
-    - echo "✅ JAR found — safe to merge."
+    - echo "Checking if JLink runtime image exists in graphicInterface module..."
+    # La vérification doit cibler un fichier clé dans l'image runtime, comme l'exécutable
+    - test -f bash-app/modules/graphicInterface/runtime/java-ui-linux/bin/java || (echo "❌ JLink image missing — merge forbidden!" && exit 1)
+    - echo "✅ JLink image found — safe to merge."
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
