@@ -90,13 +90,13 @@ deploy_to_interface:
     - git config --global user.email "ci-bot@gitlab.local"
     - git config --global user.name "GitLab CI Bot"
 
-    # CORRECTION DE L'URL : Ajout de "/gitlab/" qui manquait
-    # On utilise sed pour insérer les identifiants dans la variable CI_SERVER_URL qui contient déjà le bon chemin complet
-    - echo "Setting remote URL..."
-    - REMOTE_URL=$(echo "${CI_SERVER_URL}/${CI_PROJECT_PATH}.git" | sed "s|https://|https://oauth2:${CI_JOB_TOKEN}@|")
+    # CORRECTION : Utilisation du GIT_PUSH_TOKEN créé manuellement
+    - echo "Setting remote URL with Project Access Token..."
+    # Syntaxe pour Project Access Token : https://oauth2:<TOKEN>@domaine...
+    - REMOTE_URL=$(echo "${CI_SERVER_URL}/${CI_PROJECT_PATH}.git" | sed "s|https://|https://oauth2:${GIT_PUSH_TOKEN}@|")
     - git remote set-url origin "${REMOTE_URL}"
 
-    # 1. PRÉPARATION DU DÉPÔT LOCAL SUR LA BRANCHE COURANTE
+    # 1. PRÉPARATION DU DÉPÔT LOCAL
     - 'echo "Checkout de la branche courante : ${CI_COMMIT_BRANCH}"'
     - git fetch origin ${CI_COMMIT_BRANCH}
     - git checkout ${CI_COMMIT_BRANCH}
@@ -114,8 +114,11 @@ deploy_to_interface:
 
     - ls -lh ${ARTIFACT_DEST}
 
-    # 3. COMMIT ET PUSH DYNAMIQUE
+    # 3. COMMIT ET PUSH
     - git add ${ARTIFACT_DEST}
+    
+    # Message de commit avec [skip ci] pour ÉVITER UNE BOUCLE INFINIE
+    # Si le push déclenche une pipeline, qui refait un push, etc., ça ne s'arrête jamais.
     - 'git commit -m "CI: update JLink runtime image on branch ${CI_COMMIT_BRANCH} [skip ci]" || echo "No changes to commit"'
     
     - echo "Pushing changes to origin/${CI_COMMIT_BRANCH}..."
