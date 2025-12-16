@@ -47,13 +47,13 @@ test_jlink_launch:
     - APP_PID=$!
     - sleep 5
     - if ps -p $APP_PID > /dev/null; then
-      echo "Application started successfully.";
+    - echo "Application started successfully.";
       # Arrête le processus après le test de lancement
-      kill $APP_PID;
-      else
-      echo "❌ Application failed to start.";
-      exit 1;
-      fi
+    - kill $APP_PID;
+    - else
+    - echo "❌ Application failed to start.";
+    - exit 1;
+    - fi
   artifacts:
     # On conserve l'image JLink pour la phase DEPLOY
     paths:
