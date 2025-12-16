@@ -17,7 +17,7 @@ variables:
 # ---------- BUILD (Maven + JLink pour Linux) ----------
 build_maven_jlink:
   stage: build
-  image: eclipse-temurin:17-jdk # Utilisation d'un JDK complet pour JLink
+  image: maven:3.9.6-eclipse-temurin-17-jdk-focal # Utilisation d'un JDK complet pour JLink
   script:
     - cd java-ui
     - echo "Running Maven build and creating JLink runtime image for Linux..."
