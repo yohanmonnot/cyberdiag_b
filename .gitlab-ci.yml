@@ -98,7 +98,7 @@ deploy_to_interface:
 
     # 1. PRÉPARATION DU DÉPÔT LOCAL SUR LA BRANCHE COURANTE
     # On utilise la variable ${CI_COMMIT_BRANCH} pour cibler la branche active (ex: fix/gradleToMvn)
-    - echo "Checkout de la branche courante : ${CI_COMMIT_BRANCH}"
+    - 'echo "Checkout de la branche courante : ${CI_COMMIT_BRANCH}"'
     - git fetch origin ${CI_COMMIT_BRANCH}
     - git checkout ${CI_COMMIT_BRANCH}
     - git pull origin ${CI_COMMIT_BRANCH} --rebase
