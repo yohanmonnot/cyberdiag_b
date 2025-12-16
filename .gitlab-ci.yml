@@ -45,28 +45,32 @@ test_jlink_launch:
   dependencies:
     - build_maven_jlink
   script:
-    # 1. INSTALLATION DES DÉPENDANCES GRAPHIQUES (Pour que JavaFX puisse démarrer)
-    - apt-get update && apt-get install -y libx11-6 libxext6 libxrender1 libxtst6 libxi6 libgtk-3-0
-    
+    # 1. Installation de Xvfb et des libs graphiques
+    # xvfb : Crée l'écran virtuel
+    # libgtk-3-0 / libx11-6 : Nécessaires pour le moteur JavaFX Linux
+    - apt-get update && apt-get install -y xvfb libx11-6 libxext6 libxrender1 libxtst6 libxi6 libgtk-3-0
+
     - echo "Checking JLink image directory..."
     - test -d ${JLINK_IMAGE_DIR} || (echo "JLink image not found!" && exit 1)
 
-    - echo "Launching JLink image with modular command..."
+    - echo "Launching JLink image with Xvfb (Virtual Display)..."
     
-    # 2. Lancement en mode "Headless" (Sans écran) pour éviter d'autres erreurs d'affichage
-    # On ajoute des options -D pour dire à JavaFX de ne pas chercher d'écran physique
-    - ${JLINK_LAUNCHER} -Djava.awt.headless=true -Dprism.order=sw -Dglass.platform=Monocle --module ${APP_MODULE}/${APP_MAIN} &
+    # 2. Lancement avec xvfb-run
+    # -a : Trouve un numéro d'écran libre automatiquement
+    # -Dprism.order=sw : Force le rendu logiciel (pas de GPU dans la CI)
+    # On a RETIRÉ -Dglass.platform=Monocle
+    - xvfb-run -a ${JLINK_LAUNCHER} -Dprism.order=sw --module ${APP_MODULE}/${APP_MAIN} &
 
     - APP_PID=$!
     - sleep 5
     
-    # Vérification si le processus est toujours en vie
+    # Vérification
     - |
       if ps -p $APP_PID > /dev/null; then
-        echo "✅ Application started successfully (Headless).";
+        echo "✅ Application started successfully inside Xvfb.";
         kill $APP_PID;
       else
-        echo "❌ Application failed to start (Crashed).";
+        echo "❌ Application failed to start.";
         exit 1;
       fi
   artifacts:
