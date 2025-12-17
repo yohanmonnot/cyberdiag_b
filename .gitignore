@@ -1,6 +1,16 @@
+<<<<<<< HEAD
 .env
 .gradle/
 build/
 *.log
 logs/
+=======
+.env
+.gradle/
+build/
+*.log
+*/logs/
+logs/
+bash-app/logs/app.log
+>>>>>>> 1e07466 (ajout deploy script + edit gui module)
 *.tmp
