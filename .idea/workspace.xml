@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6e9b0fd4-68a2-4d79-bb40-cc1f1b94e8d3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/cyberdiag_b.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cyberdiag_b.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/cliInterface/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/cliInterface/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/cliInterface/module.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/cliInterface/module.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/cpuUsage/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/cpuUsage/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/cpuUsage/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/cpuUsage/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/cpuUsage/module.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/cpuUsage/module.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/cpuUsage/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/cpuUsage/test.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/diskUsage/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/diskUsage/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/diskUsage/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/diskUsage/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/diskUsage/module.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/diskUsage/module.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/diskUsage/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/diskUsage/test.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/exampleModule/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/exampleModule/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/exampleModule/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/exampleModule/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/exampleModule/module.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/exampleModule/module.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/module.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/module.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/jaxp-strict.properties.template" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/jaxp-strict.properties.template" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/jaxp.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/jaxp.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/net.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/net.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/sdp/sdp.conf.template" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/sdp/sdp.conf.template" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/java.security" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/java.security" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/limited/default_US_export.policy" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/limited/default_US_export.policy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/limited/default_local.policy" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/limited/default_local.policy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/limited/exempt_local.policy" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/limited/exempt_local.policy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/unlimited/default_US_export.policy" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/unlimited/default_US_export.policy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/unlimited/default_local.policy" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/security/policy/unlimited/default_local.policy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/sound.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/conf/sound.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/classfile_constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/classfile_constants.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/jawt.h" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/jawt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/jni.h" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/jni.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/jvmti.h" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/jvmti.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/jvmticmlr.h" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/jvmticmlr.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/linux/jawt_md.h" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/linux/jawt_md.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/linux/jni_md.h" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/include/linux/jni_md.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/COPYRIGHT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/aes.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/aes.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/c-libutl.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/c-libutl.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/cldr.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/cldr.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/icu.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/icu.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/public_suffix.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/public_suffix.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/siphash.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/siphash.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/unicode.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.base/unicode.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/colorimaging.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/colorimaging.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/giflib.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/giflib.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/harfbuzz.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/harfbuzz.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/jpeg.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/jpeg.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/lcms.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/lcms.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/libpng.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/libpng.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/mesa3d.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/mesa3d.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/pipewire.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/pipewire.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/xwd.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/xwd.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/bcel.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/bcel.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/dom.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/dom.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/jcup.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/jcup.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/schema10part1.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/schema10part1.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/schema10part2.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/schema10part2.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xalan.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xalan.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xerces.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xerces.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xhtml10.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xhtml10.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xhtml10schema.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xhtml10schema.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xhtml11.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xhtml11.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xhtml11schema.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xhtml11schema.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xmlspec.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xmlspec.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xmlxsd.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/xmlxsd.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/classlist" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/classlist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/jvm.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/jvm.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/psfont.properties.ja" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/psfont.properties.ja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/psfontj2d.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/psfontj2d.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/security/blocked.certs" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/lib/security/blocked.certs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/man/man1/java.1" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/man/man1/java.1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/man/man1/jrunscript.1" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/man/man1/jrunscript.1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/man/man1/keytool.1" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/man/man1/keytool.1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/release" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/release" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/majChecker/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/majChecker/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/majChecker/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/majChecker/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/majChecker/module.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/majChecker/module.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/memoryUsage/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/memoryUsage/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/memoryUsage/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/memoryUsage/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/memoryUsage/module.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/memoryUsage/module.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/memoryUsage/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/memoryUsage/test.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/passwordChecker/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/passwordChecker/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/passwordChecker/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/passwordChecker/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/passwordChecker/result.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/passwordChecker/result.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/passwordChecker/test_check_password.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/passwordChecker/test_check_password.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/testArgs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/testArgs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/testArgs/module.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/testArgs/module.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/testArgs/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/testArgs/test.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/wifiChecker/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/wifiChecker/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/wifiChecker/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/wifiChecker/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/wifiChecker/module.json" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/wifiChecker/module.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/wifiChecker/test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/wifiChecker/test.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/utils/env.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/utils/env.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/utils/logger.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/utils/logger.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/buildApp.sh" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/buildApp.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/src/main/java/edu/cyclonicforce/fr/ui/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/src/main/java/edu/cyclonicforce/fr/ui/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/src/main/java/edu/cyclonicforce/fr/ui/controller/ExempleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/src/main/java/edu/cyclonicforce/fr/ui/controller/ExempleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/src/main/resources/edu/cyclonicforce/fr/ui/fxml/Exemple.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/src/main/resources/edu/cyclonicforce/fr/ui/fxml/Exemple.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java-ui/startApp.sh" beforeDir="false" afterPath="$PROJECT_DIR$/java-ui/startApp.sh" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/java-ui">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/java-ui">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="java-ui" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="36v1Ylv4t0C5HQNp8Ah9pfnG3ND" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;C:\\Users\\Utilisateur\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.3\\plugins\\Shell Script\\shellcheck.exe&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/JavaUiBashExec&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Utilisateur/00-Projets/cyberdiag_b&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-cffe25b9f5b3-intellij.indexing.shared.core-IU-253.28294.334" />
+        <option value="bundled-js-predefined-d6986cc7102b-c7e53b3be11b-JavaScript-IU-253.28294.334" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6e9b0fd4-68a2-4d79-bb40-cc1f1b94e8d3" name="Changes" comment="" />
+      <created>1765872280852</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765872280852</updated>
+      <workItem from="1765872282133" duration="881000" />
+      <workItem from="1765873172740" duration="1189000" />
+      <workItem from="1765881369585" duration="2587000" />
+      <workItem from="1765893653173" duration="102000" />
+      <workItem from="1765894192183" duration="33000" />
+      <workItem from="1765897066761" duration="1166000" />
+      <workItem from="1765958564448" duration="4372000" />
+      <workItem from="1765978458656" duration="3878000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
