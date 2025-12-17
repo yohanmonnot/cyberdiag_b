@@ -15,14 +15,14 @@ Le script contrôle les paramètres suivants :
 Résultat du script
 Le script renvoie un objet JSON contenant quatre champs :
 {
-  "status": "OK" | "WARNING" | "CRITICAL",
+  "exitCode": "OK" | "WARNING" | "CRITICAL",
   "error": "message d’erreur ou vide",
   "score": 0 à 5,
   "recommendation": "texte de recommandation"
 }
 
 Détail des champs :
-•	status
+•	exitCode
 o	OK : tous les paramètres sont conformes aux recommandations.
 o	WARNING : un ou plusieurs paramètres peuvent être améliorés.
 o	CRITICAL : aucune configuration PAM de sécurité détectée ou paramètres essentiels absents.
@@ -91,7 +91,7 @@ o	/etc/pam.d/password-auth (RHEL / CentOS)
 
 Exemple de sortie JSON
 {
-  "status": "WARNING",
+  "exitCode": "WARNING",
   "error": "",
   "score": 4,
   "recommendation": "Some password policy improvements are recommended."

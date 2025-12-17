@@ -1060,7 +1060,7 @@ jdk.xml.dsig.secureValidationPolicy=\
 # If a limit appears more than once the last value is used.
 # Limits are checked before classes regardless of the order in the
 # sequence of patterns.
-# If any of the limits are exceeded, the filter status is REJECTED.
+# If any of the limits are exceeded, the filter exitCode is REJECTED.
 #
 #   maxdepth=value - the maximum depth of a graph
 #   maxrefs=value  - the maximum number of internal references
@@ -1075,8 +1075,8 @@ jdk.xml.dsig.secureValidationPolicy=\
 # For example, a pattern of "!example.Foo", rejects creation of any instance or
 # array of example.Foo.
 #
-# If the pattern starts with "!", the status is REJECTED if the remaining
-# pattern is matched; otherwise the status is ALLOWED if the pattern matches.
+# If the pattern starts with "!", the exitCode is REJECTED if the remaining
+# pattern is matched; otherwise the exitCode is ALLOWED if the pattern matches.
 # If the pattern contains "/", the non-empty prefix up to the "/" is the
 # module name;
 #   if the module name matches the module name of the class then
@@ -1088,7 +1088,7 @@ jdk.xml.dsig.secureValidationPolicy=\
 # If the pattern ends with "*", it matches any class with the pattern as a
 # prefix.
 # If the pattern is equal to the class name, it matches.
-# Otherwise, the status is UNDECIDED.
+# Otherwise, the exitCode is UNDECIDED.
 #
 #jdk.serialFilter=pattern;pattern
 
