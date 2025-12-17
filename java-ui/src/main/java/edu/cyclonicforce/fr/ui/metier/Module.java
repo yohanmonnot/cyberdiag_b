@@ -260,4 +260,18 @@ public class Module {
             this.args.remove(arg);
         }
     }
+
+    public String toString() {
+        StringBuilder argsBuilder = new StringBuilder("[");
+        
+        if (args != null && !args.isEmpty()) {
+            for (String arg : args) {
+                argsBuilder.append(arg).append(", ");
+            }
+            argsBuilder.setLength(argsBuilder.length() - 2);
+        }
+        argsBuilder.append("]");
+
+        return "Module{ name='" + name + "', version='" + version + "', type=" + type + ", description='" + description + "', author='" + author + "', args=" + argsBuilder + " }";
+    }
 }

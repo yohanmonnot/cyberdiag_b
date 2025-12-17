@@ -118,6 +118,12 @@ public class ModuleReturn {
         this.recommendation = Objects.requireNonNullElse(recommendation, "");
     }
 
+    public String toString() {
+        return "ModuleReturn{ exitCode=" + exitCode + ", error='" + error + "', score=" + score + ", recommendation='" + recommendation + "' }";
+    }
+
+    // helpers
+
     /**
      * Checks if the exit code is valid
      * @param code Exit code to check
