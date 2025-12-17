@@ -37,11 +37,11 @@ output_json() {
     local RECOMMENDATION="$4"
     
     echo $(jq -n \
-        --arg status "$STATUS" \
+        --argjson status "$STATUS" \
         --arg error "$ERROR" \
         --argjson score "$SCORE" \
         --arg recommendation "$RECOMMENDATION" \
-        '{status: $status, error: $error, score: $score, recommendation: $recommendation}')
+        '{exitCode: $status, error: $error, score: $score, recommendation: $recommendation}')
 }
 
 # --- Fonction : vérification dépendances ---
@@ -49,14 +49,14 @@ check_requirements() {
     if ! command -v free &>/dev/null; then
         ERROR_MESSAGE="La commande 'free' n'est pas disponible."
         log_error "[memoryUsage] $ERROR_MESSAGE"
-        output_json "FAIL" "$ERROR_MESSAGE" 0 "" "{}" "{}"
+        output_json 1 "$ERROR_MESSAGE" 0 "" "{}" "{}"
         exit 0
     fi
     
     if ! command -v jq &>/dev/null; then
         ERROR_MESSAGE="La commande 'jq' n'est pas disponible."
         log_error "[memoryUsage] $ERROR_MESSAGE"
-        output_json "FAIL" "$ERROR_MESSAGE" 0 "" "{}" "{}"
+        output_json 1 "$ERROR_MESSAGE" 0 "" "{}" "{}"
         exit 0
     fi
 }
@@ -69,7 +69,7 @@ collect_memory_data() {
     if [[ -z "$memory_usage_raw" ]]; then
         ERROR_MESSAGE="Impossible de récupérer les données mémoire."
         log_error "[memoryUsage] $ERROR_MESSAGE"
-        output_json "FAIL" "$ERROR_MESSAGE" 0 "" "{}" "{}"
+        output_json 1 "$ERROR_MESSAGE" 0 "" "{}" "{}"
         exit 0
     fi
     
@@ -154,7 +154,7 @@ run_self_tests() {
     }
 
     # --- Test : output_json ---
-    test_case "output_json produces valid JSON" bash -c 'output_json "OK" "" 5 "Test" | jq . >/dev/null 2>&1'
+    test_case "output_json produces valid JSON" bash -c 'output_json 0 "" 5 "Test" | jq . >/dev/null 2>&1'
 
     # --- Test : check_requirements ---
     if command -v free &>/dev/null && command -v jq &>/dev/null; then
@@ -221,7 +221,7 @@ main() {
     calculate_score
     
     log_info "[memoryUsage] Vérification terminée avec un score de $SCORE/5"
-    output_json "OK" "" "$SCORE" "$RECOMMENDATION"
+    output_json 0 "" "$SCORE" "$RECOMMENDATION"
 }
 
 main "$@"

@@ -13,7 +13,7 @@
 - Vérification des connexions automatiques aux réseaux Wi-Fi.
 - Calcul d'un score de sécurité de 1 à 5 basé sur les vérifications effectuées.
 - Retour structuré en JSON incluant :
-  - `status` : OK ou FAIL
+  - `exitCode` : OK ou FAIL
   - `error` : message d'erreur le cas échéant
   - `score` : note sur 5
   - `recommendation` : suggestion d'action basée sur les vérifications

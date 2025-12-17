@@ -13,7 +13,7 @@ Il collecte les différentes métriques CPU (user, system, nice, idle, etc.) et 
 - Collecte de toutes les métriques CPU détaillées
 - Calcul d'un score de performance de 1 à 5 selon l'utilisation CPU
 - Retour structuré en JSON, incluant :
-  - `status` : OK ou FAIL
+  - `exitCode` : OK ou FAIL
   - `error` : message d'erreur le cas échéant
   - `score` : note sur 5
   - `recommendation` : texte de recommandation
@@ -45,7 +45,7 @@ cpuUsage/
 
 ```json
 {
-  "status": "OK",
+  "exitCode": "OK",
   "error": "",
   "score": 4,
   "recommendation": "Utilisation CPU faible, système peu sollicité.",
@@ -65,7 +65,7 @@ cpuUsage/
 
 ### Description des champs
 
-- **status** : indique si la vérification s'est correctement déroulée
+- **exitCode** : indique si la vérification s'est correctement déroulée
 - **error** : contient un message si une erreur est survenue
 - **score** : note de performance sur 5
   - 5 : Utilisation très faible (<20%)

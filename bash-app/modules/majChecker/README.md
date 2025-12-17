@@ -21,7 +21,7 @@ Il détecte automatiquement le gestionnaire de paquets présent et calcule un **
 * Calcul d’un score de sécurité de 1 à 5 selon le nombre de mises à jour disponibles.
 * Retour structuré en **JSON**, incluant :
 
-  * `status` : `OK` ou `FAIL`
+  * `exitCode` : `OK` ou `FAIL`
   * `error` : message d’erreur le cas échéant
   * `score` : note sur 5
   * `recommendation` : texte court de recommandation
@@ -55,7 +55,7 @@ majChecker/
 
 ```json
 {
-  "status": "OK",
+  "exitCode": "OK",
   "error": "",
   "score": 3,
   "recommendation": "Plusieurs mises à jour en attente.",
@@ -63,7 +63,7 @@ majChecker/
 }
 ```
 
-* `status` : indique si la vérification s’est correctement déroulée.
+* `exitCode` : indique si la vérification s’est correctement déroulée.
 * `error` : contient un message si une erreur est survenue.
 * `score` : note de sécurité sur 5, plus le score est bas, plus le système est vulnérable.
 * `recommendation` : suggestion d’action basée sur le nombre de mises à jour.

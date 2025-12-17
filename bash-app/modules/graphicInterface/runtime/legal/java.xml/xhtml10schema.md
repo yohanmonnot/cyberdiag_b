@@ -84,7 +84,7 @@ The absence of a product or service name or logo from this list does not
 constitute a waiver of MIT's, INRIA's, or Keio's trademark or other intellectual
 rights concerning that name or logo.
 
-Any questions concerning the use, status, or standing of W3C trademarks should
+Any questions concerning the use, exitCode, or standing of W3C trademarks should
 be directed to: site-policy@w3.org or to W3C (c/o Joseph Reagle), Laboratory
 for Computer Science NE43-358, Massachusetts Institute of Technology, 200
 Technology Square, Cambridge, MA 02139.
