@@ -11,6 +11,7 @@ module edu.cyclonicforce.fr.java.ui {
     opens edu.cyclonicforce.fr.ui.controller to javafx.fxml;
 
     opens edu.cyclonicforce.fr.ui.lib.bashExecutor to com.google.gson;
+    opens edu.cyclonicforce.fr.ui.metier to com.google.gson;
 
     // EXPORTE le package de la classe Main pour qu'il soit accessible depuis le JAR
     exports edu.cyclonicforce.fr.ui;
