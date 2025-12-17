@@ -28,7 +28,7 @@ public class ModuleExecutor {
      */
     public ModuleReturn runModule(String name, List<String> args) throws BashExecutionException {
         // 1. Localisation du script principal
-        File projectRoot = new File("../../");
+        File projectRoot = new File(".");
         File scriptFile = new File(projectRoot, "main.sh");
 
         if (!scriptFile.exists()) {
@@ -79,6 +79,7 @@ public class ModuleExecutor {
         }
 
         try {
+            System.out.println("JSON reçu : " + jsonLine);
             // Mapping automatique vers ModuleReturn (les noms des clés JSON correspondent aux attributs)
             return gson.fromJson(jsonLine, ModuleReturn.class);
         } catch (Exception e) {

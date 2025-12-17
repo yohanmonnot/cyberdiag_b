@@ -1,5 +1,7 @@
 package edu.cyclonicforce.fr.ui;
 
+import edu.cyclonicforce.fr.ui.lib.bashExecutor.ModuleExecutor;
+import edu.cyclonicforce.fr.ui.metier.ModuleReturn;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,6 +25,17 @@ public class Main extends Application {
         stage.setTitle("Mon Application JavaFX !");
         stage.setScene(scene);
         stage.show();
+
+        System.out.println("Test d'exec du module memoryUsage");
+        ModuleExecutor executor = new ModuleExecutor();
+        try {
+            ModuleReturn result = executor.runModule("memoryUsage", null);
+            System.out.println("Resultat du module memoryUsage :");
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println("Erreur lors de l'exécution du module memoryUsage : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
