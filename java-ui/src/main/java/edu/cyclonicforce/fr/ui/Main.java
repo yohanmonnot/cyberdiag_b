@@ -1,6 +1,7 @@
 package edu.cyclonicforce.fr.ui;
 
 import edu.cyclonicforce.fr.ui.lib.bashExecutor.ModuleExecutor;
+import edu.cyclonicforce.fr.ui.lib.util.SettingsSingleton;
 import edu.cyclonicforce.fr.ui.metier.ModuleReturn;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +40,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        // Méthode de lancement de l'application JavaFX
+        SettingsSingleton.getInstance().parseArguments(args);
         launch();
     }
 }

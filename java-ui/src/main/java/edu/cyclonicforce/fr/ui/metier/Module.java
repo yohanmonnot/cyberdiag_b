@@ -272,6 +272,6 @@ public class Module {
         }
         argsBuilder.append("]");
 
-        return "Module{ name='" + name + "', version='" + version + "', type=" + type + ", description='" + description + "', author='" + author + "', args=" + argsBuilder + " }";
+        return "Module{ name='" + name + "', version='" + version + "', type=" + type + ", description='" + description + "', author='" + author + "', util=" + argsBuilder + " }";
     }
 }
