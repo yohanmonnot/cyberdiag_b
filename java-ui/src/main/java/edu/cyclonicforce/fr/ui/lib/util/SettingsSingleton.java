@@ -24,6 +24,7 @@ public class SettingsSingleton {
     private SettingsSingleton() {
         // Private constructor to prevent instantiation
         this.parsedArguments = new HashMap<String, Object>();
+        this.parsedArguments.putAll(getConstants());
     }
 
     /**
@@ -37,12 +38,18 @@ public class SettingsSingleton {
         return instance;
     }
 
+    private static Map<String, Object> getConstants() {
+        return Map.of(
+                "projectRootPath", "."
+        );
+    }
+
     /**
      * Parses command-line arguments and stores them in the parsedArguments map.
      * @param args the command-line arguments to parse
      */
     public void parseArguments(String[] args) {
-        this.parsedArguments = ArgParser.parseArgs(args);
+        this.parsedArguments.putAll(ArgParser.parseArgs(args));
     }
 
     /**

@@ -47,12 +47,14 @@ list_modules() {
         local META="$d/module.json"
         if [[ -f "$META" ]]; then
             local NAME=$(jq -r '.name // empty' "$META")
+            local VERSION=$(jq -r '.version // empty' "$META")
             local TYPE=$(jq -r '.type // empty' "$META")
             local DESC=$(jq -r '.description // empty' "$META")
+            local AUTHOR=$(jq -r '.author // empty' "$META")
 
             if [[ -z "$FILTER" || "$TYPE" == "$FILTER" ]]; then
-                modules_json=$(echo "$modules_json" | jq -c --arg name "$NAME" --arg type "$TYPE" --arg description "$DESC" \
-                    '. += [{"name": $name, "type": $type, "description": $description}]')
+                modules_json=$(echo "$modules_json" | jq -c --arg name "$NAME" --arg version "$VERSION" --arg type "$TYPE" --arg description "$DESC" --arg author "$AUTHOR" \
+                    '. += [{"name": $name, "version": $version, "type": $type, "description": $description, "author": $author}]')
             fi
         fi
     done
