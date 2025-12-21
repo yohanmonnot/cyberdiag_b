@@ -1,6 +1,7 @@
 package edu.cyclonicforce.fr.ui.lib.bashExecutor;
 
 import com.google.gson.Gson;
+import edu.cyclonicforce.fr.ui.lib.util.SettingsSingleton;
 import edu.cyclonicforce.fr.ui.metier.ModuleReturn;
 
 import java.io.BufferedReader;
@@ -14,10 +15,12 @@ import java.util.List;
  */
 public class ModuleExecutor {
 
+    private final SettingsSingleton settings;
     private final Gson gson;
 
     public ModuleExecutor() {
         this.gson = new Gson();
+        this.settings = SettingsSingleton.getInstance();
     }
 
     /**
@@ -28,7 +31,8 @@ public class ModuleExecutor {
      */
     public ModuleReturn runModule(String name, List<String> args) throws BashExecutionException {
         // 1. Localisation du script principal
-        File projectRoot = new File(".");
+        String projectRootPath = settings.getArgumentValue("projectRootPath");
+        File projectRoot = new File(projectRootPath);
         File scriptFile = new File(projectRoot, "main.sh");
 
         if (!scriptFile.exists()) {
