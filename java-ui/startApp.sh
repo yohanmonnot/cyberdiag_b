@@ -7,11 +7,9 @@ MODULE_NAME="edu.cyclonicforce.fr.java.ui"
 MAIN_CLASS="edu.cyclonicforce.fr.ui.Main"
 
 # Détection automatique du dossier de l'image JLink
-# On cherche un dossier dans target qui contient "bin/java" mais qui n'est pas le dossier "classes"
-# Si votre pom.xml génère 'java-ui-linux', mettez le nom en dur ici si la détection échoue.
 JLINK_DIR=$(find target -maxdepth 1 -type d -name "java-ui*" ! -name "classes" ! -name "generated-sources" ! -name "maven-*" | head -n 1)
 
-# Si vous préférez mettre le chemin en dur (recommandé si le nom ne change pas) :
+# Si vous préférez mettre le chemin en dur :
 # JLINK_DIR="target/java-ui-linux"
 
 if [ -z "$JLINK_DIR" ] || [ ! -f "$JLINK_DIR/bin/java" ]; then
@@ -22,12 +20,62 @@ fi
 
 JAVA_EXEC="$JLINK_DIR/bin/java"
 
+# --- MENU DE SÉLECTION ---
 echo "=========================================="
-echo "🚀 Lancement de l'application..."
-echo "   Source : $JLINK_DIR"
-echo "   Module : $MODULE_NAME"
+echo "🎯 Options de lancement pour $MODULE_NAME"
+echo "=========================================="
+echo "1) Lancement normal (Aucun argument)"
+echo "2) Aide (--help)"
+echo "3) Version (--version)"
+echo "4) Mode Verbeux (--verbose)"
+echo "5) Mode Debug (--debug)"
+echo "6) Arguments personnalisés (ex: --logs-output ./logs)"
+echo "q) Quitter"
+echo "------------------------------------------"
+
+read -p "Votre choix : " choice
+
+APP_ARGS=""
+
+case $choice in
+    1)
+        echo "👉 Lancement standard..."
+        APP_ARGS=""
+        ;;
+    2)
+        echo "👉 Affichage de l'aide..."
+        APP_ARGS="--help"
+        ;;
+    3)
+        echo "👉 Affichage de la version..."
+        APP_ARGS="--version"
+        ;;
+    4)
+        echo "👉 Lancement en mode Verbeux..."
+        APP_ARGS="--verbose"
+        ;;
+    5)
+        echo "👉 Lancement en mode Debug..."
+        APP_ARGS="--debug"
+        ;;
+    6)
+        read -p "✍️  Entrez vos arguments : " custom_args
+        APP_ARGS="$custom_args"
+        ;;
+    q|Q)
+        echo "👋 Au revoir !"
+        exit 0
+        ;;
+    *)
+        echo "⚠️  Choix invalide. Lancement standard par défaut."
+        APP_ARGS=""
+        ;;
+esac
+
+echo "=========================================="
+echo "🚀 Exécution..."
+echo "   Commande : $JAVA_EXEC --module ${MODULE_NAME}/${MAIN_CLASS} $APP_ARGS"
 echo "=========================================="
 
-# Lancement de l'application
-# Note : Pas besoin de classpath, tout est dans le module path de l'image jlink
-"$JAVA_EXEC" --module "${MODULE_NAME}/${MAIN_CLASS}"
+# Lancement de l'application avec les arguments choisis
+"$JAVA_EXEC" --module "${MODULE_NAME}/${MAIN_CLASS}" $APP_ARGS

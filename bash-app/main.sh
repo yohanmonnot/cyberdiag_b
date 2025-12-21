@@ -47,12 +47,14 @@ list_modules() {
         local META="$d/module.json"
         if [[ -f "$META" ]]; then
             local NAME=$(jq -r '.name // empty' "$META")
+            local VERSION=$(jq -r '.version // empty' "$META")
             local TYPE=$(jq -r '.type // empty' "$META")
             local DESC=$(jq -r '.description // empty' "$META")
+            local AUTHOR=$(jq -r '.author // empty' "$META")
 
             if [[ -z "$FILTER" || "$TYPE" == "$FILTER" ]]; then
-                modules_json=$(echo "$modules_json" | jq -c --arg name "$NAME" --arg type "$TYPE" --arg description "$DESC" \
-                    '. += [{"name": $name, "type": $type, "description": $description}]')
+                modules_json=$(echo "$modules_json" | jq -c --arg name "$NAME" --arg version "$VERSION" --arg type "$TYPE" --arg description "$DESC" --arg author "$AUTHOR" \
+                    '. += [{"name": $name, "version": $version, "type": $type, "description": $description, "author": $author}]')
             fi
         fi
     done
@@ -125,54 +127,54 @@ run_cli() {
 # SCRIPT mode
 run_script() {
     # Cas spécial : list
-    if [[ "$SCRIPT_NAME" == "list" ]]; then
+    if [[ "${SCRIPT_ARGS[0]}" == "list" ]]; then
         log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
         list_modules "$LIST_FILTER" "$LIST_SORT"
-    else
-        for MODULE in "${SCRIPT_ARGS[@]}"; do
-            run_module "$MODULE"
-        done
+        return 0
     fi
 
-    local MODULE_NAME="${SCRIPT_ARGS[0]}"
-    local MODULE_DIR="$MODULES_DIR/$MODULE_NAME"
-    local META_FILE="$MODULE_DIR/module.json"
+    # Déterminer si le mode test est activé globalement
     local TEST_MODE=false
-    local PASSTHRU_ARGS=("${SCRIPT_ARGS[@]:1}") # tout ce qui suit le nom du module
-
-    # Vérifie la présence du flag --test
-    for arg in "${SCRIPT_ARGS[@]:1}"; do
+    local CLEAN_ARGS=()
+    for arg in "${SCRIPT_ARGS[@]}"; do
         if [[ "$arg" == "--test" ]]; then
             TEST_MODE=true
+        else
+            CLEAN_ARGS+=("$arg")
         fi
     done
 
-    if [[ -d "$MODULE_DIR" && -f "$META_FILE" ]]; then
-        log_info "Running module '$MODULE_NAME' with args: ${PASSTHRU_ARGS[*]}"
-        run_module "$MODULE_NAME" "${PASSTHRU_ARGS[@]}"
-    else
-        log_error "Module directory or metadata not found for '$MODULE_NAME'"
-        return 1
-    fi
+    # On boucle sur chaque module demandé
+    for MODULE_NAME in "${CLEAN_ARGS[@]}"; do
+        local MODULE_DIR="$MODULES_DIR/$MODULE_NAME"
+        local META_FILE="$MODULE_DIR/module.json"
 
-    if [[ "$TEST_MODE" == true ]]; then
-        local TEST_SCRIPT
-        TEST_SCRIPT=$(jq -r '.test // empty' "$META_FILE" 2>/dev/null)
+        if [[ -d "$MODULE_DIR" && -f "$META_FILE" ]]; then
+            # 1. Exécution du module
+            run_module "$MODULE_NAME"
 
-        if [[ -z "$TEST_SCRIPT" ]]; then
-            log_warn "No 'test' field found in module.json for '$MODULE_NAME'"
-            TEST_SCRIPT="$MODULE_DIR/test.sh"
+            # 2. Exécution des tests si le flag était présent
+            if [[ "$TEST_MODE" == true ]]; then
+                local TEST_SCRIPT
+                TEST_SCRIPT=$(jq -r '.test // empty' "$META_FILE" 2>/dev/null)
+
+                if [[ -z "$TEST_SCRIPT" ]]; then
+                    TEST_SCRIPT="$MODULE_DIR/test.sh"
+                else
+                    TEST_SCRIPT="$MODULE_DIR/$TEST_SCRIPT"
+                fi
+
+                if [[ -f "$TEST_SCRIPT" ]]; then
+                    log_info "Running tests for module '$MODULE_NAME'"
+                    bash "$TEST_SCRIPT"
+                else
+                    log_warn "Test script not found for '$MODULE_NAME': $TEST_SCRIPT"
+                fi
+            fi
         else
-            TEST_SCRIPT="$MODULE_DIR/$TEST_SCRIPT"
+            log_error "Module '$MODULE_NAME' not found (directory or module.json missing)."
         fi
-
-        if [[ -f "$TEST_SCRIPT" ]]; then
-            log_info "Running tests for module '$MODULE_NAME' (file: $(basename "$TEST_SCRIPT"))"
-            bash "$TEST_SCRIPT"
-        else
-            log_error "Test script not found: $TEST_SCRIPT"
-        fi
-    fi
+    done
 }
 
 
