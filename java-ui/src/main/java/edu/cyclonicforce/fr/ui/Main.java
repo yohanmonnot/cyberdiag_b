@@ -1,10 +1,12 @@
 package edu.cyclonicforce.fr.ui;
 
+import edu.cyclonicforce.fr.ui.controller.AppController;
 import edu.cyclonicforce.fr.ui.lib.bashExecutor.ListModule;
 import edu.cyclonicforce.fr.ui.lib.bashExecutor.ModuleExecutor;
 import edu.cyclonicforce.fr.ui.lib.util.SettingsSingleton;
 import edu.cyclonicforce.fr.ui.metier.ModuleReturn;
 import edu.cyclonicforce.fr.ui.metier.Module;
+import edu.cyclonicforce.fr.ui.metier.Scenes;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,9 +28,15 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
         // 3. Configurer et afficher la fenêtre (Stage)
-        stage.setTitle("Mon Application JavaFX !");
+        stage.setTitle("CyberDiag");
         stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setWidth(1600);
+        stage.setHeight(900);
         stage.show();
+
+        AppController appController = new AppController(stage);
+        appController.setScene(Scenes.ACCEUIL);
 
         System.out.println("Test de récupértion de la liste de modules");
         ListModule listModule = new ListModule();
