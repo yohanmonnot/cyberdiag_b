@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20" stylesheets="@/edu/cyclonicforce/fr/ui/styles/diagnostics.css" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.cyclonicforce.fr.ui.controller.DiagnosticController">
+    <padding><Insets top="20" right="40" bottom="20" left="40"/></padding>
+    
+    <Label text="Diagnostics" styleClass="header-text"/>
+
+    <FlowPane hgap="20" vgap="20">
+        <VBox styleClass="card" spacing="12" minWidth="280">
+            <Label text="Les 10 règles ANSSI" styleClass="card-title"/>
+            <Label text="Diagnostic basé sur les bonnes pratiques..." styleClass="card-description"/>
+            
+            <VBox spacing="5">
+                <Label text="Modules liés :" style="-fx-text-fill: white; -fx-font-size: 11px;"/>
+                <Label text="• [Security] wifiChecker" styleClass="card-description"/>
+                <Label text="• [Security] passwordChecker" styleClass="card-description"/>
+                <Label text="• [Maintenance] majChecker" styleClass="card-description"/>
+            </VBox>
+            
+            <Button text="Lancer le diagnostic →" styleClass="action-button" maxWidth="Infinity"/>
+        </VBox>
+
+        <VBox styleClass="card" spacing="12" minWidth="280">
+            <Label text="Performances" styleClass="card-title"/>
+            <Label text="Diagnostic de performance évaluant le CPU et le disque..." styleClass="card-description"/>
+            
+            <VBox spacing="5">
+                <Label text="Modules liés :" style="-fx-text-fill: white; -fx-font-size: 11px;"/>
+                <Label text="• [Performance] cpuUsage" styleClass="card-description"/>
+                <Label text="• [Performance] diskUsage" styleClass="card-description"/>
+            </VBox>
+            
+            <Button text="Lancer le diagnostic →" styleClass="action-button" maxWidth="Infinity"/>
+        </VBox>
+    </FlowPane>
+</VBox>
