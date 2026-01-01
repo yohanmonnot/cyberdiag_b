@@ -27,11 +27,32 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setWidth(1600);
+<<<<<<< HEAD
         stage.setHeight(920);
         stage.show();
 
         AppController appController = new AppController(stage);
         appController.setScene(Scenes.ACCUEIL);
+=======
+        stage.setHeight(900);
+        stage.show();
+
+        AppController appController = new AppController(stage);
+        appController.setScene(Scenes.ACCEUIL);
+
+        System.out.println("Test de récupértion de la liste de modules");
+        ListModule listModule = new ListModule();
+        try {
+            List<Module> modules = listModule.run();
+            System.out.println("Modules rcupérés :");
+            for (Module mod : modules) {
+                System.out.println(mod);
+            }
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la récupération de la liste de modules : " + e.getMessage());
+            e.printStackTrace();
+        }
+>>>>>>> 5343811 (JE SUIS UN AVION)
 
 //        System.out.println("Test de récupértion de la liste de modules");
 //        ListModule listModule = new ListModule();
