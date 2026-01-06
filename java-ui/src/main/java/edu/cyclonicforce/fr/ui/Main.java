@@ -38,7 +38,7 @@ public class Main extends Application {
         stage.show();
 
         AppController appController = new AppController(stage);
-        appController.setScene(Scenes.ACCEUIL);
+        appController.setScene(Scenes.ACCUEIL);
 
         System.out.println("Test de récupértion de la liste de modules");
         ListModule listModule = new ListModule();
