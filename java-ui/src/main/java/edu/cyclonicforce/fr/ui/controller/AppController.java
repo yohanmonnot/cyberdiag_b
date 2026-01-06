@@ -1,34 +1,125 @@
 package edu.cyclonicforce.fr.ui.controller;
 
 import edu.cyclonicforce.fr.ui.metier.Scenes;
-import edu.cyclonicforce.fr.ui.view.AccueilLoader;
+import edu.cyclonicforce.fr.ui.view.ViewLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import java.util.Objects;
 
 public class AppController {
-    Stage mainStage;
+    private final Stage mainStage;
+    private Scenes currentScene = null;
+
+    private BorderPane dashboardRoot = null;
+    private Scene dashboardScene = null;
+
+    private MenuController menuController;
+
+    // On garde une référence générique au contrôleur central s'il implémente l'interface
+    private DasboardController dashboardController;
+
+    // État du menu : true = ouvert (300px), false = fermé (100px)
+    private boolean menuState = true;
 
     public AppController(Stage mainStage) {
-        if (mainStage==null) {
-            throw new IllegalArgumentException("main stage cannot be null");
-        }
-        this.mainStage=mainStage;
+        if (mainStage == null) throw new IllegalArgumentException("Stage cannot be null");
+        this.mainStage = mainStage;
     }
 
     public void init() {
-        Scene acceuilScene = new AccueilLoader().load();
-        this.mainStage.setTitle("CyberDiag");
-        this.mainStage.setScene(acceuilScene);
+        setScene(Scenes.ACCUEIL);
         this.mainStage.show();
+    }
+
+    public void toggleMenu() {
+        // On inverse l'état
+        this.menuState = !this.menuState;
+
+        // 1. On met à jour le Menu (Gauche)
+        if (this.menuController != null) {
+            this.menuController.setExpandedMode(this.menuState);
+        }
+
+        // 2. On met à jour le Dashboard (Centre) UNIQUEMENT s'il est chargé
+        if (this.dashboardController != null) {
+            this.dashboardController.toggleSize(this.menuState);
+        }
     }
 
     public void setScene(Scenes sceneToDisplay) {
         switch (sceneToDisplay) {
-            case ACCEUIL -> {
-                Scene acceuilScene = new AccueilLoader().load();
-                this.mainStage.setTitle("CyberDiag - Acceuil");
+            case ACCUEIL -> {
+                ViewLoader<AccueilController> loader = new ViewLoader<>();
+                loader.load(Scenes.ACCUEIL.getPath(), this);
+                loader.getController().setAppController(this);
+
+                Scene acceuilScene = new Scene(loader.getRoot());
+                this.mainStage.setTitle("CyberDiag - Accueil");
                 this.mainStage.setScene(acceuilScene);
+                this.currentScene = sceneToDisplay;
+            }
+
+            case DASHBOARD_HELP, DASHBOARD_REPORTS, DASHBOARD_SETTINGS,
+                 DASHBOARD_DIAGS, DASHBOARD_MODULES, DASHBOARD -> {
+
+                if (this.dashboardRoot == null) {
+                    initDashboardStructure();
+                }
+
+                this.mainStage.setTitle("CyberDiag - Dashboard");
+                setDashboardCenter(sceneToDisplay);
+                this.mainStage.setScene(this.dashboardScene);
+                this.currentScene = sceneToDisplay;
             }
         }
+    }
+
+    private void initDashboardStructure() {
+        this.dashboardRoot = new BorderPane();
+        // Le BorderPane prendra toute la taille
+        this.dashboardRoot.setPrefSize(1600, 900);
+
+        ViewLoader<MenuController> menuLoader = new ViewLoader<>();
+        menuLoader.load("/edu/cyclonicforce/fr/ui/fxml/menu.fxml", this);
+
+        this.menuController = menuLoader.getController();
+        this.menuController.setAppController(this);
+
+        // Initialisation de l'état visuel du menu (Ouvert par défaut)
+        this.menuController.setExpandedMode(this.menuState);
+
+        this.dashboardRoot.setLeft(menuLoader.getRoot());
+
+        this.dashboardScene = new Scene(this.dashboardRoot);
+        this.dashboardScene.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/edu/cyclonicforce/fr/ui/styles/Main.css")).toExternalForm()
+        );
+    }
+
+    public void setDashboardCenter(Scenes scene) {
+        if (scene.getPath() == null) {
+            System.err.println("Pas de FXML pour : " + scene);
+            return;
+        }
+
+        ViewLoader<Object> contentLoader = new ViewLoader<>();
+        contentLoader.load(scene.getPath(), this);
+
+        // --- C'EST ICI LE FIX IMPORTANT ---
+        // On récupère le contrôleur de la vue centrale
+        Object controller = contentLoader.getController();
+
+        // Si ce contrôleur implémente notre interface DashboardController, on le stocke
+        if (controller instanceof DasboardController) {
+            this.dashboardController = (DasboardController) controller;
+            // On applique immédiatement la bonne taille en fonction de l'état actuel du menu
+            this.dashboardController.toggleSize(this.menuState);
+        } else {
+            // Sinon, on met à null pour éviter de redimensionner un truc qui ne le supporte pas
+            this.dashboardController = null;
+        }
+
+        this.dashboardRoot.setCenter(contentLoader.getRoot());
     }
 }
