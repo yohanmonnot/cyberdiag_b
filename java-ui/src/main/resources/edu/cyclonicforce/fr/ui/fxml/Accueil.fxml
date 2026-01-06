@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@/edu/cyclonicforce/fr/ui/styles/Accueil.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.cyclonicforce.fr.ui.controller.AccueilController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" stylesheets="@../styles/Accueil.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.cyclonicforce.fr.ui.controller.AccueilController">
    <children>
       <ImageView fitHeight="900.0" fitWidth="1600.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@/edu/cyclonicforce/fr/ui/images/acceuil/Frame4.png" />
+            <Image url="@../images/acceuil/Frame4.png" />
       </ImageView>
       <StackPane alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
          <children>
@@ -24,7 +24,7 @@
                   </VBox>
                   <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="450.0">
                      <children>
-                        <VBox id="BoxCommencer" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="530.0">
+                        <VBox id="BoxCommencer" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="530.0" fx:id="boutonCommencer" onMouseClicked="#onCommencerClicked">
                            <children>
                               <Text id="TexteCommencer" fill="#16517d" strokeType="OUTSIDE" strokeWidth="0.0" text="Commencer">
                                  <VBox.margin>

@@ -9,6 +9,9 @@ module edu.cyclonicforce.fr.java.ui {
     // NOUVEAU : OUVRE le package du CONTROLLER
     // Le FXMLoader doit pouvoir accéder à ce package
     opens edu.cyclonicforce.fr.ui.controller to javafx.fxml;
+    opens edu.cyclonicforce.fr.ui.images.acceuil to javafx.fxml, javafx.graphics;
+    opens edu.cyclonicforce.fr.ui.images.icons to javafx.fxml, javafx.graphics;
+    opens edu.cyclonicforce.fr.ui.fxml to javafx.fxml;
 
     opens edu.cyclonicforce.fr.ui.lib.bashExecutor to com.google.gson;
     opens edu.cyclonicforce.fr.ui.metier to com.google.gson;
