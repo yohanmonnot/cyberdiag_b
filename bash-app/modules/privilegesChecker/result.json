@@ -1,0 +1,6 @@
+{
+  "status": "WARNING",
+  "error": "",
+  "score": 2,
+  "recommendation": "sudoers file is not readable. Check permissions."
+}
