@@ -32,7 +32,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setWidth(1600);
-        stage.setHeight(900);
+        stage.setHeight(920);
         stage.show();
 
         AppController appController = new AppController(stage);

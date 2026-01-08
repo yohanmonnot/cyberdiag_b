@@ -4,7 +4,7 @@ public enum Scenes {
     ACCUEIL("/edu/cyclonicforce/fr/ui/fxml/Accueil.fxml"),
     DASHBOARD("/edu/cyclonicforce/fr/ui/fxml/AcceuilApp.fxml"),
     DASHBOARD_MODULES("nope"),
-    DASHBOARD_DIAGS("nope"),
+    DASHBOARD_DIAGS("/edu/cyclonicforce/fr/ui/fxml/Diagnostics.fxml"),
     DASHBOARD_SETTINGS("nope"), // Exemple
     DASHBOARD_REPORTS("nope"),   // Exemple
     DASHBOARD_HELP("nope");
