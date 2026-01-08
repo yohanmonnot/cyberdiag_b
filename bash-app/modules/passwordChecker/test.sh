@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
-# Script : test_privilegesChecker.sh
-# Description : Teste le script privilegesChecker.sh et valide son JSON
+# Script : test.sh
+# Description : Teste le script check_passwords.sh et valide son JSON
 # Auteur : Yohan
 # =============================================================================
 
@@ -12,12 +12,10 @@ if [[ ! -x "$MODULE" ]]; then
     exit 1
 fi
 
-echo "=== Test automatique du module privilegesChecker ==="
+echo "=== Test automatique du module check_passwords ==="
 
 # Exécution du module et capture du JSON
 output=$($MODULE)
-
-# Vérification que la sortie est un JSON valide
 echo "$output" | jq . >/dev/null 2>&1
 if [[ $? -ne 0 ]]; then
     echo "Le JSON retourné n’est pas valide."
@@ -32,5 +30,5 @@ for key in status error score recommendation; do
     fi
 done
 
-echo "Le module privilegesChecker retourne un JSON "
+echo "Le module retourne un JSON valide avec tous les champs requis."
 exit 0
