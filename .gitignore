@@ -6,3 +6,5 @@ build/
 logs/
 bash-app/logs/app.log
 *.tmp
+*/target
+.idea
