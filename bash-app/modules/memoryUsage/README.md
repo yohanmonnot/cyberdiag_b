@@ -13,7 +13,7 @@ Il collecte les métriques détaillées de la mémoire (totale, utilisée, dispo
 - Collecte de toutes les métriques mémoire (RAM et swap)
 - Calcul d'un score de performance de 1 à 5 selon l'utilisation mémoire
 - Retour structuré en JSON, incluant :
-  - `status` : OK ou FAIL
+  - `exitCode` : OK ou FAIL
   - `error` : message d'erreur le cas échéant
   - `score` : note sur 5
   - `recommendation` : texte de recommandation
@@ -46,7 +46,7 @@ memoryUsage/
 
 ```json
 {
-  "status": "OK",
+  "exitCode": "OK",
   "error": "",
   "score": 4,
   "recommendation": "Utilisation mémoire faible, système optimal.",
@@ -69,7 +69,7 @@ memoryUsage/
 
 ### Description des champs
 
-- **status** : indique si la vérification s'est correctement déroulée
+- **exitCode** : indique si la vérification s'est correctement déroulée
 - **error** : contient un message si une erreur est survenue
 - **score** : note de performance sur 5
   - 5 : Utilisation très faible (<20%)

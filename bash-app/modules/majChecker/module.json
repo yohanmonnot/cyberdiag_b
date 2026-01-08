@@ -2,6 +2,7 @@
 	"name": "majChecker",
 	"version": "1.0",
 	"type": "tool",
+    "category": "maintenance",
 	"description": "A module to check for software updates on the system.",
 	"author": "Célian Touzeau",
 	"main": "main.sh",

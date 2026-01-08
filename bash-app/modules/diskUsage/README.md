@@ -14,7 +14,7 @@ Il collecte les métriques détaillées de tous les systèmes de fichiers monté
 - Filtrage automatique des systèmes de fichiers temporaires (tmpfs, devtmpfs, snap)
 - Calcul d'un score de performance de 1 à 5 selon l'utilisation moyenne
 - Retour structuré en JSON, incluant :
-  - `status` : OK ou FAIL
+  - `exitCode` : OK ou FAIL
   - `error` : message d'erreur le cas échéant
   - `score` : note sur 5
   - `recommendation` : texte de recommandation
@@ -47,7 +47,7 @@ diskUsage/
 
 ```json
 {
-  "status": "OK",
+  "exitCode": "OK",
   "error": "",
   "score": 4,
   "recommendation": "Espace disque confortable.",
@@ -75,7 +75,7 @@ diskUsage/
 
 ### Description des champs
 
-- **status** : indique si la vérification s'est correctement déroulée
+- **exitCode** : indique si la vérification s'est correctement déroulée
 - **error** : contient un message si une erreur est survenue
 - **score** : note de performance sur 5
   - 5 : Utilisation très faible (<20%)

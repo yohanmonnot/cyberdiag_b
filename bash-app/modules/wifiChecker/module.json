@@ -2,6 +2,7 @@
 	"name": "wifiChecker",
 	"version": "1.0",
 	"type": "tool",
+    "category": "security",
 	"description": "A module to check network connections and provide security recommendations.",
 	"author": "Nolhan BLANCHETIÈRE--DRÔLON",
 	"main": "main.sh",
