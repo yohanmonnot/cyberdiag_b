@@ -19,7 +19,7 @@ checks=$((checks+1))
 if [[ "$EUID" -ne 0 ]]; then
     issues=$((issues+1))
     status="WARNING"
-    recommendation="Some privileged checks require root access."
+    recommendation="Certaines vérifications nécessitent l'accès root."
 fi
 
 # --- Vérification 2 : sudo installé ---
@@ -27,8 +27,8 @@ checks=$((checks+1))
 if ! command -v sudo >/dev/null 2>&1; then
     issues=$((issues+1))
     status="CRITICAL"
-    error="sudo command not found."
-    recommendation="Install sudo to manage privileged access securely."
+    error="Commande sudo introuvable."
+    recommendation="Installez sudo pour gérer correctement les accès privilégiés."
 fi
 
 # --- Vérification 3 : utilisateurs avec UID 0 ---
@@ -39,7 +39,7 @@ uid0_count=$(echo "$uid0_users" | wc -w)
 if [[ "$uid0_count" -gt 1 ]]; then
     issues=$((issues+1))
     status="WARNING"
-    recommendation="Multiple UID 0 users detected. Review privileged accounts."
+    recommendation="Plusieurs utilisateurs avec UID 0 détectés. Vérifiez les comptes privilégiés."
 fi
 
 # --- Vérification 4 : fichier sudoers ---
@@ -47,7 +47,7 @@ checks=$((checks+1))
 if [[ ! -r /etc/sudoers ]]; then
     issues=$((issues+1))
     status="WARNING"
-    recommendation="sudoers file is not readable. Check permissions."
+    recommendation="Le fichier sudoers n'est pas lisible. Vérifiez les permissions."
 fi
 
 # --- Calcul du score (0 à 5) ---
@@ -62,7 +62,8 @@ elif (( issues > 0 )) && [[ "$status" != "CRITICAL" ]]; then
     status="WARNING"
 fi
 
-[[ -z "$recommendation" ]] && recommendation="Privilege configuration follows best practices."
+# Recommandation par défaut si vide
+[[ -z "$recommendation" ]] && recommendation="La configuration des privilèges suit les bonnes pratiques."
 
 # --- Sortie JSON ---
 JSON_OUTPUT=$(cat <<EOF
@@ -78,6 +79,6 @@ EOF
 # Affichage standard (pour les tests)
 echo "$JSON_OUTPUT"
 
-# Écriture dans un fichier
-JSON_FILE="result.json"
+# Écriture dans un fichier JSON
+JSON_FILE="module.json"
 echo "$JSON_OUTPUT" > "$JSON_FILE"
