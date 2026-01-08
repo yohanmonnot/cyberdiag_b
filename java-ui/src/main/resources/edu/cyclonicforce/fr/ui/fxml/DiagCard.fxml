@@ -17,7 +17,7 @@
       prefWidth="390.0"
       spacing="6.0"
       style="-fx-background-color: #022937; -fx-background-radius: 10px;"
-      xmlns="http://javafx.com/javafx"
+      xmlns="http://javafx.com/javafx/17.0.1"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="edu.cyclonicforce.fr.ui.controller.DiagCardController">
 <children>
@@ -48,11 +48,6 @@
         </font>
     </Text>
     <VBox prefHeight="200.0" prefWidth="100.0" />
-    <Text fill="#a9dffe" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau basique" fx:id="levelText">
-        <font>
-            <Font size="18.0" />
-        </font>
-    </Text>
     <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #064A61;" text="Lancer le diagnostic" textFill="#d9d9d9" fx:id="startButton">
         <font>
             <Font size="24.0" />

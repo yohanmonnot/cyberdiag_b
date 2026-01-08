@@ -1,10 +1,16 @@
 package edu.cyclonicforce.fr.ui.controller;
 
+import edu.cyclonicforce.fr.ui.lib.bashExecutor.ListModule;
+import edu.cyclonicforce.fr.ui.metier.Module;
+import edu.cyclonicforce.fr.ui.metier.ModuleType;
 import edu.cyclonicforce.fr.ui.metier.Scenes;
 import edu.cyclonicforce.fr.ui.view.ViewLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class AppController {
@@ -16,6 +22,8 @@ public class AppController {
 
     private MenuController menuController;
 
+    private Map<ModuleType, List<Module>> modulesByType;
+
     // On garde une référence générique au contrôleur central s'il implémente l'interface
     private DasboardController dashboardController;
 
@@ -25,6 +33,8 @@ public class AppController {
     public AppController(Stage mainStage) {
         if (mainStage == null) throw new IllegalArgumentException("Stage cannot be null");
         this.mainStage = mainStage;
+
+        refreshModules();
     }
 
     public void init() {
@@ -106,20 +116,32 @@ public class AppController {
         ViewLoader<Object> contentLoader = new ViewLoader<>();
         contentLoader.load(scene.getPath(), this);
 
-        // --- C'EST ICI LE FIX IMPORTANT ---
-        // On récupère le contrôleur de la vue centrale
         Object controller = contentLoader.getController();
 
-        // Si ce contrôleur implémente notre interface DashboardController, on le stocke
         if (controller instanceof DasboardController) {
             this.dashboardController = (DasboardController) controller;
-            // On applique immédiatement la bonne taille en fonction de l'état actuel du menu
             this.dashboardController.toggleSize(this.menuState);
         } else {
-            // Sinon, on met à null pour éviter de redimensionner un truc qui ne le supporte pas
             this.dashboardController = null;
         }
 
+        if (scene.equals(Scenes.DASHBOARD_DIAGS) && controller instanceof DashboardDiagnosticsController diagController) {
+            diagController.setDiagList(modulesByType.getOrDefault(ModuleType.DIAGNOSTIC, List.of()));
+        } else if (scene.equals(Scenes.DASHBOARD_MODULES) && controller instanceof DashboardModulesController modController) {
+            modController.setModuleList(modulesByType.getOrDefault(ModuleType.TOOL, List.of()));
+        }
+
         this.dashboardRoot.setCenter(contentLoader.getRoot());
+    }
+
+    public void refreshModules() {
+        try {
+            ListModule listModule = new ListModule();
+            listModule.run();
+            modulesByType = listModule.getModulesByType();
+        } catch (Exception e) {
+            System.err.println("Error while retrieving module list: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
