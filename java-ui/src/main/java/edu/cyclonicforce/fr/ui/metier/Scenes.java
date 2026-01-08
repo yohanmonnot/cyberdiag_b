@@ -3,11 +3,11 @@ package edu.cyclonicforce.fr.ui.metier;
 public enum Scenes {
     ACCUEIL("/edu/cyclonicforce/fr/ui/fxml/Accueil.fxml"),
     DASHBOARD("/edu/cyclonicforce/fr/ui/fxml/AcceuilApp.fxml"),
-    DASHBOARD_MODULES("nope"),
+    DASHBOARD_MODULES("/edu/cyclonicforce/fr/ui/fxml/Modules.fxml"),
     DASHBOARD_DIAGS("/edu/cyclonicforce/fr/ui/fxml/Diagnostics.fxml"),
-    DASHBOARD_SETTINGS("nope"), // Exemple
-    DASHBOARD_REPORTS("nope"),   // Exemple
-    DASHBOARD_HELP("nope");
+    DASHBOARD_SETTINGS(null),
+    DASHBOARD_REPORTS(null),
+    DASHBOARD_HELP(null);
 
     private final String fxmlPath;
 

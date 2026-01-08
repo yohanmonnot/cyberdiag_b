@@ -4,25 +4,28 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.cyclonicforce.fr.ui.lib.util.SettingsSingleton;
 import edu.cyclonicforce.fr.ui.metier.Module;
+import edu.cyclonicforce.fr.ui.metier.ModuleType;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ListModule {
     private final SettingsSingleton settings;
     private final Gson gson;
+    private final List<Module> modules = new ArrayList<>();
 
     // --- DTO : Représentation exacte du JSON reçu du Bash ---
     private static class ModuleJsonDTO {
         String name;
-        String version;     // Maintenant disponible !
-        String type;        // Toujours en String ("tool", "interface")
+        String version;
+        String type;
         String description;
-        String author;      // Maintenant disponible !
+        String author;
     }
 
     public ListModule() {
@@ -30,11 +33,13 @@ public class ListModule {
         this.settings = SettingsSingleton.getInstance();
     }
 
-    public List<Module> run() {
+    public void run() {
         String projectRootPath = settings.getArgumentValue("projectRootPath");
         System.out.println(projectRootPath);
         File projectRoot = new File(projectRootPath);
         File scriptFile = new File(projectRoot, "main.sh");
+
+        this.modules.clear();
 
         if (!scriptFile.exists()) {
             throw new BashExecutionException("Script main.sh introuvable à : " + scriptFile.getAbsolutePath());
@@ -79,7 +84,6 @@ public class ListModule {
 
         if (jsonLine == null) {
             // Si aucun JSON n'est trouvé (ex: aucun module ou erreur silencieuse), on renvoie une liste vide
-            return new ArrayList<>();
         }
 
         try {
@@ -106,10 +110,25 @@ public class ListModule {
                 }
             }
 
-            return finalModules;
-
+            this.modules.addAll(finalModules);
         } catch (Exception e) {
             throw new BashExecutionException("Erreur lors du parsing du JSON : " + e.getMessage() + "\nJSON reçu : " + jsonLine, e);
         }
+    }
+
+    public List<Module> getModules() {
+        return new ArrayList<>(this.modules);
+    }
+
+    public HashMap<ModuleType, List<Module>> getModulesByType() {
+        HashMap<ModuleType, List<Module>> map = new HashMap<>();
+
+        for (Module m : this.modules) {
+            ModuleType type = m.getType();
+            map.putIfAbsent(type, new ArrayList<>());
+            map.get(type).add(m);
+        }
+
+        return map;
     }
 }
