@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0" spacing="30.0" style="-fx-background-color: #01131C;" stylesheets="@../styles/Main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.cyclonicforce.fr.ui.controller.DashboradHomeController" fx:id="rootVBox">
+<VBox fx:id="rootVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0" spacing="30.0" style="-fx-background-color: #01131C;" stylesheets="@../styles/Main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.cyclonicforce.fr.ui.controller.DashboradHomeController">
    <children>
       <HBox spacing="20.0">
          <children>
@@ -45,152 +45,9 @@
                         </Text>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0">
+                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0" fx:id="diagnosticCardsHBox">
                      <children>
-                        <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="390.0" spacing="6.0" style="-fx-background-color: #022937; -fx-background-radius: 10px;">
-                           <children>
-                              <Text fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Les 10 règles ANSSI">
-                                 <font>
-                                    <Font size="36.0" />
-                                 </font>
-                              </Text>
-                              <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                 <children>
-                                    <Text fill="#a9dffe" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Circle fill="#a9dffe" radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-                                    <Text fill="#a9dffe" layoutX="10.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="par CyberDiag">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Text>
-                                 </children>
-                              </HBox>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a9dffe" height="3.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="350.0" />
-                              <Text fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Diagnostic basé sur les 10 règles ANSSI, visant à vérifier les bonnes pratiques essentielles de cybersécurité et à détecter les failles majeures." textAlignment="JUSTIFY" wrappingWidth="350.0">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="#a9dffe" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau basique">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Text>
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #064A61;" text="Lancer le diagnostic" textFill="#d9d9d9">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Button>
-                              <Button layoutX="20.0" layoutY="309.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Voir le détail">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                        </VBox>
-                        <VBox layoutX="40.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="390.0" spacing="6.0" style="-fx-background-color: #022937; -fx-background-radius: 10px;">
-                           <children>
-                              <Text fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Les 10 règles ANSSI">
-                                 <font>
-                                    <Font size="36.0" />
-                                 </font>
-                              </Text>
-                              <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                 <children>
-                                    <Text fill="#a9dffe" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Circle fill="#a9dffe" radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-                                    <Text fill="#a9dffe" layoutX="10.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="par CyberDiag">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Text>
-                                 </children>
-                              </HBox>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a9dffe" height="3.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="350.0" />
-                              <Text fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Diagnostic basé sur les 10 règles ANSSI, visant à vérifier les bonnes pratiques essentielles de cybersécurité et à détecter les failles majeures." textAlignment="JUSTIFY" wrappingWidth="350.0">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="#a9dffe" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau basique">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Text>
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #064A61;" text="Lancer le diagnostic" textFill="#d9d9d9">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Button>
-                              <Button layoutX="20.0" layoutY="309.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Voir le détail">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                        </VBox>
-                        <VBox layoutX="470.0" layoutY="10.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="390.0" spacing="6.0" style="-fx-background-color: #022937; -fx-background-radius: 10px;">
-                           <children>
-                              <Text fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Les 10 règles ANSSI">
-                                 <font>
-                                    <Font size="36.0" />
-                                 </font>
-                              </Text>
-                              <HBox alignment="CENTER_LEFT" spacing="10.0">
-                                 <children>
-                                    <Text fill="#a9dffe" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Text>
-                                    <Circle fill="#a9dffe" radius="3.0" stroke="BLACK" strokeType="INSIDE" />
-                                    <Text fill="#a9dffe" layoutX="10.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="par CyberDiag">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Text>
-                                 </children>
-                              </HBox>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a9dffe" height="3.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="350.0" />
-                              <Text fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Diagnostic basé sur les 10 règles ANSSI, visant à vérifier les bonnes pratiques essentielles de cybersécurité et à détecter les failles majeures." textAlignment="JUSTIFY" wrappingWidth="350.0">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Text>
-                              <Text fill="#a9dffe" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau basique">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Text>
-                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #064A61;" text="Lancer le diagnostic" textFill="#d9d9d9">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Button>
-                              <Button layoutX="20.0" layoutY="309.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Voir le détail">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                        </VBox>
+
                      </children>
                      <padding>
                         <Insets left="30.0" right="30.0" />
