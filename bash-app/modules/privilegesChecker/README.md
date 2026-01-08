@@ -25,6 +25,6 @@ Le script :
 ## Fichiers
 
 - main.sh # Script principal (privileges checker)
-- test_privilegesChecker.sh # Test automatique du module
-- result.json # Fichier JSON généré (à l’exécution)
+- test.sh # Test automatique du module
+- module.json # Fichier JSON généré (à l’exécution)
 - README.md

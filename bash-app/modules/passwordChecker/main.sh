@@ -1,13 +1,13 @@
 #!/bin/bash
 # =============================================================================
-# Script : check_passwords.sh
+# Script : main.sh
 # Description : Vérifie la politique de mot de passe PAM et génère un JSON
 # Auteur : Yohan
 # =============================================================================
 
 source "$(dirname "$0")./../utils/logger.sh"
 
-log_info "check_password: starting password policy check"
+log_info "check_password: démarrage de la vérification de la politique de mot de passe"
 
 # --- Configuration recommandée ---
 RECOMMENDED_MINLEN=12
@@ -36,10 +36,10 @@ done
 
 if [[ ${#found_files[@]} -eq 0 ]]; then
     log_error "Aucun fichier PAM connu trouvé."
-    error="No PAM configuration files found."
+    error="Aucun fichier de configuration PAM trouvé."
     status="CRITICAL"
     score=0
-    recommendation="Critical password policy issues detected. Immediate review required."
+    recommendation="Des problèmes critiques de politique de mot de passe ont été détectés. Revue immédiate nécessaire."
     # Sortie JSON immédiate
     cat <<EOF
 {
@@ -49,6 +49,7 @@ if [[ ${#found_files[@]} -eq 0 ]]; then
   "recommendation": "$recommendation"
 }
 EOF
+    echo "$json" > module.json
     exit 1
 fi
 
@@ -152,13 +153,13 @@ else
     status="CRITICAL"
 fi
 
-# Recommandation
+# Recommandation en français
 if [[ "$status" == "OK" ]]; then
-    recommendation="Password policy fully compliant with best practices."
+    recommendation="La politique de mot de passe est conforme aux bonnes pratiques."
 elif [[ "$status" == "WARNING" ]]; then
-    recommendation="Some password policy improvements are recommended."
+    recommendation="Des améliorations de la politique de mot de passe sont recommandées."
 else
-    recommendation="Critical password policy issues detected. Immediate review required."
+    recommendation="Des problèmes critiques de politique de mot de passe ont été détectés. Revue immédiate nécessaire."
 fi
 
 # Score normalisé de 0 à 5
@@ -181,9 +182,11 @@ json=$(cat <<EOF
 EOF
 )
 
+# Affichage et écriture du JSON
 echo "$json"
+echo "$json" > module.json
 
-log_info "check_password: finished password policy check"
+log_info "check_password: fin de la vérification de la politique de mot de passe"
 
 # =============================================================================
 # --- Self-testing functionality ----------------------------------------------
@@ -256,10 +259,8 @@ main() {
         exit 0
     fi
 
-    # Exécution normale
     log_info "[check_password] Lancement du module ..."
-    # ton code d’analyse s’exécute ici automatiquement
+    # L'analyse s'exécute automatiquement au démarrage
 }
 
 main "$@"
-

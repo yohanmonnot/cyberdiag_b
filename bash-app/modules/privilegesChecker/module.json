@@ -1,0 +1,6 @@
+{
+  "status": "WARNING",
+  "error": "",
+  "score": 2,
+  "recommendation": "Le fichier sudoers n'est pas lisible. Vérifiez les permissions."
+}

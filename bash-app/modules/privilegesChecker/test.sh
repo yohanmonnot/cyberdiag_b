@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Script : test_privilegesChecker.sh
+# Script : test.sh
 # Description : Teste le script privilegesChecker.sh et valide son JSON
 # Auteur : Yohan
 # =============================================================================
