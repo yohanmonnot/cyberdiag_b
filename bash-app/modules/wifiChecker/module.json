@@ -1,11 +1,12 @@
 {
-	"name": "majChecker",
+	"name": "wifiChecker",
 	"version": "1.0",
 	"type": "tool",
-    "category": "maintenance",
-	"description": "A module to check for software updates on the system.",
-	"author": "Célian Touzeau",
+    "category": "security",
+	"description": "A module to check network connections and provide security recommendations.",
+	"author": "Nolhan BLANCHETIÈRE--DRÔLON",
 	"main": "main.sh",
+    "test": "test.sh",
 	"args": [],
 	"dependencies": [],
     "return_type": {
@@ -13,15 +14,13 @@
             "status",
 			"error",
 			"score",
-			"recommendations",
-			"updates"
+			"recommendation"
         ],
         "types": {
             "status": "string",
             "error": "string",
             "score": "number",
-            "recommendations": "string",
-            "updates": "number"
+            "recommendation": "string"
         }
     }
 }

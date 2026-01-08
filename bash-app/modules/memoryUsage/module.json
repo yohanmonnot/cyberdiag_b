@@ -1,20 +1,9 @@
 {
-<<<<<<< HEAD
-	"name": "diskUsage",
-	"version": "1.0",
-	"type": "tool",
-	"description": "A module to check disk usage on the system.",
-	"author": "Nolhan B.D.",
-	"main": "main.sh",
-	"args": [],
-	"dependencies": []
-}
-=======
-    "name": "diskUsage",
+    "name": "memoryUsage",
     "version": "1.0",
     "type": "tool",
     "category": "maintenance",
-    "description": "A module to check disk usage on the system.",
+    "description": "A module to check memory usage on the system.",
     "author": "Nolhan BLANCHETIÈRE--DRÔLON",
     "main": "main.sh",
     "test": "test.sh",
@@ -25,8 +14,7 @@
             "status",
             "error",
             "score",
-            "recommendation",
-            "disk_data"
+            "recommendation"
         ],
         "types": {
             "status": "string",
@@ -36,4 +24,3 @@
         }
     }
 }
->>>>>>> 71132f0 (Integration malware ANSII recommendation)
