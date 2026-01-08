@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox spacing="20" stylesheets="@/edu/cyclonicforce/fr/ui/styles/diagnostics.css" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.cyclonicforce.fr.ui.controller.DiagnosticsController">
+<VBox spacing="20" stylesheets="@/edu/cyclonicforce/fr/ui/styles/diagnostics.css" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.cyclonicforce.fr.ui.controller.DashboardDiagnosticsController">
     <padding><Insets top="20" right="40" bottom="20" left="40"/></padding>
     
     <Label text="Diagnostics" styleClass="header-text"/>
