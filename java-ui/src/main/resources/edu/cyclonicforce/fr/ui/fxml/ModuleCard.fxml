@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+
+<VBox layoutX="40.0"
+      layoutY="10.0"
+      maxWidth="-Infinity"
+      minWidth="-Infinity"
+      prefHeight="200.0"
+      prefWidth="390.0"
+      spacing="6.0"
+      style="-fx-background-color: #022937; -fx-background-radius: 10px;"
+      xmlns="http://javafx.com/javafx/17.0.1"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="edu.cyclonicforce.fr.ui.controller.ModuleCardController">
+<children>
+    <Text fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Les 10 règles ANSSI" fx:id="titleText">
+        <font>
+            <Font size="36.0" />
+        </font>
+    </Text>
+    <HBox alignment="CENTER_LEFT" spacing="10.0">
+        <children>
+            <Text fill="#a9dffe" strokeType="OUTSIDE" strokeWidth="0.0" text="V1.0" fx:id="versionText">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Text>
+            <Circle fill="#a9dffe" radius="3.0" stroke="BLACK" strokeType="INSIDE" />
+            <Text fill="#a9dffe" layoutX="10.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="par CyberDiag" fx:id="authorText">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Text>
+        </children>
+    </HBox>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a9dffe" height="3.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="350.0" />
+    <Text fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Never gonna give you up." textAlignment="JUSTIFY" wrappingWidth="350.0" fx:id="descriptionText">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Text>
+    <VBox prefHeight="200.0" prefWidth="100.0" />
+    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #064A61;" text="Lancer le module" textFill="#d9d9d9" fx:id="startButton">
+        <font>
+            <Font size="24.0" />
+        </font>
+    </Button>
+</children>
+<padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+</padding>
+</VBox>
