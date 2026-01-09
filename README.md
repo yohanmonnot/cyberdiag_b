@@ -134,8 +134,16 @@ cyberdiag_b/
 │   │   ├── memoryUsage/
 │   │   ├── diskUsage/
 │   │   ├── majChecker/
+│   │   ├── antivirusChecker/
+│   │   ├── firewallChecker/
+│   │   ├── malwareScan/
+│   │   ├── passwordChecker/
+│   │   ├── privilegesChecker/
+│   │   ├── usbChecker/
+│   │   ├── wifiChecker/
 │   │   ├── cliInterface/
 │   │   ├── graphicInterface/
+│   │   ├── testArgs/
 │   │   └── exampleModule/
 │   └── utils/               # Scripts utilitaires (env, logger)
 ├── java-ui/                 # Interface graphique Java
@@ -199,10 +207,10 @@ ou
 ./main.sh --cli
 ```
 
-* Exécuter les modules `cpuUsage` et `memoryUsage` :
+* Exécuter un module :
 
 ```bash
-./main.sh --script cpuUsage memoryUsage
+./main.sh --script cpuUsage
 ```
 
 * Lister tous les modules filtrés par type `monitoring` et triés par description :
@@ -223,20 +231,39 @@ ou
 
 ### Modules actuellement disponibles
 
-* `cpuUsage` : suivi CPU
-* `memoryUsage` : suivi mémoire
+#### 🖥️ Modules de Monitoring
+
+* `cpuUsage` : suivi CPU et utilisation processeur
+* `memoryUsage` : suivi mémoire RAM
 * `diskUsage` : suivi espace disque
-* `majChecker` : vérification des mises à jour
-* `cliInterface` : interface terminal
+
+#### 🔧 Modules de Maintenance
+
+* `majChecker` : vérification des mises à jour système
+* `passwordChecker` : vérification et analyse des mots de passe
+* `privilegesChecker` : vérification des droits et permissions utilisateur
+
+#### 🔒 Modules de Sécurité
+
+* `antivirusChecker` : analyse l'état de fonctionnement de l'antivirus
+* `firewallChecker` : vérification du pare-feu et sa configuration
+* `malwareScan` : analyse des malwares sur le système
+* `usbChecker` : détection et contrôle des appareils USB
+* `wifiChecker` : vérification des connexions réseau et recommandations de sécurité
+
+#### 🖥️ Interfaces
+
+* `cliInterface` : interface terminal textuelle
 * `graphicInterface` : interface graphique Java
 * `exampleModule` : modèle pour créer de nouveaux modules
 
 ### Modules prévus / futurs
 
-* **Diagnostics réseau** : tests de connectivité, analyse des ports, bande passante, etc.
-* **Diagnostics préconfigurés** : ensembles de tests combinant plusieurs modules pour un audit rapide et complet.
+* **Diagnostics réseau avancés** : tests de connectivité, analyse des ports, bande passante, détection des anomalies réseau
+* **Diagnostics préconfigurés** : ensembles de tests combinant plusieurs modules pour un audit rapide et complet
+* **Rapports d'audit** : génération automatique de rapports PDF/HTML
 
-> Chaque nouveau module sera autonome et pourra être appelé individuellement via `main.sh --script <module>` ou intégré dans une interface.
+> Chaque nouveau module est autonome et peut être appelé individuellement via `main.sh --script <module>` ou intégré dans une interface.
 
 ---
 
