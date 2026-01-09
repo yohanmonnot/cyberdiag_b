@@ -1,6 +1,12 @@
-{
-  "status": "WARNING",
-  "error": "",
-  "score": 2,
-  "recommendation": "Le fichier sudoers n'est pas lisible. Vérifiez les permissions."
+ {
+    "name": "privilegesChecker",
+    "version": "1.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to check privilege",
+    "author": "yohan MONNOT",
+    "main": "main.sh",
+    "test": "test.sh",
+    "args": [],
+    "dependencies": ["jq"]
 }
