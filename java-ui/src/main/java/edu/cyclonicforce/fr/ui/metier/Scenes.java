@@ -8,7 +8,8 @@ public enum Scenes {
     DASHBOARD_DIAGS("/edu/cyclonicforce/fr/ui/fxml/Diagnostics.fxml"),
     DASHBOARD_SETTINGS(null),
     DASHBOARD_REPORTS(null),
-    DASHBOARD_HELP(null);
+    DASHBOARD_HELP(null),
+    IN_SCAN("/edu/cyclonicforce/fr/ui/fxml/InScan.fxml");
 
     private final String fxmlPath;
 
