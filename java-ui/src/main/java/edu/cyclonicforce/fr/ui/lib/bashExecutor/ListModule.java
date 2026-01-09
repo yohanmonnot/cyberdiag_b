@@ -14,12 +14,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Class responsible for executing a Bash script to list modules
+ */
 public class ListModule {
+    /**
+     * Settings singleton instance for configuration access
+     */
     private final SettingsSingleton settings;
+    /**
+     * Gson instance for JSON parsing
+     */
     private final Gson gson;
+    /**
+     * List of modules retrieved from the Bash script
+     */
     private final List<Module> modules = new ArrayList<>();
 
-    // --- DTO : Représentation exacte du JSON reçu du Bash ---
+    /**
+     * DTO : Exact structure of module JSON returned by the Bash script
+     */
     private static class ModuleJsonDTO {
         String name;
         String version;
@@ -28,11 +42,17 @@ public class ListModule {
         String author;
     }
 
+    /**
+     * Constructor initializing Gson and settings
+     */
     public ListModule() {
         this.gson = new Gson();
         this.settings = SettingsSingleton.getInstance();
     }
 
+    /**
+     * Executes the Bash script to list modules and parses the output
+     */
     public void run() {
         String projectRootPath = settings.getArgumentValue("projectRootPath");
         System.out.println(projectRootPath);
@@ -116,10 +136,18 @@ public class ListModule {
         }
     }
 
+    /**
+     * Gets the list of modules
+     * @return List of modules
+     */
     public List<Module> getModules() {
         return new ArrayList<>(this.modules);
     }
 
+    /**
+     * Groups modules by their type
+     * @return Map of ModuleType to list of Modules
+     */
     public HashMap<ModuleType, List<Module>> getModulesByType() {
         HashMap<ModuleType, List<Module>> map = new HashMap<>();
 

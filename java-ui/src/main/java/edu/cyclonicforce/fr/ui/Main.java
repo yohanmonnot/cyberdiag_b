@@ -16,13 +16,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Principal JavaFX application class.
+ */
 public class Main extends Application {
-
+    /**
+     * Start method called by JavaFX runtime.
+     * @param stage the primary stage
+     * @throws IOException if loading FXML fails
+     */
     @Override
     public void start(Stage stage) throws IOException {
         Scene scene = new Scene(new AnchorPane());
 
-        // 3. Configurer et afficher la fenêtre (Stage)
         stage.setTitle("CyberDiag");
         stage.setScene(scene);
         stage.setResizable(false);
@@ -80,6 +86,10 @@ public class Main extends Application {
 //        }
     }
 
+    /**
+     * Main method to launch the application.
+     * @param args command-line arguments
+     */
     public static void main(String[] args) {
         SettingsSingleton.getInstance().parseArguments(args);
         launch();

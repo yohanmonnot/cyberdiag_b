@@ -11,14 +11,23 @@ public enum Scenes {
     DASHBOARD_HELP(null),
     IN_SCAN("/edu/cyclonicforce/fr/ui/fxml/InScan.fxml");
 
+    /**
+     * FXML file path
+     */
     private final String fxmlPath;
 
-    // 3. Le constructeur (automatiquement appelé pour chaque constante)
+    /**
+     * Constructor
+     * @param fxmlPath FXML file path
+     */
     Scenes(String fxmlPath) {
         this.fxmlPath = fxmlPath;
     }
 
-    // 4. Le Getter pour récupérer le chemin depuis le contrôleur
+    /**
+     * Returns the FXML file path
+     * @return FXML file path
+     */
     public String getPath() {
         return this.fxmlPath;
     }

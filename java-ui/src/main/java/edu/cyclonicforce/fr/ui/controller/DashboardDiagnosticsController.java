@@ -9,20 +9,41 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the diagnostics dashboard section.
+ */
 public class DashboardDiagnosticsController implements DasboardController {
+    /**
+     * Root VBox container for the diagnostics dashboard.
+     */
     @FXML
     public VBox rootVBox;
+    /**
+     * FlowPane container for diagnostic cards.
+     */
     @FXML
     public FlowPane DiagContainer;
-
+    /**
+     * Reference to the main application controller.
+     */
     private AppController appController;
+    /**
+     * List of diagnostic card controllers.
+     */
     private final List<DiagCardController> diagCardControllers = new ArrayList<>();
 
+    /**
+     * Initializes the diagnostics dashboard controller.
+     */
     @FXML
     public void initialize() {
 
     }
 
+    /**
+     * Sets the list of diagnostic modules to be displayed.
+     * @param diagList List of diagnostic modules
+     */
     public void setDiagList(List<Module> diagList) {
         diagCardControllers.clear();
         DiagContainer.getChildren().clear();
@@ -35,11 +56,19 @@ public class DashboardDiagnosticsController implements DasboardController {
         }
     }
 
+    /**
+     * Sets the main application controller.
+     * @param appController The main application controller
+     */
     @Override
     public void setAppController(AppController appController) {
         this.appController = appController;
     }
 
+    /**
+     * Toggles the size of the diagnostics dashboard based on the menu state.
+     * @param menuState True if the menu is collapsed, false otherwise
+     */
     @Override
     public void toggleSize(boolean menuState) {
         if (menuState) {

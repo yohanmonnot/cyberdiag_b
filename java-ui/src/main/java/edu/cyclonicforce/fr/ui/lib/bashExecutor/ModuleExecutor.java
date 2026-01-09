@@ -11,26 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gère l'exécution des modules via le script principal Bash.
+ * Manages the execution of bash modules and processes their JSON output.
  */
 public class ModuleExecutor {
-
+    /**
+     * Singleton des paramètres de l'application
+     */
     private final SettingsSingleton settings;
+    /**
+     * Gson instance for JSON parsing
+     */
     private final Gson gson;
 
+    /**
+     * Constructeur par défaut
+     */
     public ModuleExecutor() {
         this.gson = new Gson();
         this.settings = SettingsSingleton.getInstance();
     }
 
     /**
-     * Exécute un module et retourne un objet ModuleReturn.
-     * * @param name Nom du module à lancer (ex: "diskUsage")
-     * @param args Liste des arguments additionnels (ex: ["--test"])
-     * @return ModuleReturn contenant les données parsées du JSON
+     * Runs a bash module and processes its JSON output.
+     * @param name The name of the module to run
+     * @param args Arguments to pass to the module
+     * @return ModuleReturn object containing the module's output
+     * @throws BashExecutionException if execution fails or JSON parsing fails
      */
     public ModuleReturn runModule(String name, List<String> args) throws BashExecutionException {
-        // 1. Localisation du script principal
         String projectRootPath = settings.getArgumentValue("projectRootPath");
         File projectRoot = new File(projectRootPath);
         File scriptFile = new File(projectRoot, "main.sh");
@@ -39,7 +47,6 @@ public class ModuleExecutor {
             throw new BashExecutionException("Script main.sh introuvable à : " + scriptFile.getAbsolutePath());
         }
 
-        // 2. Construction de la commande
         List<String> command = new ArrayList<>();
         command.add("bash");
         command.add(scriptFile.getName());
@@ -52,11 +59,10 @@ public class ModuleExecutor {
 
         String jsonLine = null;
 
-        // 3. Exécution de la commande
         try {
             ProcessBuilder pb = new ProcessBuilder(command);
-            pb.directory(projectRoot); // Définit le contexte d'exécution à la racine du projet
-            pb.redirectErrorStream(true); // Fusionne les erreurs avec la sortie standard
+            pb.directory(projectRoot);
+            pb.redirectErrorStream(true);
 
             Process process = pb.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -65,7 +71,6 @@ public class ModuleExecutor {
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
 
-                // Détection de la ligne JSON (format : { ... })
                 if (line.startsWith("{") && line.endsWith("}")) {
                     jsonLine = line;
                 }
@@ -77,14 +82,12 @@ public class ModuleExecutor {
             throw new BashExecutionException("Erreur lors de l'exécution du module : " + e.getMessage(), e);
         }
 
-        // 4. Traitement du résultat
         if (jsonLine == null) {
             throw new BashExecutionException("Aucune sortie JSON détectée lors de l'exécution du module.");
         }
 
         try {
             System.out.println("JSON reçu : " + jsonLine);
-            // Mapping automatique vers ModuleReturn (les noms des clés JSON correspondent aux attributs)
             return gson.fromJson(jsonLine, ModuleReturn.class);
         } catch (Exception e) {
             throw new BashExecutionException("Erreur lors de la désérialisation du JSON : " + e.getMessage(), e);

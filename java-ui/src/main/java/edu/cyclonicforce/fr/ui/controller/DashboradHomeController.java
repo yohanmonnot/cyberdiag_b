@@ -8,15 +8,32 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the dashboard home view.
+ */
 public class DashboradHomeController implements DasboardController {
+    /**
+     * HBox containing diagnostic cards.
+     */
     @FXML
     public HBox diagnosticCardsHBox;
+    /**
+     * Root VBox of the dashboard home.
+     */
     @FXML
     private VBox rootVBox;
-
+    /**
+     * Reference to the main application controller.
+     */
     private AppController appController;
+    /**
+     * List of diagnostic card controllers.
+     */
     private final List<DiagCardController> diagCardControllers = new ArrayList<>();
 
+    /**
+     * Initializes the dashboard home controller by loading diagnostic cards.
+     */
     @FXML
     public void initialize() {
         ViewLoader<DiagCardController> loader = new ViewLoader<>();
@@ -27,14 +44,22 @@ public class DashboradHomeController implements DasboardController {
         }
     }
 
+    /**
+     * Sets the main application controller.
+     * @param appController the main application controller
+     */
     @Override
     public void setAppController(AppController appController) {
         this.appController = appController;
     }
 
+    /**
+     * Toggles the size of the dashboard home based on the menu state.
+     * @param menuState true if the menu is open, false otherwise
+     */
     @Override
-    public void toggleSize(boolean menuOpen) {
-        if (menuOpen) {
+    public void toggleSize(boolean menuState) {
+        if (menuState) {
             rootVBox.setMinWidth(1300);
             rootVBox.setPrefWidth(1300);
             rootVBox.setMaxWidth(1300);
