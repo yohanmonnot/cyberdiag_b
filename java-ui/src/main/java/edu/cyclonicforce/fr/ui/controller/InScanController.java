@@ -16,32 +16,71 @@ import javafx.scene.text.Text;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller for the InScan view.
+ */
 public class InScanController {
+    /**
+     * Text displaying the progress percentage of the scan.
+     */
     @FXML
     public Text progressText;
+    /**
+     * Progress bar container.
+     */
     @FXML
     public HBox progressBar;
+    /**
+     * Container for log messages during the scan.
+     */
     @FXML
     public VBox logContainer;
-
+    /**
+     * Message templates for module and diagnostic category start and end.
+     */
     private static final String MODULE_START_MESSAGE = "Démarrage du madule %s...";
+    /**
+     * Message templates for module and diagnostic category start and end.
+     */
     private static final String MODULE_END_MESSAGE = "Module %s terminé.";
+    /**
+     * Message templates for module and diagnostic category start and end.
+     */
     private static final String DIAG_CATEGORY_START_MESSAGE = "Démarrage de la catégorie de diagnostic %s...";
+    /**
+     * Message templates for module and diagnostic category start and end.
+     */
     private static final String DIAG_CATEGORY_END_MESSAGE = "Catégorie de diagnostic %s terminée.";
-
+    /**
+     * Reference to the main application controller.
+     */
     private AppController appController;
-
+    /**
+     * Map of modules categorized by their type.
+     */
     private Map<ModuleType, List<Module>> modulesByType;
 
+    /**
+     * Initializes the controller.
+     */
     @FXML
     public void initialize() {
         logContainer.getChildren().clear();
     }
 
+    /**
+     * Sets the main application controller.
+     * @param appController the main application controller
+     */
     public void setAppController(AppController appController) {
         this.appController = appController;
     }
 
+    /**
+     * Starts a scan based on the specified type and module name.
+     * @param scanType the type of scan to perform
+     * @param moduleName the name of the module to scan
+     */
     public void startScan(ScanType scanType, String moduleName) {
         if (appController != null) {
             this.modulesByType = appController.getModulesByType();
@@ -62,6 +101,10 @@ public class InScanController {
         }
     }
 
+    /**
+     * Starts the specified module and logs its execution.
+     * @param module the module to start
+     */
     private void startModule(Module module) {
         ModuleExecutor executor = new ModuleExecutor();
         try {
@@ -79,10 +122,18 @@ public class InScanController {
         }
     }
 
+    /**
+     * Executes the specified diagnostic.
+     * @param diag the diagnostic to execute
+     */
     private void startDiag(Module diag) {
 
     }
 
+    /**
+     * Adds a log message to the page.
+     * @param message the log message to add
+     */
     private void addPageLog(String message) {
         Text logText = new Text(message);
 

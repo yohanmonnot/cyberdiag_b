@@ -1,0 +1,399 @@
+@startuml
+title Diagramme de classe CyberDiag
+hide empty members
+
+package edu.cyclonicforce.fr.ui {
+    package controller {
+        class AccueilController {   
+            - appController : AppController
+            - boutonCommencer : VBox
+
+            + setAppController(appController : AppController) : void
+            + onCommencerClicked() : void
+        }
+
+        class AppController {
+            - {leaf} mainStage : Stage
+            - currentScene : Scenes
+            - dashboardRoot : BorderPane
+            - dashboardScene : Scene
+            - menuController : MenuController
+            - modulesByType : Map<ModuleType, List<Module>>
+            - dashboardController : DasboardController
+            - inScanController : InScanController
+            - menuState : boolean
+
+            + AppController(mainStage : Stage)
+            + init() : void
+            + toggleMenu() : void
+            + setScene(sceneToDisplay : Scenes) : void
+            + initDashboardStructure() : void
+            + setDashboardCenter(scene : Scenes) : void
+            + refreshModules() : void
+            + launchScan(scanType : ScanType, moduleName : String) : void
+            + getModulesByType() : Map<ModuleType, List<Module>>
+        }
+
+        interface DasboardController {
+            + setAppController(appController : AppController) : void
+            + toggleSize(menuState : boolean) : void
+        }
+
+        class DashboardDiagnosticsController implements DasboardController {
+            + rootVBox : VBox
+            + DiagContainer : FlowPane
+            - appController : AppController
+            - {leaf} diagCardControllers : List<DiagCardController>
+
+            + initialize() : void
+            + setDiagList(diagList : List<Module>) : void
+            + setAppController(appController : AppController) : void
+            + toggleSize(menuState : boolean) : void
+        }
+
+        class DashboardModulesController implements DasboardController {
+            + rootVBox : VBox
+            + DiagContainer : FlowPane
+            - appController : AppController
+            - {leaf} moduleCardControllers : List<ModuleCardController>
+
+            + initialize() : void
+            + setAppController(appController : AppController) : void
+            + toggleSize(menuState : boolean) : void
+            + setModuleList(moduleList : List<Module>) : void
+        }
+
+        class DashboradHomeController implements DasboardController {
+            + diagnosticCardsHBox : HBox
+            + rootVBox : VBox
+            - appController : AppController
+            - {leaf} diagCardControllers : List<DiagCardController>
+
+            + setAppController(appController : AppController) : void
+            + toggleSize(menuState : boolean) : void
+            + initialize() : void
+        }
+
+        class DiagCardController {
+            + titleText : Text
+            + versionText : Text
+            + authorText : Text
+            + descriptionText : Text
+            + startButton : Button
+            + detailButton : Button
+
+            + setModule(module : Module) : void
+        }
+
+        class InScanController {
+            + progressText : Text
+            + progressBar : HBox
+            + logContainer : VBox
+            - appController : AppController
+            - modulesByType : Map<ModuleType, List<Module>>
+            - {static} {leaf} MODULE_START_MESSAGE : String
+            - {static} {leaf} MODULE_END_MESSAGE : String
+            - {static} {leaf} DIAG_CATEGORY_START_MESSAGE : String
+            - {static} {leaf} DIAG_CATEGORY_END_MESSAGE : String
+
+            + initialize() : void
+            + setAppController(appController : AppController) : void
+            + startScan(scanType : ScanType, moduleName : String) : void
+            - startModule(module : Module) : void
+            - startDiag(diag : Module) : void
+            - addPageLog(message : String) : void
+        }
+
+        class MenuController {
+            - burgerButton : Button
+            - diagnosticsButton : Button
+            - modulesButton : Button
+            - reportsButton : Button
+            - helpButton : Button
+            - settingsButton : Button
+            - settingsText : Text
+            - helpText : Text
+            - reportsText : Text
+            - modulesText : Text
+            - diagnosticsText : Text
+            - menuVBox : VBox
+            - appController : AppController
+
+            + initialize() : void
+            + setAppController(appController : AppController) : void
+            + setExpandedMode(expanded : boolean) : void
+            - navigateTo(sceneToDisplay : Scenes) : void
+            - setLabelsVisible(visible : boolean) : void
+            - setTextState(text : Text, visible : boolean) : void
+        }
+
+        class ModuleCardController {
+            + titleText : Text
+            + versionText : Text
+            + authorText : Text
+            + descriptionText : Text
+            + startButton : Button
+            - appController : AppController
+
+            + initialize() : void
+            + setAppController(appController : AppController) : void
+            + setModule(module : Module) : void
+        }
+    }
+
+    package lib {
+        package bashExecutor {
+            class BashExecutionException {
+                + BashExecutionException(message : String)
+                + BashExecutionException(message : String, cause : Throwable)
+            }
+
+            class ListModule {
+                - {leaf} settings : SettingsSingleton
+                - {leaf} gson : Gson
+                - {leaf} modules : List<Module>
+
+                + ListModule()
+                + run() : void
+                + getModules() : List<Module>
+                + getModulesByType() : HashMap<ModuleType, List<Module>>
+            }
+
+             class ModuleJsonDTO <<static>> {
+                - name : String
+                - version : String
+                - description : String
+                - type : String
+                - author : String
+            }
+
+            ListModule *.. ModuleJsonDTO : Inner Class
+
+            class ModuleExecutor {
+                - {leaf} settings : SettingsSingleton
+                - {leaf} gson : Gson
+
+                + ModuleExecutor()
+                + runModule(module : Module, args : List<String>) : ModuleReturn
+            }
+        }
+
+        package util {
+            package argParser {
+                enum ArgCategory {
+                    SHORT
+                    LONG
+                }
+
+                class ArgParseException {
+                    + ArgParseException(message : String)
+                    + ArgParseException(message : String, cause : Throwable)                    
+                }
+
+                class ArgParser {
+                    - {leaf} {static} ACCEPTED_ARGS : Argument[]
+                    - {leaf} LONG_PREFIX : String
+                    - {leaf} SHORT_PREFIX : String
+
+                    - ArgParser()
+                    + {leaf} {static} parseArgs(args : Array<String>) : Map<String, String>
+                    - {static} showHelp() : void
+                    - {static} showVersion() : void
+                    + {static} parseArgs(args : String[]) : Map<String, Object>
+                }
+
+                interface ArgTypeStrategy<T> {
+                    + parse(value : String) : T
+                    + getTypeName() : String
+                }
+
+                class ArgTypes {
+                    {leaf} {static} STRING : ArgTypeStrategy<String>
+                    {leaf} {static} INTEGER : ArgTypeStrategy<Integer>
+                    {leaf} {static} FLOAT : ArgTypeStrategy<Float>
+                    {leaf} {static} DOUBLE : ArgTypeStrategy<Double>
+                    {leaf} {static} BOOLEAN : ArgTypeStrategy<Boolean>
+                    {leaf} {static} FLAG : ArgTypeStrategy<Void>
+                }
+
+                class Argument {
+                    - category : ArgCategory
+                    - name : String
+                    - actAs : Param
+
+                    + Argument(category : ArgCategory, name : String, actAs : Param)
+                    + getCategory() : ArgCategory
+                    + setCategory(category : ArgCategory) : void
+                    + getName() : String
+                    + setName(name : String) : void
+                    + getActAs() : Param
+                    + setActAs(actAs : Param) : void
+                }
+
+                interface Param {
+                    + getName() : String
+                    + description() : String
+                    + getsIsFlag() : boolean
+                    + getTypeStrategy() : ArgTypeStrategy<?>
+                }
+
+                class Params {
+                    {leaf} {static} HELP : Param
+                    {leaf} {static} VERSION : Param
+                    {leaf} {static} VERBOSE : Param
+                    {leaf} {static} DEBUG : Param
+                    {leaf} {static} LOGS_OUTPUT : Param
+                    {leaf} {static} SHOW_STACKTRACE : Param
+                }
+            }
+        
+            class Logger {
+                - {static} instance : Logger
+                - {leaf} {static} DATE_FORMATTER : DateTimeFormatter
+                - settings : SettingsSingleton
+                - logFilePath : String
+
+                - {static} Logger()
+                + {static} getInstance() : Logger
+                + log(message : String) : void
+                + debug(message : String) : void
+                + debug(format : String, args : Object...) : void
+                + error(message : String) : void
+                + error(format : String, args : Object...) : void
+                + error(format : String, t : Throwable) : void
+                + setLogFilePath(path : String) : void
+                - getTimestamp() : String
+                - print(level : String, message : String) : void
+                - writeToFile(logLine : String) : void
+            }
+
+            class SettingsSingleton {
+                - {static} instance : SettingsSingleton
+                - parsedArguments : Map<String, Object>
+
+                - {static} SettingsSingleton()
+                + {static} getInstance() : SettingsSingleton
+                - {static} getConstants() : Map<String, Object>
+                + parseArguments(args : String[]) : void
+                + getArgument(key : String) : Object
+        }
+
+
+    }
+
+    package metier {
+        enum Scenes {
+            ACCUEIL("/edu/cyclonicforce/fr/ui/fxml/Accueil.fxml")
+            DASHBOARD("/edu/cyclonicforce/fr/ui/fxml/AcceuilApp.fxml")
+            DASHBOARD_MODULES("/edu/cyclonicforce/fr/ui/fxml/Modules.fxml")
+            DASHBOARD_DIAGS("/edu/cyclonicforce/fr/ui/fxml/Diagnostics.fxml")
+            DASHBOARD_SETTINGS(null)
+            DASHBOARD_REPORTS(null)
+            DASHBOARD_HELP(null)
+            IN_SCAN("/edu/cyclonicforce/fr/ui/fxml/InScan.fxml")
+            - {leaf} fxmlPath : String
+            + getPath() : String
+            + Scenes(String fxmlPath)
+        }
+
+        enum ScanType {
+            MODULE
+            DIAGNOSTIC
+        }
+
+        enum ModuleType {
+            TOOL
+            INTERFACE
+            DIAGNOSTIC
+        }
+
+        class ModuleReturn {
+            - {leaf} {static} VALID_EXIT_CODES : int[]
+            - exitCode : int
+            - error : String
+            - score : int
+            - recommendation : String
+
+            + ModuleReturn(exitCode : int, error : String, score : int, recommendation : String)
+            + getExitCode() : int
+            + setExitCode(exitCode : int) : void
+            + getError() : String
+            + setError(error : String) : void
+            + getScore() : int
+            + setScore(score : int) : void
+            + getRecommendation() : String : void
+            + setRecommendation(recommendation : String) : void
+            + toString() : String
+            - isValidExitCode(code : int) : boolean
+        }
+
+        class Module {
+            - name : String
+            - version : String
+            - description : String
+            - type : ModuleType
+            - author : String
+            - args : List<String>
+
+            + Module(name : String, version : String, description : String, type : String, author : String, args : List<String>)
+            + Module(name : String, version : String, description : String, type : ModuleType, author : String, args : List<String>)
+            + getName() : String
+            + setName(name : String) : void
+            + getVersion() : String
+            + setVersion(version : String) : void
+            + getDescription() : String
+            + setDescription(description : String) : void
+            + getType() : ModuleType
+            + setType(type : ModuleType) : void
+            + setType(type : String) : void
+            + getArgs() : List<String>
+            + setArgs(args : List<String>) : void
+            + addArg(arg : String) : void
+            + removeArg(arg : String) : void
+            + getAuthor() : String
+            + setAuthor(author : String) : void
+            + toString() : String
+        }
+
+        class Diagnostic {
+            - name : String
+            - version : String
+            - author : String
+            - description : String
+            - level : String
+            - steps : Map<String, String[]>
+
+            + Diagnostic(title : String, version : String, author : String, description : String, level : String, steps : Map<String, String[]>)
+            + getTitle() : String
+            + setTitle(title : String) : void
+            + getVersion() : String
+            + setVersion(version : String) : void
+            + getAuthor() : String
+            + setAuthor(author : String) : void
+            + getDescription() : String
+            + setDescription(description : String) : void
+            + getLevel() : String
+            + setLevel(level : String) : void
+            + getSteps() : List<Module>
+            + setSteps(steps : Map<String, String[]>) : void
+        }
+
+    }
+
+    package view {
+        class ViewLoader<T> {
+            - {leaf} controller : T
+            - root : Parent
+
+            + load(fxmlPath : String , appController : AppController) : void
+            + getRoot() : Parent
+            + getController() : T
+    }
+
+    class Main {
+        + start(stage : Stage) : void
+        + main(args : String[]) : void
+    }
+}
+
+@enduml

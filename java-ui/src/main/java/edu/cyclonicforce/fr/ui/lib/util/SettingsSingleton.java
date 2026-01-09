@@ -38,6 +38,10 @@ public class SettingsSingleton {
         return instance;
     }
 
+    /**
+     * Returns a map of constant settings.
+     * @return a map of constant settings
+     */
     private static Map<String, Object> getConstants() {
         return Map.of(
                 "projectRootPath", "."

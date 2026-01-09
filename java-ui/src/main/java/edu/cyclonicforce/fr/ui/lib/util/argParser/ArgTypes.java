@@ -65,6 +65,9 @@ public class ArgTypes {
         @Override public String getTypeName() { return "Boolean"; }
     };
 
+    /**
+     * Flag argument type strategy (no value).
+     */
     public static final ArgTypeStrategy<Void> FLAG = new ArgTypeStrategy<>() {
         @Override public Void parse(String value) { return null; }
         @Override public String getTypeName() { return "Flag"; }

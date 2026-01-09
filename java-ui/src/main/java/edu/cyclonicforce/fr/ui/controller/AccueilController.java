@@ -1,25 +1,39 @@
 package edu.cyclonicforce.fr.ui.controller;
 
-import edu.cyclonicforce.fr.ui.metier.Scenes; // N'oublie pas l'import
+import edu.cyclonicforce.fr.ui.metier.Scenes;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller for the "Accueil" view.
+ */
 public class AccueilController {
-
+    /**
+     * Reference to the main application controller.
+     */
     private AppController appController;
 
+    /**
+     * Button to start the application.
+     */
     @FXML
     private VBox boutonCommencer;
 
+    /**
+     * Sets the main application controller.
+     * 
+     * @param appController The main application controller.
+     */
     public void setAppController(AppController appController) {
         this.appController = appController;
     }
 
-    // C'est cette méthode qui sera appelée par le FXML
+    /**
+     * Handles the click event on the "Commencer" button.
+     */
     @FXML
     public void onCommencerClicked() {
         if (appController != null) {
-            // On demande à passer sur le Dashboard (le AppController gérera la vue par défaut)
             appController.setScene(Scenes.DASHBOARD);
         } else {
             System.err.println("Erreur : AppController est null dans AccueilController");

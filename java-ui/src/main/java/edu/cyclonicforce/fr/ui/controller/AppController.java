@@ -12,26 +12,51 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
+/**
+ * Principal controller of the application managing scene transitions and module interactions.
+ */
 public class AppController {
+    /**
+     * The main application stage.
+     */
     private final Stage mainStage;
+    /**
+     * The currently displayed scene.
+     */
     private Scenes currentScene = null;
-
+    /**
+     * The root layout for the dashboard scene.
+     */
     private BorderPane dashboardRoot = null;
+    /**
+     * The dashboard scene instance.
+     */
     private Scene dashboardScene = null;
-
+    /**
+     * The menu controller for handling menu interactions.
+     */
     private MenuController menuController;
-
+    /**
+     * A mapping of module types to their corresponding modules.
+     */
     private Map<ModuleType, List<Module>> modulesByType;
-
-    // On garde une référence générique au contrôleur central s'il implémente l'interface
+    /**
+     * Reference to the dashboard controller for updating dashboard content.
+     */
     private DasboardController dashboardController;
-
-    // Référence au contrôleur de la vue d'analyse en cours pour lancer des scans et récupérer les résultats
+    /**
+     * Reference to the in-scan controller for managing scan operations.
+     */
     private InScanController inScanController;
-
-    // État du menu : true = ouvert (300px), false = fermé (100px)
+    /**
+     * State of the menu (expanded or collapsed).
+     */
     private boolean menuState = true;
 
+    /**
+     * Constructor for AppController.
+     * @param mainStage The main application stage.
+     */
     public AppController(Stage mainStage) {
         if (mainStage == null) throw new IllegalArgumentException("Stage cannot be null");
         this.mainStage = mainStage;
@@ -39,11 +64,17 @@ public class AppController {
         refreshModules();
     }
 
+    /**
+     * Initializes the application by setting the initial scene and displaying the main stage.
+     */
     public void init() {
         setScene(Scenes.ACCUEIL);
         this.mainStage.show();
     }
 
+    /**
+     * Toggles the menu state between expanded and collapsed, updating the dashboard accordingly.
+     */
     public void toggleMenu() {
         // On inverse l'état
         this.menuState = !this.menuState;
@@ -59,6 +90,10 @@ public class AppController {
         }
     }
 
+    /**
+     * Sets the current scene based on the specified scene to display.
+     * @param sceneToDisplay The scene to display.
+     */
     public void setScene(Scenes sceneToDisplay) {
         switch (sceneToDisplay) {
             case ACCUEIL -> {
@@ -100,6 +135,9 @@ public class AppController {
         }
     }
 
+    /**
+     * Initializes the dashboard structure with a BorderPane layout and loads the menu.
+     */
     private void initDashboardStructure() {
         this.dashboardRoot = new BorderPane();
         // Le BorderPane prendra toute la taille
@@ -122,6 +160,10 @@ public class AppController {
         );
     }
 
+    /**
+     * Sets the center content of the dashboard based on the specified scene.
+     * @param scene The scene to load in the dashboard center.
+     */
     public void setDashboardCenter(Scenes scene) {
         if (scene.getPath() == null) {
             System.err.println("Pas de FXML pour : " + scene);
@@ -149,6 +191,9 @@ public class AppController {
         this.dashboardRoot.setCenter(contentLoader.getRoot());
     }
 
+    /**
+     * Refreshes the list of available modules by executing the ListModule command.
+     */
     public void refreshModules() {
         try {
             ListModule listModule = new ListModule();
@@ -160,6 +205,11 @@ public class AppController {
         }
     }
 
+    /**
+     * Launches a scan with the specified type and module name.
+     * @param scanType The type of scan to perform.
+     * @param moduleName The name of the module to use for the scan.
+     */
     public void launchScan(ScanType scanType, String moduleName) {
         setScene(Scenes.IN_SCAN);
         System.out.println("Launching scan: " + scanType + " for module: " + moduleName);
@@ -168,6 +218,10 @@ public class AppController {
         }
     }
 
+    /**
+     * Gets a copy of the modules mapped by their types.
+     * @return A map of module types to lists of modules.
+     */
     public Map<ModuleType, List<Module>> getModulesByType() {
         Map<ModuleType, List<Module>> copy = new HashMap<>();
 
