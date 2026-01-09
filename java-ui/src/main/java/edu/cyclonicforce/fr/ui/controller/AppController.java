@@ -3,15 +3,14 @@ package edu.cyclonicforce.fr.ui.controller;
 import edu.cyclonicforce.fr.ui.lib.bashExecutor.ListModule;
 import edu.cyclonicforce.fr.ui.metier.Module;
 import edu.cyclonicforce.fr.ui.metier.ModuleType;
+import edu.cyclonicforce.fr.ui.metier.ScanType;
 import edu.cyclonicforce.fr.ui.metier.Scenes;
 import edu.cyclonicforce.fr.ui.view.ViewLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class AppController {
     private final Stage mainStage;
@@ -26,6 +25,9 @@ public class AppController {
 
     // On garde une référence générique au contrôleur central s'il implémente l'interface
     private DasboardController dashboardController;
+
+    // Référence au contrôleur de la vue d'analyse en cours pour lancer des scans et récupérer les résultats
+    private InScanController inScanController;
 
     // État du menu : true = ouvert (300px), false = fermé (100px)
     private boolean menuState = true;
@@ -67,6 +69,19 @@ public class AppController {
                 Scene acceuilScene = new Scene(loader.getRoot());
                 this.mainStage.setTitle("CyberDiag - Accueil");
                 this.mainStage.setScene(acceuilScene);
+                this.currentScene = sceneToDisplay;
+            }
+
+            case IN_SCAN -> {
+                ViewLoader<InScanController> loader = new ViewLoader<>();
+                loader.load(Scenes.IN_SCAN.getPath(), this);
+                loader.getController().setAppController(this);
+
+                this.inScanController = loader.getController();
+
+                Scene inScanScene = new Scene(loader.getRoot());
+                this.mainStage.setTitle("CyberDiag - Analyse en cours");
+                this.mainStage.setScene(inScanScene);
                 this.currentScene = sceneToDisplay;
             }
 
@@ -143,5 +158,23 @@ public class AppController {
             System.err.println("Error while retrieving module list: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public void launchScan(ScanType scanType, String moduleName) {
+        setScene(Scenes.IN_SCAN);
+        System.out.println("Launching scan: " + scanType + " for module: " + moduleName);
+        if (this.inScanController != null) {
+            this.inScanController.startScan(scanType, moduleName);
+        }
+    }
+
+    public Map<ModuleType, List<Module>> getModulesByType() {
+        Map<ModuleType, List<Module>> copy = new HashMap<>();
+
+        for (Map.Entry<ModuleType, List<Module>> entry : modulesByType.entrySet()) {
+            copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
+
+        return copy;
     }
 }
