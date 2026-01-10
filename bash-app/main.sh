@@ -20,27 +20,40 @@ fi
 list_modules() {
     local FILTER="$1"
     local SORT_FIELD="$2"
-    MODULE_LIST=()
+    local MODULES_JSON="[]"
+
     for d in "$MODULES_DIR"/*/; do
         META="$d/module.json"
         if [[ -f "$META" ]]; then
             NAME=$(jq -r '.name // empty' "$META")
+            VERSION=$(jq -r '.version // empty' "$META")
             TYPE=$(jq -r '.type // empty' "$META")
             DESC=$(jq -r '.description // empty' "$META")
+            AUTHOR=$(jq -r '.author // empty' "$META")
+
             if [[ -z "$FILTER" || "$TYPE" == "$FILTER" ]]; then
-                MODULE_LIST+=("$NAME|$TYPE|$DESC")
+                MODULE_JSON=$(jq -n \
+                    --arg name "$NAME" \
+                    --arg version "$VERSION" \
+                    --arg type "$TYPE" \
+                    --arg description "$DESC" \
+                    --arg author "$AUTHOR" \
+                    '{name: $name, version: $version, type: $type, description: $description, author: $author}')
+                
+                MODULES_JSON=$(echo "$MODULES_JSON" | jq ". + [$MODULE_JSON]")
             fi
         fi
     done
 
     case "$SORT_FIELD" in
-        name) sort_field=1 ;;
-        type) sort_field=2 ;;
-        description) sort_field=3 ;;
-        *) sort_field=1 ;;
+        name) SORT_KEY="name" ;;
+        type) SORT_KEY="type" ;;
+        description) SORT_KEY="description" ;;
+        *) SORT_KEY="name" ;;
     esac
 
-    printf "%s\n" "${MODULE_LIST[@]}" | sort -t '|' -k"$sort_field"
+    # Trier et afficher en JSON compact (inline)
+    echo "$MODULES_JSON" | jq -c "sort_by(.${SORT_KEY})"
 }
 
 # Function to run a module by its "name" field in module.json
@@ -102,14 +115,52 @@ run_script() {
     # Cas spécial : list
     if [[ "${SCRIPT_ARGS[0]}" == "list" ]]; then
         log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
-        list_modules "$LIST_FILTER" "$LIST_SORT" | while read -r line; do
-            log_info "$line"
-        done
-    else
-        for MODULE in "${SCRIPT_ARGS[@]}"; do
-            run_module "$MODULE"
-        done
+        list_modules "$LIST_FILTER" "$LIST_SORT"
+        return 0
     fi
+
+    # Déterminer si le mode test est activé globalement
+    local TEST_MODE=false
+    local CLEAN_ARGS=()
+    for arg in "${SCRIPT_ARGS[@]}"; do
+        if [[ "$arg" == "--test" ]]; then
+            TEST_MODE=true
+        else
+            CLEAN_ARGS+=("$arg")
+        fi
+    done
+
+    # On boucle sur chaque module demandé
+    for MODULE_NAME in "${CLEAN_ARGS[@]}"; do
+        local MODULE_DIR="$MODULES_DIR/$MODULE_NAME"
+        local META_FILE="$MODULE_DIR/module.json"
+
+        if [[ -d "$MODULE_DIR" && -f "$META_FILE" ]]; then
+            # 1. Exécution du module
+            run_module "$MODULE_NAME"
+
+            # 2. Exécution des tests si le flag était présent
+            if [[ "$TEST_MODE" == true ]]; then
+                local TEST_SCRIPT
+                TEST_SCRIPT=$(jq -r '.test // empty' "$META_FILE" 2>/dev/null)
+
+                if [[ -z "$TEST_SCRIPT" ]]; then
+                    TEST_SCRIPT="$MODULE_DIR/test.sh"
+                else
+                    TEST_SCRIPT="$MODULE_DIR/$TEST_SCRIPT"
+                fi
+
+                if [[ -f "$TEST_SCRIPT" ]]; then
+                    log_info "Running tests for module '$MODULE_NAME'"
+                    bash "$TEST_SCRIPT"
+                else
+                    log_warn "Test script not found for '$MODULE_NAME': $TEST_SCRIPT"
+                fi
+            fi
+        else
+            log_error "Module '$MODULE_NAME' not found (directory or module.json missing)."
+        fi
+    done
 }
 
 # Argument parsing (after functions so variables exist)
