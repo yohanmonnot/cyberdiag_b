@@ -1,7 +1,6 @@
 package edu.cyclonicforce.fr.ui.metier;
 
 public enum Scenes {
-<<<<<<< HEAD
     ACCUEIL("/edu/cyclonicforce/fr/ui/fxml/Accueil.fxml"),
     DASHBOARD("/edu/cyclonicforce/fr/ui/fxml/AcceuilApp.fxml"),
     DASHBOARD_MODULES("/edu/cyclonicforce/fr/ui/fxml/Modules.fxml"),
@@ -31,13 +30,4 @@ public enum Scenes {
     public String getPath() {
         return this.fxmlPath;
     }
-=======
-    ACCEUIL,
-    DASHBOARD,
-    DASHBOARD_MODULES,
-    DASHBOARD_DIAGS,
-    DASHBOARD_SETTINGS,
-    DASHBOARD_REPORTS,
-    DASHBOARD_HELP
->>>>>>> 5343811 (JE SUIS UN AVION)
 }
