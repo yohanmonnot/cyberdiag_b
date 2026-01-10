@@ -1,0 +1,11 @@
+# Forcer le format Unix (LF) pour tous les fichiers texte
+* text=auto eol=lf
+
+# Garder les fichiers bat/cmd en format Windows (optionnel mais conseillé)
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Garder les fichiers binaires intacts (images, jars, etc.)
+*.png binary
+*.jpg binary
+*.jar binary

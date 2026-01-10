@@ -1,0 +1,59 @@
+/* Style Global */
+.root {
+    -fx-background-color: #001219; /* Bleu très foncé / Noir */
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.header-text {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+/* Boutons du menu supérieur */
+.menu-button {
+    -fx-background-color: #001f2d;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+    -fx-padding: 10 30;
+    -fx-cursor: hand;
+}
+
+/* Cartes (Modules et Diagnostics) */
+.card {
+    -fx-background-color: #002333;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-min-width: 200;
+    -fx-max-width: 250;
+}
+
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.card-description {
+    -fx-text-fill: #a0a0a0;
+    -fx-font-size: 12px;
+    -fx-wrap-text: true;
+}
+
+/* Boutons à l'intérieur des cartes */
+.action-button {
+    -fx-background-color: #004d66;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #006685;
+}
