@@ -3,6 +3,7 @@ package edu.cyclonicforce.fr.ui.controller;
 import edu.cyclonicforce.fr.ui.lib.bashExecutor.ListModule;
 import edu.cyclonicforce.fr.ui.metier.Module;
 import edu.cyclonicforce.fr.ui.metier.ModuleType;
+import edu.cyclonicforce.fr.ui.metier.ScanType;
 import edu.cyclonicforce.fr.ui.metier.Scenes;
 import edu.cyclonicforce.fr.ui.view.ViewLoader;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ public class AppController {
 
     // On garde une référence générique au contrôleur central s'il implémente l'interface
     private DasboardController dashboardController;
+    private InScanController inScanController;
 
     // État du menu : true = ouvert (300px), false = fermé (100px)
     private boolean menuState = true;
@@ -67,6 +69,19 @@ public class AppController {
                 Scene acceuilScene = new Scene(loader.getRoot());
                 this.mainStage.setTitle("CyberDiag - Accueil");
                 this.mainStage.setScene(acceuilScene);
+                this.currentScene = sceneToDisplay;
+            }
+
+            case IN_SCAN -> {
+                ViewLoader<InScanController> loader = new ViewLoader<>();
+                loader.load(Scenes.IN_SCAN.getPath(), this);
+                loader.getController().setAppController(this);
+
+                this.inScanController = loader.getController();
+
+                Scene inScanScene = new Scene(loader.getRoot());
+                this.mainStage.setTitle("CyberDiag - Analyse en cours");
+                this.mainStage.setScene(inScanScene);
                 this.currentScene = sceneToDisplay;
             }
 
@@ -142,6 +157,19 @@ public class AppController {
         } catch (Exception e) {
             System.err.println("Error while retrieving module list: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    public Map<ModuleType, List<Module>> getModulesByType() {
+        return modulesByType;
+    }
+
+    public void startScan(ScanType scanType, String moduleName) {
+        if (this.inScanController != null) {
+            this.inScanController.startScan(scanType, moduleName);
+            setScene(Scenes.IN_SCAN);
+        } else {
+            System.err.println("InScanController is not initialized.");
         }
     }
 }

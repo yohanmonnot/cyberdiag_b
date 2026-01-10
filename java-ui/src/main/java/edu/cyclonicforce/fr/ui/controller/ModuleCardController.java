@@ -65,7 +65,7 @@ public class ModuleCardController {
     @FXML
     public void initialize() {
         startButton.setOnAction(event -> {
-            appController.launchScan(ScanType.MODULE, titleText.getText());
+            appController.startScan(ScanType.MODULE, titleText.getText());
         });
     }
 }
