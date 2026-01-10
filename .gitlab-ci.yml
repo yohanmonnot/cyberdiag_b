@@ -1,77 +1,96 @@
 stages:
   - build
   - test
+  - deploy
+  - verify
 
 variables:
-  # Définir le module pour les commandes JLink
-  APP_MODULE: edu.cyclonicforce.fr.java.ui
-  # Définir la classe principale pour les commandes JLink
-  APP_MAIN: edu.cyclonicforce.fr.ui.Main
-  # Définir le chemin de l'image d'exécution générée par JLink (dossier)
-  JLINK_IMAGE_DIR: java-ui/target/java-ui-linux
-  # Nom du lanceur générique dans l'image JLink sur Linux
-  JLINK_LAUNCHER: java-ui/target/java-ui-linux/bin/java
+  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
 
-# ---------- BUILD (Maven + JLink pour Linux) ----------
-build_maven_jlink:
+before_script:
+  - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
+
+# ---------- BUILD ----------
+build_gradle_project:
   stage: build
-  image: maven:3.9-eclipse-temurin-17
+  image: eclipse-temurin:17
   script:
-    # 1. On ne fait PAS de 'cd java-ui'. On reste à la racine.
-    - echo "Running Maven build from root..."
-    
-    # 2. On utilise l'option '-f' pour indiquer le fichier pom.xml
-    # On exécute seulement 'package'. Le profil 'linux-jlink' lié à la phase package 
-    # s'occupera de lancer jlink avec le bon nom (java-ui-linux).
-    - mvn -f java-ui/pom.xml clean package
-    
-    # 3. Debug : Listons le contenu de target pour être sûr du nom du dossier
-    - echo "Contenu de target :"
-    - ls -l java-ui/target/
-    
-    # 4. Vérification finale avec la variable
-    - ls -l ${JLINK_IMAGE_DIR}
+    - cd java-ui
+    - echo "Running Gradle build..."
+    - chmod +x ./gradlew
+    - ./gradlew clean build
   artifacts:
     paths:
-      - ${JLINK_IMAGE_DIR}
+      - java-ui/build/libs/java-ui-1.0.jar
+    reports:
+      junit: '**/build/test-results/**/TEST-*.xml'
     expire_in: 1 hour
 
-# ---------- TEST (Lancement de l'image JLink) ----------
-test_jlink_launch:
+# ---------- TEST ----------
+test_jar_launch:
   stage: test
-  image: eclipse-temurin:17-jdk
+  image: eclipse-temurin:17
   dependencies:
-    - build_maven_jlink
+    - build_gradle_project
   script:
-    # 1. Installation de Xvfb et des libs graphiques
-    # xvfb : Crée l'écran virtuel
-    # libgtk-3-0 / libx11-6 : Nécessaires pour le moteur JavaFX Linux
-    - apt-get update && apt-get install -y xvfb libx11-6 libxext6 libxrender1 libxtst6 libxi6 libgtk-3-0
-
-    - echo "Checking JLink image directory..."
-    - test -d ${JLINK_IMAGE_DIR} || (echo "JLink image not found!" && exit 1)
-
-    - echo "Launching JLink image with Xvfb (Virtual Display)..."
-    
-    # 2. Lancement avec xvfb-run
-    # -a : Trouve un numéro d'écran libre automatiquement
-    # -Dprism.order=sw : Force le rendu logiciel (pas de GPU dans la CI)
-    # On a RETIRÉ -Dglass.platform=Monocle
-    - xvfb-run -a ${JLINK_LAUNCHER} -Dprism.order=sw --module ${APP_MODULE}/${APP_MAIN} &
-
-    - APP_PID=$!
+    - echo "Checking built JAR..."
+    - test -f java-ui/build/libs/java-ui-1.0.jar || (echo "JAR not found!" && exit 1)
+    - echo "Launching JAR in headless mode..."
+    - java -jar java-ui/build/libs/java-ui-1.0.jar --headless &
+    - JAR_PID=$!
     - sleep 5
-    
-    # Vérification
-    - |
-      if ps -p $APP_PID > /dev/null; then
-        echo "✅ Application started successfully inside Xvfb.";
-        kill $APP_PID;
+    - if ps -p $JAR_PID > /dev/null; then
+        echo "JAR started successfully.";
+        kill $JAR_PID;
       else
-        echo "❌ Application failed to start.";
+        echo "JAR failed to start.";
         exit 1;
       fi
   artifacts:
     paths:
-      - ${JLINK_IMAGE_DIR}
+      - java-ui/build/libs/java-ui-1.0.jar
     expire_in: 1 hour
+
+# ---------- DEPLOY ----------
+deploy_to_interface:
+  stage: deploy
+  image: alpine:latest
+  dependencies:
+    - test_jar_launch
+  script:
+    - echo "Using Gradle wrapper and JDK from eclipse-temurin image"
+    - apk add --no-cache git
+    - echo "Deploying built JAR to bash-app/modules/interface/"
+    - mkdir -p bash-app/modules/interface
+    - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/interface/
+    - ls -lh bash-app/modules/interface/
+    - echo "Configuring Git for CI push..."
+    - git config --global user.email "ci-bot@gitlab.local"
+    - git config --global user.name "GitLab CI Bot"
+    - git fetch origin dev
+    - cp java-ui/build/libs/java-ui-1.0.jar /tmp/java-ui-1.0.jar
+    - git reset --hard
+    - git clean -fd
+    - git checkout dev
+    - git pull origin dev --rebase
+    - mkdir -p bash-app/modules/interface
+    - echo "Deploying built JAR to graphicInterface module"
+    - cp java-ui/build/libs/java-ui-1.0.jar bash-app/modules/graphicInterface/
+    - git add bash-app/modules/graphicInterface/java-ui-1.0.jar
+    - 'git commit -m "CI: update built JAR [skip ci]" || echo "No changes to commit"'
+    - git push origin dev
+
+# ---------- VERIFY (MERGE CHECK) ----------
+check_merge:
+  stage: verify
+  image: alpine:latest
+  script:
+    - apk add --no-cache git
+    - echo "Cloning fresh copy of dev branch..."
+    - git clone --branch dev https://gitlab-ci-token:$CI_JOB_TOKEN@forgens.univ-ubs.fr/gitlab/but2info/cyberdiag_b.git repo-check
+    - cd repo-check
+    - echo "Checking if JAR exists in graphicInterface module..."
+    - test -f bash-app/modules/graphicInterface/java-ui-1.0.jar || (echo "❌ JAR missing — merge forbidden!" && exit 1)
+    - echo "✅ JAR found — safe to merge."
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'

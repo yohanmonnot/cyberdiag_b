@@ -1,25 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> aae920a (maj bash-app/main.sh)
 .env
 .gradle/
 build/
 *.log
-<<<<<<< HEAD
 logs/
-=======
-.env
-.gradle/
-build/
-*.log
-*/logs/
-logs/
-bash-app/logs/app.log
->>>>>>> 1e07466 (ajout deploy script + edit gui module)
-=======
-*/logs/
-logs/
-bash-app/logs/app.log
->>>>>>> aae920a (maj bash-app/main.sh)
 *.tmp
