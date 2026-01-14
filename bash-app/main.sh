@@ -1,6 +1,11 @@
 #!/bin/bash
 
-source "$(dirname "$0")/utils/logger.sh"
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+source "$SCRIPT_DIR/utils/logger.sh"
 
 MODE="gui"
 SCRIPT_NAME=""
