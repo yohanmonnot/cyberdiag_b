@@ -1,1 +1,2 @@
-./bash-app/main.sh
+#!/bin/bash
+exec ./bash-app/main.sh "$@"
