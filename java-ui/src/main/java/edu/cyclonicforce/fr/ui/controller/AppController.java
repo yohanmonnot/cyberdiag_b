@@ -30,7 +30,7 @@ public class AppController {
     private InScanController inScanController;
 
     // État du menu : true = ouvert (300px), false = fermé (100px)
-    private boolean menuState = true;
+    private boolean menuState = false;
 
     public AppController(Stage mainStage) {
         if (mainStage == null) throw new IllegalArgumentException("Stage cannot be null");
@@ -109,6 +109,7 @@ public class AppController {
         menuLoader.load("/edu/cyclonicforce/fr/ui/fxml/menu.fxml", this);
 
         this.menuController = menuLoader.getController();
+        this.menuController.setExpandedMode(false);
         this.menuController.setAppController(this);
 
         // Initialisation de l'état visuel du menu (Ouvert par défaut)
