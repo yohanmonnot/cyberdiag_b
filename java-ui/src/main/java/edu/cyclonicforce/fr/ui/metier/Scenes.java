@@ -6,7 +6,7 @@ public enum Scenes {
     DASHBOARD_MODULES("/edu/cyclonicforce/fr/ui/fxml/Modules.fxml"),
     DASHBOARD_DIAGS("/edu/cyclonicforce/fr/ui/fxml/Diagnostics.fxml"),
     DASHBOARD_SETTINGS(null),
-    DASHBOARD_REPORTS(null),
+    DASHBOARD_REPORTS("/edu/cyclonicforce/fr/ui/fxml/DashboardReportList.fxml"),
     DASHBOARD_HELP(null),
     IN_SCAN("/edu/cyclonicforce/fr/ui/fxml/InScan.fxml");
 
