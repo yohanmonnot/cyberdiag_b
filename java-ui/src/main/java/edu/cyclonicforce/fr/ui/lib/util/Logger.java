@@ -156,7 +156,7 @@ public class Logger {
      * @param message the log message
      */
     private void print(String level, String message) {
-        String finalLog = String.format("%s : %s : %s", getTimestamp(), level, message);
+        String finalLog = String.format("[%s] [%s] %s", getTimestamp(), level, message);
 
         System.out.println(finalLog);
         writeToFile(finalLog);

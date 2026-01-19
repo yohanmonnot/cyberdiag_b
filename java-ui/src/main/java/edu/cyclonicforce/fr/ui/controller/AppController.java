@@ -1,6 +1,7 @@
 package edu.cyclonicforce.fr.ui.controller;
 
 import edu.cyclonicforce.fr.ui.lib.bashExecutor.ListModule;
+import edu.cyclonicforce.fr.ui.lib.util.Logger;
 import edu.cyclonicforce.fr.ui.metier.Module;
 import edu.cyclonicforce.fr.ui.metier.ModuleType;
 import edu.cyclonicforce.fr.ui.metier.ScanType;
@@ -15,6 +16,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class AppController {
+    Logger log;
+
     private final Stage mainStage;
     private Scenes currentScene = null;
 
@@ -35,6 +38,7 @@ public class AppController {
     public AppController(Stage mainStage) {
         if (mainStage == null) throw new IllegalArgumentException("Stage cannot be null");
         this.mainStage = mainStage;
+        this.log = Logger.getInstance();
 
         refreshModules();
     }
@@ -78,6 +82,10 @@ public class AppController {
                 loader.getController().setAppController(this);
 
                 this.inScanController = loader.getController();
+
+                if (this.inScanController == null) {
+                    log.error("InScanController is null after loading IN_SCAN scene.");
+                }
 
                 Scene inScanScene = new Scene(loader.getRoot());
                 this.mainStage.setTitle("CyberDiag - Analyse en cours");
@@ -166,11 +174,11 @@ public class AppController {
     }
 
     public void startScan(ScanType scanType, String moduleName) {
+        setScene(Scenes.IN_SCAN);
         if (this.inScanController != null) {
             this.inScanController.startScan(scanType, moduleName);
-            setScene(Scenes.IN_SCAN);
         } else {
-            System.err.println("InScanController is not initialized.");
+            log.error("InScanController is not initialized.");
         }
     }
 }
