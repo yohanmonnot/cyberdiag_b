@@ -5,16 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e9b0fd4-68a2-4d79-bb40-cc1f1b94e8d3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.datatransfer/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.datatransfer/COPYRIGHT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.datatransfer/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.datatransfer/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/main.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/COPYRIGHT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/COPYRIGHT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.scripting/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.scripting/COPYRIGHT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.scripting/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.scripting/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/COPYRIGHT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/jdk.unsupported/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/jdk.unsupported/COPYRIGHT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/jdk.unsupported/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/jdk.unsupported/LICENSE" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +86,7 @@
     "go.import.settings.migrated": "true",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Utilisateur/00-Projets/cyberdiag_b",
+    "last_opened_file_path": "C:/Users/Utilisateur/00-Projets/cyberdiag_b/bash-app/modules/reports",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
@@ -96,6 +96,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Utilisateur\00-Projets\cyberdiag_b\bash-app\modules\reports" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
@@ -172,6 +177,7 @@
       <workItem from="1768461747473" duration="246000" />
       <workItem from="1768464886184" duration="4213000" />
       <workItem from="1768810098211" duration="142000" />
+      <workItem from="1768819957761" duration="2891000" />
     </task>
     <servers />
   </component>
