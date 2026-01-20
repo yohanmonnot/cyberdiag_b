@@ -27,8 +27,8 @@ fi
 
 RESULT=$(jq -c -e --arg n "$NAME" --arg d "$DATE" --arg num "$NUMBER" '
   map(select(
-    ($n == "" or .name == $n) and
-    ($d == "" or .date == $d) and
+    ($n == "" or .reportName == $n) and
+    ($d == "" or .reportDate == $d) and
     ($num == "" or .number == ($num | tonumber))
   )) | first
 ' "$DB_FILE")

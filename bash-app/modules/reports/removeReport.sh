@@ -32,8 +32,8 @@ fi
 
 jq --arg n "$NAME" --arg d "$DATE" --arg num "$NUMBER" '
   map(select(
-    (if $n == "" then true else .name == $n end) and
-    (if $d == "" then true else .date == $d end) and
+    (if $n == "" then true else .reportName == $n end) and
+    (if $d == "" then true else .reportDate == $d end) and
     (if $num == "" then true else .number == ($num | tonumber) end)
   | not))
 ' "$DB_FILE" > "$DB_FILE.tmp" && mv "$DB_FILE.tmp" "$DB_FILE"

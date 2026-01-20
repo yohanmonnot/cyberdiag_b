@@ -1,32 +1,27 @@
 [
   {
-    "name": "testDiag",
-    "date": "2026-01-19 14:30:00",
-    "number": 0,
-    "categories": []
-  },
-  {
-    "name": "testDiag",
-    "date": "2026-01-19 14:30:00",
-    "number": 1,
-    "categories": []
-  },
-  {
-    "name": "testDiag",
-    "date": "2026-01-19 14:30:00",
-    "number": 2,
-    "categories": []
-  },
-  {
-    "name": "testDiag",
-    "date": "2026-01-19 14:30:00",
-    "number": 3,
-    "categories": []
-  },
-  {
-    "name": "testDiag",
-    "date": "2026-01-19 14:30:00",
-    "number": 4,
-    "categories": []
+    "reportName": "Full System Scan",
+    "moduleResults": {
+      "Network": [
+        {
+          "name": "Ping Google",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "None"
+        }
+      ],
+      "Security": [
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 1,
+          "recommendation": "Start firewall"
+        }
+      ]
+    },
+    "reportDate": "2026-01-20 23:20:44",
+    "number": 0
   }
 ]

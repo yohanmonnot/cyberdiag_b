@@ -4,7 +4,6 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$DIR/../.." && pwd)"
 DB_FILE="$DIR/reports.json"
 
-# Import Logger (optionnel ici si on ne log que des erreurs fatales)
 source "$ROOT_DIR/utils/logger.sh"
 
 NAME=""
@@ -26,10 +25,11 @@ if [ ! -f "$DB_FILE" ]; then
     exit 0
 fi
 
+# Mapping des filtres vers les champs Java : .reportName et .reportDate
 jq -c --arg n "$NAME" --arg d "$DATE" --arg num "$NUMBER" '
   map(select(
-    ($n == "" or .name == $n) and
-    ($d == "" or .date == $d) and
+    ($n == "" or .reportName == $n) and
+    ($d == "" or .reportDate == $d) and
     ($num == "" or .number == ($num | tonumber))
   ))
 ' "$DB_FILE"
