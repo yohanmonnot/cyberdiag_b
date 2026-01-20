@@ -42,12 +42,25 @@ public class Diagnostic {
      * @param steps Steps of the diagnostic, mapped by step names.
      */
     public Diagnostic(String title, String version, String author, String description, String level, Map<String, String[]> steps) {
-        this.title = title;
-        this.version = version;
-        this.author = author;
-        this.description = description;
-        this.level = level;
-        this.steps = steps;
+        setTitle(title);
+        setVersion(version);
+        setAuthor(author);
+        setDescription(description);
+        setLevel(level);
+        setSteps(steps);
+    }
+
+    /**
+     * Copy constructor for Diagnostic.
+     * @param other Diagnostic object to copy from.
+     */
+    public Diagnostic(Diagnostic other) {
+        setTitle(other.getTitle());
+        setVersion(other.getVersion());
+        setAuthor(other.getAuthor());
+        setDescription(other.getDescription());
+        setLevel(other.getLevel());
+        setSteps(other.getSteps());
     }
 
     /**

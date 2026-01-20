@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6e9b0fd4-68a2-4d79-bb40-cc1f1b94e8d3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bash-app/main.sh" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/main.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/COPYRIGHT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.desktop/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/COPYRIGHT" afterDir="false" />
@@ -177,7 +176,7 @@
       <workItem from="1768461747473" duration="246000" />
       <workItem from="1768464886184" duration="4213000" />
       <workItem from="1768810098211" duration="142000" />
-      <workItem from="1768819957761" duration="2891000" />
+      <workItem from="1768819957761" duration="3615000" />
     </task>
     <servers />
   </component>

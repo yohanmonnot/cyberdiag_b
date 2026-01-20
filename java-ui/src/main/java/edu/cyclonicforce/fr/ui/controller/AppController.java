@@ -2,10 +2,8 @@ package edu.cyclonicforce.fr.ui.controller;
 
 import edu.cyclonicforce.fr.ui.lib.bashExecutor.ListModule;
 import edu.cyclonicforce.fr.ui.lib.util.Logger;
+import edu.cyclonicforce.fr.ui.metier.*;
 import edu.cyclonicforce.fr.ui.metier.Module;
-import edu.cyclonicforce.fr.ui.metier.ModuleType;
-import edu.cyclonicforce.fr.ui.metier.ScanType;
-import edu.cyclonicforce.fr.ui.metier.Scenes;
 import edu.cyclonicforce.fr.ui.view.ViewLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -31,6 +29,7 @@ public class AppController {
     // On garde une référence générique au contrôleur central s'il implémente l'interface
     private DasboardController dashboardController;
     private InScanController inScanController;
+    private DashboardReportDetailController dashboardReportDetailController;
 
     // État du menu : true = ouvert (300px), false = fermé (100px)
     private boolean menuState = false;
@@ -93,6 +92,21 @@ public class AppController {
                 this.currentScene = sceneToDisplay;
             }
 
+            case DASHBOARD_REPORT_DETAIL -> {
+                if (this.dashboardRoot == null) {
+                    initDashboardStructure();
+                }
+
+                ViewLoader<DashboardReportDetailController> loader = new ViewLoader<>();
+                loader.load(Scenes.DASHBOARD_REPORT_DETAIL.getPath(), this);
+                loader.getController().setAppController(this);
+                this.dashboardReportDetailController = loader.getController();
+                this.dashboardRoot.setCenter(loader.getRoot());
+                this.mainStage.setTitle("CyberDiag - Détail du rapport");
+                this.mainStage.setScene(this.dashboardScene);
+                this.currentScene = sceneToDisplay;
+            }
+
             case DASHBOARD_HELP, DASHBOARD_REPORTS, DASHBOARD_SETTINGS,
                  DASHBOARD_DIAGS, DASHBOARD_MODULES, DASHBOARD -> {
 
@@ -145,6 +159,7 @@ public class AppController {
         if (controller instanceof DasboardController) {
             this.dashboardController = (DasboardController) controller;
             this.dashboardController.toggleSize(this.menuState);
+            this.dashboardController.setAppController(this);
         } else {
             this.dashboardController = null;
         }
@@ -179,6 +194,15 @@ public class AppController {
             this.inScanController.startScan(scanType, moduleName);
         } else {
             log.error("InScanController is not initialized.");
+        }
+    }
+
+    public void showReportDetail(DiagnosticReport report) {
+        setScene(Scenes.DASHBOARD_REPORT_DETAIL);
+        if (this.dashboardReportDetailController != null) {
+            this.dashboardReportDetailController.setDiagnosticReport(report);
+        } else {
+            log.error("DashboardReportDetailController is not initialized.");
         }
     }
 }

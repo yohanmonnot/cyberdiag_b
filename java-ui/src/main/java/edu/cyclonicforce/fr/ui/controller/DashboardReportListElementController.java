@@ -1,6 +1,8 @@
 package edu.cyclonicforce.fr.ui.controller;
 
+import edu.cyclonicforce.fr.ui.metier.DiagnosticReport;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -31,10 +33,14 @@ public class DashboardReportListElementController {
     public Polygon starFive;
     @FXML
     public Text noteText;
+    @FXML
+    public Button detailButton;
 
     private Polygon[] stars;
     private boolean checked = false;
     private int note = 0;
+    private DiagnosticReport diagnosticReport;
+    private AppController appController = null;
 
     @FXML
     public void initialize(){
@@ -42,10 +48,35 @@ public class DashboardReportListElementController {
             stars = new Polygon[]{starOne, starTwo, starThree, starFour, starFive};
         }
 
+        checkBoxHBox.setOnMouseClicked(event -> toggleCheck());
+        detailButton.setOnMouseClicked(event -> {
+            if (appController != null) {
+                appController.showReportDetail(diagnosticReport);
+            } else {
+                System.err.println("AppController is not set in DashboardReportListElementController.");
+            }
+        });
+
+        refresh();
+    }
+
+    private void refresh(){
+        if (diagnosticReport != null){
+            nameText.setText(diagnosticReport.getReportName());
+            dateNumberText.setText(String.format("%s - %d", diagnosticReport.getReportDate(), diagnosticReport.getNumber()));
+            setNote(diagnosticReport.getOverallNote());
+        } else {
+            nameText.setText("N/A");
+            dateNumberText.setText("N/A - N/A");
+            setNote(0);
+        }
+        intializeCheckbox();
+    }
+
+    private void intializeCheckbox(){
+        checked = false;
         checkBoxHBox.setStyle("-fx-background-color: " + CHECKBOX_UNCHECKED_COLOR);
         checkBoxImage.setVisible(false);
-
-        checkBoxHBox.setOnMouseClicked(event -> {toggleCheck();});
     }
 
     private void toggleCheck(){
@@ -59,10 +90,12 @@ public class DashboardReportListElementController {
         }
     }
 
-    public void setNote(int note) {
+    private void setNote(int note) {
         final String NOTE_PATTERN = "%d/5";
+        this.note = note;
 
         if (note < 1 || note > 5) {
+            this.note = 0;
             noteText.setText("N/A");
             for (Polygon star : stars) {
                 star.setFill(Color.WHITE);
@@ -97,11 +130,21 @@ public class DashboardReportListElementController {
         }
     }
 
+    public void setAppController(AppController appController){
+        this.appController = appController;
+        refresh();
+    }
+
     public int getNote(){
         return this.note;
     }
 
     public boolean isChecked(){
         return this.checked;
+    }
+
+    public void setDiagnosticReport(DiagnosticReport diagnosticReport){
+        this.diagnosticReport = diagnosticReport;
+        refresh();
     }
 }
