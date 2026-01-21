@@ -18,6 +18,82 @@
           "error": "Service stopped",
           "score": 1,
           "recommendation": "Start firewall"
+        },
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 2,
+          "recommendation": "Start firewall"
+        },
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 1,
+          "recommendation": "Start firewall"
+        },
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 1,
+          "recommendation": "Start firewall"
+        }
+      ],
+      "Performance": [
+        {
+          "name": "CPU Usage",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Optimize running processes"
+        },
+        {
+          "name": "Memory Usage",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Close unused applications"
+        },
+        {
+          "name": "Disk Usage",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Clean up disk space"
+        }
+      ],
+      "Updates": [
+        {
+          "name": "OS Updates",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "System is up to date"
+        }
+      ],
+      "Backup": [
+        {
+          "name": "Backup Status",
+          "exitCode": 1,
+          "error": "Last backup failed",
+          "score": 1,
+          "recommendation": "Check backup logs and retry"
+        },
+        {
+          "name": "Backup Status",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Backup completed successfully"
+        },
+        {
+          "name": "Backup Status",
+          "exitCode": 1,
+          "error": "Last backup failed",
+          "score": 1,
+          "recommendation": "Check backup logs and retry"
         }
       ]
     },
