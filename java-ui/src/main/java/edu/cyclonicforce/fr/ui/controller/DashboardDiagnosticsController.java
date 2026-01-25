@@ -51,6 +51,7 @@ public class DashboardDiagnosticsController implements DasboardController {
             ViewLoader<DiagCardController> loader = new ViewLoader<>();
             loader.load("/edu/cyclonicforce/fr/ui/fxml/DiagCard.fxml", appController);
             loader.getController().setModule(m);
+            loader.getController().setAppController(appController);
             diagCardControllers.add(loader.getController());
             DiagContainer.getChildren().add(loader.getRoot());
         }

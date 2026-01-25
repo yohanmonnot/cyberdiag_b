@@ -17,9 +17,8 @@ fi
 # Exécution de la commande Maven
 # clean : nettoie le dossier target
 # package : compile et crée les JARs
-# javafx:jlink : crée l'image runtime autonome
 echo "📦 Exécution de Maven (clean package javafx:jlink)..."
-mvn clean package javafx:jlink
+mvn clean package
 
 # Vérification du succès de la commande précédente
 if [ $? -eq 0 ]; then

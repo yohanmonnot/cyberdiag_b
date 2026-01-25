@@ -1,6 +1,11 @@
 package edu.cyclonicforce.fr.ui.metier;
 
+import edu.cyclonicforce.fr.ui.lib.bashExecutor.DiagStepReader;
+import edu.cyclonicforce.fr.ui.lib.bashExecutor.ListModule;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +35,7 @@ public class Diagnostic {
     /**
      * Steps of the diagnostic, mapped by step names.
      */
-    private Map<String, String[]> steps;
+    private Map<String, Module[]> steps;
 
     /**
      * Constructor for Diagnostic.
@@ -41,13 +46,48 @@ public class Diagnostic {
      * @param level Level of the diagnostic.
      * @param steps Steps of the diagnostic, mapped by step names.
      */
-    public Diagnostic(String title, String version, String author, String description, String level, Map<String, String[]> steps) {
+    public Diagnostic(String title, String version, String author, String description, String level, Map<String, Module[]> steps) {
         setTitle(title);
         setVersion(version);
         setAuthor(author);
         setDescription(description);
         setLevel(level);
         setSteps(steps);
+    }
+
+    /**
+     * Constructor for Diagnostic without steps.
+     * Don't forget to set steps later using setSteps or setStepsViaString.
+     * @param title the title of the diagnostic
+     * @param version the version of the diagnostic
+     * @param author the author of the diagnostic
+     * @param description the description of the diagnostic
+     * @param level the level of the diagnostic
+     */
+    public Diagnostic(String title, String version, String author, String description, String level) {
+        setTitle(title);
+        setVersion(version);
+        setAuthor(author);
+        setDescription(description);
+        setLevel(level);
+        this.steps = new HashMap<>();
+    }
+
+    public Diagnostic(Module module) {
+        if (module == null) {
+            throw new IllegalArgumentException("Module cannot be null");
+        }
+        if (module.getType() != ModuleType.DIAGNOSTIC) {
+            throw new IllegalArgumentException("Module must be of type DIAGNOSTIC");
+        }
+
+        setTitle(module.getName());
+        setVersion(module.getVersion());
+        setAuthor(module.getAuthor());
+        setDescription(module.getDescription());
+        setLevel("Basic");
+        DiagStepReader stepReader = new DiagStepReader();
+        setStepsViaString(stepReader.read(module.getName()));
     }
 
     /**
@@ -107,9 +147,9 @@ public class Diagnostic {
      * Get the steps of the diagnostic.
      * @return Steps of the diagnostic.
      */
-    public Map<String, String[]> getSteps() {
-        Map<String, String[]> stepsCopy = new HashMap<>();
-        for (Map.Entry<String, String[]> entry : steps.entrySet()) {
+    public Map<String, Module[]> getSteps() {
+        Map<String, Module[]> stepsCopy = new HashMap<>();
+        for (Map.Entry<String, Module[]> entry : steps.entrySet()) {
             stepsCopy.put(entry.getKey(), entry.getValue().clone());
         }
         return stepsCopy;
@@ -119,10 +159,63 @@ public class Diagnostic {
      * Set the steps of the diagnostic.
      * @param steps Steps of the diagnostic.
      */
-    public void setSteps(Map<String, String[]> steps) {
+    public void setSteps(Map<String, Module[]> steps) {
         this.steps = new HashMap<>();
-        for (Map.Entry<String, String[]> entry : steps.entrySet()) {
+        for (Map.Entry<String, Module[]> entry : steps.entrySet()) {
             this.steps.put(entry.getKey(), entry.getValue().clone());
+        }
+    }
+
+    /**
+     * Set the steps of the diagnostic using a map of step names to module names.
+     * @param steps Steps of the diagnostic.
+     */
+    public void setStepsViaString(Map<String, String[]> steps) {
+        this.steps = new HashMap<>();
+
+        if (steps == null || steps.isEmpty()) {
+            return;
+        }
+
+        ListModule moduleLister = new ListModule();
+
+        try {
+            moduleLister.run();
+        } catch (Exception e) {
+            System.err.println("Error loading modules in Diagnostic: " + e.getMessage());
+        }
+
+        Map<ModuleType, List<Module>> modules = moduleLister.getModulesByType();
+
+        List<Module> toolModules = modules != null ? modules.get(ModuleType.TOOL) : null;
+
+        if (toolModules == null) {
+            throw new IllegalArgumentException("Warning: No TOOL modules found via ListModule.");
+        }
+
+        Map<String, Module> availableToolsMap = new HashMap<>();
+        for (Module m : toolModules) {
+            availableToolsMap.put(m.getName(), m);
+        }
+
+        for (Map.Entry<String, String[]> entry : steps.entrySet()) {
+            String stepName = entry.getKey();
+            String[] moduleNames = entry.getValue();
+
+            List<Module> modulesForStep = new ArrayList<>();
+
+            if (moduleNames != null) {
+                for (String moduleName : moduleNames) {
+                    Module foundModule = availableToolsMap.get(moduleName);
+                    if (foundModule != null) {
+                        modulesForStep.add(foundModule);
+                    } else {
+                        System.err.println("Warning: Module not found: " + moduleName);
+                    }
+                }
+            }
+
+            this.steps.put(stepName, modulesForStep.toArray(new Module[0]));
         }
     }
 
@@ -164,5 +257,38 @@ public class Diagnostic {
      */
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public int getTotalSteps() {
+        int total = 0;
+        for (Module[] modules : steps.values()) {
+            total += modules.length;
+        }
+        return total;
+    }
+
+    /**
+     * String representation of the Diagnostic object.
+     * @return String representation of the Diagnostic.
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        for (Map.Entry<String, Module[]> entry : steps.entrySet()) {
+            sb.append(entry.getKey()).append("=[");
+            Module[] modules = entry.getValue();
+            for (int i = 0; i < modules.length; i++) {
+                sb.append(modules[i].getName());
+                if (i < modules.length - 1) {
+                    sb.append(", ");
+                }
+            }
+            sb.append("], ");
+        }
+        sb.substring(0, sb.length() - 3);
+        sb.append("}");
+        return String.format("Diagnostic{title='%s', version='%s', author='%s', description='%s', level='%s', steps=%s}",
+                title, version, author, description, level, sb);
     }
 }
