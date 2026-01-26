@@ -4,10 +4,14 @@ import edu.cyclonicforce.fr.ui.lib.bashExecutor.ListModule;
 import edu.cyclonicforce.fr.ui.lib.util.Logger;
 import edu.cyclonicforce.fr.ui.metier.*;
 import edu.cyclonicforce.fr.ui.metier.Module;
+import edu.cyclonicforce.fr.ui.view.PopUpLoader;
 import edu.cyclonicforce.fr.ui.view.ViewLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.List;
 import java.util.Map;
@@ -204,5 +208,47 @@ public class AppController {
         } else {
             log.error("DashboardReportDetailController is not initialized.");
         }
+    }
+
+    public void openPopup(PopUpData popUpData) {
+        Stage popup = new Stage();
+
+        PopUpLoader loader = new PopUpLoader();
+        loader.load(popUpData);
+
+        popup.initStyle(StageStyle.TRANSPARENT);
+
+        Scene scene = loader.getScene();
+        scene.setFill(Color.TRANSPARENT);
+        popup.setScene(scene);
+
+        Parent root = scene.getRoot();
+        final double[] xOffset = {0};
+        final double[] yOffset = {0};
+
+        root.setOnMousePressed(event -> {
+            xOffset[0] = event.getScreenX() - popup.getX();
+            yOffset[0] = event.getScreenY() - popup.getY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            popup.setX(event.getScreenX() - xOffset[0]);
+            popup.setY(event.getScreenY() - yOffset[0]);
+        });
+
+        popup.setWidth(600);
+        popup.setHeight(340);
+
+        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        popup.initOwner(this.mainStage);
+
+        popup.setOnCloseRequest(event -> {
+            if (popUpData.getOnCancel() != null) popUpData.getOnCancel().run();
+        });
+
+        Runnable closePopup = popup::close;
+        loader.getController().setCloseAction(closePopup);
+
+        popup.showAndWait();
     }
 }

@@ -1,6 +1,7 @@
 package edu.cyclonicforce.fr.ui.controller;
 
 import edu.cyclonicforce.fr.ui.lib.bashExecutor.ModuleExecutor;
+import edu.cyclonicforce.fr.ui.lib.bashExecutor.ReportExec;
 import edu.cyclonicforce.fr.ui.metier.*;
 import edu.cyclonicforce.fr.ui.metier.Module;
 import javafx.application.Platform; // Import nécessaire pour les mises à jour UI
@@ -84,8 +85,32 @@ public class InScanController {
                             initializeReport(module.getName());
                             this.totalModules = 1;
                             startModule(module, "Standalone Module Scan");
-                            addPageLog("Showing report...");
-                            showReport();
+
+                            Runnable afterModule = () -> {
+                                addPageLog("Showing report...");
+                                showReport();
+                            };
+
+                            Runnable onAccept = () -> {
+                                addPageLog("Saving report...");
+                                saveReport();
+                                addPageLog("Report saved.");
+                                afterModule.run();
+                            };
+
+                            PopUpData reportPopUp = new PopUpData(
+                                    PopUpType.ALERT,
+                                    "Module terminé",
+                                    "Le module " + module.getName() + " est terminé. Voulez-vous sauvegarder le rapport ?",
+                                    "oui",
+                                    onAccept,
+                                    "non",
+                                    afterModule
+                            );
+                            Platform.runLater(() -> {
+                                appController.openPopup(reportPopUp);
+                            });
+
                             break;
                         }
                     }
@@ -118,7 +143,6 @@ public class InScanController {
 
             addPageLog(String.format(MODULE_END_MESSAGE, module.getName()));
             addPageLog(result.toString());
-
         } catch (Exception e) {
             addPageLog("Erreur lors de l'exécution du module " + module.getName() + " : " + e.getMessage());
             e.printStackTrace();
@@ -140,8 +164,30 @@ public class InScanController {
             addPageLog(categoryEndMsg);
         }
 
-        addPageLog("Showing report...");
-        showReport();
+        Runnable afterDiagnostic = () -> {
+            addPageLog("Showing report...");
+            showReport();
+        };
+
+        Runnable onAccept = () -> {
+            addPageLog("Saving report...");
+            saveReport();
+            addPageLog("Report saved.");
+            afterDiagnostic.run();
+        };
+
+        PopUpData reportPopUp = new PopUpData(
+                PopUpType.ALERT,
+                "Diagnostic terminé",
+                "Le diagnostic est terminé. Voulez-vous sauvegarder le rapport ?",
+                "oui",
+                onAccept,
+                "non",
+                afterDiagnostic
+        );
+        Platform.runLater(() -> {
+            appController.openPopup(reportPopUp);
+        });
     }
 
     private void updateProgress(double progress) {
@@ -186,5 +232,10 @@ public class InScanController {
     private void initializeReport(String reportName) {
         String date = java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.diagnosticReport = new DiagnosticReport(reportName, date, 0, new HashMap<String, List<DiagnosticReportModule>>());
+    }
+
+    private void saveReport() {
+        ReportExec reportExec = new ReportExec();
+        reportExec.addReport(diagnosticReport);
     }
 }
