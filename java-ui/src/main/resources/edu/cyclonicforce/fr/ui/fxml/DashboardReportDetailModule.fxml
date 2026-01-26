@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Polygon?>
+<HBox alignment="CENTER" prefWidth="200.0" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.cyclonicforce.fr.ui.controller.DashboardReportDetailModuleController">
+    <children>
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="UnModule" fx:id="moduleNameText">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <HBox HBox.hgrow="ALWAYS" />
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" fx:id="RecommendationText">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <HBox HBox.hgrow="ALWAYS" />
+        <HBox alignment="CENTER" spacing="5.0">
+            <children>
+                <Polygon fill="WHITE" layoutX="20.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.0" fx:id="star1">
+                    <points>
+                        <Double fx:value="0.0" />
+                        <Double fx:value="-20.0" />
+                        <Double fx:value="6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="0.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="-12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="-9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="-19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                    </points>
+                </Polygon>
+                <Polygon fill="WHITE" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.0" fx:id="star2">
+                    <points>
+                        <Double fx:value="0.0" />
+                        <Double fx:value="-20.0" />
+                        <Double fx:value="6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="0.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="-12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="-9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="-19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                    </points>
+                </Polygon>
+                <Polygon fill="WHITE" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.0" fx:id="star3">
+                    <points>
+                        <Double fx:value="0.0" />
+                        <Double fx:value="-20.0" />
+                        <Double fx:value="6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="0.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="-12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="-9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="-19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                    </points>
+                </Polygon>
+                <Polygon fill="WHITE" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.0" fx:id="star4">
+                    <points>
+                        <Double fx:value="0.0" />
+                        <Double fx:value="-20.0" />
+                        <Double fx:value="6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="0.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="-12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="-9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="-19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                    </points>
+                </Polygon>
+                <Polygon fill="WHITE" layoutX="40.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.0" fx:id="star5">
+                    <points>
+                        <Double fx:value="0.0" />
+                        <Double fx:value="-20.0" />
+                        <Double fx:value="6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="0.0" />
+                        <Double fx:value="9.0" />
+                        <Double fx:value="-12.0" />
+                        <Double fx:value="18.0" />
+                        <Double fx:value="-9.0" />
+                        <Double fx:value="3.0" />
+                        <Double fx:value="-19.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                        <Double fx:value="-6.0" />
+                    </points>
+                </Polygon>
+            </children>
+        </HBox>
+        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="4/5" fx:id="moduleScoreText">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+    </children>
+</HBox>

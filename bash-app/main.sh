@@ -118,54 +118,28 @@ run_cli() {
 # SCRIPT mode
 run_script() {
     # Cas spécial : list
-    if [[ "${SCRIPT_ARGS[0]}" == "list" ]]; then
+    if [[ "$SCRIPT_NAME" == "list" ]]; then
         log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
         list_modules "$LIST_FILTER" "$LIST_SORT"
         return 0
     fi
 
-    # Déterminer si le mode test est activé globalement
-    local TEST_MODE=false
-    local CLEAN_ARGS=()
-    for arg in "${SCRIPT_ARGS[@]}"; do
-        if [[ "$arg" == "--test" ]]; then
-            TEST_MODE=true
-        else
-            CLEAN_ARGS+=("$arg")
-        fi
-    done
-
-    # On boucle sur chaque module demandé
-    for MODULE_NAME in "${CLEAN_ARGS[@]}"; do
-        local MODULE_DIR="$MODULES_DIR/$MODULE_NAME"
+    if [[ -n "$SCRIPT_NAME" ]]; then
+        # On vérifie si le module existe avant de lancer
+        local MODULE_DIR="$MODULES_DIR/$SCRIPT_NAME"
         local META_FILE="$MODULE_DIR/module.json"
 
         if [[ -d "$MODULE_DIR" && -f "$META_FILE" ]]; then
-            # 1. Exécution du module
-            run_module "$MODULE_NAME"
-
-            # 2. Exécution des tests si le flag était présent
-            if [[ "$TEST_MODE" == true ]]; then
-                local TEST_SCRIPT
-                TEST_SCRIPT=$(jq -r '.test // empty' "$META_FILE" 2>/dev/null)
-
-                if [[ -z "$TEST_SCRIPT" ]]; then
-                    TEST_SCRIPT="$MODULE_DIR/test.sh"
-                else
-                    TEST_SCRIPT="$MODULE_DIR/$TEST_SCRIPT"
-                fi
-
-                if [[ -f "$TEST_SCRIPT" ]]; then
-                    log_info "Running tests for module '$MODULE_NAME'"
-                    bash "$TEST_SCRIPT"
-                else
-                    log_warn "Test script not found for '$MODULE_NAME': $TEST_SCRIPT"
-                fi
-            fi
+            # On passe SCRIPT_ARGS (@) au module
+            run_module "$SCRIPT_NAME" "${SCRIPT_ARGS[@]}"
         else
-            log_error "Module '$MODULE_NAME' not found (directory or module.json missing)."
+            log_error "Module '$SCRIPT_NAME' not found."
+            exit 1
         fi
-    done
+    else
+        log_error "No module specified."
+        exit 1
+    fi
 }
 
 # Argument parsing (after functions so variables exist)
@@ -182,7 +156,13 @@ while [[ $# -gt 0 ]]; do
         --script)
             MODE="script"
             shift
-            while [[ $# -gt 0 && "$1" != --* ]]; do
+
+            if [[ $# -gt 0 ]]; then
+                SCRIPT_NAME="$1"
+                shift
+            fi
+
+            while [[ $# -gt 0 ]]; do
                 SCRIPT_ARGS+=("$1")
                 shift
             done

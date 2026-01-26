@@ -1,0 +1,11 @@
+{
+    "categorie 1": [
+        "cpuUsage",
+        "memoryUsage",
+        "diskUsage"
+    ],
+    "categorie 2": [
+        "passworChecker",
+        "privilegesChecker"
+    ]
+}

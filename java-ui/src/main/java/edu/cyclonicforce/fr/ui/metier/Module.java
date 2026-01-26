@@ -49,35 +49,12 @@ public class Module {
      * @throws IllegalArgumentException if an argument is invalid
      */
     public Module(String name, String version, String type, String description, String author, List<String> args) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Module name cannot be null or empty");
-        }
-        this.name = name;
-
-        if (version == null || version.isEmpty()) {
-            throw new IllegalArgumentException("Module version cannot be null or empty");
-        }
-        this.version = version;
-
-        switch (type) {
-            case "tool":
-                this.type = ModuleType.TOOL;
-                break;
-            case "interface":
-                this.type = ModuleType.INTERFACE;
-                break;
-            case "diagnostic":
-                this.type = ModuleType.DIAGNOSTIC;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid module type: " + type);
-        }
-
-        this.description = Objects.requireNonNullElse(description, "");
-
-        this.author = Objects.requireNonNullElse(author, "Unknown");
-
-        this.args = Objects.requireNonNullElse(new ArrayList<String>(args), List.of());
+        setName(name);
+        setVersion(version);
+        setType(type);
+        setDescription(description);
+        setAuthor(author);
+        setArgs(args);
     }
 
     /**
@@ -91,26 +68,25 @@ public class Module {
      * @throws IllegalArgumentException if an argument is invalid
      */
     public Module(String name, String version, ModuleType type, String description, String author, List<String> args) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Module name cannot be null or empty");
-        }
-        this.name = name;
+        setName(name);
+        setVersion(version);
+        setType(type);
+        setDescription(description);
+        setAuthor(author);
+        setArgs(args);
+    }
 
-        if (version == null || version.isEmpty()) {
-            throw new IllegalArgumentException("Module version cannot be null or empty");
-        }
-        this.version = version;
-
-        if(type == null) {
-            throw new IllegalArgumentException("Module type cannot be null");
-        }
-        this.type = type;
-
-        this.description = Objects.requireNonNullElse(description, "");
-
-        this.author = Objects.requireNonNullElse(author, "Unknown");
-
-        this.args = Objects.requireNonNullElse(new ArrayList<String>(args), List.of());
+    /**
+     * Copy constructor
+     * @param other Module to copy
+     */
+    public Module(Module other) {
+        setName(other.getName());
+        setVersion(other.getVersion());
+        setType(other.getType());
+        setDescription(other.getDescription());
+        setAuthor(other.getAuthor());
+        setArgs(other.getArgs());
     }
 
     /**

@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6e9b0fd4-68a2-4d79-bb40-cc1f1b94e8d3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.datatransfer/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.datatransfer/COPYRIGHT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.datatransfer/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.datatransfer/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/COPYRIGHT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.xml/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/COPYRIGHT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.prefs/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.scripting/COPYRIGHT" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.scripting/COPYRIGHT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.scripting/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/bash-app/modules/graphicInterface/runtime/legal/java.scripting/LICENSE" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,11 +77,11 @@
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;SHELLCHECK.PATH&quot;: &quot;C:\\Users\\Utilisateur\\AppData\\Roaming\\JetBrains\\IntelliJIdea2025.3\\plugins\\Shell Script\\shellcheck.exe&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/reports&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Utilisateur/00-Projets/cyberdiag_b&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Utilisateur/00-Projets/cyberdiag_b/bash-app/modules/reports&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
@@ -91,6 +91,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Utilisateur\00-Projets\cyberdiag_b\bash-app\modules\reports" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
@@ -166,6 +171,9 @@
       <workItem from="1768461347551" duration="382000" />
       <workItem from="1768461747473" duration="246000" />
       <workItem from="1768464886184" duration="4213000" />
+      <workItem from="1768810098211" duration="142000" />
+      <workItem from="1768819957761" duration="3615000" />
+      <workItem from="1768947333117" duration="873000" />
     </task>
     <servers />
   </component>

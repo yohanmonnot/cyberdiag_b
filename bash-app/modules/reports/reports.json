@@ -1,0 +1,158 @@
+[
+  {
+    "reportName": "Full System Scan",
+    "moduleResults": {
+      "Network": [
+        {
+          "name": "Ping Google",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "None"
+        }
+      ],
+      "Security": [
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 1,
+          "recommendation": "Start firewall"
+        },
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 2,
+          "recommendation": "Start firewall"
+        },
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 1,
+          "recommendation": "Start firewall"
+        },
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 1,
+          "recommendation": "Start firewall"
+        }
+      ],
+      "Performance": [
+        {
+          "name": "CPU Usage",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Optimize running processes"
+        },
+        {
+          "name": "Memory Usage",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Close unused applications"
+        },
+        {
+          "name": "Disk Usage",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Clean up disk space"
+        }
+      ],
+      "Updates": [
+        {
+          "name": "OS Updates",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "System is up to date"
+        }
+      ],
+      "Backup": [
+        {
+          "name": "Backup Status",
+          "exitCode": 1,
+          "error": "Last backup failed",
+          "score": 1,
+          "recommendation": "Check backup logs and retry"
+        },
+        {
+          "name": "Backup Status",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Backup completed successfully"
+        },
+        {
+          "name": "Backup Status",
+          "exitCode": 1,
+          "error": "Last backup failed",
+          "score": 1,
+          "recommendation": "Check backup logs and retry"
+        }
+      ]
+    },
+    "reportDate": "2026-01-20 23:20:44",
+    "number": 0
+  },
+  {
+    "reportName": "diagTest",
+    "reportDate": "2026-01-26 19:52:45",
+    "number": 0,
+    "moduleResults": {
+      "categorie 2": [
+        {
+          "name": "privilegesChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Certaines vérifications nécessitent l'accès root."
+        }
+      ],
+      "categorie 1": [
+        {
+          "name": "cpuUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation CPU très faible, système au repos."
+        },
+        {
+          "name": "memoryUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation mémoire très faible, système peu sollicité."
+        },
+        {
+          "name": "diskUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Espace disque largement disponible."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "cpuUsage",
+    "reportDate": "2026-01-26 19:56:02",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "cpuUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation CPU très faible, système au repos."
+        }
+      ]
+    }
+  }
+]
