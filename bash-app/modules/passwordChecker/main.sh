@@ -77,7 +77,7 @@ run_checks() {
     if [[ -z "$PAM_FILES" ]]; then
         STATUS="CRITICAL"
         ERROR="Aucun fichier PAM trouvé"
-        SCORE=0
+        SCORE=1
         RECOMMENDATION="Des problèmes critiques de politique de mot de passe ont été détectés. Revue immédiate nécessaire."
         return
     fi
@@ -89,13 +89,16 @@ run_checks() {
     check_numeric "$(get_option_value ocredit)" "$RECOMMENDED_OCREDIT" ge
     check_numeric "$(get_option_value difok)"   "$RECOMMENDED_DIFOK" ge
 
-    if (( WARN_COUNT > 0 )); then
+    if (( WARN_COUNT > 1 )); then
         STATUS="WARNING"
         RECOMMENDATION="Des améliorations de la politique de mot de passe sont recommandées."
     fi
 
     TOTAL=$((OK_COUNT + WARN_COUNT))
-    (( TOTAL > 0 )) && SCORE=$(( OK_COUNT * 5 / TOTAL ))
+    if (( TOTAL > 0 )); then
+        SCORE=$(( OK_COUNT * 5 / TOTAL ))
+        (( SCORE < 1 )) && SCORE=1
+    fi
 }
 
 # --- Tests internes ---
