@@ -7,6 +7,8 @@ stages:
 build_java:
   stage: build
   image: maven:3.8.4-openjdk-17
+  tags:
+    - docker
   script:
     - cd java-ui
     - chmod +x buildApp.sh deployApp.sh
@@ -22,6 +24,8 @@ build_java:
 test_cyberdiag:
   stage: test
   image: ubuntu:22.04
+  tags:
+    - docker
   before_script:
     - apt-get update && apt-get install -y jq bash
   script:
@@ -33,6 +37,8 @@ test_cyberdiag:
 package_debian:
   stage: package
   image: ubuntu:22.04
+  tags:
+    - docker
   dependencies:
     - build_java
   script:
