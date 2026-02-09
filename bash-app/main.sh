@@ -142,9 +142,43 @@ run_script() {
     fi
 }
 
+run_all_tests() {
+    log_info "Démarrage des tests pour tous les modules..."
+    local FAILED_MODULES=()
+
+    for d in "$MODULES_DIR"/*/; do
+        local META="$d/module.json"
+        if [[ -f "$META" ]]; then
+            local MODULE_NAME=$(jq -r '.name' "$META")
+            # Récupération du script de test défini dans le JSON
+            local TEST_SCRIPT=$(jq -r '.test // empty' "$META")
+
+            if [[ -n "$TEST_SCRIPT" ]]; then
+                local FULL_TEST_PATH="$d$TEST_SCRIPT"
+                if [[ -f "$FULL_TEST_PATH" ]]; then
+                    log_info "Test du module [$MODULE_NAME] via $TEST_SCRIPT"
+                    if ! bash "$FULL_TEST_PATH"; then
+                        log_error "Échec du test pour le module : $MODULE_NAME"
+                        FAILED_MODULES+=("$MODULE_NAME")
+                    fi
+                fi
+            fi
+        fi
+    done
+
+    if [[ ${#FAILED_MODULES[@]} -ne 0 ]]; then
+        log_error "Certains tests ont échoué : ${FAILED_MODULES[*]}"
+        exit 1
+    fi
+}
+
 # Argument parsing (after functions so variables exist)
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --test)
+            run_all_tests
+            exit 0
+            ;;
         --cli)
             MODE="cli"
             shift
@@ -184,7 +218,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             log_error "Unknown argument: $1"
-            log_info "Usage: $0 [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
+            log_info "Usage: $0 [--gui|--cli|--test] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
             exit 1
             ;;
     esac
