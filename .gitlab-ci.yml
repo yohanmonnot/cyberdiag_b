@@ -1,77 +1,55 @@
 stages:
   - build
   - test
+  - package
 
-variables:
-  # Définir le module pour les commandes JLink
-  APP_MODULE: edu.cyclonicforce.fr.java.ui
-  # Définir la classe principale pour les commandes JLink
-  APP_MAIN: edu.cyclonicforce.fr.ui.Main
-  # Définir le chemin de l'image d'exécution générée par JLink (dossier)
-  JLINK_IMAGE_DIR: java-ui/target/java-ui-linux
-  # Nom du lanceur générique dans l'image JLink sur Linux
-  JLINK_LAUNCHER: java-ui/target/java-ui-linux/bin/java
-
-# ---------- BUILD (Maven + JLink pour Linux) ----------
-build_maven_jlink:
+# --- STAGE BUILD : Compilation de l'interface graphique ---
+build_java:
   stage: build
-  image: maven:3.9-eclipse-temurin-17
+  image: maven:3.8.4-openjdk-17
+  tags:
+    - docker
   script:
-    # 1. On ne fait PAS de 'cd java-ui'. On reste à la racine.
-    - echo "Running Maven build from root..."
-    
-    # 2. On utilise l'option '-f' pour indiquer le fichier pom.xml
-    # On exécute seulement 'package'. Le profil 'linux-jlink' lié à la phase package 
-    # s'occupera de lancer jlink avec le bon nom (java-ui-linux).
-    - mvn -f java-ui/pom.xml clean package
-    
-    # 3. Debug : Listons le contenu de target pour être sûr du nom du dossier
-    - echo "Contenu de target :"
-    - ls -l java-ui/target/
-    
-    # 4. Vérification finale avec la variable
-    - ls -l ${JLINK_IMAGE_DIR}
+    - cd java-ui
+    - chmod +x buildApp.sh deployApp.sh
+    - ./buildApp.sh
+    - ./deployApp.sh
   artifacts:
     paths:
-      - ${JLINK_IMAGE_DIR}
+      - bash-app/modules/graphicInterface/runtime/
+      - bash-app/modules/graphicInterface/*.jar
     expire_in: 1 hour
 
-# ---------- TEST (Lancement de l'image JLink) ----------
-test_jlink_launch:
+# --- STAGE TEST : Validation de tous les modules ---
+test_cyberdiag:
   stage: test
-  image: eclipse-temurin:17-jdk
-  dependencies:
-    - build_maven_jlink
+  image: ubuntu:22.04
+  tags:
+    - docker
+  before_script:
+    - apt-get update && apt-get install -y jq bash
   script:
-    # 1. Installation de Xvfb et des libs graphiques
-    # xvfb : Crée l'écran virtuel
-    # libgtk-3-0 / libx11-6 : Nécessaires pour le moteur JavaFX Linux
-    - apt-get update && apt-get install -y xvfb libx11-6 libxext6 libxrender1 libxtst6 libxi6 libgtk-3-0
+    - cd bash-app
+    - chmod +x main.sh
+    - ./main.sh --test
 
-    - echo "Checking JLink image directory..."
-    - test -d ${JLINK_IMAGE_DIR} || (echo "JLink image not found!" && exit 1)
-
-    - echo "Launching JLink image with Xvfb (Virtual Display)..."
-    
-    # 2. Lancement avec xvfb-run
-    # -a : Trouve un numéro d'écran libre automatiquement
-    # -Dprism.order=sw : Force le rendu logiciel (pas de GPU dans la CI)
-    # On a RETIRÉ -Dglass.platform=Monocle
-    - xvfb-run -a ${JLINK_LAUNCHER} -Dprism.order=sw --module ${APP_MODULE}/${APP_MAIN} &
-
-    - APP_PID=$!
-    - sleep 5
-    
-    # Vérification
-    - |
-      if ps -p $APP_PID > /dev/null; then
-        echo "✅ Application started successfully inside Xvfb.";
-        kill $APP_PID;
-      else
-        echo "❌ Application failed to start.";
-        exit 1;
-      fi
+# --- STAGE PACKAGE : Génération du fichier .deb ---
+package_debian:
+  stage: package
+  image: ubuntu:22.04
+  tags:
+    - docker
+  dependencies:
+    - build_java
+  script:
+    - apt-get update && apt-get install -y binutils
+    - chmod +x scripts/build_deb.sh
+    - ./scripts/build_deb.sh
   artifacts:
+    name: "cyberdiag-package"
     paths:
-      - ${JLINK_IMAGE_DIR}
-    expire_in: 1 hour
+      - "*.deb"
+    expire_in: 1 week
+  only:
+    - main
+    - dev
