@@ -2,6 +2,11 @@
 
 set -e
 
+if [[ $EUID -ne 0 ]]; then
+   echo "Ce script doit être lancé en tant que root (sudo)"
+   exit 1
+fi
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
@@ -66,13 +71,27 @@ run_module() {
     local MODULE_NAME="$1"
     shift
     for d in "$MODULES_DIR"/*/; do
-        META="$d/module.json"
+        local META="$d/module.json"
         if [[ -f "$META" && "$(jq -r '.name' "$META")" == "$MODULE_NAME" ]]; then
-            SCRIPT="$d/$(jq -r '.main' "$META")"
+
+            # --- VÉRIFICATION DES DÉPENDANCES ---
+            local DEPS
+            DEPS=$(jq -r '.dependencies[] // empty' "$META")
+            for dep in $DEPS; do
+                if ! command -v "$dep" >/dev/null 2>&1; then
+                    log_error "Dépendance manquante pour le module '$MODULE_NAME' : '$dep'"
+                    log_info "Veuillez installer '$dep' pour utiliser ce module."
+                    return 1
+                fi
+            done
+            # ------------------------------------
+
+            local SCRIPT="$d/$(jq -r '.main' "$META")"
             if [[ ! -f "$SCRIPT" ]]; then
                 log_error "Script $SCRIPT not found for module $MODULE_NAME"
                 return 1
             fi
+
             log_info "Starting module '$MODULE_NAME'"
             bash "$SCRIPT" "$@"
             log_info "Finished module '$MODULE_NAME'"
