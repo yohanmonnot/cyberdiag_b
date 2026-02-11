@@ -48,6 +48,7 @@ public class ListModule {
     public ListModule() {
         this.gson = new Gson();
         this.settings = SettingsSingleton.getInstance();
+        run();
     }
 
     /**

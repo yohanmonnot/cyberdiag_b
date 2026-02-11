@@ -6,6 +6,7 @@ import edu.cyclonicforce.fr.ui.metier.*;
 import edu.cyclonicforce.fr.ui.metier.Module;
 import javafx.application.Platform; // Import nécessaire pour les mises à jour UI
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -25,6 +26,7 @@ public class InScanController {
     @FXML public Text progressText;
     @FXML public HBox progressBar;
     @FXML public VBox logContainer;
+    @FXML public ScrollPane logScrollPane;
 
     private static final String MODULE_START_MESSAGE = "Démarrage du module %s..."; // Correction typo "madule"
     private static final String MODULE_END_MESSAGE = "Module %s terminé.";
@@ -215,6 +217,7 @@ public class InScanController {
             logText.setWrappingWidth(1468.0);
             logText.setFont(Font.font(36.0));
             logContainer.getChildren().add(logText);
+            logScrollPane.setVvalue(1.0);
         });
     }
 

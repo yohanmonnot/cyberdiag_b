@@ -34,7 +34,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </HBox>
-      <ScrollPane fx:id="scrollPane" cacheShape="false" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <ScrollPane fx:id="logScrollPane" cacheShape="false" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <content>
             <VBox fx:id="logContainer" spacing="10.0">
                <children>
