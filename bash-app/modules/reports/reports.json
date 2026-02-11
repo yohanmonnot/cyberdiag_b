@@ -154,5 +154,44 @@
         }
       ]
     }
+  },
+  {
+    "reportName": "diagTest",
+    "reportDate": "2026-02-10 16:24:19",
+    "number": 0,
+    "moduleResults": {
+      "categorie 2": [
+        {
+          "name": "privilegesChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Espace disque largement disponible."
+        }
+      ],
+      "categorie 1": [
+        {
+          "name": "cpuUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation CPU très faible, système au repos."
+        },
+        {
+          "name": "memoryUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation mémoire très faible, système peu sollicité."
+        },
+        {
+          "name": "diskUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Espace disque confortable."
+        }
+      ]
+    }
   }
 ]

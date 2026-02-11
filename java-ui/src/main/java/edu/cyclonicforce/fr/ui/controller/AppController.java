@@ -124,6 +124,9 @@ public class AppController {
                 this.currentScene = sceneToDisplay;
             }
         }
+
+        this.mainStage.setWidth(this.mainStage.getWidth() + 0.001);
+        this.mainStage.setWidth(this.mainStage.getWidth() - 0.001);
     }
 
     private void initDashboardStructure() {
