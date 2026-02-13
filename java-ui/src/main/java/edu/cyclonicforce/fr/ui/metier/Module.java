@@ -152,19 +152,13 @@ public class Module {
      * @throws IllegalArgumentException if the type is invalid
      */
     public void setType(String type) {
-        switch (type) {
-            case "tool":
-                this.type = ModuleType.TOOL;
-                break;
-            case "interface":
-                this.type = ModuleType.INTERFACE;
-                break;
-            case "diagnostic":
-                this.type = ModuleType.DIAGNOSTIC;
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid module type: " + type);
+        for (ModuleType mt : ModuleType.values()) {
+            if (mt.getTypeStr().equalsIgnoreCase(type)) {
+                this.type = mt;
+                return;
+            }
         }
+        throw new IllegalArgumentException("Invalid module type: " + type);
     }
 
     /**
