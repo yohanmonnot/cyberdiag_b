@@ -119,7 +119,6 @@ run_cli() {
 run_script() {
     # Cas spécial : list
     if [[ "$SCRIPT_NAME" == "list" ]]; then
-        log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
         list_modules "$LIST_FILTER" "$LIST_SORT"
         return 0
     fi
@@ -162,7 +161,13 @@ while [[ $# -gt 0 ]]; do
                 shift
             fi
 
-            while [[ $# -gt 0 ]]; do
+            # Si c'est list → on continue le parsing normal
+            if [[ "$SCRIPT_NAME" == "list" ]]; then
+                continue
+            fi
+
+            # Sinon on stocke tout pour le module
+            while [[ $# -gt 0 && "$1" != --* ]]; do
                 SCRIPT_ARGS+=("$1")
                 shift
             done
