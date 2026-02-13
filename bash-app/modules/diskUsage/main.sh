@@ -146,8 +146,6 @@ calculate_score() {
     fi
 }
 
-
-# --- Self-testing functionality ---
 # --- Self-testing functionality ---
 run_self_tests() {
     echo "============================================="
