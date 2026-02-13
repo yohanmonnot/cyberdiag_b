@@ -1,0 +1,115 @@
+[
+  {
+    "index": 0,
+    "question": "Vos mots de passe ont-ils des minuscules, majuscules, chiffres et caractères spéciaux ?",
+    "type": "choice",
+    "options": [
+      {
+        "index": 0,
+        "label": "oui, tout.",
+        "score": 5,
+        "feedback": "C'est parfait ! Continuez comme ça."
+      },
+      {
+        "index": 1,
+        "label": "oui, mais pas tous.",
+        "score": 3,
+        "feedback": "C'est un bon début, essayez d'ajouter les éléments manquants pour renforcer la sécurité de vos mots de passe."
+      },
+      {
+        "index": 2,
+        "label": "non, ils sont simples.",
+        "score": 1,
+        "feedback": "Il est important de renforcer la sécurité de vos mots de passe en utilisant une combinaison de minuscules, majuscules, chiffres et caractères spéciaux."
+      }
+    ]
+  },
+  {
+    "index": 1,
+    "question": "De quelle taille sont vos mots de passe en moyenne (en caractères) ?",
+    "type": "number",
+    "options": [
+      {
+        "conditions": [
+          {
+            "operator": ">=",
+            "value": 20
+          }
+        ],
+        "score": 5,
+        "feedback": "C'est excellent ! Des mots de passe d'au moins 12 caractères sont recommandés pour une meilleure sécurité."
+      },
+      {
+        "condition": [
+          {
+            "operator": ">=",
+            "value": 15
+          },
+          {
+            "operator": "<",
+            "value": 20
+          }
+        ],
+        "score": 4,
+        "feedback": "C'est un très bon début, essayez d'augmenter la longueur de vos mots de passe pour une meilleure sécurité."
+      },
+      {
+        "condition": [
+            {
+              "operator": ">=",
+              "value": 12
+            },
+            {
+              "operator": "<",
+              "value": 15
+            }
+        ],
+        "score": 3,
+        "feedback": "C'est un bon début, essayez d'augmenter la longueur de vos mots de passe pour une meilleure sécurité."
+      },
+      {
+        "condition": [
+          {
+            "operator": ">=",
+            "value": 10
+          },
+          {
+            "operator": "<",
+            "value": 12
+          }
+        ],
+        "score": 2,
+        "feedback": "Vos mots de passe sont trop court, essayez d'augmenter la longueur de vos mots de passe pour une meilleure sécurité."
+      },
+      {
+        "condition": [
+          {
+            "operator": "<",
+            "value": 10
+          }
+        ],
+        "score": 1,
+        "feedback": "Vos mots de passe sont vraiment trop court, vous devez augmenter la longueur de vos mots de passe pour une meilleure sécurité."
+      }
+    ]
+  },
+  {
+    "index": 2,
+    "question": "Utilisez-vous un gestionnaire de mots de passe ?",
+    "type": "choice",
+    "options": [
+      {
+        "index": 0,
+        "label": "oui, j'en utilise un.",
+        "score": 5,
+        "feedback": "C'est parfait ! Un gestionnaire de mots de passe est un excellent moyen de stocker et de gérer vos mots de passe en toute sécurité."
+      },
+      {
+        "index": 1,
+        "label": "non, je n'en utilise pas.",
+        "score": 3,
+        "feedback": "Il est fortement recommandé d'utiliser un gestionnaire de mots de passe pour stocker et gérer vos mots de passe en toute sécurité."
+      }
+    ]
+  }
+]
