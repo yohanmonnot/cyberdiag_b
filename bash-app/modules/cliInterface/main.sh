@@ -37,7 +37,7 @@ read -rp "Choix : " CHOIX
 if [ "$CHOIX" = "Q" ] || [ "$CHOIX" = "q" ]; then
   exit 0
 elif [ "$CHOIX" = "M" ] || [ "$CHOIX" = "m" ]; then
-  ./$ROOT/menu_module.sh
+  $ROOT/menu_module.sh
 elif [ "$CHOIX" = "D" ] || [ "$CHOIX" = "d" ]; then
   ./"$ROOT"/menu_diagnostics.sh
 elif [ "$CHOIX" = "R" ] || [ "$CHOIX" = "r" ]; then
