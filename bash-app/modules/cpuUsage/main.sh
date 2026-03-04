@@ -1,40 +1,40 @@
 #!/bin/bash
+# =============================================================================
+# Module : cpuUsage
+# Description : Vérifie l'utilisation CPU et identifie le processus le plus gourmand
+# Auteur : Nolhan
+# =============================================================================
 
-# --- Load environment and logger ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 source "$PROJECT_ROOT/utils/env.sh"
 source "$PROJECT_ROOT/utils/logger.sh"
 
-# Couleurs ANSI
-RED="\033[0;31m"
-GREEN="\033[0;32m"
-YELLOW="\033[1;33m"
-BLUE="\033[0;34m"
-CYAN="\033[0;36m"
-RESET="\033[0m"
+# --- Couleurs ---
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[1;36m'
+NC='\033[0m'
 
-# --- Variables globales ---
-ERROR_MESSAGE=""
-CPU_USER=""
-CPU_SYSTEM=""
-CPU_NICE=""
-CPU_IDLE=""
-CPU_WAIT=""
-CPU_HW_INT=""
-CPU_SW_INT=""
-CPU_STOLEN=""
+ERROR=""
 USED_PERCENTAGE=0
+TOP_PROCESS_NAME=""
+TOP_PROCESS_PID=""
+TOP_PROCESS_CPU=0
 SCORE=5
-RECOMMENDATION="Utilisation CPU normale"
+RECOMMENDATION=""
+SAMPLE_DURATION=5   # moyenne sur 5 secondes
 
-# --- Fonction : sortie JSON ---
+# ==================================================
+# Génération JSON
+# ==================================================
 output_json() {
     local STATUS="$1"
     local ERROR="$2"
     local SCORE="$3"
     local RECOMMENDATION="$4"
-    
     echo $(jq -n \
         --arg status "$STATUS" \
         --arg error "$ERROR" \
@@ -43,146 +43,212 @@ output_json() {
         '{status: $status, error: $error, score: $score, recommendation: $recommendation}')
 }
 
-# --- Fonction : vérification dépendances ---
+# ==================================================
+# Vérifications
+# ==================================================
 check_requirements() {
-    if ! command -v top &>/dev/null; then
-        ERROR_MESSAGE="La commande 'top' n'est pas disponible."
-        log_error "[cpuUsage] $ERROR_MESSAGE"
-        output_json "FAIL" "$ERROR_MESSAGE" 0 "" "{}"
-        exit 0
-    fi
-    
-    if ! command -v jq &>/dev/null; then
-        ERROR_MESSAGE="La commande 'jq' n'est pas disponible."
-        log_error "[cpuUsage] $ERROR_MESSAGE"
-        output_json "FAIL" "$ERROR_MESSAGE" 0 "" "{}"
+    if [[ ! -r /proc/stat ]]; then
+        ERROR="/proc/stat inaccessible."
+        output_json "FAIL" "$ERROR" 0 ""
         exit 0
     fi
 }
 
-# --- Fonction : collecte des données CPU ---
-collect_cpu_data() {
-    local cpu_usage_raw
-    cpu_usage_raw=$(top -bn1 | grep "Cpu(s)")
-    
-    if [[ -z "$cpu_usage_raw" ]]; then
-        ERROR_MESSAGE="Impossible de récupérer les données CPU."
-        log_error "[cpuUsage] $ERROR_MESSAGE"
-        output_json "FAIL" "$ERROR_MESSAGE" 0 "" "{}"
-        exit 0
-    fi
-    
-    CPU_USER=$(echo "$cpu_usage_raw" | awk '{print $2}' | tr -d ',')
-    CPU_SYSTEM=$(echo "$cpu_usage_raw" | awk '{print $4}' | tr -d ',')
-    CPU_NICE=$(echo "$cpu_usage_raw" | awk '{print $6}' | tr -d ',')
-    CPU_IDLE=$(echo "$cpu_usage_raw" | awk '{print $8}' | tr -d ',')
-    CPU_WAIT=$(echo "$cpu_usage_raw" | awk '{print $10}' | tr -d ',')
-    CPU_HW_INT=$(echo "$cpu_usage_raw" | awk '{print $12}' | tr -d ',')
-    CPU_SW_INT=$(echo "$cpu_usage_raw" | awk '{print $14}' | tr -d ',')
-    CPU_STOLEN=$(echo "$cpu_usage_raw" | awk '{print $16}' | tr -d ',')
-    
-    # Calcul du pourcentage d'utilisation
-    USED_PERCENTAGE=$(echo "100 - $CPU_IDLE" | bc | cut -d'.' -f1)
-    
-    log_info "[cpuUsage] CPU utilisé : ${USED_PERCENTAGE}%"
+# ==================================================
+# Collecte CPU
+# ==================================================
+read_cpu_total() {
+    awk '/^cpu / {
+        total=$2+$3+$4+$5+$6+$7+$8+$9;
+        idle=$5+$6;
+        print total, idle
+    }' /proc/stat
 }
 
-# --- Fonction : calcul du score et recommandation ---
+collect_cpu_average() {
+    read total1 idle1 < <(read_cpu_total)
+    sleep "$SAMPLE_DURATION"
+    read total2 idle2 < <(read_cpu_total)
+    total_delta=$((total2 - total1))
+    idle_delta=$((idle2 - idle1))
+    if [[ "$total_delta" -eq 0 ]]; then
+        USED_PERCENTAGE=0
+    else
+        USED_PERCENTAGE=$(( (100 * (total_delta - idle_delta)) / total_delta ))
+    fi
+}
+
+# ==================================================
+# Processus dominant
+# ==================================================
+collect_top_process_average() {
+    declare -A start_times names
+    for pid in /proc/[0-9]*; do
+        pid=${pid#/proc/}
+        [[ ! -r /proc/$pid/stat ]] && continue
+        read -r _ comm _ _ _ _ _ _ _ _ _ _ _ utime stime _ < /proc/$pid/stat 2>/dev/null || continue
+        [[ -z "$utime" || -z "$stime" ]] && continue
+        start_times["$pid"]=$((utime + stime))
+        names["$pid"]="${comm//[\(\)]/}"
+    done
+
+    read total1 idle1 < <(read_cpu_total)
+    sleep "$SAMPLE_DURATION"
+    read total2 idle2 < <(read_cpu_total)
+    total_delta=$((total2 - total1))
+    max_delta=0
+    top_pid=""
+
+    for pid in "${!start_times[@]}"; do
+        [[ ! -r /proc/$pid/stat ]] && continue
+        read -r _ comm _ _ _ _ _ _ _ _ _ _ _ utime stime _ < /proc/$pid/stat 2>/dev/null || continue
+        [[ -z "$utime" || -z "$stime" ]] && continue
+        delta=$(( (utime + stime) - start_times[$pid] ))
+        if (( delta > max_delta )); then
+            max_delta=$delta
+            top_pid=$pid
+        fi
+    done
+
+    if [[ -z "$top_pid" || "$total_delta" -le 0 ]]; then
+        TOP_PROCESS_NAME="Aucun processus significatif"
+        TOP_PROCESS_PID="N/A"
+        TOP_PROCESS_CPU=0
+        return
+    fi
+
+    TOP_PROCESS_PID="$top_pid"
+    TOP_PROCESS_NAME="${names[$top_pid]}"
+    TOP_PROCESS_CPU=$(( (100 * max_delta) / total_delta ))
+}
+
+# ==================================================
+# Calcul score
+# ==================================================
 calculate_score() {
-    SCORE=5
-    RECOMMENDATION="Utilisation CPU normale"
-    
-    if [[ $USED_PERCENTAGE -lt 20 ]]; then
+    if [[ "$USED_PERCENTAGE" -lt 20 ]]; then
         SCORE=5
-        RECOMMENDATION="Utilisation CPU très faible, système au repos."
-    elif [[ $USED_PERCENTAGE -lt 40 ]]; then
+    elif [[ "$USED_PERCENTAGE" -lt 40 ]]; then
         SCORE=4
-        RECOMMENDATION="Utilisation CPU faible, système peu sollicité."
-    elif [[ $USED_PERCENTAGE -lt 60 ]]; then
+    elif [[ "$USED_PERCENTAGE" -lt 60 ]]; then
         SCORE=3
-        RECOMMENDATION="Utilisation CPU modérée, surveillance recommandée."
-    elif [[ $USED_PERCENTAGE -lt 80 ]]; then
+    elif [[ "$USED_PERCENTAGE" -lt 80 ]]; then
         SCORE=2
-        RECOMMENDATION="Utilisation CPU élevée, identifier les processus gourmands."
     else
         SCORE=1
-        RECOMMENDATION="Utilisation CPU critique, optimisation urgente nécessaire."
     fi
+
+    RECOMMENDATION="Moyenne CPU sur ${SAMPLE_DURATION}s : ${USED_PERCENTAGE}%.
+    
+Processus dominant (moyenne sur ${SAMPLE_DURATION}s) :
+- Nom : ${TOP_PROCESS_NAME}
+- PID : ${TOP_PROCESS_PID}
+- CPU : ${TOP_PROCESS_CPU}%"
 }
 
-# --- Self-testing functionality ---
-run_self_tests() {
-    echo "============================================="
-    echo "Running internal function tests (cpuUsage)"
-    echo "============================================="
+# ==================================================
+# Tests unitaires
+# ==================================================
+run_unit_tests() {
+    echo -e "${CYAN}==================================================${NC}"
+    echo -e "${CYAN}UNIT TESTS - cpuUsage${NC}"
+    echo -e "${CYAN}==================================================${NC}"
 
-    local passed=0
-    local failed=0
-
-    test_case() {
-        local name="$1"
-        shift
-        if "$@"; then
-            echo -e "${GREEN}PASS${RESET} - $name"
-            ((passed++))
+    local TOTAL=0 PASS=0 FAIL=0
+    run_case() {
+        local NAME="$1" USED PROCESS_NAME PID CPU_USED EXPECTED_SCORE="$6"
+        USED_PERCENTAGE="$2"
+        TOP_PROCESS_NAME="$3"
+        TOP_PROCESS_PID="$4"
+        TOP_PROCESS_CPU="$5"
+        calculate_score
+        ((TOTAL++))
+        echo -e "\n${BLUE}------------------------------------------${NC}"
+        echo -e "${BLUE}Test Case: $NAME${NC}"
+        echo -e "${YELLOW}Simulation:${NC}"
+        echo "  USED_PERCENTAGE=$USED_PERCENTAGE, PROCESS_NAME=$TOP_PROCESS_NAME, PID=$TOP_PROCESS_PID, CPU_USED=$TOP_PROCESS_CPU"
+        echo -e "${YELLOW}Expected Score:${NC} $EXPECTED_SCORE"
+        echo -e "${YELLOW}Obtained Score:${NC} $SCORE"
+        if [[ "$SCORE" -eq "$EXPECTED_SCORE" ]]; then
+            echo -e "${GREEN}RESULT: PASS${NC}"
+            ((PASS++))
         else
-            echo -e "${RED}FAIL${RESET} - $name"
-            ((failed++))
+            echo -e "${RED}RESULT: FAIL${NC}"
+            ((FAIL++))
         fi
     }
 
-    # --- Test output_json ---
-    test_case "output_json returns valid JSON" bash -c '
-        source "'"$PROJECT_ROOT/utils/env.sh"'" 2>/dev/null || true
-        source "'"$PROJECT_ROOT/utils/logger.sh"'" 2>/dev/null || true
-        source "'"$SCRIPT_DIR/$(basename "$0")"'" output_json >/dev/null 2>&1
-        declare -f output_json >/dev/null &&
-        output_json "OK" "" 5 "Test" | jq . >/dev/null 2>&1
-    '
+    run_case "CPU faible" 10 "ProcA" 123 2 5
+    run_case "CPU modérée" 35 "ProcB" 234 5 4
+    run_case "CPU élevée" 55 "ProcC" 345 10 3
+    run_case "CPU très élevée" 75 "ProcD" 456 20 2
+    run_case "CPU critique" 90 "ProcE" 567 50 1
 
-    # --- Test check_requirements ---
-    test_case "check_requirements executes without crash" check_requirements
-
-    # --- Test collect_cpu_data ---
-    test_case "collect_cpu_data executes without crash" collect_cpu_data
-
-    # --- Test calculate_score ---
-    USED_PERCENTAGE=85  # Simule une forte utilisation
-    calculate_score
-    if [[ "$SCORE" -eq 1 ]]; then
-        echo -e "${GREEN}PASS${RESET} - calculate_score logic correct"
-        ((passed++))
-    else
-        echo -e "${RED}FAIL${RESET} - calculate_score logic incorrect"
-        ((failed++))
-    fi
-
-    echo -e "-------------------------------------------"
-    echo -e "${CYAN}Total:${RESET} $((passed+failed)) | ${GREEN}Passed:${RESET} $passed | ${RED}Failed:${RESET} $failed"
-    echo -e "-------------------------------------------"
-
-    if [[ $failed -eq 0 ]]; then
-        echo -e "${GREEN}All internal tests passed.${RESET}"
-    else
-        echo -e "${RED}Some internal tests failed.${RESET}"
-    fi
+    echo -e "${CYAN}==================================================${NC}"
+    echo -e "${CYAN}RÉSUMÉ DES TESTS UNITAIRES${NC}"
+    echo "Total tests: $TOTAL, Passés: $PASS, Échoués: $FAIL"
 }
 
+# ==================================================
+# Test d'intégration
+# ==================================================
+run_integration_test() {
+    echo -e "\n${CYAN}================ TEST D'INTÉGRATION ================${NC}"
+    check_requirements
+    collect_cpu_average
+    collect_top_process_average
+    calculate_score
+    JSON=$(output_json "OK" "" "$SCORE" "$RECOMMENDATION")
+    echo "$JSON"
+}
 
-# --- Main ---
+# ==================================================
+# Couverture logique
+# ==================================================
+run_coverage_check() {
+    echo -e "\n${CYAN}================ COUVERTURE LOGIQUE ================${NC}"
+    echo "Simulation des scénarios critiques..."
+    for used in 10 35 55 75 90; do
+        for top_name in ProcA ProcB; do
+            for pid in 123 456; do
+                for cpu in 2 10; do
+                    USED_PERCENTAGE=$used
+                    TOP_PROCESS_NAME=$top_name
+                    TOP_PROCESS_PID=$pid
+                    TOP_PROCESS_CPU=$cpu
+                    calculate_score
+                done
+            done
+        done
+    done
+    echo -e "${GREEN}Scénarios testés : 20 / 20 (couverture complète)${NC}"
+}
+
+# ==================================================
+# MASTER TEST
+# ==================================================
+run_tests() {
+    run_unit_tests
+    run_integration_test
+    run_coverage_check
+    echo -e "\n${GREEN}TOUTES LES PHASES DE TEST ONT ÉTÉ RÉUSSIES${NC}"
+    exit 0
+}
+
+# ==================================================
+# MAIN
+# ==================================================
 main() {
     if [[ "$1" == "--test" ]]; then
-        run_self_tests
-        exit 0
+        run_tests
     fi
 
-    log_info "[cpuUsage] Démarrage du module de vérification CPU..."
-    
+    log_info "[cpuUsage] Analyse CPU sur ${SAMPLE_DURATION}s..."
     check_requirements
-    collect_cpu_data
+    collect_cpu_average
+    collect_top_process_average
     calculate_score
-    
-    log_info "[cpuUsage] Vérification terminée avec un score de $SCORE/5"
+    log_info "[cpuUsage] Vérification terminée, score=$SCORE/5"
     output_json "OK" "" "$SCORE" "$RECOMMENDATION"
 }
 

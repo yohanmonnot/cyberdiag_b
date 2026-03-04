@@ -33,7 +33,7 @@ Le script renvoie **un objet JSON** contenant quatre champs :
 
 ```json
 {
-  "status": "OK" | "WARNING" | "CRITICAL",
+  "status": "OK",
   "error": "message d’erreur ou vide",
   "score": 0 à 5,
   "recommendation": "texte de recommandation"

@@ -1,7 +1,7 @@
 {
     "categorie 1": [
         "cpuUsage",
-        "memoryUsage",
+        "ramUsage",
         "diskUsage"
     ],
     "categorie 2": [

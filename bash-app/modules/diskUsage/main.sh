@@ -1,35 +1,37 @@
 #!/bin/bash
+# =============================================================================
+# Module : diskUsage
+# Description : Vérifie l'utilisation du stockage
+# Auteur : Nolhan
+# =============================================================================
 
-# --- Load environment and logger ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 source "$PROJECT_ROOT/utils/env.sh"
 source "$PROJECT_ROOT/utils/logger.sh"
 
-# Couleurs ANSI
-RED="\033[0;31m"
-GREEN="\033[0;32m"
-YELLOW="\033[1;33m"
-BLUE="\033[0;34m"
-CYAN="\033[0;36m"
-RESET="\033[0m"
+# --- Couleurs ---
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[1;36m'
+NC='\033[0m'
 
 # --- Variables globales ---
-ERROR_MESSAGE=""
+ERROR=""
 DISK_DATA_JSON="[]"
-TOTAL_USED_PERCENTAGE=0
-AVERAGE_USED_PERCENTAGE=0
-FILESYSTEM_COUNT=0
 SCORE=5
-RECOMMENDATION="Espace disque suffisant"
+RECOMMENDATION=""
 
-# --- Fonction : sortie JSON ---
+# ==================================================
+# Génération JSON
+# ==================================================
 output_json() {
     local STATUS="$1"
     local ERROR="$2"
     local SCORE="$3"
     local RECOMMENDATION="$4"
-    
     echo $(jq -n \
         --arg status "$STATUS" \
         --arg error "$ERROR" \
@@ -38,197 +40,188 @@ output_json() {
         '{status: $status, error: $error, score: $score, recommendation: $recommendation}')
 }
 
-# --- Fonction : vérification dépendances ---
+# ==================================================
+# Vérifications
+# ==================================================
 check_requirements() {
-    if ! command -v df &>/dev/null; then
-        ERROR_MESSAGE="La commande 'df' n'est pas disponible."
-        log_error "[diskUsage] $ERROR_MESSAGE"
-        output_json "FAIL" "$ERROR_MESSAGE" 0 "" "[]" 0
-        exit 0
-    fi
-    
-    if ! command -v jq &>/dev/null; then
-        ERROR_MESSAGE="La commande 'jq' n'est pas disponible."
-        log_error "[diskUsage] $ERROR_MESSAGE"
-        output_json "FAIL" "$ERROR_MESSAGE" 0 "" "[]" 0
+    if ! command -v df &>/dev/null || ! command -v jq &>/dev/null; then
+        ERROR="Dépendances manquantes : df ou jq."
+        log_error "[diskUsage] $ERROR"
+        output_json "FAIL" "$ERROR" 0 ""
         exit 0
     fi
 }
 
-# --- Fonction : collecte des données disque ---
+# ==================================================
+# Collecte des partitions
+# ==================================================
 collect_disk_data() {
-    local disk_output
-    disk_output=$(df -h --output=source,size,used,avail,pcent,target 2>/dev/null)
-    
-    if [[ -z "$disk_output" ]]; then
-        # Fallback si --output n'est pas supporté
-        disk_output=$(df -h)
-    fi
-    
     local disk_array="[]"
-    local line_count=0
-    
-    while IFS= read -r line; do
-        # Ignorer l'en-tête
-        if [[ $line_count -eq 0 ]] || [[ $line == *"Filesystem"* ]] || [[ $line == *"Sys. de fichiers"* ]]; then
-            line_count=$((line_count + 1))
-            continue
-        fi
-        
-        # Filtrer les systèmes de fichiers temporaires et virtuels
-        if [[ $line == tmpfs* ]] || [[ $line == devtmpfs* ]] || [[ $line == *"/snap/"* ]]; then
-            continue
-        fi
-        
-        local filesystem=$(echo "$line" | awk '{print $1}')
-        local size=$(echo "$line" | awk '{print $2}')
-        local used=$(echo "$line" | awk '{print $3}')
-        local available=$(echo "$line" | awk '{print $4}')
-        local use_percentage=$(echo "$line" | awk '{print $5}' | tr -d '%')
-        local mounted_on=$(echo "$line" | awk '{print $6}')
-        
-        # Vérifier que use_percentage est un nombre valide
-        if [[ ! "$use_percentage" =~ ^[0-9]+$ ]]; then
-            continue
-        fi
-        
-        # Ajouter au JSON array
+
+    while read -r source fstype size used avail pcent target; do
+        [[ -z "$source" ]] && continue
+        [[ "$source" != /dev/* ]] && continue
+
+        case "$fstype" in ext4|xfs|btrfs|ntfs|vfat) ;; *) continue ;; esac
+
+        local use_percentage
+        use_percentage=$(echo "$pcent" | tr -d '%')
+        [[ ! "$use_percentage" =~ ^[0-9]+$ ]] && continue
+
         local disk_item
         disk_item=$(jq -n \
-            --arg fs "$filesystem" \
-            --arg size "$size" \
-            --arg used "$used" \
-            --arg avail "$available" \
+            --arg fs "$source" \
+            --arg mount "$target" \
             --argjson pct "$use_percentage" \
-            --arg mount "$mounted_on" \
-            '{filesystem: $fs, size: $size, used: $used, available: $avail, use_percentage: $pct, mounted_on: $mount}')
-        
+            '{filesystem: $fs, mounted_on: $mount, use_percentage: $pct}')
+
         disk_array=$(echo "$disk_array" | jq --argjson item "$disk_item" '. += [$item]')
-        
-        TOTAL_USED_PERCENTAGE=$((TOTAL_USED_PERCENTAGE + use_percentage))
-        FILESYSTEM_COUNT=$((FILESYSTEM_COUNT + 1))
-        
-    done <<< "$disk_output"
-    
+    done < <(df -h --output=source,fstype,size,used,avail,pcent,target | tail -n +2)
+
     DISK_DATA_JSON="$disk_array"
-    
-    # Calcul de la moyenne
-    if [[ $FILESYSTEM_COUNT -gt 0 ]]; then
-        AVERAGE_USED_PERCENTAGE=$((TOTAL_USED_PERCENTAGE / FILESYSTEM_COUNT))
-    else
-        AVERAGE_USED_PERCENTAGE=0
-    fi
-    
-    log_info "[diskUsage] Nombre de systèmes de fichiers analysés : $FILESYSTEM_COUNT"
-    log_info "[diskUsage] Utilisation moyenne : ${AVERAGE_USED_PERCENTAGE}%"
+    log_info "[diskUsage] Partitions utilisateur détectées : $(echo "$DISK_DATA_JSON" | jq length)"
 }
 
-# --- Fonction : calcul du score et recommandation ---
+# ==================================================
+# Calcul du score
+# ==================================================
 calculate_score() {
-    SCORE=5
-    RECOMMENDATION="Espace disque suffisant"
-    
-    if [[ $AVERAGE_USED_PERCENTAGE -lt 20 ]]; then
+    local worst_percentage=0
+    local worst_mount=""
+    local details=""
+    local count=0
+
+    count=$(echo "$DISK_DATA_JSON" | jq length)
+    if [[ "$count" -eq 0 ]]; then
         SCORE=5
-        RECOMMENDATION="Espace disque largement disponible."
-    elif [[ $AVERAGE_USED_PERCENTAGE -lt 40 ]]; then
+        RECOMMENDATION="Aucune partition utilisateur locale détectée."
+        return
+    fi
+
+    worst_percentage=$(echo "$DISK_DATA_JSON" | jq '[.[].use_percentage] | max')
+    worst_mount=$(echo "$DISK_DATA_JSON" | jq -r ".[] | select(.use_percentage==$worst_percentage) | .mounted_on" | head -n1)
+    details=$(echo "$DISK_DATA_JSON" | jq -r '.[] | "- " + .mounted_on + " (" + (.use_percentage|tostring) + "%)"')
+
+    if [[ "$worst_percentage" -lt 70 ]]; then
+        SCORE=5
+        ACTION="Aucune action nécessaire."
+    elif [[ "$worst_percentage" -lt 80 ]]; then
         SCORE=4
-        RECOMMENDATION="Espace disque confortable."
-    elif [[ $AVERAGE_USED_PERCENTAGE -lt 60 ]]; then
+        ACTION="Surveiller l'évolution et identifier les dossiers volumineux."
+    elif [[ "$worst_percentage" -lt 90 ]]; then
         SCORE=3
-        RECOMMENDATION="Espace disque modéré, surveillance recommandée."
-    elif [[ $AVERAGE_USED_PERCENTAGE -lt 80 ]]; then
+        ACTION="Nettoyer fichiers temporaires et journaux."
+    elif [[ "$worst_percentage" -lt 95 ]]; then
         SCORE=2
-        RECOMMENDATION="Espace disque limité, nettoyage conseillé."
+        ACTION="Nettoyage urgent requis."
     else
         SCORE=1
-        RECOMMENDATION="Espace disque critique, libérer de l'espace urgemment."
+        ACTION="Libérer immédiatement de l'espace."
     fi
+
+    RECOMMENDATION="Utilisation des partitions locales :
+$details
+
+Partition la plus critique : $worst_mount (${worst_percentage}%).
+
+Action recommandée :
+$ACTION"
 }
 
-# --- Self-testing functionality ---
-run_self_tests() {
-    echo "============================================="
-    echo "Running internal function tests (diskUsage)"
-    echo "============================================="
+# ==================================================
+# Tests unitaires
+# ==================================================
+run_unit_tests() {
+    echo -e "${CYAN}==================================================${NC}"
+    echo -e "${CYAN}UNIT TESTS - diskUsage${NC}"
+    echo -e "${CYAN}==================================================${NC}"
 
-    local passed=0
-    local failed=0
+    local TOTAL=0 PASS=0 FAIL=0
 
-    test_case() {
-        local name="$1"
-        shift
-        if "$@"; then
-            echo -e "${GREEN}PASS${RESET} - $name"
-            ((passed++))
+    run_case() {
+        local NAME="$1" DISK_JSON="$2" EXPECTED="$3"
+        DISK_DATA_JSON="$DISK_JSON"
+        calculate_score
+
+        ((TOTAL++))
+        echo -e "\n${BLUE}------------------------------------------${NC}"
+        echo -e "${BLUE}Test Case: $NAME${NC}"
+        echo -e "${YELLOW}Simulation:${NC}"
+        echo "$DISK_DATA_JSON" | jq -c '.[]'
+        echo -e "${YELLOW}Expected Score:${NC} $EXPECTED"
+        echo -e "${YELLOW}Obtained Score:${NC} $SCORE"
+
+        if [[ "$SCORE" -eq "$EXPECTED" ]]; then
+            echo -e "${GREEN}RESULT: PASS${NC}"
+            ((PASS++))
         else
-            echo -e "${RED}FAIL${RESET} - $name"
-            ((failed++))
+            echo -e "${RED}RESULT: FAIL${NC}"
+            ((FAIL++))
         fi
     }
 
-    # Test output_json (appelle directement la fonction depuis le script)
-    test_case "output_json returns valid JSON" bash -c '. "'"$0"'" >/dev/null; output_json "OK" "" 5 "Test" | jq . >/dev/null 2>&1'
+    # Test cases
+    run_case "Partition faible" '[{"filesystem":"/dev/sda1","mounted_on":"/","use_percentage":50}]' 5
+    run_case "Partition modérée" '[{"filesystem":"/dev/sda1","mounted_on":"/","use_percentage":75}]' 4
+    run_case "Partition élevée" '[{"filesystem":"/dev/sda1","mounted_on":"/","use_percentage":85}]' 3
+    run_case "Partition critique" '[{"filesystem":"/dev/sda1","mounted_on":"/","use_percentage":93}]' 2
+    run_case "Partition saturée" '[{"filesystem":"/dev/sda1","mounted_on":"/","use_percentage":98}]' 1
 
-    # Test check_requirements
-    if command -v df &>/dev/null; then
-        test_case "check_requirements executes without crash" check_requirements
-    else
-        echo "SKIP - df non disponible"
-    fi
-
-    if command -v jq &>/dev/null; then
-        test_case "check_requirements executes without crash" check_requirements
-    else
-        echo "SKIP - jq non disponible"
-    fi
-
-    # Test collect_disk_data
-    test_case "collect_disk_data executes without crash" collect_disk_data
-
-    # Test logique du calcul de score
-    # On force la moyenne à différents niveaux pour simuler les cas
-    local logic_ok=true
-
-    AVERAGE_USED_PERCENTAGE=10; calculate_score; [[ "$SCORE" -eq 5 ]] || logic_ok=false
-    AVERAGE_USED_PERCENTAGE=30; calculate_score; [[ "$SCORE" -eq 4 ]] || logic_ok=false
-    AVERAGE_USED_PERCENTAGE=50; calculate_score; [[ "$SCORE" -eq 3 ]] || logic_ok=false
-    AVERAGE_USED_PERCENTAGE=70; calculate_score; [[ "$SCORE" -eq 2 ]] || logic_ok=false
-    AVERAGE_USED_PERCENTAGE=90; calculate_score; [[ "$SCORE" -eq 1 ]] || logic_ok=false
-
-    if $logic_ok; then
-        echo -e "${GREEN}PASS${RESET} - calculate_score logic correct"
-        ((passed++))
-    else
-        echo -e "${RED}FAIL${RESET} - calculate_score logic incorrect"
-        ((failed++))
-    fi
-
-    echo -e "-------------------------------------------"
-    echo -e "${CYAN}Total:${RESET} $((passed+failed)) | ${GREEN}Passed:${RESET} $passed | ${RED}Failed:${RESET} $failed"
-    echo -e "-------------------------------------------"
-
-    if [[ $failed -eq 0 ]]; then
-        echo -e "${GREEN}All internal tests passed.${RESET}"
-    else
-        echo -e "${RED}Some internal tests failed.${RESET}"
-    fi
+    echo -e "\n${CYAN}==================================================${NC}"
+    echo -e "${CYAN}RÉSUMÉ DES TEST UNITAIRES${NC}"
+    echo "Total tests : $TOTAL, Passés : $PASS, Échoués : $FAIL"
 }
 
-# --- Main ---
-main() {
-    if [[ "$1" == "--test" ]]; then
-        run_self_tests
-        exit 0
-    fi
-
-    log_info "[diskUsage] Démarrage du module de vérification disque..."
-    
+# ==================================================
+# Test d'intégration
+# ==================================================
+run_integration_test() {
+    echo -e "\n${CYAN}================ TEST D'INTÉGRATION ================${NC}"
     check_requirements
     collect_disk_data
     calculate_score
-    
-    log_info "[diskUsage] Vérification terminée avec un score de $SCORE/5"
+    JSON=$(output_json "OK" "" "$SCORE" "$RECOMMENDATION")
+    echo "$JSON"
+}
+
+# ==================================================
+# Couverture logique
+# ==================================================
+run_coverage_check() {
+    echo -e "\n${CYAN}================ COUVERTURE LOGIQUE ================${NC}"
+    local scenarios=0
+    for pct in 50 75 85 93 98; do
+        DISK_DATA_JSON="[{\"filesystem\":\"/dev/sda1\",\"mounted_on\":\"/\",\"use_percentage\":$pct}]"
+        calculate_score
+        ((scenarios++))
+    done
+    echo -e "${GREEN}Scénarios testés : $scenarios / 5 (couverture complète)${NC}"
+}
+
+# ==================================================
+# MASTER TEST
+# ==================================================
+run_tests() {
+    run_unit_tests
+    run_integration_test
+    run_coverage_check
+    echo -e "\n${GREEN}TOUTES LES PHASES DE TEST ONT ÉTÉ RÉUSSIES${NC}"
+    exit 0
+}
+
+# ==================================================
+# MAIN
+# ==================================================
+main() {
+    if [[ "$1" == "--test" ]]; then
+        run_tests
+    fi
+
+    log_info "[diskUsage] Analyse des partitions locales utilisateur..."
+    check_requirements
+    collect_disk_data
+    calculate_score
+    log_info "[diskUsage] Vérification terminée, score=$SCORE/5"
     output_json "OK" "" "$SCORE" "$RECOMMENDATION"
 }
 

@@ -35,21 +35,20 @@ cyberdiag_b/
 ├── bash-app/
 │   ├── main.sh              # Script principal centralisant tous les modules
 │   ├── modules/             # Modules fonctionnels
-│   │   ├── cpuUsage/
-│   │   ├── memoryUsage/
-│   │   ├── diskUsage/
-│   │   ├── majChecker/
 │   │   ├── antivirusChecker/
+│   │   ├── bluetoothChecker/
+│   │   ├── cpuUsage/
+│   │   ├── diskUsage/
 │   │   ├── firewallChecker/
+│   │   ├── majChecker/
 │   │   ├── malwareScan/
 │   │   ├── passwordChecker/
 │   │   ├── privilegesChecker/
+│   │   ├── ramUsage/
 │   │   ├── usbChecker/
 │   │   ├── wifiChecker/
 │   │   ├── cliInterface/
-│   │   ├── graphicInterface/
-│   │   ├── testArgs/
-│   │   └── exampleModule/
+│   │   └── graphicInterface/
 │   └── utils/               # Scripts utilitaires (env, logger)
 ├── java-ui/                 # Interface graphique Java
 ├── Documentations/          # Documents clients et veille technologique
@@ -69,7 +68,7 @@ Chaque module contient :
 * Linux ou macOS pour Bash
 * `jq` pour parser les fichiers JSON
 * Java 17+ pour l’interface graphique
-* Gradle (ou utilisation du wrapper `gradlew`)
+* Maven
 
 ---
 
@@ -139,7 +138,7 @@ ou
 #### 🖥️ Modules de Monitoring
 
 * `cpuUsage` : suivi CPU et utilisation processeur
-* `memoryUsage` : suivi mémoire RAM
+* `ramUsage` : suivi mémoire RAM
 * `diskUsage` : suivi espace disque
 
 #### 🔧 Modules de Maintenance
@@ -201,4 +200,4 @@ git checkout -b feature/nom-fonctionnalité
 | HUBERT Mathis               | Graphiste + Contenu visuel            |
 | LÉTANG Augustin             | SCRUM Master + Front-end et Graphisme |
 | MONNOT Yohan                | Développement Front-end + Contenu     |
-| BLANCHETIÈRE--DRÔLON Nolhan | Communication + Back-end              |
+| BD Nolhan | Communication + Back-end              |
