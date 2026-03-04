@@ -162,33 +162,22 @@ run_script() {
 }
 
 run_all_tests() {
-    log_info "Démarrage des tests pour tous les modules..."
-    local FAILED_MODULES=()
+    log_info "Démarrage des tests globaux des modules..."
 
-    for d in "$MODULES_DIR"/*/; do
-        local META="$d/module.json"
-        if [[ -f "$META" ]]; then
-            local MODULE_NAME=$(jq -r '.name' "$META")
-            # Récupération du script de test défini dans le JSON
-            local TEST_SCRIPT=$(jq -r '.test // empty' "$META")
-
-            if [[ -n "$TEST_SCRIPT" ]]; then
-                local FULL_TEST_PATH="$d$TEST_SCRIPT"
-                if [[ -f "$FULL_TEST_PATH" ]]; then
-                    log_info "Test du module [$MODULE_NAME] via $TEST_SCRIPT"
-                    if ! bash "$FULL_TEST_PATH"; then
-                        log_error "Échec du test pour le module : $MODULE_NAME"
-                        FAILED_MODULES+=("$MODULE_NAME")
-                    fi
-                fi
-            fi
-        fi
-    done
-
-    if [[ ${#FAILED_MODULES[@]} -ne 0 ]]; then
-        log_error "Certains tests ont échoué : ${FAILED_MODULES[*]}"
+    if [[ ! -f "$SCRIPT_DIR/utils/test_modules.sh" ]]; then
+        log_error "Script utils/test_modules.sh introuvable."
         exit 1
     fi
+
+    bash "$SCRIPT_DIR/utils/test_modules.sh"
+    EXIT_CODE=$?
+
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        log_error "Certains modules sont invalides."
+        exit 1
+    fi
+
+    log_info "Tous les modules sont valides."
 }
 
 # Argument parsing (after functions so variables exist)

@@ -1,9 +1,9 @@
 {
-	"name": "usbChecker",
-	"version": "2.0",
+	"name": "bluetoothChecker",
+	"version": "1.0",
 	"type": "tool",
     "category": "security",
-	"description": "A module to check for unknown USB devices.",
+	"description": "A module to check bluetooth connection.",
 	"author": "Nolhan BD",
 	"main": "main.sh",
     "test": "test.sh",

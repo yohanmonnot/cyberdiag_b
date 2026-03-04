@@ -4,7 +4,7 @@
     "reponses": [
       {
         "text": "Mon ordinateur est plus lent que d’habitude",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "processChecker", "serviceChecker"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "processChecker", "serviceChecker"]
       },
       {
         "text": "J’ai peur qu’il soit infecté",
@@ -20,7 +20,7 @@
       },
       {
         "text": "Je ne sais pas",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "networkConfigChecker"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "networkConfigChecker"]
       }
     ]
   },
@@ -54,7 +54,7 @@
     "reponses": [
       {
         "text": "État général (performance)",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "osInfo"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "osInfo"]
       },
       {
         "text": "Sécurité de mon ordinateur",
@@ -66,11 +66,11 @@
       },
       {
         "text": "Tout vérifier",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "majChecker", "antivirusChecker", "firewallChecker", "malwareScan", "networkConfigChecker", "openPortsScanner"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker", "antivirusChecker", "firewallChecker", "malwareScan", "networkConfigChecker", "openPortsScanner"]
       },
       {
         "text": "Je ne sais pas",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "majChecker"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker"]
       }
     ]
   },
@@ -79,7 +79,7 @@
     "reponses": [
       {
         "text": "Améliorer les performances",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "processChecker"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "processChecker"]
       },
       {
         "text": "Vérifier que je ne suis pas piraté",
@@ -91,7 +91,7 @@
       },
       {
         "text": "Je ne sais pas",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "networkConfigChecker"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "networkConfigChecker"]
       }
     ]
   },
@@ -163,11 +163,11 @@
     "reponses": [
       {
         "text": "Oui, importants",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "processChecker", "serviceChecker"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "processChecker", "serviceChecker"]
       },
       {
         "text": "Oui, légers",
-        "modules": ["cpuUsage", "memoryUsage"]
+        "modules": ["cpuUsage", "ramUsage"]
       },
       {
         "text": "Non",
@@ -175,7 +175,7 @@
       },
       {
         "text": "Je ne sais pas",
-        "modules": ["cpuUsage", "memoryUsage"]
+        "modules": ["cpuUsage", "ramUsage"]
       }
     ]
   },
@@ -285,15 +285,15 @@
     "reponses": [
       {
         "text": "Standard (rapide)",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "majChecker", "firewallChecker", "networkConfigChecker"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker", "firewallChecker", "networkConfigChecker"]
       },
       {
         "text": "Approfondi (audit complet)",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "majChecker", "antivirusChecker", "firewallChecker", "malwareScan", "passwordChecker", "privilegesChecker", "serviceChecker", "processChecker", "openPortsScanner", "networkTrafficMonitor", "sshConfigChecker", "encryptionChecker"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker", "antivirusChecker", "firewallChecker", "malwareScan", "passwordChecker", "privilegesChecker", "serviceChecker", "processChecker", "openPortsScanner", "networkTrafficMonitor", "sshConfigChecker", "encryptionChecker"]
       },
       {
         "text": "Je ne sais pas",
-        "modules": ["cpuUsage", "memoryUsage", "diskUsage", "majChecker", "firewallChecker"]
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker", "firewallChecker"]
       }
     ]
   }

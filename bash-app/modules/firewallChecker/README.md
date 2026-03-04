@@ -1,24 +1,35 @@
 # firewallChecker
 
 ## Description
-`firewallChecker` est un module Bash chargé de vérifier la présence, l’activation et le niveau de configuration du pare-feu sur un système Linux. Il s’appuie sur les outils standards du système (UFW ou iptables) pour déterminer si les connexions réseau entrantes sont correctement filtrées et fournit une évaluation accompagnée de recommandations conformes aux bonnes pratiques de sécurité (ANSSI).
+`firewallChecker` est un module Bash conçu pour vérifier la présence et la configuration d’un pare-feu sur un système Linux.
+Il détecte les principaux pare-feu disponibles (UFW, iptables, nftables, firewalld), analyse leur état et leur configuration, calcule un score de sécurité et fournit des recommandations pour renforcer la protection réseau.
 
 ## Fonctionnalités
 - Détection automatique du système d’exploitation (Linux uniquement).
-- Vérification de la disponibilité des outils de pare-feu (`ufw` ou `iptables`).
-- Détection de la présence d’un pare-feu.
-- Vérification de l’activation du pare-feu.
-- Analyse basique de la configuration du pare-feu :
-  - UFW : règles par défaut sur les connexions entrantes/sortantes.
-  - iptables : politique par défaut de type DROP.
-- Calcul d’un score de sécurité de 1 à 5.
+- Détection des pare-feu installés :
+  - UFW
+  - iptables
+  - nftables
+  - firewalld
+- Analyse détaillée :
+  - État du service (actif ou non)
+  - Règle par défaut (deny/drop)
+  - Nombre de ports entrants ouverts
+  - Liste des zones et services pour firewalld
+- Calcul d’un score de sécurité sur 5 niveaux :
+  - 5 : pare-feu actif et règles sécurisées
+  - 4 : pare-feu actif mais quelques ports ouverts
+  - 3 : configuration partiellement sécurisée
+  - 2 : pare-feu installé mais non actif ou règles par défaut non sécurisées
+  - 1 : aucun pare-feu détecté
 - Retour structuré en JSON incluant :
   - `status` : OK ou FAIL
   - `error` : message d’erreur le cas échéant
   - `score` : note sur 5
-  - `recommendation` : recommandation de sécurité associée au résultat
+  - `recommendation` : recommandations détaillées et état du pare-feu
 
 ## Structure
+
 firewallChecker/
 ├── main.sh
 ├── module.json
@@ -29,13 +40,30 @@ firewallChecker/
 - `README.md` : documentation du module.
 
 ## Logique d’évaluation
-- **Score 5** : Pare-feu actif et correctement configuré (UFW ou iptables).
-- **Score 3** : Pare-feu détecté et actif, mais configuration insuffisante ou permissive.
-- **Score 2** : Pare-feu détecté mais non activé.
-- **Score 1** : Aucun pare-feu détecté.
-- **Score 0** : Système non supporté ou outils requis absents.
+- **Score 5** : pare-feu actif, règles par défaut sécurisées, peu ou pas de ports ouverts.
+- **Score 4** : pare-feu actif, règles par défaut correctes, quelques ports ouverts.
+- **Score 3** : configuration partiellement sécurisée (règles par défaut incomplètes ou trop de ports ouverts).
+- **Score 2** : pare-feu installé mais inactif ou règles par défaut non sécurisées.
+- **Score 1** : aucun pare-feu détecté.
 
 ## Utilisation
-En ligne de commande :
 ```bash
 ./main.sh --script firewallChecker
+```
+
+### Exemple de sortie JSON
+```json
+{
+  "status": "OK",
+  "error": "",
+  "score": 4,
+  "recommendation": "Pare-feu UFW détecté.\nStatus: active\nDefault: deny (incoming)\n2 ports entrants ouverts.\n\nDétails :\n[UFW status complet]\n\nRecommandations supplémentaires :\n- Activez le pare-feu si nécessaire.\n- Configurez les règles par défaut pour bloquer les entrées non désirées.\n- Fermez les ports inutilisés."
+}
+```
+
+## Bonnes pratiques
+- Toujours activer un pare-feu sur les systèmes exposés.
+- Configurez la politique par défaut pour bloquer toutes les connexions entrantes non nécessaires (deny/drop).
+- Limitez le nombre de ports ouverts et fermez ceux inutilisés.
+- Surveillez régulièrement les règles et les services associés.
+- Documentez les exceptions et les zones de confiance pour éviter les failles de configuration.

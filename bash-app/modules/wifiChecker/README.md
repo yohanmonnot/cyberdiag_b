@@ -1,22 +1,28 @@
 # wifiChecker
 
 ## Description
-`wifiChecker` est un module Bash conçu pour vérifier la sécurité des connexions sans fil (Wi-Fi, Bluetooth, NFC) sur un système Linux. Il détecte automatiquement les interfaces sans fil activées, vérifie si l'appareil est connecté à un réseau Wi-Fi public ou inconnu, évalue la sécurité du réseau, et fournit des recommandations basées sur les bonnes pratiques de l'ANSSI (Agence Nationale de la Sécurité des Systèmes d'Information).
+`wifiChecker` est un module Bash permettant de **surveiller les connexions Wi-Fi** sur un système Linux.
+Il analyse le réseau sans fil auquel l’ordinateur est connecté, identifie si le réseau est public ou sécurisé, et si un VPN est actif, puis fournit un **score de sécurité Wi-Fi** et des recommandations.
+
+Le module :
+- affiche le résultat JSON sur la sortie standard (**stdout**)
+- détecte : réseau public ou sécurisé, présence d’un VPN
 
 ## Fonctionnalités
-- Détection automatique du système d'exploitation Linux.
-- Vérification de l'état des interfaces sans fil (Wi-Fi, Bluetooth, NFC).
-- Détection des connexions à des réseaux Wi-Fi publics ou inconnus.
-- Vérification de la sécurité du réseau Wi-Fi (WEP, WPA, WPA2, WPA3).
-- Vérification de la présence d'une connexion VPN active.
-- Détection des réseaux Wi-Fi publics à proximité.
-- Vérification des connexions automatiques aux réseaux Wi-Fi.
-- Calcul d'un score de sécurité de 1 à 5 basé sur les vérifications effectuées.
-- Retour structuré en JSON incluant :
-  - `exitCode` : OK ou FAIL
-  - `error` : message d'erreur le cas échéant
+- Détection automatique de la connexion Wi-Fi active avec `nmcli`.
+- Vérification de la sécurité du réseau :
+  - Réseau ouvert ou WEP (réseau public)
+  - WPA/WPA2/WPA3 (réseau sécurisé)
+- Détection de l’état VPN pour sécuriser les communications.
+- Calcul d’un **score de sécurité Wi-Fi sur 5 niveaux** :
+  - 5 : réseau sécurisé ou aucun réseau
+  - 3 : réseau public avec VPN actif
+  - 1 : réseau public sans VPN
+- Retour structuré en JSON incluant :
+  - `status` : OK ou FAIL
+  - `error` : message d’erreur le cas échéant
   - `score` : note sur 5
-  - `recommendation` : suggestion d'action basée sur les vérifications
+  - `recommendation` : recommandations détaillées pour la sécurité du réseau
 
 ## Structure
 wifiChecker/
@@ -24,12 +30,33 @@ wifiChecker/
 ├── module.json
 └── README.md
 
-- `main.sh` : script principal du module.
-- `module.json` : métadonnées du module.
-- `README.md` : cette documentation
+- `main.sh` : script principal du module
+- `module.json` : métadonnées du module
+- `README.md` : documentation du module
 
+## Logique d’évaluation
+- **Score 5** : aucun réseau ou réseau sécurisé → système sûr
+- **Score 3** : réseau public avec VPN actif → communication chiffrée mais vigilance nécessaire
+- **Score 1** : réseau public sans VPN → risque critique pour les opérations sensibles
 
 ## Utilisation
-En ligne de commande :
 ```bash
 ./main.sh --script wifiChecker
+```
+
+### Exemple de sortie JSON
+```json
+{
+  "status": "OK",
+  "error": "",
+  "score": 1,
+  "recommendation": "Connecté à un réseau public sans VPN.\n\nÉvitez toute opération sensible (banque, mots de passe, fichiers confidentiels).\nUtilisez un VPN immédiatement pour sécuriser vos communications.\n\nDétails de la connexion :\n- SSID : FreeWifi\n- Sécurité : open\n- VPN actif : false"
+}
+```
+
+## Bonnes pratiques
+- Évitez de vous connecter à des réseaux Wi-Fi publics sans VPN.
+- Utilisez un VPN pour toutes vos connexions sur des réseaux non sécurisés.
+- Préférez les réseaux WPA2/WPA3 pour les opérations sensibles.
+- Désactivez le partage automatique de fichiers sur les réseaux publics.
+- Surveillez régulièrement les connexions actives et la présence d’un VPN pour protéger vos données.

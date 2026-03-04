@@ -1,9 +1,9 @@
 {
-    "name": "cpuUsage",
+    "name": "ramUsage",
     "version": "2.0",
     "type": "tool",
     "category": "maintenance",
-    "description": "A module to check CPU usage on the system.",
+    "description": "A module to check ram usage on the system.",
     "author": "Nolhan BD",
     "main": "main.sh",
     "test": "test.sh",

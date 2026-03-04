@@ -6,22 +6,25 @@
 # =============================================================================
 
 # --- Initialisation ---
-STATUS="OK"
 ERROR=""
 SCORE=5
-RECOMMENDATION="Espace disque largement disponible."
+RECOMMENDATION="Les privilèges sont correct."
 
 ISSUES=0
 CHECKS=0
 
 # --- Fonction : sortie JSON (UNE SEULE LIGNE) ---
 output_json() {
-    jq -c -n \
-      --arg status "$STATUS" \
-      --arg error "$ERROR" \
-      --argjson score "$SCORE" \
-      --arg recommendation "$RECOMMENDATION" \
-      '{status: $status, error: $error, score: $score, recommendation: $recommendation}'
+    local STATUS="$1"
+    local ERROR="$2"
+    local SCORE="$3"
+    local RECOMMENDATION="$4"
+    echo $(jq -n \
+        --arg status "$STATUS" \
+        --arg error "$ERROR" \
+        --argjson score "$SCORE" \
+        --arg recommendation "$RECOMMENDATION" \
+        '{status: $status, error: $error, score: $score, recommendation: $recommendation}')
 }
 
 # --- Vérifications ---
@@ -121,13 +124,17 @@ run_self_tests() {
 }
 
 # --- Main ---
-if [[ "$1" == "--test" ]]; then
-    run_self_tests
-    exit 0
-fi
+main() {
+    if [[ "$1" == "--test" ]]; then
+        run_self_tests
+        exit 0
+    fi
 
-run_checks
-calculate_score
-output_json
+    log_info "[privilegesChecker] Démarrage du module de vérification des privileges..."
+    run_checks
+    calculate_score
+    log_info "[privilegesChecker] Vérification terminée avec un score de $SCORE/5"
+    output_json "OK" "" "$SCORE" "$RECOMMENDATION"
+}
 
-
+main "$@"
