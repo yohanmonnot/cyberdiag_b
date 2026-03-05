@@ -563,5 +563,21 @@
         }
       ]
     }
+  },
+  {
+    "reportName": "vpnChecker",
+    "reportDate": "2026-03-05 12:03:51",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "vpnChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 1,
+          "recommendation": "Aucune interface VPN détectée."
+        }
+      ]
+    }
   }
 ]
