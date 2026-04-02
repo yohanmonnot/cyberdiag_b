@@ -32,3 +32,20 @@ echo "---------------------"
 
 # Affichage menu dynamique
 echo "$JSON" | jq -r 'to_entries[] | "\(.key+1)) \(.value.name) — \(.value.type)"'
+
+read -rp "Choix : " CHOIX
+
+DIAG=$(echo "$JSON" | jq -r ".[$CHOIX-1].name")
+
+if [ "$DIAG" = "null" ] || [ -z "$DIAG" ]; then
+    echo "Choix invalide"
+    sleep 1
+    continue
+elif [ "$DIAG" = "R" ] || [ "$DIAG" = "r" ]; then
+    $ROOT/main.sh
+    exit 0
+fi
+
+log_info "Lancement du diagnostic : $DIAG"
+
+"$APPROOT/main.sh" --script "$DIAG"

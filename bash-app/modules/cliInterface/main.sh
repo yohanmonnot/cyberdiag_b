@@ -39,9 +39,9 @@ if [ "$CHOIX" = "Q" ] || [ "$CHOIX" = "q" ]; then
 elif [ "$CHOIX" = "M" ] || [ "$CHOIX" = "m" ]; then
   $ROOT/menu_module.sh
 elif [ "$CHOIX" = "D" ] || [ "$CHOIX" = "d" ]; then
-  ./"$ROOT"/menu_diagnostics.sh
+  $ROOT/menu_diagnostics.sh
 elif [ "$CHOIX" = "R" ] || [ "$CHOIX" = "r" ]; then
-  ./"$ROOT"/menu_rapport.sh
+  $ROOT/menu_rapport.sh
 else
   echo "Choix invalide"
   sleep 1
