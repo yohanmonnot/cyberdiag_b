@@ -47,7 +47,7 @@ if [ "$MODULE" = "null" ] || [ -z "$MODULE" ]; then
     sleep 1
     continue
 elif [ "$MODULE" = "R" ] || [ "$MODULE" = "r" ]; then
-    ./main.sh
+    $ROOT/main.sh
     exit 0
 fi
 
