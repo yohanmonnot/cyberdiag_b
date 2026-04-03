@@ -1,0 +1,11 @@
+{
+	"name": "updateConfigChecker",
+	"version": "1.0",
+	"type": "tool",
+    "category": "security analysis",
+	"description": "Vérifie la configuration des mises à jour système et détecte les manques critiques.",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}

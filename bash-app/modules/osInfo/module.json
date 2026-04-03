@@ -1,0 +1,11 @@
+{
+	"name": "osInfo",
+	"version": "1.0",
+	"type": "tool",
+    "category": "information gathering",
+	"description": "Collecte et analyse les informations du système (OS, version, kernel, architecture).",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}
