@@ -1,0 +1,10 @@
+{
+    "name": "diagnosticInterfaces",
+    "version": "1.0",
+    "type": "diagnostic",
+    "description": "A diagnostic profile: interfaces",
+    "author": "Nolhan BD",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

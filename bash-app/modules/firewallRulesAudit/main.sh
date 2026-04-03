@@ -66,7 +66,8 @@ check_real() {
         local PERMISSIVE=$(iptables -S | grep "ACCEPT" | grep -v "lo" | grep -v "m state --state RELATED,ESTABLISHED" | wc -l)
         if [ "$PERMISSIVE" -gt 5 ]; then
             SCORE=3
-            REC="Plusieurs règles ACCEPT très larges détectées. Revoyez votre politique 'Default Drop'."
+            REC="Plusieurs règles ACCEPT très larges détectées.
+Revoyez votre politique 'Default Drop'."
         fi
     fi
 
