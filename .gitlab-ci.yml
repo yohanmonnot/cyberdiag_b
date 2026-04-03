@@ -23,7 +23,7 @@ test_cyberdiag:
   stage: test
   image: ubuntu:22.04
   before_script:
-    - apt-get update && apt-get install -y jq bash ip curl ss
+    - apt-get update && apt-get install -y jq bash iproute2 curl
   script:
     - chmod +x scripts/*.sh
     - ./scripts/set_right.sh
