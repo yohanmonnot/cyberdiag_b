@@ -33,7 +33,8 @@ check_real() {
     while read -r line; do
         if [[ ! "$line" =~ (sshd|systemd-resolved|cupsd|apache2|nginx|docker) ]]; then
             ((SUSPICIOUS++))
-            SERVICES_FOUND+="$(echo $line | awk '{print $1}'), "
+            SERVICES_FOUND+="
+- $(echo $line | awk '{print $1}'), "
         fi
     done < <(ss -tulpn | grep "LISTEN" | awk '{print $7}' | cut -d'"' -f2 | sort -u)
 
