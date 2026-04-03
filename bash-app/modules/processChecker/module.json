@@ -1,0 +1,11 @@
+{
+	"name": "processChecker",
+	"version": "1.0",
+	"type": "tool",
+    "category": "security analysis",
+	"description": "Vérifie les processus en cours d'exécution et identifie les anomalies.",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}

@@ -1,0 +1,11 @@
+{
+	"name": "secureBootChecker",
+	"version": "1.0",
+	"type": "tool",
+    "category": "security analysis",
+	"description": "Vérifie l'état du Secure Boot et la signature des firmwares.",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}

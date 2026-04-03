@@ -1,0 +1,11 @@
+{
+	"name": "sshConfigChecker",
+	"version": "1.0",
+	"type": "tool",
+    "category": "security analysis",
+	"description": "Analyse la configuration SSH et détecte les paramètres peu sécurisés.",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}

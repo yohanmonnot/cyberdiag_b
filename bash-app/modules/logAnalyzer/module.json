@@ -1,0 +1,11 @@
+{
+	"name": "logAnalyzer",
+	"version": "1.0",
+	"type": "tool",
+    "category": "security analysis",
+	"description": "Analyse les fichiers journaux pour détecter les accès suspects ou les erreurs critiques.",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}

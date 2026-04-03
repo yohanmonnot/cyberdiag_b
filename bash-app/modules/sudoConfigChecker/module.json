@@ -1,0 +1,11 @@
+{
+	"name": "sudoConfigChecker",
+	"version": "1.0",
+	"type": "tool",
+    "category": "security analysis",
+	"description": "Vérifie la configuration sudo et identifie les accès privilégiés non sécurisés.",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}
