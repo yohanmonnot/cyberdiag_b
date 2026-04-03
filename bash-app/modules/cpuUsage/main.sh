@@ -122,6 +122,9 @@ collect_top_process_average() {
 
     # Conversion en entier pour éviter les erreurs d'arithmétique Bash
     # Conversion sécurisée en entier
+    # Conversion sécurisée en entier
+    max_delta_int=$(printf "%.0f" "$max_delta" 2>/dev/null || echo "$max_delta" | awk '{printf "%d\n", $1}')
+    total_delta_int=$(printf "%.0f" "$total_delta" 2>/dev/null || echo "$total_delta" | awk '{printf "%d\n", $1}')
     TOP_PROCESS_CPU=$(awk "BEGIN {printf \"%d\", (100 * $max_delta / $total_delta)}")
 }
 
