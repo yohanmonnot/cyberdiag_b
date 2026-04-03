@@ -49,6 +49,11 @@ En ligne de commande :
 ./main.sh --script bluetoothChecker
 ```
 
+### Mode test
+```bash
+./main.sh --script bluetoothChecker --test
+```
+
 ### Exemple de sortie JSON :
 ```json
 {

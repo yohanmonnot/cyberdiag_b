@@ -59,21 +59,21 @@ networkTrafficMonitor/
 
 ## Utilisation
 
-```bash id="n3f8xp"
-./main.sh
+```bash 
+./main.sh --script networkTrafficMonitor
 ```
 
-### Mode test interne
+### Mode test 
 
-```bash id="v7k2sd"
-./main.sh --test
+```bash 
+./main.sh --script networkTrafficMonitor --test
 ```
 
 
 
 ## Exemple de sortie JSON
 
-```json id="b5l2qz"
+```json 
 {
   "status": "OK",
   "error": "",

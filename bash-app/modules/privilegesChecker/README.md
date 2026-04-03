@@ -44,6 +44,11 @@ privilegesChecker/
 ./main.sh --script privilegesChecker
 ```
 
+### Mode test 
+```bash
+./main.sh --script privilegesChecker --test
+```
+
 ### Exemple de sortie JSON
 ```json
 {

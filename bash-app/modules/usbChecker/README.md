@@ -48,6 +48,11 @@ usbChecker/
 ./main.sh --script usbChecker
 ```
 
+### Mode test
+```bash
+./main.sh --script usbChecker --test
+```
+
 ### Exemple de sortie JSON
 
 ```json

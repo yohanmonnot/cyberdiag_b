@@ -50,21 +50,21 @@ gatewayReachabilityTest/
 
 ## Utilisation
 
-```
-./main.sh
+```bash
+./main.sh --script gatewayReachabilityTest
 ```
 
-## Mode test interne
+## Mode test 
 
-```
-./main.sh --test
+```bash
+./main.sh --script gatewayReachabilityTest --test
 ```
 
 
 
 ## Exemple de sortie JSON
 
-```
+```json
 {
   "status": "OK",
   "error": "",

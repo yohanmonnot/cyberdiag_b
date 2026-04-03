@@ -72,3 +72,4 @@ Le mode `--test` exécute :
 
 ### Garantie apportée
 Ce mode assure la cohérence du score, la validité du JSON et la robustesse globale du module face aux cas usuels de logs.
+

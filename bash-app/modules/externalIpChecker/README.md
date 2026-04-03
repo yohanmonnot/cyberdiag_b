@@ -48,21 +48,21 @@ externalIpChecker/
 
 ## Utilisation
 
-```
-./main.sh
+```bash
+./main.sh --script externalIpChecker
 ```
 
 ## Mode test interne
 
-```
-./main.sh --test
+```bash
+./main.sh --script externalIpChecker --test
 ```
 
 
 
 ## Exemple de sortie JSON
 
-```
+```json
 {
   "status": "OK",
   "error": "",

@@ -47,21 +47,21 @@ firewallRulesAudit/
 
 ## Utilisation
 
-```
-./main.sh
+```bash
+./main.sh --script firewallRulesAudit
 ```
 
-## Mode test interne
+## Mode test 
 
-```
-./main.sh --test
+```bash
+./main.sh --script firewallRulesAudit --test
 ```
 
 
 
 ## Exemple de sortie JSON
 
-```
+```json
 {
   "status": "OK",
   "error": "",

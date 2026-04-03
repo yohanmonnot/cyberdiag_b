@@ -44,6 +44,11 @@ Exécution en ligne de commande :
 ./main.sh --script antivirusChecker
 ```
 
+### Mode test
+```bash
+./main.sh --script antivirusChecker --test
+```
+
 ### Exemple de sortie JSON :
 ```json
 {

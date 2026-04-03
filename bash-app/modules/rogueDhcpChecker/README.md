@@ -73,21 +73,21 @@ rogueDhcpChecker/
 
 ## Utilisation
 
-```bash id="k2f9sd"
-./main.sh
+```bash 
+./main.sh --script rogueDhcpChecker
 ```
 
-### Mode test complet
+### Mode test 
 
-```bash id="p9x3lm"
-./main.sh --test
+```bash 
+./main.sh --script rogueDhcpChecker --test
 ```
 
 
 
 ## Exemple de sortie JSON
 
-```json id="d2k8qz"
+```json 
 {
   "status": "OK",
   "error": "",

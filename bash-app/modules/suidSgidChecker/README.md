@@ -1,3 +1,4 @@
+
 # suidSgidChecker
 
 ## Description
@@ -23,6 +24,14 @@ suidSgidChecker/
 └── README.md      # Documentation complète
 
 ## Logique d’évaluation
+* **Score 5** : aucun problème détecté dans les derniers logs.
+* **Score 3** : erreurs détectées dans auth.log ou syslog.
+* **Score 0** : fichiers log non accessibles ou introuvables.
+
+## États possibles
+* **OK** : analyse réalisée avec succès.
+* **FAIL** : impossible de lire les fichiers de log.
+
 
 | Score | Condition | Interprétation et recommandations |
 |-------|-----------|---------------------------------|
@@ -30,12 +39,14 @@ suidSgidChecker/
 | 2     | Un ou plusieurs fichiers SUID/SGID suspects détectés | Vérifier la légitimité des binaires trouvés et supprimer les droits inutiles. |
 
 ## Utilisation
-Exécution en ligne de commande :
+
 ```bash
+
 ./main.sh --script suidSgidChecker
 ```
 
 ### Exemple de sortie JSON
+
 ```json
 {
   "status": "OK",
@@ -46,6 +57,7 @@ Exécution en ligne de commande :
 ```
 
 ## Bonnes pratiques
+
 - Réduire au strict nécessaire les permissions SUID/SGID.
 - Vérifier régulièrement les binaires présents avec ces bits spéciaux.
 - Contrôler la légitimité des fichiers détectés avant toute suppression de droit.
@@ -77,3 +89,4 @@ Chaque test affiche :
 
 ### Garantie apportée
 Le mode test permet de vérifier rapidement que la logique de score reste cohérente et que le module continue de produire un JSON exploitable.
+

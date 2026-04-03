@@ -74,13 +74,13 @@ check_password/
 ## Utilisation
 
 ```bash
-./main.sh
+./main.sh --script passwordChecker
 ```
 
-### Mode test interne
+### Mode test 
 
 ```bash
-./main.sh --test
+./main.sh --script passwordChecker --test
 ```
 
 

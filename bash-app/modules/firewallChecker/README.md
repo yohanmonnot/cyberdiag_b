@@ -51,6 +51,11 @@ firewallChecker/
 ./main.sh --script firewallChecker
 ```
 
+### Mode test
+```bash
+./main.sh --script firewallChecker --test
+```
+
 ### Exemple de sortie JSON
 ```json
 {

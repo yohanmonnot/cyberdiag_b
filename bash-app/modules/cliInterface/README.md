@@ -33,8 +33,8 @@ cliInterface/
 
 
 ## Utilisation
-```
-./main.sh
+```bash
+./main.sh --script cliInterface
 ```
 
 
