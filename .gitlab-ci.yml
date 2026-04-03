@@ -23,8 +23,10 @@ test_cyberdiag:
   stage: test
   image: ubuntu:22.04
   before_script:
-    - apt-get update && apt-get install -y jq bash
+    - apt-get update && apt-get install -y jq bash iproute2 curl
   script:
+    - chmod +x scripts/*.sh
+    - ./scripts/set_right.sh
     - cd bash-app
     - chmod +x main.sh
     - ./main.sh --test
@@ -37,7 +39,8 @@ package_debian:
     - build_java
   script:
     - apt-get update && apt-get install -y binutils
-    - chmod +x scripts/build_deb.sh
+    - chmod +x scripts/*.sh
+    - ./scripts/set_right.sh
     - ./scripts/build_deb.sh
   artifacts:
     name: "cyberdiag-package"

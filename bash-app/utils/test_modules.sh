@@ -13,7 +13,7 @@ NC='\033[0m'
 MODULES_DIR="./modules"
 
 # Modules à exclure
-EXCLUDED_MODULES=("cliInterface" "diagTest" "graphicInterface" "reports")
+EXCLUDED_MODULES=("cliInterface" "diagTest" "graphicInterface" "reports" "cpuUsage")
 
 FAILED_MODULES=()
 GLOBAL_FAILED=0

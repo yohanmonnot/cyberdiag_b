@@ -74,7 +74,8 @@ collect_cpu_average() {
     if [[ "$total_delta" -eq 0 ]]; then
         USED_PERCENTAGE=0
     else
-        USED_PERCENTAGE=$(( (100 * (total_delta - idle_delta)) / total_delta ))
+        # Calcul avec awk pour gérer les grands nombres
+        USED_PERCENTAGE=$(awk "BEGIN {printf \"%d\", (100 * ($total_delta - $idle_delta) / $total_delta)}")
     fi
 }
 
@@ -114,12 +115,12 @@ collect_top_process_average() {
         TOP_PROCESS_NAME="Aucun processus significatif"
         TOP_PROCESS_PID="N/A"
         TOP_PROCESS_CPU=0
-        return
+    else
+        TOP_PROCESS_PID="$top_pid"
+        TOP_PROCESS_NAME="${names[$top_pid]}"
+        # Calcul du pourcentage avec awk
+        TOP_PROCESS_CPU=$(awk "BEGIN {printf \"%d\", (100 * $max_delta / $total_delta)}")
     fi
-
-    TOP_PROCESS_PID="$top_pid"
-    TOP_PROCESS_NAME="${names[$top_pid]}"
-    TOP_PROCESS_CPU=$(( (100 * max_delta) / total_delta ))
 }
 
 # ==================================================
