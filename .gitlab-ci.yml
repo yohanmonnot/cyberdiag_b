@@ -25,6 +25,8 @@ test_cyberdiag:
   before_script:
     - apt-get update && apt-get install -y jq bash
   script:
+    - chmod +x scripts/*.sh
+    - ./scripts/set_right.sh
     - cd bash-app
     - chmod +x main.sh
     - ./main.sh --test
@@ -37,7 +39,8 @@ package_debian:
     - build_java
   script:
     - apt-get update && apt-get install -y binutils
-    - chmod +x scripts/build_deb.sh
+    - chmod +x scripts/*.sh
+    - ./scripts/set_right.sh
     - ./scripts/build_deb.sh
   artifacts:
     name: "cyberdiag-package"
