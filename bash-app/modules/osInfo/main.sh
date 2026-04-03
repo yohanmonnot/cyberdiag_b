@@ -47,7 +47,37 @@ Kernel: $KERNEL_VERSION
 Support: $SUPPORT_STATUS"
 }
 
+run_unit_tests() {
+    local total=0 pass=0 fail=0
+
+    run_case() {
+        local label="$1" os_version="$2" expected_score="$3"
+        ((total++))
+        OS_VERSION="$os_version"
+        SCORE=5
+        SUPPORT_STATUS="Unknown"
+        calculate_score
+        if [[ "$SCORE" -eq "$expected_score" ]]; then
+            ((pass++))
+            echo "PASS - $label"
+        else
+            ((fail++))
+            echo "FAIL - $label (score=$SCORE, attendu=$expected_score)"
+        fi
+    }
+
+    run_case "OS supporte" "22" 5
+    run_case "OS potentiellement ancien" "18" 3
+
+    echo "Resume des tests unitaires : total=$total, pass=$pass, fail=$fail"
+}
+
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_unit_tests
+        exit 0
+    fi
+
     check_requirements
     calculate_score
     output_json "OK" "" "$SCORE" "$RECOMMENDATION"

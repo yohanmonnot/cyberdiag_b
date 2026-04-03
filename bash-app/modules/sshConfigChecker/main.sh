@@ -22,7 +22,37 @@ calculate_score() {
 PasswordAuthentication: $PASSWORD_AUTH"
 }
 
+run_unit_tests() {
+    local total=0 pass=0 fail=0
+
+    run_case() {
+        local label="$1" permit_root="$2" password_auth="$3" expected_score="$4"
+        ((total++))
+        PERMIT_ROOT="$permit_root"
+        PASSWORD_AUTH="$password_auth"
+        SCORE=5
+        calculate_score
+        if [[ "$SCORE" -eq "$expected_score" ]]; then
+            ((pass++))
+            echo "PASS - $label"
+        else
+            ((fail++))
+            echo "FAIL - $label (score=$SCORE, attendu=$expected_score)"
+        fi
+    }
+
+    run_case "SSH durci" "no" "no" 5
+    run_case "SSH risqué" "yes" "yes" 2
+
+    echo "Resume des tests unitaires : total=$total, pass=$pass, fail=$fail"
+}
+
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_unit_tests
+        exit 0
+    fi
+
     collect_ssh_config
     calculate_score
     output_json "OK" "" "$SCORE" "$RECOMMENDATION"

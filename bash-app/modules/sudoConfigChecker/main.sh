@@ -23,7 +23,36 @@ calculate_score() {
 $SUSPICIOUS"
 }
 
+run_unit_tests() {
+    local total=0 pass=0 fail=0
+
+    run_case() {
+        local label="$1" suspicious="$2" expected_score="$3"
+        ((total++))
+        SUSPICIOUS="$suspicious"
+        SCORE=5
+        calculate_score
+        if [[ "$SCORE" -eq "$expected_score" ]]; then
+            ((pass++))
+            echo "PASS - $label"
+        else
+            ((fail++))
+            echo "FAIL - $label (score=$SCORE, attendu=$expected_score)"
+        fi
+    }
+
+    run_case "Aucune regle risquee" "" 5
+    run_case "Regle NOPASSWD detectee" "user ALL=(ALL) NOPASSWD:ALL" 2
+
+    echo "Resume des tests unitaires : total=$total, pass=$pass, fail=$fail"
+}
+
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_unit_tests
+        exit 0
+    fi
+
     collect_sudoers
     calculate_score
     output_json "OK" "" "$SCORE" "$RECOMMENDATION"

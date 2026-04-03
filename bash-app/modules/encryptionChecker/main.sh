@@ -31,7 +31,37 @@ Disques non chiffrés :
 $UNENCRYPTED"
 }
 
+run_unit_tests() {
+    local total=0 pass=0 fail=0
+
+    run_case() {
+        local label="$1" encrypted="$2" unencrypted="$3" expected_score="$4"
+        ((total++))
+        ENCRYPTED="$encrypted"
+        UNENCRYPTED="$unencrypted"
+        SCORE=5
+        calculate_score
+        if [[ "$SCORE" -eq "$expected_score" ]]; then
+            ((pass++))
+            echo "PASS - $label"
+        else
+            ((fail++))
+            echo "FAIL - $label (score=$SCORE, attendu=$expected_score)"
+        fi
+    }
+
+    run_case "Tous les disques chiffrés" "/dev/sda1" "" 5
+    run_case "Disque non chiffré" "/dev/sda1" "/dev/sdb1" 2
+
+    echo "Resume des tests unitaires : total=$total, pass=$pass, fail=$fail"
+}
+
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_unit_tests
+        exit 0
+    fi
+
     collect_disks
     calculate_score
     output_json "OK" "" "$SCORE" "$RECOMMENDATION"

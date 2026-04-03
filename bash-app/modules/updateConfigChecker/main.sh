@@ -19,7 +19,36 @@ calculate_score() {
 $AUTO_UPDATE_STATUS"
 }
 
+run_unit_tests() {
+    local total=0 pass=0 fail=0
+
+    run_case() {
+        local label="$1" auto_update_status="$2" expected_score="$3"
+        ((total++))
+        AUTO_UPDATE_STATUS="$auto_update_status"
+        SCORE=5
+        calculate_score
+        if [[ "$SCORE" -eq "$expected_score" ]]; then
+            ((pass++))
+            echo "PASS - $label"
+        else
+            ((fail++))
+            echo "FAIL - $label (score=$SCORE, attendu=$expected_score)"
+        fi
+    }
+
+    run_case "Mises a jour actives" "1;" 5
+    run_case "Mises a jour desactivees" "0;" 3
+
+    echo "Resume des tests unitaires : total=$total, pass=$pass, fail=$fail"
+}
+
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_unit_tests
+        exit 0
+    fi
+
     collect_update_config
     calculate_score
     output_json "OK" "" "$SCORE" "$RECOMMENDATION"

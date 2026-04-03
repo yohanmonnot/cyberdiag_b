@@ -23,7 +23,37 @@ Comptes inactifs depuis >90 jours :
 $OLD_USERS"
 }
 
+run_unit_tests() {
+    local total=0 pass=0 fail=0
+
+    run_case() {
+        local label="$1" inactive_users="$2" old_users="$3" expected_score="$4"
+        ((total++))
+        INACTIVE_USERS="$inactive_users"
+        OLD_USERS="$old_users"
+        SCORE=5
+        calculate_score
+        if [[ "$SCORE" -eq "$expected_score" ]]; then
+            ((pass++))
+            echo "PASS - $label"
+        else
+            ((fail++))
+            echo "FAIL - $label (score=$SCORE, attendu=$expected_score)"
+        fi
+    }
+
+    run_case "Aucun compte suspect" "" "" 5
+    run_case "Comptes suspects detectes" "user1 /bin/bash" "user2 90 days" 3
+
+    echo "Resume des tests unitaires : total=$total, pass=$pass, fail=$fail"
+}
+
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_unit_tests
+        exit 0
+    fi
+
     collect_users
     calculate_score
     output_json "OK" "" "$SCORE" "$RECOMMENDATION"

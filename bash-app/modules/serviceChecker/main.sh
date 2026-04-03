@@ -30,7 +30,37 @@ Services potentiellement inutiles ou risqués :
 $SUSPICIOUS_SERVICES"
 }
 
+run_unit_tests() {
+    local total=0 pass=0 fail=0
+
+    run_case() {
+        local label="$1" suspicious_services="$2" expected_score="$3"
+        ((total++))
+        SUSPICIOUS_SERVICES="$suspicious_services"
+        ACTIVE_SERVICES="ssh.service"
+        SCORE=5
+        calculate_score
+        if [[ "$SCORE" -eq "$expected_score" ]]; then
+            ((pass++))
+            echo "PASS - $label"
+        else
+            ((fail++))
+            echo "FAIL - $label (score=$SCORE, attendu=$expected_score)"
+        fi
+    }
+
+    run_case "Service sain" "" 5
+    run_case "Service risque detecte" "telnet.service" 2
+
+    echo "Resume des tests unitaires : total=$total, pass=$pass, fail=$fail"
+}
+
 main() {
+    if [[ "$1" == "--test" ]]; then
+        run_unit_tests
+        exit 0
+    fi
+
     check_requirements
     collect_services
     calculate_score
