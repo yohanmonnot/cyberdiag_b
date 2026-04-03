@@ -579,5 +579,394 @@
         }
       ]
     }
+  },
+  {
+    "reportName": "antivirusChecker",
+    "reportDate": "2026-04-03 14:51:00",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "antivirusChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 1,
+          "recommendation": "Aucun antivirus détecté."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "vpnChecker",
+    "reportDate": "2026-04-03 14:51:08",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "vpnChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Aucun VPN détecté. Trafic potentiellement exposé sur réseau public."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "wifiChecker",
+    "reportDate": "2026-04-03 14:51:47",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "wifiChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Connecté à un réseau Wi-Fi sécurisé sans VPN.\n\nSystème sûr pour les opérations courantes.\n\nDétails de la connexion :\n- SSID : eduroam\n- Sécurité : WPA2 802.1X\n- VPN actif : false"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "diagnosticComplet",
+    "reportDate": "2026-04-03 14:52:22",
+    "number": 0,
+    "moduleResults": {
+      "categorie 1": [
+        {
+          "name": "antivirusChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 1,
+          "recommendation": "Aucun antivirus détecté."
+        },
+        {
+          "name": "arpTableChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 1,
+          "recommendation": "Alerte : Plusieurs adresses IP partagent la même adresse MAC (00:10:18:f6:7e:c8\n00:10:18:f6:7e:e8). Suspicion d'ARP Poisoning."
+        },
+        {
+          "name": "bluetoothChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Bluetooth désactivé. Risque minimal et économie d'énergie."
+        },
+        {
+          "name": "cpuUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Moyenne CPU sur 5s : 1%.\n \nProcessus dominant (moyenne sur 5s) :\n- Nom : java\n- PID : 95620\n- CPU : 1%"
+        },
+        {
+          "name": "cronChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Tâches planifiées suspectes :\n/etc/crontab:SHELL=/bin/sh\n/etc/crontab:17 datas utils datas logs main.sh modules utils *\troot\tcd / && run-parts --report /etc/cron.hourly\n/etc/cron.d/e2scrub_all:30 3 datas logs main.sh modules utils datas logs main.sh modules utils 0 root test -e /run/systemd/system || SERVICE_MODE=1 /usr/lib/x86_64-linux-gnu/e2fsprogs/e2scrub_all_cron\n/etc/cron.d/e2scrub_all:10 3 datas logs main.sh modules utils datas logs main.sh modules utils datas logs main.sh modules utils root test -e /run/systemd/system || SERVICE_MODE=1 /sbin/e2scrub_all -A -r\n/etc/cron.d/php:09,39 datas logs main.sh modules utils datas logs main.sh modules utils datas logs main.sh modules utils datas logs main.sh modules utils root [ -x /usr/lib/php/sessionclean ] && if [ ! -d /run/systemd/system ]; then /usr/lib/php/sessionclean; fi\n/etc/cron.d/sysstat:PATH=/usr/lib/sysstat:/usr/sbin:/usr/sbin:/usr/bin:/sbin:/bin\n/etc/cron.d/sysstat:5-55/10 datas logs main.sh modules utils datas logs main.sh modules utils datas logs main.sh modules utils datas logs main.sh modules utils root command -v debian-sa1 > /dev/null && debian-sa1 1 1\n/etc/cron.d/sysstat:59 23 datas logs main.sh modules utils datas logs main.sh modules utils datas logs main.sh modules utils root command -v debian-sa1 > /dev/null && debian-sa1 60 2"
+        },
+        {
+          "name": "diskUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation des partitions locales :\n- / (32%)\n- /boot/efi (7%)\n\nPartition la plus critique : / (32%).\n\nAction recommandée :\nAucune action nécessaire."
+        },
+        {
+          "name": "encryptionChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Disques chiffrés :\n\nDisques non chiffrés :\n/dev/nvme1n1\n/dev/nvme0n1\n"
+        },
+        {
+          "name": "externalIpChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "IP Publique : 2001:660:7304:f:4::d386"
+        },
+        {
+          "name": "firewallChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Pare-feu UFW installé mais non activé.\n\nDétails :\nPare-feu UFW détecté.\nÉtat : inactif\n\nRecommandations supplémentaires :\n- Activez le pare-feu si nécessaire.\n- Configurez les règles par défaut.\n- Fermez les ports inutilisés.\n"
+        },
+        {
+          "name": "firewallRulesAudit",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs règles ACCEPT très larges détectées.\nRevoyez votre politique 'Default Drop'."
+        },
+        {
+          "name": "gatewayReachabilityTest",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Passerelle (10.0.0.2) joignable."
+        },
+        {
+          "name": "internetConnectivityTest",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Connexion Internet OK."
+        },
+        {
+          "name": "listeningServicesChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Services suspects ou non identifiés détectés : \n- code, \n- Discord, \n- systemd-resolve, "
+        },
+        {
+          "name": "logAnalyzer",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "OS: Ubuntu 24.04\nKernel: 6.17.0-19-generic\nSupport: Supported"
+        },
+        {
+          "name": "macSpoofChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Adresse MAC conforme au matériel."
+        },
+        {
+          "name": "majChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 1,
+          "recommendation": "Système très vulnérable. Mettez à jour immédiatement.\n\nTotal de mises à jour : 78\nMises à jour disponibles :\n - alsa-ucm-conf/noble-updates,noble-updates\n - binutils-common/noble-updates\n - binutils-x86-64-linux-gnu/noble-updates\n - binutils/noble-updates\n - brave-browser/stable\n - containerd.io/noble\n - coreutils/noble-updates\n - dart/stable\n - docker-buildx-plugin/noble\n - docker-ce-cli/noble\n - docker-ce-rootless-extras/noble\n - docker-ce/noble\n - docker-compose-plugin/noble\n - file-roller/noble-updates\n - fwupd/noble-updates\n - gdb/noble-updates\n - gdm3/noble-updates\n - gir1.2-gdm-1.0/noble-updates\n - gir1.2-gtk-4.0/noble-updates\n - gir1.2-nm-1.0/noble-updates\n - gnome-keyring-pkcs11/noble-updates\n - gnome-keyring/noble-updates\n - google-chrome-stable/stable\n - intel-media-va-driver/noble-updates\n - libbinutils/noble-updates\n - libctf-nobfd0/noble-updates\n - libctf0/noble-updates\n - libfprint-2-2/noble-updates\n - libfprint-2-tod1/noble-updates\n - libfwupd2/noble-updates\n - libgdm1/noble-updates\n - libgprofng0/noble-updates\n - libgtk-4-1/noble-updates\n - libgtk-4-bin/noble-updates\n - libgtk-4-common/noble-updates,noble-updates\n - libgtk-4-media-gstreamer/noble-updates\n - libigdgmm12/noble-updates\n - libinput-bin/noble-updates\n - libinput10/noble-updates\n - libipa-hbac0t64/noble-updates\n - libnetplan1/noble-updates\n - libnftables1/noble-updates\n - libnm0/noble-updates\n - libnss-sss/noble-updates\n - libpam-gnome-keyring/noble-updates\n - libpam-sss/noble-updates\n - libsframe1/noble-updates\n - libsss-certmap0/noble-updates\n - libsss-idmap0/noble-updates\n - libsss-nss-idmap0/noble-updates\n - linux-base/noble-updates,noble-updates\n - lshw/noble-updates\n - netplan-generator/noble-updates\n - netplan.io/noble-updates\n - \n network-manager-config-connectivity-ubuntu/noble-u\n pdates,noble-updates\n - network-manager-openvpn-gnome/noble-updates\n - network-manager-openvpn/noble-updates\n - network-manager/noble-updates\n - nftables/noble-updates\n - openvpn/noble-updates\n - php8.3-cli/noble-updates\n - php8.3-common/noble-updates\n - php8.3-opcache/noble-updates\n - php8.3-readline/noble-updates\n - php8.3-sqlite3/noble-updates\n - python3-netplan/noble-updates\n - python3-sss/noble-updates\n - sssd-ad-common/noble-updates\n - sssd-ad/noble-updates\n - sssd-common/noble-updates\n - sssd-ipa/noble-updates\n - sssd-krb5-common/noble-updates\n - sssd-krb5/noble-updates\n - sssd-ldap/noble-updates\n - sssd-proxy/noble-updates\n - sssd/noble-updates\n - ubuntu-drivers-common/noble-updates\n - wpasupplicant/noble-updates\n\nCommandes recommandées pour appliquer les mises à jour :\n- sudo apt update\n- sudo apt upgrade"
+        },
+        {
+          "name": "malwareScan",
+          "exitCode": 0,
+          "error": "",
+          "score": 1,
+          "recommendation": "Malwares détectés.\nRapport de sécurité:\n- 1 fichiers suspects détectés (ex: /home/nolhan/flutter/flutter_console.bat)\n- 2 connexions suspectes détectées (ports non standard):\nudp UNCONN 0 0 0.0.0.0:5353 0.0.0.0:* \n- Aucun antivirus détecté – analyse limitée\n\nRecommandations:\n1. Isolez les fichiers suspects\n2. Analysez avec un antivirus\n3. Vérifiez les connexions réseau\n4. Examinez les processus suspects"
+        },
+        {
+          "name": "networkConfigChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Configuration réseau locale valide."
+        },
+        {
+          "name": "networkTrafficMonitor",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Volume de trafic normal."
+        },
+        {
+          "name": "openPortsScanner",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Nombre de ports raisonnable (14)."
+        },
+        {
+          "name": "osInfo",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "OS: Ubuntu 24.04\nKernel: 6.17.0-19-generic\nSupport: Supported"
+        },
+        {
+          "name": "passwordChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 1,
+          "recommendation": "Des améliorations de la politique de mot de passe sont recommandées."
+        },
+        {
+          "name": "privilegesChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Les privilèges sont correct."
+        },
+        {
+          "name": "processChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Processus root suspects :\nroot 1 /sbin/init splash\nroot 2 [kthreadd]\nroot 3 [pool_workqueue_release]\nroot 4 [kworker/R-rcu_gp]\nroot 5 [kworker/R-sync_wq]\nroot 6 [kworker/R-kvfree_rcu_reclaim]\nroot 7 [kworker/R-slub_flushwq]\nroot 8 [kworker/R-netns]\nroot 11 [kworker/0:0H-events_highpri]\nroot 13 [kworker/R-mm_percpu_wq]\nroot 14 [ksoftirqd/0]\nroot 15 [rcu_preempt]\nroot 16 [rcu_exp_par_gp_kthread_worker/0]\nroot 17 [rcu_exp_gp_kthread_worker]\nroot 18 [migration/0]\nroot 19 [idle_inject/0]\nroot 20 [cpuhp/0]\nroot 21 [cpuhp/2]\nroot 22 [idle_inject/2]\nroot 23 [migration/2]\nroot 24 [ksoftirqd/2]\nroot 26 [kworker/2:0H-events_highpri]\nroot 27 [cpuhp/4]\nroot 28 [idle_inject/4]\nroot 29 [migration/4]\nroot 30 [ksoftirqd/4]\nroot 32 [kworker/4:0H-events_highpri]\nroot 33 [cpuhp/6]\nroot 34 [idle_inject/6]\nroot 35 [migration/6]\nroot 36 [ksoftirqd/6]\nroot 38 [kworker/6:0H-events_highpri]\nroot 39 [cpuhp/8]\nroot 40 [idle_inject/8]\nroot 41 [migration/8]\nroot 42 [ksoftirqd/8]\nroot 44 [kworker/8:0H-events_highpri]\nroot 45 [cpuhp/10]\nroot 46 [idle_inject/10]\nroot 47 [migration/10]\nroot 48 [ksoftirqd/10]\nroot 50 [kworker/10:0H-events_highpri]\nroot 51 [cpuhp/12]\nroot 52 [idle_inject/12]\nroot 53 [migration/12]\nroot 54 [ksoftirqd/12]\nroot 56 [kworker/12:0H-events_highpri]\nroot 57 [cpuhp/14]\nroot 58 [idle_inject/14]\nroot 59 [migration/14]\nroot 60 [ksoftirqd/14]\nroot 62 [kworker/14:0H-events_highpri]\nroot 63 [cpuhp/1]\nroot 64 [idle_inject/1]\nroot 65 [migration/1]\nroot 66 [ksoftirqd/1]\nroot 68 [kworker/1:0H-events_highpri]\nroot 69 [cpuhp/3]\nroot 70 [idle_inject/3]\nroot 71 [migration/3]\nroot 72 [ksoftirqd/3]\nroot 74 [kworker/3:0H-events_highpri]\nroot 75 [cpuhp/5]\nroot 76 [idle_inject/5]\nroot 77 [migration/5]\nroot 78 [ksoftirqd/5]\nroot 80 [kworker/5:0H-events_highpri]\nroot 81 [cpuhp/7]\nroot 82 [idle_inject/7]\nroot 83 [migration/7]\nroot 84 [ksoftirqd/7]\nroot 86 [kworker/7:0H-events_highpri]\nroot 87 [cpuhp/9]\nroot 88 [idle_inject/9]\nroot 89 [migration/9]\nroot 90 [ksoftirqd/9]\nroot 92 [kworker/9:0H-events_highpri]\nroot 93 [cpuhp/11]\nroot 94 [idle_inject/11]\nroot 95 [migration/11]\nroot 96 [ksoftirqd/11]\nroot 98 [kworker/11:0H-events_highpri]\nroot 99 [cpuhp/13]\nroot 100 [idle_inject/13]\nroot 101 [migration/13]\nroot 102 [ksoftirqd/13]\nroot 104 [kworker/13:0H-events_highpri]\nroot 105 [cpuhp/15]\nroot 106 [idle_inject/15]\nroot 107 [migration/15]\nroot 108 [ksoftirqd/15]\nroot 110 [kworker/15:0H-events_highpri]\nroot 111 [kdevtmpfs]\nroot 112 [kworker/R-inet_frag_wq]\nroot 113 [rcu_tasks_kthread]\nroot 114 [rcu_tasks_rude_kthread]\nroot 115 [rcu_tasks_trace_kthread]\nroot 116 [kauditd]\nroot 117 [khungtaskd]\nroot 119 [oom_reaper]\nroot 120 [kworker/R-writeback]\nroot 121 [kcompactd0]\nroot 122 [ksmd]\nroot 123 [khugepaged]\nroot 124 [kworker/R-kblockd]\nroot 125 [kworker/R-blkcg_punt_bio]\nroot 126 [kworker/R-kintegrityd]\nroot 128 [irq/9-acpi]\nroot 130 [kworker/R-tpm_dev_wq]\nroot 131 [kworker/R-ata_sff]\nroot 133 [kworker/R-md]\nroot 134 [kworker/R-md_bitmap]\nroot 135 [kworker/R-edac-poller]\nroot 136 [kworker/R-devfreq_wq]\nroot 137 [watchdogd]\nroot 138 [kworker/R-quota_events_unbound]\nroot 139 [kworker/0:1H-kblockd]\nroot 140 [irq/25-AMD-Vi]\nroot 142 [kswapd0]\nroot 143 [ecryptfs-kthread]\nroot 144 [kworker/R-kthrotld]\nroot 146 [irq/32-pciehp]\nroot 147 [kworker/R-acpi_thermal_pm]\nroot 150 [kworker/R-mld]\nroot 151 [kworker/R-ipv6_addrconf]\nroot 152 [kworker/R-kstrp]\nroot 172 [kworker/R-charger_manager]\nroot 173 [irq/26-ACPI:Event]\nroot 174 [irq/27-ACPI:Event]\nroot 175 [irq/28-ACPI:Event]\nroot 176 [irq/29-ACPI:Event]\nroot 177 [irq/30-ACPI:Event]\nroot 178 [irq/31-ACPI:Event]\nroot 206 [kworker/6:1H-kblockd]\nroot 209 [kworker/9:1H-kblockd]\nroot 228 [kworker/10:1H-kblockd]\nroot 229 [kworker/2:1H-kblockd]\nroot 230 [kworker/5:1H-kblockd]\nroot 234 [kworker/11:1H-kblockd]\nroot 235 [kworker/13:1H-kblockd]\nroot 236 [kworker/12:1H-kblockd]\nroot 237 [kworker/15:1H-kblockd]\nroot 239 [kworker/14:1H-kblockd]\nroot 241 [kworker/1:1H-kblockd]\nroot 265 [kworker/7:1H-kblockd]\nroot 266 [irq/48-SYNA0001:00]\nroot 268 [kworker/3:1H-kblockd]\nroot 269 [kworker/4:1H-kblockd]\nroot 271 [kworker/8:1H-kblockd]\nroot 340 [kworker/R-nvme-wq]\nroot 341 [kworker/R-nvme-reset-wq]\nroot 342 [kworker/R-nvme-delete-wq]\nroot 343 [kworker/R-nvme-auth-wq]\nroot 349 [kworker/R-USBC000:00-con1]\nroot 350 [kworker/R-USBC000:00-con2]\nroot 389 [jbd2/nvme1n1p2-8]\nroot 390 [kworker/R-ext4-rsv-conversion]\nroot 567 [psimon]\nroot 677 [kworker/R-cfg80211]\nroot 701 [nv_queue]\nroot 702 [nv_queue]\nroot 704 [nv_open_q]\nroot 759 [nvidia-modeset/kthread_q]\nroot 760 [nvidia-modeset/deferred_close_kthread_q]\nroot 764 [irq/90-nvidia]\nroot 766 [nv_queue]\nroot 783 [irq/93-ACP_PCI_IRQ]\nroot 793 [napi/phy0-0]\nroot 794 [napi/phy0-0]\nroot 795 [napi/phy0-0]\nroot 814 [mt76-tx phy0]\nroot 816 [kworker/R-amdgpu-reset-dev]\nroot 935 [kworker/R-ttm]\nroot 1044 [UVM global queue]\nroot 1045 [UVM deferred release queue]\nroot 1046 [UVM Tools Event Queue]\nroot 1266 /usr/libexec/bluetooth/bluetoothd\nroot 1267 /usr/sbin/bumblebeed\nroot 1282 /usr/libexec/power-profiles-daemon\nroot 1289 /snap/snapd/current/usr/lib/snapd/snapd\nroot 1293 /usr/libexec/accounts-daemon\nroot 1295 /usr/sbin/cron -f -P\nroot 1297 /usr/libexec/switcheroo-control\nroot 1307 /usr/libexec/udisks2/udisksd\nroot 1334 /usr/sbin/NetworkManager --no-daemon\nroot 1335 /usr/sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev\nroot 1462 /usr/sbin/ModemManager\nroot 1512 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1513 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1514 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1515 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1516 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1517 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1518 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1519 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1520 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1521 [kworker/R-amdgpu_dm_hpd_rx_offload_wq]\nroot 1522 [kworker/R-dm_vblank_control_workqueue]\nroot 1523 [kworker/R-amdgpu_dm_hpd_wq]\nroot 1557 [card2-crtc0]\nroot 1558 [card2-crtc1]\nroot 1559 [card2-crtc2]\nroot 1560 [card2-crtc3]\nroot 1561 [kworker/R-gfx_0.0.0]\nroot 1562 [kworker/R-comp_1.0.0]\nroot 1563 [kworker/R-comp_1.1.0]\nroot 1564 [kworker/R-comp_1.2.0]\nroot 1565 [kworker/R-comp_1.3.0]\nroot 1566 [kworker/R-comp_1.0.1]\nroot 1567 [kworker/R-comp_1.1.1]\nroot 1568 [kworker/R-comp_1.2.1]\nroot 1569 [kworker/R-comp_1.3.1]\nroot 1570 [kworker/R-sdma0]\nroot 1571 [kworker/R-vcn_unified_0]\nroot 1572 [kworker/R-jpeg_dec]\nroot 1826 [psimon]\nroot 2153 /usr/sbin/cupsd -l\nroot 2159 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal\nroot 2167 /usr/bin/containerd\nroot 2181 /usr/sbin/gdm3\nroot 2380 [krfcommd]\nroot 2642 /usr/libexec/upowerd\nroot 3007 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock\nroot 3310 gdm-session-worker [pam/gdm-password]\nroot 3417 fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc\nroot 3502 [nvidia-drm/timeline-2e4]\nroot 10044 /usr/libexec/fwupd/fwupd\nroot 23202 [kworker/R-xfsalloc]\nroot 23203 [kworker/R-xfs_mru_cache]\nroot 23208 [jfsIO]\nroot 23209 [jfsCommit]\nroot 23210 [jfsCommit]\nroot 23211 [jfsCommit]\nroot 23212 [jfsCommit]\nroot 23213 [jfsCommit]\nroot 23214 [jfsCommit]\nroot 23215 [jfsCommit]\nroot 23216 [jfsCommit]\nroot 23217 [jfsCommit]\nroot 23218 [jfsCommit]\nroot 23219 [jfsCommit]\nroot 23220 [jfsCommit]\nroot 23221 [jfsCommit]\nroot 23222 [jfsCommit]\nroot 23223 [jfsCommit]\nroot 23224 [jfsCommit]\nroot 23225 [jfsSync]\nroot 59563 [kworker/5:1-events]\nroot 68888 [kworker/0:2-events]\nroot 69163 [nvidia]\nroot 77105 [kworker/11:0-events]\nroot 78848 [kworker/u64:2-events_unbound]\nroot 78956 [kworker/14:0-events]\nroot 79209 [kworker/12:5-events]\nroot 81722 [kworker/9:2-events]\nroot 81806 [kworker/10:2-mm_percpu_wq]\nroot 81836 [kworker/15:0-events]\nroot 81837 [kworker/15:1-mm_percpu_wq]\nroot 81841 [kworker/12:0-events]\nroot 83802 [kworker/11:2-mm_percpu_wq]\nroot 83931 [kworker/u64:0-gfx_0.0.0]\nroot 84285 [kworker/3:3-mm_percpu_wq]\nroot 84951 [kworker/4:2-events]\nroot 85857 [kworker/5:3-events]\nroot 86155 [kworker/u64:3-kvfree_rcu_reclaim]\nroot 86705 [kworker/7:3-events]\nroot 86720 [kworker/1:0-events]\nroot 86744 [kworker/8:4-events]\nroot 86818 [kworker/u65:6-ttm]\nroot 86830 [kworker/2:3-events]\nroot 87376 [kworker/14:1-events]\nroot 87546 [kworker/13:3-events]\nroot 87556 [kworker/u64:1-gfx_0.0.0]\nroot 87563 [kworker/u65:0-ttm]\nroot 87594 [kworker/u64:4-flush-259:0]\nroot 87635 [kworker/6:0-events]\nroot 87673 [kworker/7:2-events]\nroot 87680 [kworker/14:2-events]\nroot 87716 [kworker/10:1-events]\nroot 87730 [kworker/8:0-events]\nroot 87771 [kworker/3:0-events]\nroot 88500 [kworker/15:2-mm_percpu_wq]\nroot 90491 [kworker/13:1-events]\nroot 90494 [kworker/6:4-events]\nroot 90495 [kworker/2:4-events]\nroot 90500 [kworker/2:6-events]\nroot 90520 [kworker/1:2]\nroot 90559 [kworker/u65:1-ttm]\nroot 90635 [kworker/8:1-events]\nroot 91318 [kworker/4:0-events]\nroot 92957 [kworker/9:3-events]\nroot 92958 [kworker/9:4-events]\nroot 92975 [kworker/0:1-events]\nroot 92991 [kworker/12:1]\nroot 92995 [kworker/14:3-events]\nroot 93000 [kworker/7:0-events]\nroot 94696 [kworker/u65:2-ttm]\nroot 94855 [kworker/14:4]\nroot 94856 [kworker/14:5-events]\nroot 95082 [kworker/u64:5-sdma0]\nroot 95083 [kworker/1:1-events]\nroot 95219 [kworker/2:0-events]\nroot 95411 [kworker/6:1-events]\nroot 95412 [kworker/6:2-events]\nroot 95413 [kworker/6:3]\nroot 95441 [kworker/7:1]\nroot 95444 [kworker/10:0-events]\nroot 95445 [kworker/10:3]\nroot 95446 [kworker/10:4-cgroup_free]\nroot 95483 [kworker/3:1-events]\nroot 95490 [kworker/13:0-mm_percpu_wq]\nroot 95516 [kworker/6:5-events]\nroot 95538 [kworker/u65:3-ttm]\nroot 95539 [kworker/u65:4-ttm]\nroot 95540 [kworker/u65:5-ttm]\nroot 95541 [kworker/u65:7]\nroot 95568 sudo ./main.sh\nroot 95572 sudo ./main.sh\nroot 95573 /bin/bash ./main.sh\nroot 95612 bash ./modules/graphicInterface//main.sh graphicInterface\nroot 95620 ./modules/graphicInterface/runtime/bin/java --module edu.cyclonicforce.fr.java.ui/edu.cyclonicforce.fr.ui.Main graphicInterface\nroot 101250 /usr/libexec/packagekitd\nroot 101822 bash main.sh --script processChecker\nroot 101864 bash ./modules/processChecker//main.sh\nroot 101865 bash ./modules/processChecker//main.sh\nroot 101866 ps -eo user,pid,cmd --sort=user\nPorts ouverts :\nsystemd-r 1053 systemd-resolve 15u IPv4 7889 0t0 TCP 127.0.0.53:53 (LISTEN)\nsystemd-r 1053 systemd-resolve 17u IPv4 7891 0t0 TCP 127.0.0.54:53 (LISTEN)\ncupsd 2153 root 6u IPv6 12099 0t0 TCP [::1]:631 (LISTEN)\ncupsd 2153 root 7u IPv4 12100 0t0 TCP 127.0.0.1:631 (LISTEN)\nDiscord 12324 nolhan 117u IPv4 146572 0t0 TCP 127.0.0.1:6463 (LISTEN)\ncode 45954 nolhan 65u IPv4 223654 0t0 TCP 127.0.0.1:42575 (LISTEN)\ncode 49798 nolhan 39u IPv4 267404 0t0 TCP 127.0.0.1:41331 (LISTEN)"
+        },
+        {
+          "name": "proxyChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Aucun proxy système configuré."
+        },
+        {
+          "name": "ramUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation mémoire : 54% (8,0 GB/14,8 GB).\nSwap utilisé : 0 MB/0 MB (0%)\n\nProcessus le plus consommateur de RAM :\n- Nom : firefox\n- PID : 8600\n- Mémoire : 812 MB\n\nRecommendation : Utilisation mémoire normale (<70%). Système stable."
+        },
+        {
+          "name": "secureBootChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Secure Boot : Non détecté"
+        },
+        {
+          "name": "serviceChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Services actifs :\naccounts-daemon.service\navahi-daemon.service\nbluetooth.service\nbumblebeed.service\ncolord.service\ncontainerd.service\ncron.service\ncups-browsed.service\ncups.service\ndbus.service\ndocker.service\nfwupd.service\ngdm.service\ngnome-remote-desktop.service\nkerneloops.service\nModemManager.service\nNetworkManager.service\nnvidia-persistenced.service\npackagekit.service\npolkit.service\npower-profiles-daemon.service\nrsyslog.service\nrtkit-daemon.service\nsnapd.service\nswitcheroo-control.service\nsystemd-journald.service\nsystemd-logind.service\nsystemd-oomd.service\nsystemd-resolved.service\nsystemd-timesyncd.service\nsystemd-udevd.service\nudisks2.service\nunattended-upgrades.service\nupower.service\nuser@1000.service\nwpa_supplicant.service\nServices potentiellement inutiles ou risqués :\n"
+        },
+        {
+          "name": "sudoConfigChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Entrées sudo potentiellement risquées (NOPASSWD) :\n"
+        },
+        {
+          "name": "suidSgidChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Dernières erreurs auth :\n2026-04-03T00:45:01.525077+02:00 nolhan-ubuntu-laptop gnome-keyring-daemon[42119]: keyring was in an invalid or unrecognized format: /home/nolhan/.local/share/keyrings/default.keyring\n2026-04-03T00:45:18.381708+02:00 nolhan-ubuntu-laptop dbus-daemon[1285]: [system] Rejected send message, 0 matched rules; type=\"error\", sender=\":1.306\" (uid=1000 pid=42116 comm=\"/usr/bin/wireplumber\" label=\"unconfined\") interface=\"(unset)\" member=\"(unset)\" error name=\"org.bluez.MediaEndpoint1.Error.NotImplemented\" requested_reply=\"0\" destination=\":1.5\" (uid=0 pid=1283 comm=\"/usr/libexec/bluetooth/bluetoothd\" label=\"unconfined\")\n2026-04-03T00:45:18.381787+02:00 nolhan-ubuntu-laptop dbus-daemon[1285]: [system] Rejected send message, 0 matched rules; type=\"error\", sender=\":1.306\" (uid=1000 pid=42116 comm=\"/usr/bin/wireplumber\" label=\"unconfined\") interface=\"(unset)\" member=\"(unset)\" error name=\"org.bluez.MediaEndpoint1.Error.NotImplemented\" requested_reply=\"0\" destination=\":1.5\" (uid=0 pid=1283 comm=\"/usr/libexec/bluetooth/bluetoothd\" label=\"unconfined\")\n2026-04-03T00:45:18.381877+02:00 nolhan-ubuntu-laptop dbus-daemon[1285]: [system] Rejected send message, 0 matched rules; type=\"error\", sender=\":1.306\" (uid=1000 pid=42116 comm=\"/usr/bin/wireplumber\" label=\"unconfined\") interface=\"(unset)\" member=\"(unset)\" error name=\"org.bluez.MediaEndpoint1.Error.NotImplemented\" requested_reply=\"0\" destination=\":1.5\" (uid=0 pid=1283 comm=\"/usr/libexec/bluetooth/bluetoothd\" label=\"unconfined\")\n2026-04-03T00:45:18.382239+02:00 nolhan-ubuntu-laptop dbus-daemon[1285]: message repeated 16 times: [ [system] Rejected send message, 0 matched rules; type=\"error\", sender=\":1.306\" (uid=1000 pid=42116 comm=\"/usr/bin/wireplumber\" label=\"unconfined\") interface=\"(unset)\" member=\"(unset)\" error name=\"org.bluez.MediaEndpoint1.Error.NotImplemented\" requested_reply=\"0\" destination=\":1.5\" (uid=0 pid=1283 comm=\"/usr/libexec/bluetooth/bluetoothd\" label=\"unconfined\")]\n2026-04-03T00:46:34.272628+02:00 nolhan-ubuntu-laptop gnome-keyring-daemon[4000]: keyring was in an invalid or unrecognized format: /home/nolhan/.local/share/keyrings/default.keyring\n2026-04-03T02:01:19.275252+02:00 nolhan-ubuntu-laptop gnome-keyring-daemon[3283]: keyring was in an invalid or unrecognized format: /home/nolhan/.local/share/keyrings/default.keyring\n2026-04-03T11:25:21.847749+02:00 nolhan-ubuntu-laptop gnome-keyring-daemon[3343]: keyring was in an invalid or unrecognized format: /home/nolhan/.local/share/keyrings/default.keyring\n\nDernières erreurs syslog :\n2026-04-03T13:11:48.514981+02:00 nolhan-ubuntu-laptop gsd-media-keys[3966]: gvc_mixer_card_get_index: assertion 'GVC_IS_MIXER_CARD (card)' failed\n2026-04-03T13:11:48.960492+02:00 nolhan-ubuntu-laptop /usr/libexec/gdm-x-session[69329]: Errors from xkbcomp are not fatal to the X server\n2026-04-03T13:11:49.007446+02:00 nolhan-ubuntu-laptop /usr/libexec/gdm-x-session[69335]: Errors from xkbcomp are not fatal to the X server\n2026-04-03T13:11:49.054991+02:00 nolhan-ubuntu-laptop /usr/libexec/gdm-x-session[69339]: Errors from xkbcomp are not fatal to the X server\n2026-04-03T13:11:49.102129+02:00 nolhan-ubuntu-laptop /usr/libexec/gdm-x-session[69347]: Errors from xkbcomp are not fatal to the X server\n2026-04-03T13:11:49.122537+02:00 nolhan-ubuntu-laptop firmware-updater.firmware-notifier[69362]: Failed to load module: /home/nolhan/snap/firmware-updater/common/.cache/gio-modules/libgiolibproxy.so\n2026-04-03T13:11:49.194584+02:00 nolhan-ubuntu-laptop /usr/libexec/gdm-x-session[69394]: Errors from xkbcomp are not fatal to the X server\n2026-04-03T13:11:49.239533+02:00 nolhan-ubuntu-laptop /usr/libexec/gdm-x-session[69414]: Errors from xkbcomp are not fatal to the X server\n2026-04-03T13:11:49.282942+02:00 nolhan-ubuntu-laptop /usr/libexec/gdm-x-session[69422]: Errors from xkbcomp are not fatal to the X server\n2026-04-03T13:11:55.273674+02:00 nolhan-ubuntu-laptop gnome-shell[3822]: g_signal_connect_object: assertion 'G_TYPE_CHECK_INSTANCE (instance)' failed\n2026-04-03T13:11:55.274931+02:00 nolhan-ubuntu-laptop gnome-shell[3822]: g_signal_connect_object: assertion 'G_TYPE_CHECK_INSTANCE (instance)' failed\n2026-04-03T13:11:55.276725+02:00 nolhan-ubuntu-laptop gnome-shell[3822]: g_signal_connect_object: assertion 'G_TYPE_CHECK_INSTANCE (instance)' failed\n2026-04-03T13:11:57.449697+02:00 nolhan-ubuntu-laptop discord_discord.desktop[12056]: 13:11:57.449 › [GatewaySocket] [WS CLOSED] (false, 0, An error with the websocket occurred) retrying in 3.32 seconds.\n2026-04-03T13:12:00.773210+02:00 nolhan-ubuntu-laptop discord_discord.desktop[12056]: 13:12:00.772 › [GatewaySocket] [WS CLOSED] (false, 0, An error with the websocket occurred) retrying in 5.33 seconds.\n2026-04-03T14:42:52.646596+02:00 nolhan-ubuntu-laptop tracker-miner-f[4298]: Could not execute sparql: Constraint would be broken: UNIQUE constraint failed: rdfs:Resource.ID\n2026-04-03T14:43:01.025839+02:00 nolhan-ubuntu-laptop firefox_firefox.desktop[7900]: [Parent 7900, Main Thread] WARNING: g_app_info_get_executable: assertion 'G_IS_APP_INFO (appinfo)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:201\n2026-04-03T14:43:01.026077+02:00 nolhan-ubuntu-laptop firefox_firefox.desktop[7900]: [Parent 7900, Main Thread] WARNING: g_app_info_get_name: assertion 'G_IS_APP_INFO (appinfo)' failed: 'glib warning', file /build/firefox/parts/firefox/build/toolkit/xre/nsSigHandlers.cpp:201\n2026-04-03T14:43:01.026166+02:00 nolhan-ubuntu-laptop firefox[7900]: g_app_info_get_executable: assertion 'G_IS_APP_INFO (appinfo)' failed\n2026-04-03T14:43:01.026268+02:00 nolhan-ubuntu-laptop firefox[7900]: g_app_info_get_name: assertion 'G_IS_APP_INFO (appinfo)' failed\n2026-04-03T14:43:01.093405+02:00 nolhan-ubuntu-laptop libreoffice-calc.desktop[90433]: Warning: failed to launch javaldx - java may not function correctly"
+        },
+        {
+          "name": "tlsChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Support TLS 1.2+ opérationnel."
+        },
+        {
+          "name": "updateConfigChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Mises à jour automatiques :\n"
+        },
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Uniquement des périphériques d'entrée connus détectés (clavier, souris).\n\nDétails :\nPériphériques USB externes détectés :\n- Luxvisions Innotech Limited Integrated Camera (Vendor ID: 30c9)\n- Foxconn / Hon Hai Bluetooth Adapter (Vendor ID: 0489)\n- Genesys Logic, Inc. Hub (Vendor ID: 05e3)\n- Integrated Technology Express, Inc. ITE Device(8176) (Vendor ID: 048d)\n\nRecommandations supplémentaires :\n- Ne connectez jamais de clé USB inconnue.\n- Désactivez l'exécution automatique.\n- Utilisez un antivirus pour scanner tout stockage externe.\n- Sur poste sensible, limitez l'accès aux ports USB.\n"
+        },
+        {
+          "name": "userAccountChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Comptes avec shell actif :\nnolhan /bin/bash\n\nComptes inactifs depuis >90 jours :\nroot in** \ndaemon in** \nbin in** \nsys in** \nsync in** \ngames in** \nman in** \nlp in** \nmail in** \nnews in** \nuucp in** \nproxy in** \nwww-data in** \nbackup in** \nlist in** \nirc in** \n_apt in** \nnobody in** \nsystemd-network in** \nsystemd-timesync in** \ndhcpcd in** \nmessagebus in** \nsyslog in** \nsystemd-resolve in** \nuuidd in** \nusbmux in** \ntss in** \nsystemd-oom in** \nkernoops in** \nwhoopsie in** \ndnsmasq in** \navahi in** \ntcpdump in** \nsssd in** \nspeech-dispatcher in** \ncups-pk-helper in** \nfwupd-refresh in** \nsaned in** \ngeoclue in** \ncups-browsed in** \nhplip in** \ngnome-remote-desktop in** \npolkitd in** \nrtkit in** \ncolord in** \ngnome-initial-setup in** \ngdm in** \nnm-openvpn in** \nnolhan in** \nnvidia-persistenced in** "
+        },
+        {
+          "name": "vpnChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Aucun VPN détecté. Trafic potentiellement exposé sur réseau public."
+        },
+        {
+          "name": "wifiChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Connecté à un réseau Wi-Fi sécurisé sans VPN.\n\nSystème sûr pour les opérations courantes.\n\nDétails de la connexion :\n- SSID : eduroam\n- Sécurité : WPA2 802.1X\n- VPN actif : false"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "externalIpChecker",
+    "reportDate": "2026-04-03 14:53:52",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "externalIpChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "IP Publique : 2001:660:7304:f:4::d386"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "firewallChecker",
+    "reportDate": "2026-04-03 14:54:06",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "firewallChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Pare-feu UFW installé mais non activé.\n\nDétails :\nPare-feu UFW détecté.\nÉtat : inactif\n\nRecommandations supplémentaires :\n- Activez le pare-feu si nécessaire.\n- Configurez les règles par défaut.\n- Fermez les ports inutilisés.\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "firewallRulesAudit",
+    "reportDate": "2026-04-03 14:54:22",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "firewallRulesAudit",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs règles ACCEPT très larges détectées.\nRevoyez votre politique 'Default Drop'."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "networkConfigChecker",
+    "reportDate": "2026-04-03 14:54:31",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "networkConfigChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Configuration réseau locale valide."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "vpnChecker",
+    "reportDate": "2026-04-03 14:55:34",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "vpnChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Aucun VPN détecté. Trafic potentiellement exposé sur réseau public."
+        }
+      ]
+    }
   }
 ]

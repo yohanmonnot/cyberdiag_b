@@ -1,0 +1,10 @@
+{
+    "categorie 1": [
+        "cpuUsage",
+        "ramUsage",
+        "diskUsage",
+        "internetConnectivityTest",
+        "gatewayReachabilityTest",
+        "passwordChecker"
+    ]
+}
