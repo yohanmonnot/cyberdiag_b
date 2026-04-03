@@ -43,6 +43,11 @@ wifiChecker/
 ```bash
 ./main.sh --script wifiChecker
 ```
+### mode test
+```bash
+./main.sh --script wifiChecker --test
+```
+
 
 ### Exemple de sortie JSON
 ```json

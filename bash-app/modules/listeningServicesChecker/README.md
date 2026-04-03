@@ -51,20 +51,20 @@ listeningServicesChecker/
 
 ## Utilisation
 
-```
-./main.sh
+```bash
+./main.sh --script listeningServicesChecker
 ```
 
-## Mode test interne
+## Mode test 
 
-```
-./main.sh --test
+```bash
+./main.sh --script listeningServicesChecker --test
 ```
 
 
 
 ## Exemple de sortie JSON
-```
+```json
 {
   "status": "OK",
   "error": "",

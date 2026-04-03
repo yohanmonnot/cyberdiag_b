@@ -59,21 +59,21 @@ openPortsScanner/
 
 ## Utilisation
 
-```bash id="q8f2lm"
-./main.sh
+```bash 
+./main.sh --script openPortsScanner
 ```
 
 ### Mode test
 
-```bash id="z1k7xp"
-./main.sh --test
+```bash 
+./main.sh --script openPortsScanner --test
 ```
 
 
 
 ## Exemple de sortie JSON
 
-```json id="m9d3qs"
+```json 
 {
   "status": "OK",
   "error": "",

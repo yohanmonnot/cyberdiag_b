@@ -58,13 +58,13 @@ tlsChecker/
 ## Utilisation
 
 ```bash id="g7s2kq"
-./main.sh
+./main.sh --script tlsChecker
 ```
 
-### Mode test interne
+### Mode test 
 
-```bash id="g0q2z9"
-./main.sh --test
+```bash id="g7s2kq"
+./main.sh --script tlsChecker --test
 ```
 
 

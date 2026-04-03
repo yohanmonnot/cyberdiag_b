@@ -45,6 +45,11 @@ ramUsage/
 ./main.sh --script ramUsage
 ```
 
+### Mode test
+```bash
+./main.sh --script ramUsage --test
+```
+
 ### Exemple de sortie JSON
 ```json
 {

@@ -56,20 +56,20 @@ macSpoofChecker/
 
 ## Utilisation
 
-```
-./main.sh
+```bash
+./main.sh --script macSpoofChecker
 ```
 
-## Mode test interne
+## Mode test 
 
-```
-./main.sh --test
+```bash
+./main.sh --script macSpoofChecker --test
 ```
 
 
 
 ## Exemple de sortie JSON
-```
+```json
 {
   "status": "OK",
   "error": "",

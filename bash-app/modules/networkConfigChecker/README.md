@@ -61,21 +61,21 @@ networkConfigChecker/
 
 ## Utilisation
 
-```bash id="c9x4pt"
-./main.sh
+```bash 
+./main.sh --script networkConfigChecker
 ```
 
-### Mode test interne
+### Mode test 
 
-```bash id="t7b2kx"
-./main.sh --test
+```bash 
+./main.sh --script networkConfigChecker --test
 ```
 
 
 
 ## Exemple de sortie JSON
 
-```json id="r5h3vj"
+```json 
 {
   "status": "OK",
   "error": "",

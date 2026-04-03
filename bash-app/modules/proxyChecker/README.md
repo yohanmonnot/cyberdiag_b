@@ -60,21 +60,21 @@ proxyChecker/
 
 ## Utilisation
 
-```bash id="a3k9pz"
-./main.sh
+```bash 
+./main.sh --script proxyChecker 
 ```
 
-### Mode test interne
+### Mode test 
 
-```bash id="x7v2mq"
-./main.sh --test
+```bash 
+./main.sh --script proxyChecker  --test
 ```
 
 
 
 ## Exemple de sortie JSON
 
-```json id="p4z8ns"
+```json 
 {
   "status": "OK",
   "error": "",

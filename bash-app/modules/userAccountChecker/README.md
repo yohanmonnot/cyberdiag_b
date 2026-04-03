@@ -1,118 +1,78 @@
-# antivirusChecker
+# userAccountChecker
 
 ## Description
-`antivirusChecker` est un module Bash conçu pour vérifier la présence et l’état de fonctionnement des antivirus sur un système Linux. Il détecte plusieurs antivirus connus (ClamAV, Sophos, ESET NOD32, Comodo), contrôle la disponibilité des outils associés et l’état des bases virales ou du service actif, puis fournit une évaluation de sécurité accompagnée de recommandations détaillées.  
 
-Le module produit un retour JSON structuré, utile pour l’intégration dans des outils de diagnostic ou de supervision de sécurité.
+`userAccountChecker` est un module Bash permettant d’identifier les comptes utilisateurs inutiles ou inactifs sur un système Linux.
+
+Le module analyse les comptes ayant un shell actif et les comptes n’ayant pas été utilisés depuis un certain temps (90 jours par défaut). Il fournit un score de sécurité et des recommandations pour sécuriser les comptes.
+
+
 
 ## Fonctionnalités
-- Détection automatique du système d’exploitation (Linux uniquement).
-- Vérification de la présence de plusieurs antivirus :
-  - **ClamAV**
-  - **Sophos Antivirus**
-  - **ESET NOD32**
-  - **Comodo Antivirus**
-- Vérification de l’état des bases virales ou des services antivirus :
-  - Bases virales à jour
-  - Services actifs
-- Calcul d’un score de sécurité sur 5 basé sur la présence, l’état et la mise à jour de l’antivirus.
-- Retour structuré en JSON incluant :
-  - `status` : OK ou FAIL
-  - `error` : message d’erreur si applicable
-  - `score` : note sur 5
-  - `recommendation` : recommandations de sécurité détaillées avec description des vérifications
+* Détection des comptes avec un shell actif.
+* Détection des comptes inactifs depuis plus de 90 jours via `lastlog`.
+* Calcul d’un score sur 5 niveaux selon la présence ou non de comptes inactifs ou inutiles.
+* Génération d’une recommandation détaillée incluant la liste des comptes concernés.
+* Mode test interne possible (adaptable).
+* Intégration avec :
+  * système de logs (logger.sh)
+  * variables d’environnement (env.sh)
+* Sortie standardisée en JSON incluant :
+  * `status` : OK ou FAIL
+  * `error` : message d’erreur éventuel
+  * `score` : note sur 5
+  * `recommendation` : résumé sur les comptes détectés
+
+
 
 ## Structure
-antivirusChecker/
-├── main.sh        # Script principal du module
-├── module.json    # Métadonnées du module
-└── README.md      # Documentation complète
+
+userAccountChecker/
+├── main.sh
+├── module.json
+└── README.md
+
+* `main.sh` : script principal du module.
+* `module.json` : métadonnées du module.
+* `README.md` : documentation.
+
+
 
 ## Logique d’évaluation
+* **Score 5** : aucun compte inutile ou inactif détecté.
+* **Score 3** : présence de comptes actifs non utilisés ou inactifs depuis >90 jours.
+* **Score 0** : erreur lors de la collecte des informations.
 
-| Score | Condition                                                                 | Interprétation et recommandations |
-|-------|---------------------------------------------------------------------------|---------------------------------|
-| 5     | Antivirus détecté et fonctionnel, bases virales à jour, service actif     | Système protégé et sécurisé. Maintenir les mises à jour régulières. |
-| 3     | Antivirus détecté mais certaines vérifications (bases ou service) non optimales | Vérifiez l’antivirus et mettez à jour si nécessaire. |
-| 2     | Antivirus détecté mais service inactif ou bases virales obsolètes        | Vérification urgente et mise à jour recommandée immédiatement. |
-| 1     | Aucun antivirus détecté                                                   | Installez un antivirus reconnu pour protéger le système. |
-| 0     | Système non supporté ou environnement insuffisant                        | Aucun diagnostic possible. |
+## États possibles
+* **OK** : vérification réalisée avec succès.
+* **FAIL** : erreur lors de la lecture des comptes ou fichiers systèmes.
+
+
 
 ## Utilisation
-Exécution en ligne de commande :
 ```bash
-./main.sh --script antivirusChecker
+./main.sh --script userAccountChecker
+```
+### Mode test
+```bash
+./main.sh --script userAccountChecker --test
 ```
 
-### Exemple de sortie JSON :
+
+## Exemple de sortie JSON
 ```json
 {
   "status": "OK",
   "error": "",
   "score": 3,
-  "recommendation": "Antivirus détecté mais certaines vérifications (bases virales ou service) ne sont pas optimales.\nVérifiez et mettez à jour l'antivirus.\nDétails : ClamAV détecté. Bases virales ClamAV non vérifiables ou obsolètes. "
+  "recommendation": "Comptes avec shell actif :\nuser1 /bin/bash\nuser2 /bin/bash\n\nComptes inactifs depuis >90 jours :\nuser3 01 Jan 2024\nuser4 15 Dec 2023"
 }
 ```
 
+
+
 ## Bonnes pratiques
-- Maintenir les antivirus installés à jour.
-- Vérifier régulièrement que les services antivirus sont actifs.
-- Surveiller l’absence d’antivirus et installer une solution reconnue si nécessaire.
-- Intégrer ce module dans des audits réguliers de sécurité ou des outils de monitoring.
-
-## Mode test (`--test`)
-Le module intègre un protocole de tests complet accessible via :
-```bash
-./main.sh --script antivirusChecker --test
-```
-
-### Objectif
-Valider :
-* La logique de calcul du score
-* La cohérence des recommandations
-* La structure du JSON généré
-* La couverture complète des scénarios possibles
-
-### Contenu des tests
-Le mode `--test` exécute trois phases :
-
-#### 1. Tests unitaires simulés
-Simulation contrôlée des combinaisons suivantes :
-* Aucun antivirus
-* ClamAV à jour
-* ClamAV obsolète
-* Sophos actif
-* Sophos inactif
-* Combinaisons multiples
-
-Chaque test affiche :
-* Les paramètres simulés
-* Le score attendu
-* Le score obtenu
-* Le résultat (SUCCÈS / ÉCHEC)
-
-#### 2. Test d’intégration réel
-Exécution réelle du module dans l’environnement courant :
-* Génération du JSON
-* Validation de sa syntaxe via `jq`
-* Vérification des champs obligatoires :
-  * `status`
-  * `score`
-  * `recommendation`
-
-#### 3. Vérification de couverture logique
-Contrôle que toutes les branches critiques du code sont couvertes :
-* Présence / absence antivirus
-* Antivirus à jour / obsolète
-* Service actif / inactif
-* Dégradation correcte du score
-
-
-### Garantie apportée
-Le mode test garantit :
-* Fiabilité du calcul du score
-* Cohérence des recommandations
-* Conformité du format JSON
-* Robustesse face aux différents états système
-
-Ce protocole permet d’intégrer le module dans un pipeline CI/CD ou un processus d’audit automatisé en toute confiance.
+* Supprimez ou désactivez les comptes inutiles ou inactifs.
+* Appliquez cette vérification régulièrement dans un audit complet des utilisateurs.
+* Combinez avec les logs d’accès et les politiques de mot de passe pour sécuriser le système.
+* Vérifiez les comptes système sensibles pour éviter toute élévation de privilèges non autorisée.

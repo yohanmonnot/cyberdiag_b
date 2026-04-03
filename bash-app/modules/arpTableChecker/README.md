@@ -51,20 +51,20 @@ arpTableChecker/
 
 
 ## Utilisation
-```
-./main.sh
+```bash
+./main.sh --script arpTableChecker
 ```
 
-## Mode test interne
-```
-./main.sh --test
+## Mode test 
+```bash
+./main.sh --script arpTableChecker --test
 ```
 
 
 
 ## Exemple de sortie JSON
 Cas sain :
-```
+```json
 {
   "status": "OK",
   "error": "",
@@ -73,7 +73,7 @@ Cas sain :
 }
 ```
 Cas ARP Poisoning :
-```
+```json
 {
   "status": "OK",
   "error": "",

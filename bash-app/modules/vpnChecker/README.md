@@ -63,13 +63,13 @@ vpnChecker/
 ## Utilisation
 
 ```bash
-./main.sh
+./main.sh --script vpnChecker
 ```
 
-### Mode test interne
+### Mode test 
 
 ```bash
-./main.sh --test
+./main.sh --script vpnChecker --test
 ```
 
 

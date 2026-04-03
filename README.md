@@ -37,23 +37,23 @@ cyberdiag_b/
 │   ├── main.sh              # Script principal centralisant tous les modules
 │   ├── modules/             # Modules fonctionnels
 │   │   ├── antivirusChecker/
+│   │   ├── arpTableChecker/
 │   │   ├── bluetoothChecker/
-│   │   ├── cronChecker/
+│   │   ├── cliInterface/
 │   │   ├── cpuUsage/
-│   │   ├── diagnosticComplet/
-│   │   ├── diagnosticInterfaces/
-│   │   ├── diagnosticOutils/
-│   │   ├── diagnosticRapide/
-│   │   ├── diagnosticReseau/
-│   │   ├── diagnosticSecuriteSysteme/
+│   │   ├── cronChecker/
+│   │   ├── diagTest/
 │   │   ├── diskUsage/
 │   │   ├── encryptionChecker/
+│   │   ├── externallpChecker/
 │   │   ├── firewallChecker/
 │   │   ├── firewallRulesAudit/
 │   │   ├── gatewayReachabilityTest/
+│   │   ├── graphicInterface/
 │   │   ├── internetConnectivityTest/
 │   │   ├── listeningServicesChecker/
 │   │   ├── logAnalyzer/
+│   │   ├── macSpoofChecker/
 │   │   ├── majChecker/
 │   │   ├── macSpoofChecker/
 │   │   ├── malwareScan/
@@ -65,7 +65,9 @@ cyberdiag_b/
 │   │   ├── privilegesChecker/
 │   │   ├── processChecker/
 │   │   ├── proxyChecker/
+│   │   ├── quizExample/
 │   │   ├── ramUsage/
+│   │   ├── reports/
 │   │   ├── rogueDhcpChecker/
 │   │   ├── secureBootChecker/
 │   │   ├── serviceChecker/
@@ -77,9 +79,7 @@ cyberdiag_b/
 │   │   ├── usbChecker/
 │   │   ├── userAccountChecker/
 │   │   ├── vpnChecker/
-│   │   ├── wifiChecker/
-│   │   ├── cliInterface/
-│   │   └── graphicInterface/
+│   │   └── wifiChecker/
 │   └── utils/               # Scripts utilitaires (env, logger)
 ├── java-ui/                 # Interface graphique Java
 ├── Documentations/          # Documents clients et veille technologique
@@ -149,6 +149,18 @@ ou
 ./main.sh --script cpuUsage
 ```
 
+* Exécuter le test d'un module :
+
+```bash
+./main.sh --script cpuUsage --test
+```
+
+* Exécuter le test de tous les modules:
+
+```bash
+./main.sh --test
+```
+
 * Lister tous les modules filtrés par type `monitoring` et triés par description :
 
 ```bash
@@ -177,63 +189,63 @@ ou
 
 ## Modules inclus
 
-### Monitoring et système
+### Module de Monitoring et système
 
-* `cpuUsage`
-* `ramUsage`
-* `diskUsage`
-* `majChecker`
-* `osInfo`
-* `processChecker`
-* `serviceChecker`
-* `logAnalyzer`
-* `cronChecker`
+* `cpuUsage` : suivi CPU et utilisation processeur
+* `diskUsage` : suivi espace disque
+* `externalIpChecker` : récupération de l’adresse IP publique
+* `gatewayReachabilityTest` : test de disponibilité de la passerelle réseau
+* `internetConnectivityTest` : vérification de l’accès à Internet
+* `networkConfigChecker` : contrôle de la configuration réseau (IP, DNS, gateway)
+* `networkTrafficMonitor` : surveillance du trafic réseau
+* `osInfo` : récupération des informations système (OS, kernel)
+* `ramUsage` : suivi mémoire RAM
 
-### Réseau
 
-* `networkConfigChecker`
-* `internetConnectivityTest`
-* `gatewayReachabilityTest`
-* `openPortsScanner`
-* `listeningServicesChecker`
-* `externalIpChecker`
-* `networkTrafficMonitor`
-* `proxyChecker`
-* `tlsChecker`
-* `vpnChecker`
-* `arpTableChecker`
-* `rogueDhcpChecker`
-* `macSpoofChecker`
-* `wifiChecker`
+### Modules de maintenance
 
-### Sécurité
+* `majChecker` : vérification des mises à jour système
+* `updateConfigChecker` : contrôle de la configuration des mises à jour automatiques
+* `logAnalyzer` : analyse rapide des logs système et de sécurité
 
-* `antivirusChecker`
-* `firewallChecker`
-* `firewallRulesAudit`
-* `malwareScan`
-* `passwordChecker`
-* `privilegesChecker`
-* `secureBootChecker`
-* `sshConfigChecker`
-* `sudoConfigChecker`
-* `suidSgidChecker`
-* `encryptionChecker`
-* `updateConfigChecker`
-* `userAccountChecker`
+### Modules de sécurité
 
-### Périphériques
+* `antivirusChecker` : analyse l'état de fonctionnement de l'antivirus
+* `arpTableChecker` : détection d’anomalies dans la table ARP (ARP poisoning)
+* `bluetoothChecker` : analyse de l’état et des risques liés au Bluetooth
+* `cronChecker` : détection de tâches planifiées suspectes
+* `encryptionChecker` : vérification du chiffrement des disques (LUKS)
+* `firewallChecker` : vérification du pare-feu et sa configuration
+* `firewallRulesAudit` : audit des règles firewall et détection de règles permissives
+* `listeningServicesChecker` : identification des services réseau suspects
+* `macSpoofChecker` : détection de spoofing d’adresse MAC
+* `malwareScan` : analyse des malwares sur le système
+* `openPortsScanner` : détection des ports ouverts exposés
+* `passwordChecker` : vérification et analyse des mots de passe
+* `privilegesChecker` : analyse des privilèges utilisateurs et élévations
+* `processChecker` : détection de processus suspects
+* `proxyChecker` : détection de configuration proxy potentiellement risquée
+* `rogueDhcpChecker` : détection de serveurs DHCP non autorisés
+* `secureBootChecker` : vérification de l’état du Secure Boot
+* `serviceChecker` : identification de services inutiles ou dangereux
+* `sshConfigChecker` : audit de la configuration SSH
+* `sudoConfigChecker` : analyse des règles sudo à risque
+* `suidSgidChecker` : détection de binaires SUID/SGID sensibles
+* `tlsChecker` : vérification du support TLS sécurisé
+* `usbChecker` : détection et contrôle des appareils USB
+* `userAccountChecker` : détection de comptes utilisateurs suspects ou inactifs
+* `vpnChecker` : vérification de la présence et de l’état d’un VPN
+* `wifiChecker` : vérification des connexions réseau et recommandations de sécurité
 
-* `usbChecker`
-* `bluetoothChecker`
 
 ### Interfaces et support
 
-* `cliInterface`
-* `graphicInterface`
-* `reports`
-* `diagTest`
-* `quizExample`
+* `cliInterface` : interface terminal textuelle
+* `diagTest` : module de test global pour validation du système
+* `graphicInterface` : interface graphique Java
+* `quizExample` : module d’exemple interactif
+* `reports` : génération de rapports d’analyse
+
 
 ### Profils de diagnostics
 

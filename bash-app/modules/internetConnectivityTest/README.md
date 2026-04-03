@@ -47,19 +47,19 @@ internetConnectivityTest/
 
 
 ## Utilisation
-```
-./main.sh
+```bash
+./main.sh --script internetConnectivityTest
 ```
 
-## Mode test interne
-```
-./main.sh --test
+## Mode test 
+```bash
+./main.sh --script internetConnectivityTest --test
 ```
 
 
 
 ## Exemple de sortie JSON
-```
+```json
 {
   "status": "OK",
   "error": "",

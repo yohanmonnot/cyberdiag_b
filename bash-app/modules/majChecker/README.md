@@ -47,6 +47,11 @@ majChecker/
 ./main.sh --script majChecker
 ```
 
+### Mode test
+```bash
+./main.sh --script majChecker --test
+```
+
 ### Exemple de sortie JSON
 ```json
 {

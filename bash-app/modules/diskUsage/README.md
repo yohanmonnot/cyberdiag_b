@@ -46,6 +46,11 @@ diskUsage/
 ./main.sh --script diskUsage
 ```
 
+### Mode test 
+```bash
+./main.sh --script diskUsage --test
+```
+
 
 ### Exemple de sortie JSON
 ```json
