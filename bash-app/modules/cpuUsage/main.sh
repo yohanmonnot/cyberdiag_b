@@ -121,9 +121,8 @@ collect_top_process_average() {
     TOP_PROCESS_NAME="${names[$top_pid]}"
 
     # Conversion en entier pour éviter les erreurs d'arithmétique Bash
-    max_delta_int=$(printf "%.0f" "$max_delta")
-    total_delta_int=$(printf "%.0f" "$total_delta")
-    TOP_PROCESS_CPU=$(( (100 * max_delta_int) / total_delta_int ))
+    # Conversion sécurisée en entier
+    TOP_PROCESS_CPU=$(awk "BEGIN {printf \"%d\", (100 * $max_delta / $total_delta)}")
 }
 
 # ==================================================
