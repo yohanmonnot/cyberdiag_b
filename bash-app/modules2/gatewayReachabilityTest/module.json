@@ -1,0 +1,11 @@
+ {
+    "name": "gatewayReachabilityTest",
+    "version": "1.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to check gateway reachability",
+    "author": "mathis HUBERT",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

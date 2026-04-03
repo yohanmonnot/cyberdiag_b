@@ -9,9 +9,15 @@ source "$ROOT_DIR/utils/logger.sh"
 if [ ! -f "$QUIZ_FILE" ]; then
     log_error "Quiz file not found."
     echo "[]"
+    exit 1
 fi
 
-RESULT=$(jq '.[] | {index: .index, question: .question, type: .type, options: [.options[].label | select(. != null)]}' "$QUIZ_FILE")
+RESULT=$(jq '[.[] | {
+    index: .index,
+    question: .question,
+    type: .type,
+    options: (.options | map(.label) | map(select(. != null)))
+}]' "$QUIZ_FILE")
 
 if [ $? -eq 0 ] && [ "$RESULT" != "null" ]; then
     echo "$RESULT"

@@ -1,0 +1,11 @@
+ {
+    "name": "openPortsScanner",
+    "version": "1.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to scan for open ports",
+    "author": "mathis HUBERT",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

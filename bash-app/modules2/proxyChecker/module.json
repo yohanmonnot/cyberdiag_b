@@ -1,0 +1,11 @@
+ {
+    "name": "proxyChecker",
+    "version": "1.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to check for proxy settings",
+    "author": "mathis HUBERT",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

@@ -1,0 +1,11 @@
+ {
+    "name": "internetConnectivityTest",
+    "version": "1.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to test internet connectivity",
+    "author": "mathis HUBERT",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}
