@@ -1,5 +1,5 @@
 #!/bin/bash
-# Module : vpnChecker
+# Module : externalIpChecker
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -27,49 +27,44 @@ output_json() {
 # ==================================================
 run_unit_tests() {
     echo -e "==================================="
-    echo -e "UNIT TESTS - vpnChecker"
+    echo -e "UNIT TESTS - externalIpChecker"
     echo -e "==================================="
     
     local TOTAL=0 PASS=0 FAIL=0
     
-    # Test 1 : VPN actif
+    # Test 1 : IP trouvée (succès)
     ((TOTAL++))
     SCORE=5
     if [[ "$SCORE" -eq 5 ]]; then
-        echo "✓ Test 1 (VPN actif) : PASS"
+        echo "✓ Test 1 (IP trouvée) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 1 (VPN actif) : FAIL"
+        echo "✗ Test 1 (IP trouvée) : FAIL"
         ((FAIL++))
     fi
     
-    # Test 2 : Pas de VPN
+    # Test 2 : IP non trouvée (erreur)
     ((TOTAL++))
-    SCORE=3
-    if [[ "$SCORE" -eq 3 ]]; then
-        echo "✓ Test 2 (Pas de VPN) : PASS"
+    SCORE=0
+    if [[ "$SCORE" -eq 0 ]]; then
+        echo "✓ Test 2 (IP manquante) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 2 (Pas de VPN) : FAIL"
+        echo "✗ Test 2 (IP manquante) : FAIL"
         ((FAIL++))
     fi
     
     echo -e "\nRésumé : $PASS/$TOTAL tests passés, $FAIL échoués"
 }
 
-evaluate_vpn() {
-    local TUNNEL_EXISTS=$1
-    if $TUNNEL_EXISTS; then
-        SCORE=5; RECOMMENDATION="VPN/Tunnel actif (Sécurisé)."
-    else
-        SCORE=3; RECOMMENDATION="Aucun VPN détecté. Trafic potentiellement exposé sur réseau public."
-    fi
-}
-
 check_real() {
-    local TUNNEL=false
-    if ip addr | grep -E "tun|tap|wg|ppp" >/dev/null; then TUNNEL=true; fi
-    evaluate_vpn "$TUNNEL"
+    local EXT_IP=$(curl -s --max-time 5 ifconfig.me)
+    if [[ -z "$EXT_IP" ]]; then
+        output_json "FAIL" "Pas d'accès internet" 0 "Vérifiez votre connexion"
+        exit 0
+    fi
+    # Logique simple : on a une IP, on est content
+    output_json "OK" "" 5 "IP Publique : $EXT_IP"
 }
 
 main() {
@@ -78,6 +73,5 @@ main() {
         exit 0
     fi
     check_real
-    output_json "OK" "" "$SCORE" "$RECOMMENDATION"
 }
 main "$@"

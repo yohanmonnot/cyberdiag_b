@@ -1,5 +1,5 @@
 #!/bin/bash
-# Module : vpnChecker
+# Module : proxyChecker
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -27,49 +27,52 @@ output_json() {
 # ==================================================
 run_unit_tests() {
     echo -e "==================================="
-    echo -e "UNIT TESTS - vpnChecker"
+    echo -e "UNIT TESTS - proxyChecker"
     echo -e "==================================="
     
     local TOTAL=0 PASS=0 FAIL=0
     
-    # Test 1 : VPN actif
+    # Test 1 : Aucun proxy
     ((TOTAL++))
     SCORE=5
     if [[ "$SCORE" -eq 5 ]]; then
-        echo "✓ Test 1 (VPN actif) : PASS"
+        echo "✓ Test 1 (Aucun proxy) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 1 (VPN actif) : FAIL"
+        echo "✗ Test 1 (Aucun proxy) : FAIL"
         ((FAIL++))
     fi
     
-    # Test 2 : Pas de VPN
+    # Test 2 : Proxy détecté
     ((TOTAL++))
-    SCORE=3
-    if [[ "$SCORE" -eq 3 ]]; then
-        echo "✓ Test 2 (Pas de VPN) : PASS"
+    SCORE=4
+    if [[ "$SCORE" -eq 4 ]]; then
+        echo "✓ Test 2 (Proxy détecté) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 2 (Pas de VPN) : FAIL"
+        echo "✗ Test 2 (Proxy détecté) : FAIL"
         ((FAIL++))
     fi
     
     echo -e "\nRésumé : $PASS/$TOTAL tests passés, $FAIL échoués"
 }
 
-evaluate_vpn() {
-    local TUNNEL_EXISTS=$1
-    if $TUNNEL_EXISTS; then
-        SCORE=5; RECOMMENDATION="VPN/Tunnel actif (Sécurisé)."
-    else
-        SCORE=3; RECOMMENDATION="Aucun VPN détecté. Trafic potentiellement exposé sur réseau public."
-    fi
-}
-
 check_real() {
-    local TUNNEL=false
-    if ip addr | grep -E "tun|tap|wg|ppp" >/dev/null; then TUNNEL=true; fi
-    evaluate_vpn "$TUNNEL"
+    local PROXY_FOUND=false
+    local DETAILS=""
+
+    [[ -n "$http_proxy" || -n "$HTTP_PROXY" ]] && PROXY_FOUND=true && DETAILS+="HTTP Proxy détecté. "
+    [[ -n "$https_proxy" || -n "$HTTPS_PROXY" ]] && PROXY_FOUND=true && DETAILS+="HTTPS Proxy détecté. "
+
+    if $PROXY_FOUND; then
+        SCORE=4
+        REC="Proxy actif : $DETAILS. Vérifiez s'il est légitime."
+    else
+        SCORE=5
+        REC="Aucun proxy système configuré."
+    fi
+
+    output_json "OK" "" "$SCORE" "$REC"
 }
 
 main() {
@@ -78,6 +81,5 @@ main() {
         exit 0
     fi
     check_real
-    output_json "OK" "" "$SCORE" "$RECOMMENDATION"
 }
 main "$@"

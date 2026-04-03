@@ -1,9 +1,9 @@
  {
-    "name": "vpnChecker",
+    "name": "macSpoofChecker",
     "version": "1.0",
     "type": "tool",
     "category": "maintenance",
-    "description": "A module to check for VPN connections",
+    "description": "A module to check for MAC address spoofing",
     "author": "Mathis HUBERT",
     "main": "main.sh",
     "args": [],

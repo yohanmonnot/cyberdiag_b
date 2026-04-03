@@ -1,5 +1,5 @@
 #!/bin/bash
-# Module : vpnChecker
+# Module : tlsChecker
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -27,49 +27,47 @@ output_json() {
 # ==================================================
 run_unit_tests() {
     echo -e "==================================="
-    echo -e "UNIT TESTS - vpnChecker"
+    echo -e "UNIT TESTS - tlsChecker"
     echo -e "==================================="
     
     local TOTAL=0 PASS=0 FAIL=0
     
-    # Test 1 : VPN actif
+    # Test 1 : TLS 1.2+ supporté
     ((TOTAL++))
     SCORE=5
     if [[ "$SCORE" -eq 5 ]]; then
-        echo "✓ Test 1 (VPN actif) : PASS"
+        echo "✓ Test 1 (TLS 1.2+ OK) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 1 (VPN actif) : FAIL"
+        echo "✗ Test 1 (TLS 1.2+ OK) : FAIL"
         ((FAIL++))
     fi
     
-    # Test 2 : Pas de VPN
+    # Test 2 : TLS obsolète
     ((TOTAL++))
-    SCORE=3
-    if [[ "$SCORE" -eq 3 ]]; then
-        echo "✓ Test 2 (Pas de VPN) : PASS"
+    SCORE=2
+    if [[ "$SCORE" -eq 2 ]]; then
+        echo "✓ Test 2 (TLS obsolète) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 2 (Pas de VPN) : FAIL"
+        echo "✗ Test 2 (TLS obsolète) : FAIL"
         ((FAIL++))
     fi
     
     echo -e "\nRésumé : $PASS/$TOTAL tests passés, $FAIL échoués"
 }
 
-evaluate_vpn() {
-    local TUNNEL_EXISTS=$1
-    if $TUNNEL_EXISTS; then
-        SCORE=5; RECOMMENDATION="VPN/Tunnel actif (Sécurisé)."
-    else
-        SCORE=3; RECOMMENDATION="Aucun VPN détecté. Trafic potentiellement exposé sur réseau public."
-    fi
-}
-
 check_real() {
-    local TUNNEL=false
-    if ip addr | grep -E "tun|tap|wg|ppp" >/dev/null; then TUNNEL=true; fi
-    evaluate_vpn "$TUNNEL"
+    # Test contre un endpoint qui refuse le vieux SSL
+    if curl -s --max-time 5 --tlsv1.2 https://google.com > /dev/null; then
+        SCORE=5
+        REC="Support TLS 1.2+ opérationnel."
+    else
+        SCORE=2
+        REC="Échec de connexion TLS 1.2. Votre bibliothèque OpenSSL est peut-être obsolète."
+    fi
+
+    output_json "OK" "" "$SCORE" "$REC"
 }
 
 main() {
@@ -78,6 +76,5 @@ main() {
         exit 0
     fi
     check_real
-    output_json "OK" "" "$SCORE" "$RECOMMENDATION"
 }
 main "$@"

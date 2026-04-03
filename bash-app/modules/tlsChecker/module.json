@@ -1,9 +1,9 @@
  {
-    "name": "vpnChecker",
+    "name": "tlsChecker",
     "version": "1.0",
     "type": "tool",
     "category": "maintenance",
-    "description": "A module to check for VPN connections",
+    "description": "A module to check TLS configuration",
     "author": "Mathis HUBERT",
     "main": "main.sh",
     "args": [],

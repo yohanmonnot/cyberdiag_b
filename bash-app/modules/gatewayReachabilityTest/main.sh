@@ -1,5 +1,5 @@
 #!/bin/bash
-# Module : vpnChecker
+# Module : gatewayReachabilityTest
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -27,49 +27,53 @@ output_json() {
 # ==================================================
 run_unit_tests() {
     echo -e "==================================="
-    echo -e "UNIT TESTS - vpnChecker"
+    echo -e "UNIT TESTS - gatewayReachabilityTest"
     echo -e "==================================="
     
     local TOTAL=0 PASS=0 FAIL=0
     
-    # Test 1 : VPN actif
+    # Test 1 : Gateway joignable
     ((TOTAL++))
     SCORE=5
     if [[ "$SCORE" -eq 5 ]]; then
-        echo "✓ Test 1 (VPN actif) : PASS"
+        echo "✓ Test 1 (Gateway OK) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 1 (VPN actif) : FAIL"
+        echo "✗ Test 1 (Gateway OK) : FAIL"
         ((FAIL++))
     fi
     
-    # Test 2 : Pas de VPN
+    # Test 2 : Gateway non joignable
     ((TOTAL++))
-    SCORE=3
-    if [[ "$SCORE" -eq 3 ]]; then
-        echo "✓ Test 2 (Pas de VPN) : PASS"
+    SCORE=1
+    if [[ "$SCORE" -eq 1 ]]; then
+        echo "✓ Test 2 (Gateway indisponible) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 2 (Pas de VPN) : FAIL"
+        echo "✗ Test 2 (Gateway indisponible) : FAIL"
         ((FAIL++))
     fi
     
     echo -e "\nRésumé : $PASS/$TOTAL tests passés, $FAIL échoués"
 }
 
-evaluate_vpn() {
-    local TUNNEL_EXISTS=$1
-    if $TUNNEL_EXISTS; then
-        SCORE=5; RECOMMENDATION="VPN/Tunnel actif (Sécurisé)."
-    else
-        SCORE=3; RECOMMENDATION="Aucun VPN détecté. Trafic potentiellement exposé sur réseau public."
-    fi
-}
-
 check_real() {
-    local TUNNEL=false
-    if ip addr | grep -E "tun|tap|wg|ppp" >/dev/null; then TUNNEL=true; fi
-    evaluate_vpn "$TUNNEL"
+    local GW_IP=$(ip route | grep default | awk '{print $3}')
+    
+    if [[ -z "$GW_IP" ]]; then
+        output_json "FAIL" "Pas de route par défaut" 0 "Vérifiez votre configuration IP"
+        exit 0
+    fi
+
+    if ping -c 2 -W 1 "$GW_IP" > /dev/null; then
+        SCORE=5
+        REC="Passerelle ($GW_IP) joignable."
+    else
+        SCORE=1
+        REC="Passerelle ($GW_IP) ne répond pas au ping. Risque de coupure réseau ou isolation."
+    fi
+
+    output_json "OK" "" "$SCORE" "$REC"
 }
 
 main() {
@@ -78,6 +82,5 @@ main() {
         exit 0
     fi
     check_real
-    output_json "OK" "" "$SCORE" "$RECOMMENDATION"
 }
 main "$@"

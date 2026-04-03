@@ -53,7 +53,7 @@ output_json() {
     echo $(jq -n \
         --arg status "$STATUS" \
         --arg error "$ERROR" \
-        --arg score "$SCORE" \
+        --argjson score "$SCORE" \
         --arg recommendation "$RECOMMENDATION" \
         '{status: $status, error: $error, score: $score, recommendation: $recommendation}')
 }

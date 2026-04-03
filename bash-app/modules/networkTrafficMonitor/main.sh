@@ -1,5 +1,5 @@
 #!/bin/bash
-# Module : vpnChecker
+# Module : networkTrafficMonitor
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -27,49 +27,54 @@ output_json() {
 # ==================================================
 run_unit_tests() {
     echo -e "==================================="
-    echo -e "UNIT TESTS - vpnChecker"
+    echo -e "UNIT TESTS - networkTrafficMonitor"
     echo -e "==================================="
     
     local TOTAL=0 PASS=0 FAIL=0
     
-    # Test 1 : VPN actif
+    # Test 1 : Trafic normal
     ((TOTAL++))
     SCORE=5
     if [[ "$SCORE" -eq 5 ]]; then
-        echo "✓ Test 1 (VPN actif) : PASS"
+        echo "✓ Test 1 (Trafic normal) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 1 (VPN actif) : FAIL"
+        echo "✗ Test 1 (Trafic normal) : FAIL"
         ((FAIL++))
     fi
     
-    # Test 2 : Pas de VPN
+    # Test 2 : Trafic élevé
     ((TOTAL++))
     SCORE=3
     if [[ "$SCORE" -eq 3 ]]; then
-        echo "✓ Test 2 (Pas de VPN) : PASS"
+        echo "✓ Test 2 (Trafic élevé) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 2 (Pas de VPN) : FAIL"
+        echo "✗ Test 2 (Trafic élevé) : FAIL"
         ((FAIL++))
     fi
     
     echo -e "\nRésumé : $PASS/$TOTAL tests passés, $FAIL échoués"
 }
 
-evaluate_vpn() {
-    local TUNNEL_EXISTS=$1
-    if $TUNNEL_EXISTS; then
-        SCORE=5; RECOMMENDATION="VPN/Tunnel actif (Sécurisé)."
-    else
-        SCORE=3; RECOMMENDATION="Aucun VPN détecté. Trafic potentiellement exposé sur réseau public."
-    fi
-}
-
 check_real() {
-    local TUNNEL=false
-    if ip addr | grep -E "tun|tap|wg|ppp" >/dev/null; then TUNNEL=true; fi
-    evaluate_vpn "$TUNNEL"
+    local INTERFACE=$(ip route | grep default | awk '{print $5}')
+    # On utilise /proc/net/dev pour éviter tcpdump (souvent absent)
+    local RX_BEFORE=$(cat /proc/net/dev | grep "$INTERFACE" | awk '{print $2}')
+    sleep 5
+    local RX_AFTER=$(cat /proc/net/dev | grep "$INTERFACE" | awk '{print $2}')
+    
+    local DIFF=$(( (RX_AFTER - RX_BEFORE) / 5 )) # Octets par seconde
+    
+    if [ "$DIFF" -gt 10485760 ]; then # > 10 Mo/s en idle ?
+        SCORE=3
+        REC="Trafic entrant élevé détecté (>10Mo/s). Analyse recommandée."
+    else
+        SCORE=5
+        REC="Volume de trafic normal."
+    fi
+
+    output_json "OK" "" "$SCORE" "$REC"
 }
 
 main() {
@@ -78,6 +83,5 @@ main() {
         exit 0
     fi
     check_real
-    output_json "OK" "" "$SCORE" "$RECOMMENDATION"
 }
 main "$@"

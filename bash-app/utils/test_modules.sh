@@ -17,6 +17,13 @@ EXCLUDED_MODULES=("cliInterface" "diagTest" "graphicInterface" "reports")
 
 FAILED_MODULES=()
 GLOBAL_FAILED=0
+GLOBAL_TESTS=0
+GLOBAL_PASSED=0
+GLOBAL_FAILED_TESTS=0
+GLOBAL_MODULES_TESTED=0
+GLOBAL_MODULES_PASSED=0
+GLOBAL_MODULES_FAILED=0
+GLOBAL_MODULES_SKIPPED=0
 
 is_excluded() {
     local module="$1"
@@ -31,6 +38,7 @@ is_excluded() {
 echo -e "${CYAN}===========================================${NC}"
 echo -e "${CYAN}Validation globale des modules CyberDiag${NC}"
 echo -e "${CYAN}===========================================${NC}"
+echo -e "${CYAN}Modules exclus : ${EXCLUDED_MODULES[*]}${NC}"
 
 for d in "$MODULES_DIR"/*/; do
 
@@ -41,20 +49,24 @@ for d in "$MODULES_DIR"/*/; do
 
     if is_excluded "$MODULE_NAME"; then
         echo -e "${YELLOW}SKIP - Module exclu : $MODULE_NAME${NC}"
+        GLOBAL_MODULES_SKIPPED=$((GLOBAL_MODULES_SKIPPED + 1))
         continue
     fi
 
     MAIN_SCRIPT=$(jq -r '.main' "$META")
-    SCRIPT_PATH="$d/$MAIN_SCRIPT"
+    SCRIPT_PATH="${d%/}/$MAIN_SCRIPT"
+    GLOBAL_MODULES_TESTED=$((GLOBAL_MODULES_TESTED + 1))
 
     echo ""
     echo -e "${BLUE}===========================================${NC}"
-    echo -e "${BLUE}Running unit tests for module: $MODULE_NAME${NC}"
+    echo -e "${BLUE}Module: $MODULE_NAME${NC}"
+    echo -e "${BLUE}Script: $SCRIPT_PATH${NC}"
     echo -e "${BLUE}===========================================${NC}"
 
     if [[ ! -f "$SCRIPT_PATH" ]]; then
         echo -e "${RED}FAIL - Script introuvable${NC}"
         FAILED_MODULES+=("$MODULE_NAME")
+        GLOBAL_MODULES_FAILED=$((GLOBAL_MODULES_FAILED + 1))
         GLOBAL_FAILED=1
         continue
     fi
@@ -72,6 +84,7 @@ for d in "$MODULES_DIR"/*/; do
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "${RED}FAIL - Code retour ≠ 0${NC}"
         FAILED_MODULES+=("$MODULE_NAME")
+        GLOBAL_MODULES_FAILED=$((GLOBAL_MODULES_FAILED + 1))
         GLOBAL_FAILED=1
         continue
     fi
@@ -81,6 +94,7 @@ for d in "$MODULES_DIR"/*/; do
     if [[ -z "$JSON_OUTPUT" ]]; then
         echo -e "${RED}FAIL - Aucun JSON détecté${NC}"
         FAILED_MODULES+=("$MODULE_NAME")
+        GLOBAL_MODULES_FAILED=$((GLOBAL_MODULES_FAILED + 1))
         GLOBAL_FAILED=1
         continue
     fi
@@ -116,6 +130,9 @@ for d in "$MODULES_DIR"/*/; do
     fi
 
     TOTAL=$((PASSED + FAILED))
+    GLOBAL_TESTS=$((GLOBAL_TESTS + TOTAL))
+    GLOBAL_PASSED=$((GLOBAL_PASSED + PASSED))
+    GLOBAL_FAILED_TESTS=$((GLOBAL_FAILED_TESTS + FAILED))
 
     echo -e "${CYAN}-------------------------------------------${NC}"
     echo -e "Total: $TOTAL | ${GREEN}Passed: $PASSED${NC} | ${RED}Failed: $FAILED${NC}"
@@ -124,8 +141,10 @@ for d in "$MODULES_DIR"/*/; do
     if [[ $FAILED -ne 0 ]]; then
         echo -e "${RED}Tests échoués pour $MODULE_NAME${NC}"
         FAILED_MODULES+=("$MODULE_NAME")
+        GLOBAL_MODULES_FAILED=$((GLOBAL_MODULES_FAILED + 1))
         GLOBAL_FAILED=1
     else
+        GLOBAL_MODULES_PASSED=$((GLOBAL_MODULES_PASSED + 1))
         echo -e "${GREEN}Tous les tests ont réussi.${NC}"
     fi
 
@@ -135,6 +154,16 @@ echo ""
 echo -e "${CYAN}===========================================${NC}"
 echo -e "${CYAN}Résumé global${NC}"
 echo -e "${CYAN}===========================================${NC}"
+echo -e "${CYAN}Modules:${NC}"
+echo -e "  Testés   : $GLOBAL_MODULES_TESTED"
+echo -e "  ${GREEN}Réussis : $GLOBAL_MODULES_PASSED${NC}"
+echo -e "  ${RED}Échoués : $GLOBAL_MODULES_FAILED${NC}"
+echo -e "  ${YELLOW}Exclus  : $GLOBAL_MODULES_SKIPPED${NC}"
+echo ""
+echo -e "${CYAN}Tests (champs JSON):${NC}"
+echo -e "  Réalisés : $GLOBAL_TESTS"
+echo -e "  ${GREEN}Réussis : $GLOBAL_PASSED${NC}"
+echo -e "  ${RED}Échoués : $GLOBAL_FAILED_TESTS${NC}"
 
 if [[ ${#FAILED_MODULES[@]} -ne 0 ]]; then
     echo -e "${RED}Certains tests ont échoué : ${FAILED_MODULES[*]}${NC}"

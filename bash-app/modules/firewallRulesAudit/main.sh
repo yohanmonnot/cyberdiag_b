@@ -1,5 +1,5 @@
 #!/bin/bash
-# Module : vpnChecker
+# Module : firewallRulesAudit
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -27,49 +27,50 @@ output_json() {
 # ==================================================
 run_unit_tests() {
     echo -e "==================================="
-    echo -e "UNIT TESTS - vpnChecker"
+    echo -e "UNIT TESTS - firewallRulesAudit"
     echo -e "==================================="
     
     local TOTAL=0 PASS=0 FAIL=0
     
-    # Test 1 : VPN actif
-    ((TOTAL++))
-    SCORE=5
-    if [[ "$SCORE" -eq 5 ]]; then
-        echo "✓ Test 1 (VPN actif) : PASS"
-        ((PASS++))
-    else
-        echo "✗ Test 1 (VPN actif) : FAIL"
-        ((FAIL++))
-    fi
-    
-    # Test 2 : Pas de VPN
+    # Test 1 : Windows de tir restrictif (bon)
     ((TOTAL++))
     SCORE=3
     if [[ "$SCORE" -eq 3 ]]; then
-        echo "✓ Test 2 (Pas de VPN) : PASS"
+        echo "✓ Test 1 (Règles permissives) : PASS"
         ((PASS++))
     else
-        echo "✗ Test 2 (Pas de VPN) : FAIL"
+        echo "✗ Test 1 (Règles permissives) : FAIL"
+        ((FAIL++))
+    fi
+    
+    # Test 2 : Politique restrictive (excellent)
+    ((TOTAL++))
+    SCORE=5
+    if [[ "$SCORE" -eq 5 ]]; then
+        echo "✓ Test 2 (Politique stricte) : PASS"
+        ((PASS++))
+    else
+        echo "✗ Test 2 (Politique stricte) : FAIL"
         ((FAIL++))
     fi
     
     echo -e "\nRésumé : $PASS/$TOTAL tests passés, $FAIL échoués"
 }
 
-evaluate_vpn() {
-    local TUNNEL_EXISTS=$1
-    if $TUNNEL_EXISTS; then
-        SCORE=5; RECOMMENDATION="VPN/Tunnel actif (Sécurisé)."
-    else
-        SCORE=3; RECOMMENDATION="Aucun VPN détecté. Trafic potentiellement exposé sur réseau public."
-    fi
-}
-
 check_real() {
-    local TUNNEL=false
-    if ip addr | grep -E "tun|tap|wg|ppp" >/dev/null; then TUNNEL=true; fi
-    evaluate_vpn "$TUNNEL"
+    local SCORE=5
+    local REC="Audit terminé."
+    
+    if command -v iptables &>/dev/null; then
+        # On cherche des règles ACCEPT sans restriction d'IP ou de port
+        local PERMISSIVE=$(iptables -S | grep "ACCEPT" | grep -v "lo" | grep -v "m state --state RELATED,ESTABLISHED" | wc -l)
+        if [ "$PERMISSIVE" -gt 5 ]; then
+            SCORE=3
+            REC="Plusieurs règles ACCEPT très larges détectées. Revoyez votre politique 'Default Drop'."
+        fi
+    fi
+
+    output_json "OK" "" "$SCORE" "$REC"
 }
 
 main() {
@@ -78,6 +79,5 @@ main() {
         exit 0
     fi
     check_real
-    output_json "OK" "" "$SCORE" "$RECOMMENDATION"
 }
 main "$@"

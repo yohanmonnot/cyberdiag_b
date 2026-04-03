@@ -5,7 +5,6 @@
     "description": "A diagnostic to test ui whith a diagnostic",
     "author": "Célian TOUZEAU",
     "main": "main.sh",
-    "test": "test.sh",
     "args": [],
     "dependencies": ["jq"]
 }

@@ -1,9 +1,9 @@
  {
-    "name": "vpnChecker",
+    "name": "firewallRulesAudit",
     "version": "1.0",
     "type": "tool",
     "category": "maintenance",
-    "description": "A module to check for VPN connections",
+    "description": "A module to audit firewall rules",
     "author": "Mathis HUBERT",
     "main": "main.sh",
     "args": [],
