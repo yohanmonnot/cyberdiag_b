@@ -18,15 +18,9 @@ else
     exit 1
 fi
 
-# 3. Gestion des permissions (Crucial pour le paquet)
-echo "Application des permissions dans $PKG_ROOT..."
-
-# Rendre tous les .sh exécutables dans le paquet
-find $PKG_ROOT/opt/cyberdiag -type f -name "*.sh" -exec chmod +x {} \;
-
-# Permissions spécifiques pour les binaires et modules
-chmod +x $PKG_ROOT/opt/cyberdiag/modules/graphicInterface/runtime/bin/java
-chmod +x $PKG_ROOT/opt/cyberdiag/modules/reports/*
+# 3. Gestion des permissions via set_right.sh
+echo "Appel de set_right.sh pour configurer les permissions dans le paquet..."
+./scripts/set_right.sh "$PKG_ROOT/opt/cyberdiag"
 
 # 4. Création du wrapper binaire
 cat <<EOF > $PKG_ROOT/usr/bin/cyberdiag
