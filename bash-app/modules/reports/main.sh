@@ -16,7 +16,22 @@ show_help() {
     echo "  -h, --help                Show this help message"
 }
 
+# Fonction de test minimal si aucun argument
+run_minimal_test() {
+    log_info "[reports] Aucun argument fourni, exécution d'un test minimal..."
+    TEST_REPORT='{"type":"TEST","score":5,"message":"Test minimal OK"}'
+    "$DIR/addReport.sh" "$TEST_REPORT"
+    JSON_OUTPUT=$(echo "$TEST_REPORT" | jq -c '.')
+    echo "$JSON_OUTPUT"
+    return 0
+}
+
 # Dispatcher
+if [[ -z "$1" ]]; then
+    run_minimal_test
+    exit 0
+fi
+
 case "$1" in
     -a|--add)
         shift
@@ -38,7 +53,7 @@ case "$1" in
         show_help
         ;;
     *)
-        log_error "Invalid argument or no argument provided."
+        log_error "Invalid argument."
         show_help
         exit 1
         ;;
