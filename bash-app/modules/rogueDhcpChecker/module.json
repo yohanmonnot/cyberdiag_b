@@ -1,0 +1,11 @@
+ {
+    "name": "rogueDhcpChecker",
+    "version": "1.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to check for rogue DHCP servers",
+    "author": "Mathis HUBERT",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

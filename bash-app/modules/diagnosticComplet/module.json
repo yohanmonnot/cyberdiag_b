@@ -1,0 +1,10 @@
+{
+    "name": "diagnosticComplet",
+    "version": "1.0",
+    "type": "diagnostic",
+    "description": "A diagnostic profile: complet",
+    "author": "Nolhan BD",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

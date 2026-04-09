@@ -1,0 +1,10 @@
+{
+    "name": "quizExample",
+    "version": "1.0",
+    "type": "quiz",
+    "description": "A module to test quizType module",
+    "author": "Célian TOUZEAU",
+    "main": "main.sh",
+    "args": ["--help", "-h", "--get", "-g", "--score", "-s", "--test", "-t"],
+    "dependencies": ["jq"]
+}

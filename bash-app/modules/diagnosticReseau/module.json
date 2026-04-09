@@ -1,0 +1,10 @@
+{
+    "name": "diagnosticReseau",
+    "version": "1.0",
+    "type": "diagnostic",
+    "description": "A diagnostic profile: reseau",
+    "author": "Nolhan BD",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

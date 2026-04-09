@@ -32,6 +32,23 @@
             </HBox>
             <VBox fillWidth="false" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
                <children>
+                  <HBox fx:id="homeButton" alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons/Home.png" />
+                           </image>
+                        </ImageView>
+                        <Text fx:id="homeText" fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
                   <HBox fx:id="diagnosticsButton" alignment="CENTER_LEFT" spacing="20.0">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">

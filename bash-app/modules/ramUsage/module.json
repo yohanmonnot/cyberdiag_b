@@ -1,0 +1,11 @@
+{
+    "name": "ramUsage",
+    "version": "2.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to check ram usage on the system.",
+    "author": "Nolhan BD",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

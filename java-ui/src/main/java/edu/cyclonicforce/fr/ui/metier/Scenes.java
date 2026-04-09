@@ -5,10 +5,12 @@ public enum Scenes {
     DASHBOARD("/edu/cyclonicforce/fr/ui/fxml/AcceuilApp.fxml"),
     DASHBOARD_MODULES("/edu/cyclonicforce/fr/ui/fxml/Modules.fxml"),
     DASHBOARD_DIAGS("/edu/cyclonicforce/fr/ui/fxml/Diagnostics.fxml"),
-    DASHBOARD_SETTINGS(null),
-    DASHBOARD_REPORTS(null),
+    DASHBOARD_SETTINGS("/edu/cyclonicforce/fr/ui/fxml/Settings.fxml"),
+    DASHBOARD_REPORTS("/edu/cyclonicforce/fr/ui/fxml/DashboardReportList.fxml"),
+    DASHBOARD_REPORT_DETAIL("/edu/cyclonicforce/fr/ui/fxml/DashboardReportDetail.fxml"),
     DASHBOARD_HELP(null),
-    IN_SCAN("/edu/cyclonicforce/fr/ui/fxml/InScan.fxml");
+    IN_SCAN("/edu/cyclonicforce/fr/ui/fxml/InScan.fxml"),
+    QUESTIONNAIRE(null);
 
     /**
      * FXML file path

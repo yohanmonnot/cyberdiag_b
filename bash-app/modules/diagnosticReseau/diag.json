@@ -1,0 +1,16 @@
+{
+    "categorie 1": [
+        "networkConfigChecker",
+        "openPortsScanner",
+        "listeningServicesChecker",
+        "wifiChecker",
+        "vpnChecker",
+        "tlsChecker",
+        "proxyChecker",
+        "externalIpChecker",
+        "networkTrafficMonitor",
+        "arpTableChecker",
+        "rogueDhcpChecker",
+        "macSpoofChecker"
+    ]
+}

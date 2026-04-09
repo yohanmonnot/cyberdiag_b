@@ -1,0 +1,11 @@
+ {
+    "name": "networkConfigChecker",
+    "version": "1.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to check network configuration",
+    "author": "Mathis HUBERT",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

@@ -10,6 +10,10 @@ import javafx.scene.text.Text;
  * Controller for the side menu in the dashboard.
  */
 public class MenuController {
+    @FXML
+    public HBox homeButton;
+    @FXML
+    public Text homeText;
     /**
      * The burger button used to toggle the side menu. 
      */
@@ -73,6 +77,7 @@ public class MenuController {
             if (appController != null) appController.toggleMenu();
         });
 
+        homeButton.setOnMouseClicked(e -> navigateTo(Scenes.DASHBOARD));
         diagnosticsButton.setOnMouseClicked(e -> navigateTo(Scenes.DASHBOARD_DIAGS));
         modulesButton.setOnMouseClicked(e -> navigateTo(Scenes.DASHBOARD_MODULES));
         reportsButton.setOnMouseClicked(e -> navigateTo(Scenes.DASHBOARD_REPORTS));
@@ -107,6 +112,7 @@ public class MenuController {
      * @param visible True to show the labels, false to hide them.
      */
     private void setLabelsVisible(boolean visible) {
+        setTextState(homeText, visible);
         setTextState(diagnosticsText, visible);
         setTextState(modulesText, visible);
         setTextState(reportsText, visible);

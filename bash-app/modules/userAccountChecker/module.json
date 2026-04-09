@@ -1,0 +1,11 @@
+{
+	"name": "userAccountChecker",
+	"version": "1.0",
+	"type": "tool",
+    "category": "security analysis",
+	"description": "Analyse les comptes utilisateurs et identifie les comptes non sécurisés ou inutilisés.",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}

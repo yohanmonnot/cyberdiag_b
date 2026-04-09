@@ -1,6 +1,16 @@
 #!/bin/bash
 
-source "$(dirname "$0")/utils/logger.sh"
+set -e
+
+if [[ $EUID -ne 0 ]]; then
+   echo "Ce script doit être lancé en tant que root (sudo)"
+   exit 1
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+source "$SCRIPT_DIR/utils/logger.sh"
 
 MODE="gui"
 SCRIPT_NAME=""
@@ -61,13 +71,27 @@ run_module() {
     local MODULE_NAME="$1"
     shift
     for d in "$MODULES_DIR"/*/; do
-        META="$d/module.json"
+        local META="$d/module.json"
         if [[ -f "$META" && "$(jq -r '.name' "$META")" == "$MODULE_NAME" ]]; then
-            SCRIPT="$d/$(jq -r '.main' "$META")"
+
+            # --- VÉRIFICATION DES DÉPENDANCES ---
+            local DEPS
+            DEPS=$(jq -r '.dependencies[] // empty' "$META")
+            for dep in $DEPS; do
+                if ! command -v "$dep" >/dev/null 2>&1; then
+                    log_error "Dépendance manquante pour le module '$MODULE_NAME' : '$dep'"
+                    log_info "Veuillez installer '$dep' pour utiliser ce module."
+                    return 1
+                fi
+            done
+            # ------------------------------------
+
+            local SCRIPT="$d/$(jq -r '.main' "$META")"
             if [[ ! -f "$SCRIPT" ]]; then
                 log_error "Script $SCRIPT not found for module $MODULE_NAME"
                 return 1
             fi
+
             log_info "Starting module '$MODULE_NAME'"
             bash "$SCRIPT" "$@"
             log_info "Finished module '$MODULE_NAME'"
@@ -113,59 +137,56 @@ run_cli() {
 # SCRIPT mode
 run_script() {
     # Cas spécial : list
-    if [[ "${SCRIPT_ARGS[0]}" == "list" ]]; then
+    if [[ "$SCRIPT_NAME" == "list" ]]; then
         log_info "Listing modules with filter='$LIST_FILTER', sort='$LIST_SORT'"
         list_modules "$LIST_FILTER" "$LIST_SORT"
         return 0
     fi
 
-    # Déterminer si le mode test est activé globalement
-    local TEST_MODE=false
-    local CLEAN_ARGS=()
-    for arg in "${SCRIPT_ARGS[@]}"; do
-        if [[ "$arg" == "--test" ]]; then
-            TEST_MODE=true
-        else
-            CLEAN_ARGS+=("$arg")
-        fi
-    done
-
-    # On boucle sur chaque module demandé
-    for MODULE_NAME in "${CLEAN_ARGS[@]}"; do
-        local MODULE_DIR="$MODULES_DIR/$MODULE_NAME"
+    if [[ -n "$SCRIPT_NAME" ]]; then
+        # On vérifie si le module existe avant de lancer
+        local MODULE_DIR="$MODULES_DIR/$SCRIPT_NAME"
         local META_FILE="$MODULE_DIR/module.json"
 
         if [[ -d "$MODULE_DIR" && -f "$META_FILE" ]]; then
-            # 1. Exécution du module
-            run_module "$MODULE_NAME"
-
-            # 2. Exécution des tests si le flag était présent
-            if [[ "$TEST_MODE" == true ]]; then
-                local TEST_SCRIPT
-                TEST_SCRIPT=$(jq -r '.test // empty' "$META_FILE" 2>/dev/null)
-
-                if [[ -z "$TEST_SCRIPT" ]]; then
-                    TEST_SCRIPT="$MODULE_DIR/test.sh"
-                else
-                    TEST_SCRIPT="$MODULE_DIR/$TEST_SCRIPT"
-                fi
-
-                if [[ -f "$TEST_SCRIPT" ]]; then
-                    log_info "Running tests for module '$MODULE_NAME'"
-                    bash "$TEST_SCRIPT"
-                else
-                    log_warn "Test script not found for '$MODULE_NAME': $TEST_SCRIPT"
-                fi
-            fi
+            # On passe SCRIPT_ARGS (@) au module
+            run_module "$SCRIPT_NAME" "${SCRIPT_ARGS[@]}"
         else
-            log_error "Module '$MODULE_NAME' not found (directory or module.json missing)."
+            log_error "Module '$SCRIPT_NAME' not found."
+            exit 1
         fi
-    done
+    else
+        log_error "No module specified."
+        exit 1
+    fi
+}
+
+run_all_tests() {
+    log_info "Démarrage des tests globaux des modules..."
+
+    if [[ ! -f "$SCRIPT_DIR/utils/test_modules.sh" ]]; then
+        log_error "Script utils/test_modules.sh introuvable."
+        exit 1
+    fi
+
+    bash "$SCRIPT_DIR/utils/test_modules.sh"
+    EXIT_CODE=$?
+
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        log_error "Certains modules sont invalides."
+        exit 1
+    fi
+
+    log_info "Tous les modules sont valides."
 }
 
 # Argument parsing (after functions so variables exist)
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --test)
+            run_all_tests
+            exit 0
+            ;;
         --cli)
             MODE="cli"
             shift
@@ -177,7 +198,13 @@ while [[ $# -gt 0 ]]; do
         --script)
             MODE="script"
             shift
-            while [[ $# -gt 0 && "$1" != --* ]]; do
+
+            if [[ $# -gt 0 ]]; then
+                SCRIPT_NAME="$1"
+                shift
+            fi
+
+            while [[ $# -gt 0 ]]; do
                 SCRIPT_ARGS+=("$1")
                 shift
             done
@@ -199,7 +226,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         *)
             log_error "Unknown argument: $1"
-            log_info "Usage: $0 [--gui|--cli] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
+            log_info "Usage: $0 [--gui|--cli|--test] [--script arg1 arg2 ...] [--interface module_name] [--filter type] [--sort field]"
             exit 1
             ;;
     esac

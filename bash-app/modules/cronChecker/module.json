@@ -1,0 +1,11 @@
+{
+	"name": "cronChecker",
+	"version": "1.0",
+	"type": "tool",
+    "category": "security analysis",
+	"description": "Vérifie les tâches cron planifiées et détecte les anomalies d'exécution.",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}

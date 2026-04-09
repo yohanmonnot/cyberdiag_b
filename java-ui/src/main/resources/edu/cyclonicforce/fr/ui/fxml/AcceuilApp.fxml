@@ -2,16 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="rootVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0" spacing="30.0" style="-fx-background-color: #01131C;" stylesheets="@../styles/Main.css" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.cyclonicforce.fr.ui.controller.DashboradHomeController">
+<VBox fx:id="rootVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0" spacing="30.0" style="-fx-background-color: #01131C; -fx-spacing: 10;" stylesheets="@../styles/Main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.cyclonicforce.fr.ui.controller.DashboradHomeController">
    <children>
       <HBox spacing="20.0">
          <children>
@@ -26,39 +26,78 @@
                </font>
             </Text>
          </children>
+         <VBox.margin>
+            <Insets left="30.0" />
+         </VBox.margin>
       </HBox>
       <VBox maxWidth="1.7976931348623157E308" prefHeight="200.0" style="-fx-background-color: transparent;">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                  <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="115.0" prefWidth="1500.0" spacing="20.0" style="-fx-background-color: #064A61;">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icons/CheckCircle.png" />
-                           </image>
-                        </ImageView>
-                        <Text fill="#d9d9d9" strokeType="OUTSIDE" strokeWidth="0.0" text="Faire un diagnostic">
+                        <HBox opacity="0.0" prefHeight="100.0" prefWidth="200.0" style="-fx-max-width: 0;">
+                           <opaqueInsets>
+                              <Insets left="50.0" />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <Button alignment="CENTER" layoutX="10.0" layoutY="30.0" mnemonicParsing="false" style="-fx-min-height: 75; -fx-min-width: 250; -fx-background-color: #01171F; -fx-background-radius: 20;" text="Tutoriel" textFill="WHITE">
                            <font>
-                              <Font size="48.0" />
+                              <Font name="System Bold" size="32.0" />
                            </font>
-                        </Text>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="300.0" layoutY="30.0" mnemonicParsing="false" style="-fx-min-height: 75; -fx-min-width: 250; -fx-background-color: #01171F; -fx-background-radius: 20;" text="Mes rapports" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="300.0" layoutY="30.0" mnemonicParsing="false" style="-fx-min-height: 75; -fx-min-width: 250; -fx-background-color: #01171F; -fx-background-radius: 20;" text="Diagnostics" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="CENTER" layoutX="571.0" layoutY="30.0" mnemonicParsing="false" style="-fx-min-height: 75; -fx-min-width: 250; -fx-background-color: #01171F; -fx-background-radius: 20;" text="Modules" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="32.0" />
+                           </font>
+                        </Button>
                      </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="60.0" fx:id="diagnosticCardsHBox">
-                     <children>
-
-                     </children>
-                     <padding>
-                        <Insets left="30.0" right="30.0" />
-                     </padding>
-                  </HBox>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Faire un diagnostique :" underline="true">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Text>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-min-height: 235;" vbarPolicy="NEVER">
+                     <content>
+                        <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-min-height: 235;" />
+                     </content>
+                  </ScrollPane>
+                  <Text fill="WHITE" layoutX="10.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisir ses modules :" underline="true">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Text>
+                  <ScrollPane layoutX="10.0" layoutY="219.0" prefHeight="200.0" prefWidth="200.0" style="-fx-min-height: 235;" vbarPolicy="NEVER">
+                     <content>
+                        <FlowPane prefHeight="200.0" prefWidth="200.0" style="-fx-min-height: 235;" />
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
          </children>
       </VBox>
    </children>
    <padding>
-      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+      <Insets bottom="30.0" right="30.0" top="30.0" />
    </padding>
 </VBox>
