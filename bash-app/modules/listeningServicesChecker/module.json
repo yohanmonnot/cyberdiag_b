@@ -1,0 +1,11 @@
+ {
+    "name": "listeningServicesChecker",
+    "version": "1.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to check listening services",
+    "author": "Mathis HUBERT",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

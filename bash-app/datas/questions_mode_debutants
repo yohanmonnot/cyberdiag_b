@@ -1,0 +1,300 @@
+[
+  {
+    "question": "Que se passe-t-il en ce moment ?",
+    "reponses": [
+      {
+        "text": "Mon ordinateur est plus lent que d’habitude",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "processChecker", "serviceChecker"]
+      },
+      {
+        "text": "J’ai peur qu’il soit infecté",
+        "modules": ["malwareScan", "antivirusChecker", "processChecker", "logAnalyzer"]
+      },
+      {
+        "text": "Internet ne fonctionne pas correctement",
+        "modules": ["networkConfigChecker", "internetConnectivityTest", "dnsConfigChecker", "gatewayReachabilityTest"]
+      },
+      {
+        "text": "Rien de particulier, je veux juste vérifier",
+        "modules": ["majChecker", "firewallChecker", "passwordChecker"]
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "networkConfigChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Avez-vous fait quelque chose d’inhabituel récemment ?",
+    "reponses": [
+      {
+        "text": "Installé un nouveau logiciel",
+        "modules": ["majChecker", "processChecker", "serviceChecker"]
+      },
+      {
+        "text": "Branché une clé USB",
+        "modules": ["usbChecker", "malwareScan"]
+      },
+      {
+        "text": "Utilisé un Wi-Fi public",
+        "modules": ["wifiChecker", "vpnChecker", "firewallRulesAudit"]
+      },
+      {
+        "text": "Non",
+        "modules": []
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["logAnalyzer", "processChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Souhaitez-vous vérifier l’état général ou la sécurité ?",
+    "reponses": [
+      {
+        "text": "État général (performance)",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "osInfo"]
+      },
+      {
+        "text": "Sécurité de mon ordinateur",
+        "modules": ["antivirusChecker", "firewallChecker", "passwordChecker", "majChecker"]
+      },
+      {
+        "text": "Sécurité de mon réseau",
+        "modules": ["networkConfigChecker", "openPortsScanner", "firewallRulesAudit", "externalIpChecker"]
+      },
+      {
+        "text": "Tout vérifier",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker", "antivirusChecker", "firewallChecker", "malwareScan", "networkConfigChecker", "openPortsScanner"]
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Votre priorité actuelle ?",
+    "reponses": [
+      {
+        "text": "Améliorer les performances",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "processChecker"]
+      },
+      {
+        "text": "Vérifier que je ne suis pas piraté",
+        "modules": ["malwareScan", "logAnalyzer", "suidSgidChecker", "privilegesChecker"]
+      },
+      {
+        "text": "Vérifier mon réseau",
+        "modules": ["networkConfigChecker", "openPortsScanner", "wifiChecker", "dnsConfigChecker"]
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "networkConfigChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Avez-vous remarqué un comportement étrange ?",
+    "reponses": [
+      {
+        "text": "Fenêtres ou programmes inconnus",
+        "modules": ["processChecker", "malwareScan"]
+      },
+      {
+        "text": "Connexion Internet instable",
+        "modules": ["internetConnectivityTest", "gatewayReachabilityTest", "networkTrafficMonitor"]
+      },
+      {
+        "text": "Demandes de mot de passe inhabituelles",
+        "modules": ["passwordChecker", "userAccountChecker", "sudoConfigChecker"]
+      },
+      {
+        "text": "Non",
+        "modules": []
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["logAnalyzer", "processChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Votre poste contient-il des données sensibles (administrés, clients, RH, finances) ?",
+    "reponses": [
+      {
+        "text": "Oui, régulièrement",
+        "modules": ["encryptionChecker", "passwordChecker", "privilegesChecker", "sudoConfigChecker", "userAccountChecker", "majChecker"]
+      },
+      {
+        "text": "Occasionnellement",
+        "modules": ["passwordChecker", "privilegesChecker", "majChecker"]
+      },
+      {
+        "text": "Non",
+        "modules": []
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["majChecker", "passwordChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Votre poste est-il partagé entre plusieurs agents ou collaborateurs ?",
+    "reponses": [
+      {
+        "text": "Oui",
+        "modules": ["userAccountChecker", "privilegesChecker", "passwordChecker", "sudoConfigChecker"]
+      },
+      {
+        "text": "Non",
+        "modules": []
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["userAccountChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Avez-vous constaté des ralentissements inhabituels récemment ?",
+    "reponses": [
+      {
+        "text": "Oui, importants",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "processChecker", "serviceChecker"]
+      },
+      {
+        "text": "Oui, légers",
+        "modules": ["cpuUsage", "ramUsage"]
+      },
+      {
+        "text": "Non",
+        "modules": []
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["cpuUsage", "ramUsage"]
+      }
+    ]
+  },
+  {
+    "question": "Votre poste est-il connecté au réseau interne de la collectivité ou de l'entreprise ?",
+    "reponses": [
+      {
+        "text": "Oui",
+        "modules": ["networkConfigChecker", "openPortsScanner", "firewallRulesAudit", "arpTableChecker", "dnsConfigChecker"]
+      },
+      {
+        "text": "Non, uniquement Internet",
+        "modules": ["networkConfigChecker", "externalIpChecker", "firewallRulesAudit"]
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["networkConfigChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Accédez-vous à des serveurs internes ou distants (RDP, SSH, VPN, partages réseau) ?",
+    "reponses": [
+      {
+        "text": "Oui régulièrement",
+        "modules": ["vpnChecker", "sshConfigChecker", "openPortsScanner", "firewallChecker", "tlsChecker"]
+      },
+      {
+        "text": "Occasionnellement",
+        "modules": ["vpnChecker", "sshConfigChecker"]
+      },
+      {
+        "text": "Non",
+        "modules": []
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["vpnChecker", "sshConfigChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Des logiciels ont-ils été installés récemment sur ce poste ?",
+    "reponses": [
+      {
+        "text": "Oui par moi",
+        "modules": ["majChecker", "processChecker", "serviceChecker"]
+      },
+      {
+        "text": "Oui par un prestataire ou service informatique",
+        "modules": ["majChecker"]
+      },
+      {
+        "text": "Non",
+        "modules": []
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["majChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Utilisez-vous des périphériques externes (clé USB, disque dur externe) ?",
+    "reponses": [
+      {
+        "text": "Oui régulièrement",
+        "modules": ["usbChecker", "malwareScan", "logAnalyzer"]
+      },
+      {
+        "text": "Occasionnellement",
+        "modules": ["usbChecker"]
+      },
+      {
+        "text": "Non",
+        "modules": []
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["usbChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Avez-vous reçu des emails suspects ou ouvert des pièces jointes douteuses ?",
+    "reponses": [
+      {
+        "text": "Oui",
+        "modules": ["malwareScan", "processChecker", "logAnalyzer", "antivirusChecker"]
+      },
+      {
+        "text": "Peut-être",
+        "modules": ["malwareScan", "antivirusChecker"]
+      },
+      {
+        "text": "Non",
+        "modules": []
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["malwareScan", "antivirusChecker"]
+      }
+    ]
+  },
+  {
+    "question": "Souhaitez-vous un contrôle standard ou approfondi de votre poste ?",
+    "reponses": [
+      {
+        "text": "Standard (rapide)",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker", "firewallChecker", "networkConfigChecker"]
+      },
+      {
+        "text": "Approfondi (audit complet)",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker", "antivirusChecker", "firewallChecker", "malwareScan", "passwordChecker", "privilegesChecker", "serviceChecker", "processChecker", "openPortsScanner", "networkTrafficMonitor", "sshConfigChecker", "encryptionChecker"]
+      },
+      {
+        "text": "Je ne sais pas",
+        "modules": ["cpuUsage", "ramUsage", "diskUsage", "majChecker", "firewallChecker"]
+      }
+    ]
+  }
+]

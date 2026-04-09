@@ -20,6 +20,12 @@ public class AccueilController {
     private VBox boutonCommencer;
 
     /**
+     * Button to start the application in questionnaire mode.
+     */
+    @FXML
+    private VBox boutonQuestionnaire;
+
+    /**
      * Sets the main application controller.
      * 
      * @param appController The main application controller.
@@ -35,6 +41,18 @@ public class AccueilController {
     public void onCommencerClicked() {
         if (appController != null) {
             appController.setScene(Scenes.DASHBOARD);
+        } else {
+            System.err.println("Erreur : AppController est null dans AccueilController");
+        }
+    }
+
+    /**
+     * Handles the click event on the "Questionnaire" button.
+     */
+    @FXML
+    public void onQuestionnaireClicked() {
+        if (appController != null) {
+            appController.setScene(Scenes.QUESTIONNAIRE);
         } else {
             System.err.println("Erreur : AppController est null dans AccueilController");
         }

@@ -53,14 +53,14 @@ public class Main extends Application {
 //            e.printStackTrace();
 //        }
 //
-//        System.out.println("Test d'exec du module memoryUsage");
+//        System.out.println("Test d'exec du module ramUsage");
 //        ModuleExecutor executor = new ModuleExecutor();
 //        try {
-//            ModuleReturn result = executor.runModule("memoryUsage", null);
-//            System.out.println("Resultat du module memoryUsage :");
+//            ModuleReturn result = executor.runModule("ramUsage", null);
+//            System.out.println("Resultat du module ramUsage :");
 //            System.out.println(result);
 //        } catch (Exception e) {
-//            System.out.println("Erreur lors de l'exécution du module memoryUsage : " + e.getMessage());
+//            System.out.println("Erreur lors de l'exécution du module ramUsage : " + e.getMessage());
 //            e.printStackTrace();
 //        }
     }

@@ -1,0 +1,11 @@
+ {
+    "name": "firewallRulesAudit",
+    "version": "1.0",
+    "type": "tool",
+    "category": "maintenance",
+    "description": "A module to audit firewall rules",
+    "author": "Mathis HUBERT",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

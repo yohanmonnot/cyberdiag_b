@@ -1,2 +1,2 @@
-JAVA_VERSION="25"
+JAVA_VERSION="25.0.2"
 MODULES="java.base jdk.unsupported com.google.gson java.datatransfer java.xml java.prefs java.desktop javafx.base javafx.graphics javafx.controls java.scripting javafx.fxml edu.cyclonicforce.fr.java.ui"

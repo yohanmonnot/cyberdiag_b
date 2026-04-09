@@ -1,0 +1,10 @@
+{
+    "name": "reports",
+    "version": "1.0",
+    "type": "reporting",
+    "description": "A module to store reports",
+    "author": "Célian TOUZEAU",
+    "main": "main.sh",
+    "args": ["--help", "-h", "--list", "-l", "--add", "-a", "--remove", "-r", "--get", "-g"],
+    "dependencies": ["jq"]
+}

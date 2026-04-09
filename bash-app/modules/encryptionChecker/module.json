@@ -1,0 +1,11 @@
+{
+	"name": "encryptionChecker",
+	"version": "1.0",
+	"type": "tool",
+    "category": "security analysis",
+	"description": "Vérifie les mécanismes de chiffrement du système et la sécurité des données.",
+	"author": "Nolhan BD",
+	"main": "main.sh",
+	"args": [],
+	"dependencies": ["jq"]
+}

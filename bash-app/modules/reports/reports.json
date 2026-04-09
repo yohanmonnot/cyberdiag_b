@@ -1,0 +1,599 @@
+[
+  {
+    "reportName": "Full System Scan",
+    "moduleResults": {
+      "Network": [
+        {
+          "name": "Ping Google",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "None"
+        }
+      ],
+      "Security": [
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 1,
+          "recommendation": "Start firewall"
+        },
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 2,
+          "recommendation": "Start firewall"
+        },
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 1,
+          "recommendation": "Start firewall"
+        },
+        {
+          "name": "Firewall Check",
+          "exitCode": 1,
+          "error": "Service stopped",
+          "score": 1,
+          "recommendation": "Start firewall"
+        }
+      ],
+      "Performance": [
+        {
+          "name": "CPU Usage",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Optimize running processes"
+        },
+        {
+          "name": "Memory Usage",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Close unused applications"
+        },
+        {
+          "name": "Disk Usage",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Clean up disk space"
+        }
+      ],
+      "Updates": [
+        {
+          "name": "OS Updates",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "System is up to date"
+        }
+      ],
+      "Backup": [
+        {
+          "name": "Backup Status",
+          "exitCode": 1,
+          "error": "Last backup failed",
+          "score": 1,
+          "recommendation": "Check backup logs and retry"
+        },
+        {
+          "name": "Backup Status",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Backup completed successfully"
+        },
+        {
+          "name": "Backup Status",
+          "exitCode": 1,
+          "error": "Last backup failed",
+          "score": 1,
+          "recommendation": "Check backup logs and retry"
+        }
+      ]
+    },
+    "reportDate": "2026-01-20 23:20:44",
+    "number": 0
+  },
+  {
+    "reportName": "diagTest",
+    "reportDate": "2026-01-26 19:52:45",
+    "number": 0,
+    "moduleResults": {
+      "categorie 2": [
+        {
+          "name": "privilegesChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 2,
+          "recommendation": "Certaines vérifications nécessitent l'accès root."
+        }
+      ],
+      "categorie 1": [
+        {
+          "name": "cpuUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation CPU très faible, système au repos."
+        },
+        {
+          "name": "memoryUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation mémoire très faible, système peu sollicité."
+        },
+        {
+          "name": "diskUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Espace disque largement disponible."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "cpuUsage",
+    "reportDate": "2026-01-26 19:56:02",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "cpuUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation CPU très faible, système au repos."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "diagTest",
+    "reportDate": "2026-02-10 16:24:19",
+    "number": 0,
+    "moduleResults": {
+      "categorie 2": [
+        {
+          "name": "privilegesChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Espace disque largement disponible."
+        }
+      ],
+      "categorie 1": [
+        {
+          "name": "cpuUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation CPU très faible, système au repos."
+        },
+        {
+          "name": "memoryUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation mémoire très faible, système peu sollicité."
+        },
+        {
+          "name": "diskUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Espace disque confortable."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "antivirusChecker",
+    "reportDate": "2026-02-13 11:01:06",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "antivirusChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 1,
+          "recommendation": "Aucun antivirus détecté. Installez un antivirus et mettez à jour ses bases virales."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "diskUsage",
+    "reportDate": "2026-02-13 11:41:46",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "diskUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation des partitions locales :\n- / (30%)\n- /boot/efi (7%)\n\nPartition la plus critique : / (30%).\n\nAction recommandée :\nAucune action nécessaire."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "diskUsage",
+    "reportDate": "2026-03-02 14:39:37",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "diskUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation des partitions locales :\n- / (29%)\n- /boot/efi (7%)\n\nPartition la plus critique : / (29%).\n\nAction recommandée :\nAucune action nécessaire."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "cpuUsage",
+    "reportDate": "2026-03-02 15:22:26",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "cpuUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Moyenne CPU sur 5s : 2%.\n \nProcessus dominant (moyenne sur 5s) :\n- Nom : Discord\n- PID : 6955\n- CPU : 0%"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "ramUsage",
+    "reportDate": "2026-03-02 15:42:07",
+    "number": 0,
+    "moduleResults": {}
+  },
+  {
+    "reportName": "ramUsage",
+    "reportDate": "2026-03-02 15:43:30",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "ramUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 4,
+          "recommendation": "Utilisation mémoire faible (38%).\n5797MB utilisés sur 15166MB.\nSystème stable.\n\nProcessus le plus consommateur de RAM (physique) :\n- Nom : firefox\n- PID : 4493\n- Mémoire : 692 MB"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "ramUsage",
+    "reportDate": "2026-03-02 15:52:17",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "ramUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation mémoire normale (<70%).\nUtilisation réelle : 38% (5,6 GB/14,8 GB).\nSwap utilisé : 0 MB/0 MB (0%).\nProcessus le plus consommateur de RAM :\n- Nom : firefox\n- PID : 4493\n- Mémoire : 685 MB"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "ramUsage",
+    "reportDate": "2026-03-02 16:05:10",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "ramUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation mémoire : 28% (4,3 GB/14,8 GB).\nUtilisation mémoire normale (<70%). Système stable.\n\nSwap utilisé : 0 MB/0 MB (0%)\n\nProcessus le plus consommateur de RAM :\n- Nom : firefox\n- PID : 4545\n- Mémoire : 642 MB"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "ramUsage",
+    "reportDate": "2026-03-02 16:06:52",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "ramUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation mémoire : 29% (4,4 GB/14,8 GB).\n\nSwap utilisé : 0 MB/0 MB (0%)\n\nProcessus le plus consommateur de RAM :\n- Nom : firefox\n- PID : 4545\n- Mémoire : 641 MB\n\nRecommendation : Utilisation mémoire normale (<70%). Système stable."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "wifiChecker",
+    "reportDate": "2026-03-02 16:14:53",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "wifiChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Connecté à un réseau Wi-Fi sécurisé sans VPN. Système sûr pour les opérations courantes."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "wifiChecker",
+    "reportDate": "2026-03-02 16:32:17",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "wifiChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Connecté à un réseau Wi-Fi sécurisé sans VPN. Système sûr pour les opérations courantes, mais les données sensibles ne sont pas chiffrées au niveau du VPN.\\n\\nDétails de la connexion :\\n- SSID : eduroam\\n- Sécurité : WPA2 802.1X\\n- VPN actif : false"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "wifiChecker",
+    "reportDate": "2026-03-02 16:34:50",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "wifiChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Connecté à un réseau Wi-Fi sécurisé sans VPN.\n Système sûr pour les opérations courantes, mais les données sensibles ne sont pas chiffrées au niveau du VPN.\n Détails de la connexion :\n - SSID : eduroam\n - Sécurité : WPA2 802.1X\n - VPN actif : false"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "wifiChecker",
+    "reportDate": "2026-03-02 16:35:46",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "wifiChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Connecté à un réseau Wi-Fi sécurisé sans VPN.\n Système sûr pour les opérations courantes, mais les données sensibles\n ne sont pas chiffrées au niveau du VPN.\n Détails de la connexion :\n - SSID : eduroam\n - Sécurité : WPA2 802.1X\n - VPN actif : false"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:32:52",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Aucun comportement USB suspect détecté.\\n\\nDétails de l'analyse :\\nPériphériques USB détectés :\\nBus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 001 Device 002: ID 046d:c542 Logitech, Inc. M185 compact wireless mouse\nBus 001 Device 003: ID 30c9:00ac Luxvisions Innotech Limited Integrated Camera\nBus 001 Device 004: ID 0489:e0d8 Foxconn / Hon Hai Bluetooth Adapter\nBus 001 Device 005: ID 05e3:0610 Genesys Logic, Inc. Hub\nBus 001 Device 006: ID 048d:c982 Integrated Technology Express, Inc. ITE Device(8176)\nBus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\nBus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\nBus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 006 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\nBus 007 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 008 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\\n\\n\\nRecommandations supplémentaires :\\n- Ne branchez jamais de clé USB inconnue.\\n- Désactivez l'auto-mount si non nécessaire.\\n- Utilisez un antivirus pour scanner tout périphérique externe.\\n- Sur un poste sensible, restreignez l'accès USB via les politiques système."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:35:14",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Aucun périphérique USB externe à risque détecté.\\n\\nDétails :\\nPériphériques USB connectés :\\nBus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 001 Device 002: ID 046d:c542 Logitech, Inc. M185 compact wireless mouse\nBus 001 Device 003: ID 30c9:00ac Luxvisions Innotech Limited Integrated Camera\nBus 001 Device 004: ID 0489:e0d8 Foxconn / Hon Hai Bluetooth Adapter\nBus 001 Device 005: ID 05e3:0610 Genesys Logic, Inc. Hub\nBus 001 Device 006: ID 048d:c982 Integrated Technology Express, Inc. ITE Device(8176)\nBus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\nBus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\nBus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 006 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\nBus 007 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub\nBus 008 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub\\n\\n\\nRecommandations supplémentaires :\\n- Ne branchez jamais de périphérique inconnu.\\n- Désactivez l'exécution automatique.\\n- Sur poste sensible, restreignez les ports USB.\\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:37:41",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs périphériques USB externes sont branchés. Vérifiez leur légitimité.\\n\\nDétails :\\nPériphériques USB externes détectés :\\n- Wireless Receiver (Vendor ID: 046d)\\n- ITE Device(8176) (Vendor ID: 048d)\\n\\nRecommandations supplémentaires :\\n- Débranchez les périphériques non utilisés.\\n- Ne connectez jamais de clé USB inconnue.\\n- Sur poste sensible, désactivez les ports USB si possible.\\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:39:32",
+    "number": 0,
+    "moduleResults": {}
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:40:03",
+    "number": 0,
+    "moduleResults": {}
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:40:44",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs périphériques USB externes sont branchés. Vérifiez leur légitimité.\\n\\nDétails :\\nPériphériques USB externes détectés :\\n- Wireless Receiver (Vendor ID: 046d)\\n- ITE Device(8176) (Vendor ID: 048d)\\n\\nRecommandations supplémentaires :\\n- Débranchez les périphériques non utilisés.\\n- Ne connectez jamais de clé USB inconnue.\\n- Sur poste sensible, désactivez les ports USB si possible.\\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:43:16",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs périphériques USB externes sont branchés. Vérifiez leur légitimité.\n\nDétails :\nPériphériques USB externes détectés :\\n- Wireless Receiver (Vendor ID: 046d)\\n- ITE Device(8176) (Vendor ID: 048d)\\n\nRecommandations supplémentaires :\n- Débranchez les périphériques non utilisés.\\n- Ne connectez jamais de clé USB inconnue.\\n- Sur poste sensible, désactivez les ports USB si possible.\\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:45:00",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs périphériques USB externes sont branchés. Vérifiez leur légitimité.\n\nDétails :\nPériphériques USB externes détectés :\n- $PRODUCT (Vendor ID: $VENDOR)\n- $PRODUCT (Vendor ID: $VENDOR)\n\nRecommandations supplémentaires :\n- Débranchez les périphériques non utilisés.\n- Ne connectez jamais de clé USB inconnue.\n- Sur poste sensible, désactivez les ports USB si possible.\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:46:21",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs périphériques USB externes sont branchés. Vérifiez leur légitimité.\n\nDétails :\nPériphériques USB externes détectés :\n- Wireless Receiver (Vendor ID: 046d)+\n- ITE Device(8176) (Vendor ID: 048d)+\n\nRecommandations supplémentaires :\n- Débranchez les périphériques non utilisés.\n- Ne connectez jamais de clé USB inconnue.\n- Sur poste sensible, désactivez les ports USB si possible.\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:47:05",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs périphériques USB externes sont branchés. Vérifiez leur légitimité.\n\nDétails :\nPériphériques USB externes détectés :\n\nRecommandations supplémentaires :\n- Débranchez les périphériques non utilisés.\n- Ne connectez jamais de clé USB inconnue.\n- Sur poste sensible, désactivez les ports USB si possible.\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:47:25",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs périphériques USB externes sont branchés. Vérifiez leur légitimité.\n\nDétails :\nPériphériques USB externes détectés :\n\nRecommandations supplémentaires :\n- Débranchez les périphériques non utilisés.\n- Ne connectez jamais de clé USB inconnue.\n- Sur poste sensible, désactivez les ports USB si possible.\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "usbChecker",
+    "reportDate": "2026-03-03 11:47:59",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "usbChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 3,
+          "recommendation": "Plusieurs périphériques USB externes sont branchés. Vérifiez leur légitimité.\n\nDétails :\nPériphériques USB externes détectés :\n- Wireless Receiver (Vendor ID: 046d)\n- ITE Device(8176) (Vendor ID: 048d)\n\nRecommandations supplémentaires :\n- Débranchez les périphériques non utilisés.\n- Ne connectez jamais de clé USB inconnue.\n- Sur poste sensible, désactivez les ports USB si possible.\n"
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "vpnChecker",
+    "reportDate": "2026-03-05 12:03:51",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "vpnChecker",
+          "exitCode": 0,
+          "error": "",
+          "score": 1,
+          "recommendation": "Aucune interface VPN détectée."
+        }
+      ]
+    }
+  },
+  {
+    "reportName": "diskUsage",
+    "reportDate": "2026-04-09 12:24:16",
+    "number": 0,
+    "moduleResults": {
+      "Standalone Module Scan": [
+        {
+          "name": "diskUsage",
+          "exitCode": 0,
+          "error": "",
+          "score": 5,
+          "recommendation": "Utilisation des partitions locales :\n- / (33%)\n- /boot/efi (7%)\n\nPartition la plus critique : / (33%).\n\nAction recommandée :\nAucune action nécessaire."
+        }
+      ]
+    }
+  }
+]

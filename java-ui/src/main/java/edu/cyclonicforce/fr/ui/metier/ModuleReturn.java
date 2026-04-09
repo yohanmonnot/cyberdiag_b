@@ -35,19 +35,21 @@ public class ModuleReturn {
      * @throws IllegalArgumentException if an argument is invalid
      */
     public ModuleReturn(int exitCode, String error, int score, String recommendation) {
-        if (isNotValidExitCode(exitCode)) {
-            throw new IllegalArgumentException("Status cannot be null or empty");
-        }
-        this.exitCode = exitCode;
+        setExitCode(exitCode);
+        setError(error);
+        setScore(score);
+        setRecommendation(recommendation);
+    }
 
-        this.error = Objects.requireNonNullElse(error, "");
-
-        if (score < 0 || score > 5) {
-            throw new IllegalArgumentException("Score must be between 0 and 5");
-        }
-        this.score = score;
-        
-        this.recommendation = Objects.requireNonNullElse(recommendation, "");
+    /**
+     * Copy constructor
+     * @param other ModuleReturn to copy
+     */
+    public ModuleReturn(ModuleReturn other) {
+        setExitCode(other.getExitCode());
+        setError(other.getError());
+        setScore(other.getScore());
+        setRecommendation(other.getRecommendation());
     }
 
     /**
@@ -118,8 +120,20 @@ public class ModuleReturn {
         this.recommendation = Objects.requireNonNullElse(recommendation, "");
     }
 
+    @Override
     public String toString() {
         return "ModuleReturn{ exitCode=" + exitCode + ", error='" + error + "', score=" + score + ", recommendation='" + recommendation + "' }";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ModuleReturn that = (ModuleReturn) obj;
+        return this.exitCode == that.exitCode &&
+               this.score == that.score &&
+               this.error.equals(that.error) &&
+               this.recommendation.equals(that.recommendation);
     }
 
     // helpers

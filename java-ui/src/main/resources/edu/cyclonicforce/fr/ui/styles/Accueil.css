@@ -1,25 +1,14 @@
-#VBoxBase {
-    -fx-background-color: rgba(50, 50, 50, 0.7);
-}
-
-#BoxCommencer {
+.card-hover {
     -fx-background-color: white;
-    -fx-background-radius: 40;
-    -fx-padding: 5 0 0 0;
-    -fx-cursor: hand;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.2, 0, 2);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-transition: all 0.2s ease-in-out; /* optionnel (selon version) */
 }
 
-#CyberDiag {
-    -fx-fill: #16507E;
-    -fx-font: bold 128px "System";
-}
-
-#TexteBienvenue {
-    -fx-fill: white;
-    -fx-font: 96px "System";
-}
-
-#TexteCommencer {
-    -fx-fill: #16507E;
-    -fx-font: bold 55px "System";
+.card-hover:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }

@@ -1,0 +1,10 @@
+{
+    "name": "diagnosticSecuriteSysteme",
+    "version": "1.0",
+    "type": "diagnostic",
+    "description": "A diagnostic profile: securite systeme",
+    "author": "Nolhan BD",
+    "main": "main.sh",
+    "args": [],
+    "dependencies": ["jq"]
+}

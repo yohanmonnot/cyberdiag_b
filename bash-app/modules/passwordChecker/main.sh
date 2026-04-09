@@ -14,7 +14,6 @@ RECOMMENDED_OCREDIT=-1
 RECOMMENDED_DIFOK=4
 
 # --- Initialisation ---
-STATUS="OK"
 ERROR=""
 SCORE=5
 RECOMMENDATION="La politique de mot de passe est conforme aux bonnes pratiques."
@@ -24,12 +23,16 @@ WARN_COUNT=0
 
 # --- Fonction JSON (UNE SEULE LIGNE) ---
 output_json() {
-    jq -c -n \
-      --arg status "$STATUS" \
-      --arg error "$ERROR" \
-      --argjson score "$SCORE" \
-      --arg recommendation "$RECOMMENDATION" \
-      '{status:$status,error:$error,score:$score,recommendation:$recommendation}'
+    local STATUS="$1"
+    local ERROR="$2"
+    local SCORE="$3"
+    local RECOMMENDATION="$4"
+    echo $(jq -n \
+        --arg status "$STATUS" \
+        --arg error "$ERROR" \
+        --argjson score "$SCORE" \
+        --arg recommendation "$RECOMMENDATION" \
+        '{status: $status, error: $error, score: $score, recommendation: $recommendation}')
 }
 
 # --- Récupération des fichiers PAM ---
@@ -77,7 +80,7 @@ run_checks() {
     if [[ -z "$PAM_FILES" ]]; then
         STATUS="CRITICAL"
         ERROR="Aucun fichier PAM trouvé"
-        SCORE=0
+        SCORE=1
         RECOMMENDATION="Des problèmes critiques de politique de mot de passe ont été détectés. Revue immédiate nécessaire."
         return
     fi
@@ -89,13 +92,16 @@ run_checks() {
     check_numeric "$(get_option_value ocredit)" "$RECOMMENDED_OCREDIT" ge
     check_numeric "$(get_option_value difok)"   "$RECOMMENDED_DIFOK" ge
 
-    if (( WARN_COUNT > 0 )); then
+    if (( WARN_COUNT > 1 )); then
         STATUS="WARNING"
         RECOMMENDATION="Des améliorations de la politique de mot de passe sont recommandées."
     fi
 
     TOTAL=$((OK_COUNT + WARN_COUNT))
-    (( TOTAL > 0 )) && SCORE=$(( OK_COUNT * 5 / TOTAL ))
+    if (( TOTAL > 0 )); then
+        SCORE=$(( OK_COUNT * 5 / TOTAL ))
+        (( SCORE < 1 )) && SCORE=1
+    fi
 }
 
 # --- Tests internes ---
@@ -126,10 +132,16 @@ run_self_tests() {
 }
 
 # --- Main ---
-if [[ "$1" == "--test" ]]; then
-    run_self_tests
-    exit 0
-fi
+main() {
+    if [[ "$1" == "--test" ]]; then
+        run_self_tests
+        exit 0
+    fi
 
-run_checks
-output_json
+    log_info "[passwordChecker] Démarrage du module de vérification des mot de passe..."
+    run_checks
+    log_info "[passwordChecker] Vérification terminée avec un score de $SCORE/5"
+    output_json "OK" "" "$SCORE" "$RECOMMENDATION"
+}
+
+main "$@"

@@ -10,7 +10,7 @@
   * [Modes disponibles](#modes-disponibles)
   * [Options pour `--script`](#options-pour---script)
   * [Exemples](#exemples)
-* [Modules inclus et à venir](#modules-inclus-et-à-venir)
+* [Modules inclus](#modules-inclus)
 * [Contribution](#contribution)
 * [Équipe](#équipe)
 
@@ -23,6 +23,7 @@
 * **Modulaire** : ajout et mise à jour facile de modules indépendants.
 * **Polyvalent** : utilisable en mode terminal Bash ou via interface graphique Java.
 * **Centralisé** : le script principal `bash-app/main.sh` gère le lancement de tous les modules et interfaces.
+* **Profilable** : exécution possible par profils de diagnostics (`diagnosticRapide`, `diagnosticReseau`, etc.).
 
 Il fonctionne en réseau isolé (version portable) ou modulable avec Internet (version modulaire).
 
@@ -35,21 +36,50 @@ cyberdiag_b/
 ├── bash-app/
 │   ├── main.sh              # Script principal centralisant tous les modules
 │   ├── modules/             # Modules fonctionnels
-│   │   ├── cpuUsage/
-│   │   ├── memoryUsage/
-│   │   ├── diskUsage/
-│   │   ├── majChecker/
 │   │   ├── antivirusChecker/
+│   │   ├── arpTableChecker/
+│   │   ├── bluetoothChecker/
+│   │   ├── cliInterface/
+│   │   ├── cpuUsage/
+│   │   ├── cronChecker/
+│   │   ├── diagTest/
+│   │   ├── diskUsage/
+│   │   ├── encryptionChecker/
+│   │   ├── externallpChecker/
 │   │   ├── firewallChecker/
+│   │   ├── firewallRulesAudit/
+│   │   ├── gatewayReachabilityTest/
+│   │   ├── graphicInterface/
+│   │   ├── internetConnectivityTest/
+│   │   ├── listeningServicesChecker/
+│   │   ├── logAnalyzer/
+│   │   ├── macSpoofChecker/
+│   │   ├── majChecker/
+│   │   ├── macSpoofChecker/
 │   │   ├── malwareScan/
+│   │   ├── networkConfigChecker/
+│   │   ├── networkTrafficMonitor/
+│   │   ├── openPortsScanner/
+│   │   ├── osInfo/
 │   │   ├── passwordChecker/
 │   │   ├── privilegesChecker/
+│   │   ├── processChecker/
+│   │   ├── proxyChecker/
+│   │   ├── quizExample/
+│   │   ├── ramUsage/
+│   │   ├── reports/
+│   │   ├── rogueDhcpChecker/
+│   │   ├── secureBootChecker/
+│   │   ├── serviceChecker/
+│   │   ├── sshConfigChecker/
+│   │   ├── sudoConfigChecker/
+│   │   ├── suidSgidChecker/
+│   │   ├── tlsChecker/
+│   │   ├── updateConfigChecker/
 │   │   ├── usbChecker/
-│   │   ├── wifiChecker/
-│   │   ├── cliInterface/
-│   │   ├── graphicInterface/
-│   │   ├── testArgs/
-│   │   └── exampleModule/
+│   │   ├── userAccountChecker/
+│   │   ├── vpnChecker/
+│   │   └── wifiChecker/
 │   └── utils/               # Scripts utilitaires (env, logger)
 ├── java-ui/                 # Interface graphique Java
 ├── Documentations/          # Documents clients et veille technologique
@@ -69,7 +99,7 @@ Chaque module contient :
 * Linux ou macOS pour Bash
 * `jq` pour parser les fichiers JSON
 * Java 17+ pour l’interface graphique
-* Gradle (ou utilisation du wrapper `gradlew`)
+* Maven
 
 ---
 
@@ -118,10 +148,34 @@ ou
 ./main.sh --script cpuUsage
 ```
 
+* Exécuter le test d'un module :
+
+```bash
+./main.sh --script cpuUsage --test
+```
+
+* Exécuter le test de tous les modules:
+
+```bash
+./main.sh --test
+```
+
 * Lister tous les modules filtrés par type `monitoring` et triés par description :
 
 ```bash
 ./main.sh --script list --filter monitoring --sort description
+```
+
+* Lancer les tests globaux :
+
+```bash
+./main.sh --test
+```
+
+* Exécuter un profil de diagnostic :
+
+```bash
+./main.sh --script diagnosticRapide
 ```
 
 * Lancer un module d’interface spécifique :
@@ -132,43 +186,76 @@ ou
 
 ---
 
-## Modules inclus et à venir
+## Modules inclus
 
-### Modules actuellement disponibles
-
-#### 🖥️ Modules de Monitoring
+### Module de Monitoring et système
 
 * `cpuUsage` : suivi CPU et utilisation processeur
-* `memoryUsage` : suivi mémoire RAM
 * `diskUsage` : suivi espace disque
+* `externalIpChecker` : récupération de l’adresse IP publique
+* `gatewayReachabilityTest` : test de disponibilité de la passerelle réseau
+* `internetConnectivityTest` : vérification de l’accès à Internet
+* `networkConfigChecker` : contrôle de la configuration réseau (IP, DNS, gateway)
+* `networkTrafficMonitor` : surveillance du trafic réseau
+* `osInfo` : récupération des informations système (OS, kernel)
+* `ramUsage` : suivi mémoire RAM
 
-#### 🔧 Modules de Maintenance
+
+### Modules de maintenance
 
 * `majChecker` : vérification des mises à jour système
-* `passwordChecker` : vérification et analyse des mots de passe
-* `privilegesChecker` : vérification des droits et permissions utilisateur
+* `updateConfigChecker` : contrôle de la configuration des mises à jour automatiques
+* `logAnalyzer` : analyse rapide des logs système et de sécurité
 
-#### 🔒 Modules de Sécurité
+### Modules de sécurité
 
 * `antivirusChecker` : analyse l'état de fonctionnement de l'antivirus
+* `arpTableChecker` : détection d’anomalies dans la table ARP (ARP poisoning)
+* `bluetoothChecker` : analyse de l’état et des risques liés au Bluetooth
+* `cronChecker` : détection de tâches planifiées suspectes
+* `encryptionChecker` : vérification du chiffrement des disques (LUKS)
 * `firewallChecker` : vérification du pare-feu et sa configuration
+* `firewallRulesAudit` : audit des règles firewall et détection de règles permissives
+* `listeningServicesChecker` : identification des services réseau suspects
+* `macSpoofChecker` : détection de spoofing d’adresse MAC
 * `malwareScan` : analyse des malwares sur le système
+* `openPortsScanner` : détection des ports ouverts exposés
+* `passwordChecker` : vérification et analyse des mots de passe
+* `privilegesChecker` : analyse des privilèges utilisateurs et élévations
+* `processChecker` : détection de processus suspects
+* `proxyChecker` : détection de configuration proxy potentiellement risquée
+* `rogueDhcpChecker` : détection de serveurs DHCP non autorisés
+* `secureBootChecker` : vérification de l’état du Secure Boot
+* `serviceChecker` : identification de services inutiles ou dangereux
+* `sshConfigChecker` : audit de la configuration SSH
+* `sudoConfigChecker` : analyse des règles sudo à risque
+* `suidSgidChecker` : détection de binaires SUID/SGID sensibles
+* `tlsChecker` : vérification du support TLS sécurisé
 * `usbChecker` : détection et contrôle des appareils USB
+* `userAccountChecker` : détection de comptes utilisateurs suspects ou inactifs
+* `vpnChecker` : vérification de la présence et de l’état d’un VPN
 * `wifiChecker` : vérification des connexions réseau et recommandations de sécurité
 
-#### 🖥️ Interfaces
+
+### Interfaces et support
 
 * `cliInterface` : interface terminal textuelle
+* `diagTest` : module de test global pour validation du système
 * `graphicInterface` : interface graphique Java
-* `exampleModule` : modèle pour créer de nouveaux modules
+* `quizExample` : module d’exemple interactif
+* `reports` : génération de rapports d’analyse
 
-### Modules prévus / futurs
 
-* **Diagnostics réseau avancés** : tests de connectivité, analyse des ports, bande passante, détection des anomalies réseau
-* **Diagnostics préconfigurés** : ensembles de tests combinant plusieurs modules pour un audit rapide et complet
-* **Rapports d'audit** : génération automatique de rapports PDF/HTML
+### Profils de diagnostics
 
-> Chaque nouveau module est autonome et peut être appelé individuellement via `main.sh --script <module>` ou intégré dans une interface.
+* `diagnosticRapide`
+* `diagnosticReseau`
+* `diagnosticSecuriteSysteme`
+* `diagnosticOutils`
+* `diagnosticInterfaces`
+* `diagnosticComplet`
+
+Total : **48 modules**
 
 ---
 
@@ -201,4 +288,4 @@ git checkout -b feature/nom-fonctionnalité
 | HUBERT Mathis               | Graphiste + Contenu visuel            |
 | LÉTANG Augustin             | SCRUM Master + Front-end et Graphisme |
 | MONNOT Yohan                | Développement Front-end + Contenu     |
-| BLANCHETIÈRE--DRÔLON Nolhan | Communication + Back-end              |
+| BD Nolhan | Communication + Back-end              |

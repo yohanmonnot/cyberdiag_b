@@ -16,7 +16,7 @@ public class SettingsSingleton {
     /**
      * A map to store parsed argument names and their corresponding values.
      */
-    private Map<String, Object> parsedArguments;
+    private final Map<String, Object> parsedArguments;
 
     /**
      * Private constructor to prevent instantiation from outside the class.
@@ -44,7 +44,8 @@ public class SettingsSingleton {
      */
     private static Map<String, Object> getConstants() {
         return Map.of(
-                "projectRootPath", "."
+                "projectRootPath", ".",
+                "savePath", "./reports-exports"
         );
     }
 
@@ -68,5 +69,9 @@ public class SettingsSingleton {
             return null;
         }
         return (T) this.parsedArguments.get(argName);
+    }
+
+    public void set(String argName, Object value) {
+        this.parsedArguments.put(argName, value);
     }
 }

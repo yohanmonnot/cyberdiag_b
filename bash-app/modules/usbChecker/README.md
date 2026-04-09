@@ -1,19 +1,30 @@
 # usbChecker
 
 ## Description
-`usbChecker` est un module Bash destiné à contrôler les équipements USB connectés à un système Linux. Il permet de détecter la présence de périphériques USB inconnus, souvent associés à des risques de sécurité (clé USB piégée, périphérique abandonné, attaque de type BadUSB). Le module fournit une évaluation simple et une recommandation basée sur les bonnes pratiques de sécurité.
+`usbChecker` est un module Bash permettant de **surveiller les périphériques USB connectés** sur un système Linux.
+Il détecte les périphériques physiques branchés, identifie les risques potentiels liés aux périphériques de stockage ou inconnus, et fournit un **score de sécurité USB** ainsi que des recommandations.
+
+Le module :
+- affiche le résultat JSON sur la sortie standard (**stdout**)
+- peut identifier : périphériques de stockage, smartphones, périphériques inconnus et périphériques d’entrée (clavier, souris)
 
 ## Fonctionnalités
-- Détection automatique du système d’exploitation (Linux uniquement).
-- Vérification de la disponibilité de l’outil `lsusb`.
-- Inventaire des périphériques USB connectés.
-- Détection des équipements USB identifiés comme « Unknown ».
-- Calcul d’un score de sécurité de 1 à 5.
-- Retour structuré en JSON incluant :
+- Détection automatique des périphériques USB connectés avec `lsusb`.
+- Identification des types de périphériques :
+  - Stockage USB (clé, disque, etc.)
+  - Smartphones et tablettes
+  - Périphériques inconnus
+  - Périphériques d’entrée connus (clavier, souris)
+- Calcul d’un **score de risque USB sur 5 niveaux** :
+  - 5 : aucun périphérique externe ou uniquement périphériques d’entrée connus
+  - 4 : appareil mobile connecté
+  - 3 : périphérique de stockage USB connecté
+  - 1 : périphérique inconnu détecté
+- Retour structuré en JSON incluant :
   - `status` : OK ou FAIL
   - `error` : message d’erreur le cas échéant
   - `score` : note sur 5
-  - `recommendation` : recommandation de sécurité associée au résultat
+  - `recommendation` : recommandations détaillées pour la gestion des périphériques USB
 
 ## Structure
 usbChecker/
@@ -21,18 +32,41 @@ usbChecker/
 ├── module.json
 └── README.md
 
-- `main.sh` : script principal du module.
-- `module.json` : métadonnées du module.
-- `README.md` : documentation du module.
+- `main.sh` : script principal du module
+- `module.json` : métadonnées du module
+- `README.md` : documentation du module
 
 ## Logique d’évaluation
-- **Score 5** : Aucun équipement USB inconnu détecté.
-- **Score 3** : Présence d’un ou plusieurs équipements USB inconnus.
-- **Score 0** : Système non supporté ou outil requis absent.
-
-Le module ne bloque pas les périphériques : il se limite à une détection et à une alerte.
+- **Score 5** : aucun périphérique externe ou uniquement périphériques d’entrée connus → système sécurisé
+- **Score 4** : appareil mobile détecté → vérifier le mode de connexion (charge uniquement recommandé)
+- **Score 3** : périphérique de stockage détecté → risque d’infection ou d’exfiltration
+- **Score 1** : périphérique inconnu détecté → risque critique
 
 ## Utilisation
-En ligne de commande :
+
 ```bash
 ./main.sh --script usbChecker
+```
+
+### Mode test
+```bash
+./main.sh --script usbChecker --test
+```
+
+### Exemple de sortie JSON
+
+```json
+{
+  "status": "OK",
+  "error": "",
+  "score": 3,
+  "recommendation": "Périphérique de stockage USB détecté. Risque d'infection ou d'exfiltration.\n\nDétails :\n- SanDisk Ultra (Vendor ID: 0781)\n\nRecommandations supplémentaires :\n- Ne connectez jamais de clé USB inconnue.\n- Désactivez l'exécution automatique.\n- Utilisez un antivirus pour scanner tout stockage externe.\n- Sur poste sensible, limitez l'accès aux ports USB."
+}
+```
+
+## Bonnes pratiques
+- Ne connectez jamais de périphériques USB inconnus ou non sécurisés.
+- Désactivez l’exécution automatique pour tous les périphériques externes.
+- Analysez tout périphérique de stockage avec un antivirus avant utilisation.
+- Sur les postes sensibles, limitez l’accès physique aux ports USB.
+- Favorisez les périphériques connus et fiables (clavier, souris, écran, stockage sécurisé).

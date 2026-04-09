@@ -1,20 +1,25 @@
 package edu.cyclonicforce.fr.ui.controller;
 
 import edu.cyclonicforce.fr.ui.lib.bashExecutor.ListModule;
+import edu.cyclonicforce.fr.ui.lib.util.Logger;
+import edu.cyclonicforce.fr.ui.metier.*;
 import edu.cyclonicforce.fr.ui.metier.Module;
-import edu.cyclonicforce.fr.ui.metier.ModuleType;
-import edu.cyclonicforce.fr.ui.metier.ScanType;
-import edu.cyclonicforce.fr.ui.metier.Scenes;
+import edu.cyclonicforce.fr.ui.view.PopUpLoader;
 import edu.cyclonicforce.fr.ui.view.ViewLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class AppController {
+    Logger log;
+
     private final Stage mainStage;
     private Scenes currentScene = null;
 
@@ -28,13 +33,15 @@ public class AppController {
     // On garde une référence générique au contrôleur central s'il implémente l'interface
     private DasboardController dashboardController;
     private InScanController inScanController;
+    private DashboardReportDetailController dashboardReportDetailController;
 
     // État du menu : true = ouvert (300px), false = fermé (100px)
-    private boolean menuState = true;
+    private boolean menuState = false;
 
     public AppController(Stage mainStage) {
         if (mainStage == null) throw new IllegalArgumentException("Stage cannot be null");
         this.mainStage = mainStage;
+        this.log = Logger.getInstance();
 
         refreshModules();
     }
@@ -79,9 +86,28 @@ public class AppController {
 
                 this.inScanController = loader.getController();
 
+                if (this.inScanController == null) {
+                    log.error("InScanController is null after loading IN_SCAN scene.");
+                }
+
                 Scene inScanScene = new Scene(loader.getRoot());
                 this.mainStage.setTitle("CyberDiag - Analyse en cours");
                 this.mainStage.setScene(inScanScene);
+                this.currentScene = sceneToDisplay;
+            }
+
+            case DASHBOARD_REPORT_DETAIL -> {
+                if (this.dashboardRoot == null) {
+                    initDashboardStructure();
+                }
+
+                ViewLoader<DashboardReportDetailController> loader = new ViewLoader<>();
+                loader.load(Scenes.DASHBOARD_REPORT_DETAIL.getPath(), this);
+                loader.getController().setAppController(this);
+                this.dashboardReportDetailController = loader.getController();
+                this.dashboardRoot.setCenter(loader.getRoot());
+                this.mainStage.setTitle("CyberDiag - Détail du rapport");
+                this.mainStage.setScene(this.dashboardScene);
                 this.currentScene = sceneToDisplay;
             }
 
@@ -98,6 +124,9 @@ public class AppController {
                 this.currentScene = sceneToDisplay;
             }
         }
+
+        this.mainStage.setWidth(this.mainStage.getWidth() + 0.001);
+        this.mainStage.setWidth(this.mainStage.getWidth() - 0.001);
     }
 
     private void initDashboardStructure() {
@@ -109,6 +138,7 @@ public class AppController {
         menuLoader.load("/edu/cyclonicforce/fr/ui/fxml/menu.fxml", this);
 
         this.menuController = menuLoader.getController();
+        this.menuController.setExpandedMode(false);
         this.menuController.setAppController(this);
 
         // Initialisation de l'état visuel du menu (Ouvert par défaut)
@@ -136,6 +166,7 @@ public class AppController {
         if (controller instanceof DasboardController) {
             this.dashboardController = (DasboardController) controller;
             this.dashboardController.toggleSize(this.menuState);
+            this.dashboardController.setAppController(this);
         } else {
             this.dashboardController = null;
         }
@@ -165,11 +196,62 @@ public class AppController {
     }
 
     public void startScan(ScanType scanType, String moduleName) {
+        setScene(Scenes.IN_SCAN);
         if (this.inScanController != null) {
             this.inScanController.startScan(scanType, moduleName);
-            setScene(Scenes.IN_SCAN);
         } else {
-            System.err.println("InScanController is not initialized.");
+            log.error("InScanController is not initialized.");
         }
+    }
+
+    public void showReportDetail(DiagnosticReport report) {
+        setScene(Scenes.DASHBOARD_REPORT_DETAIL);
+        if (this.dashboardReportDetailController != null) {
+            this.dashboardReportDetailController.setDiagnosticReport(report);
+        } else {
+            log.error("DashboardReportDetailController is not initialized.");
+        }
+    }
+
+    public void openPopup(PopUpData popUpData) {
+        Stage popup = new Stage();
+
+        PopUpLoader loader = new PopUpLoader();
+        loader.load(popUpData);
+
+        popup.initStyle(StageStyle.TRANSPARENT);
+
+        Scene scene = loader.getScene();
+        scene.setFill(Color.TRANSPARENT);
+        popup.setScene(scene);
+
+        Parent root = scene.getRoot();
+        final double[] xOffset = {0};
+        final double[] yOffset = {0};
+
+        root.setOnMousePressed(event -> {
+            xOffset[0] = event.getScreenX() - popup.getX();
+            yOffset[0] = event.getScreenY() - popup.getY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            popup.setX(event.getScreenX() - xOffset[0]);
+            popup.setY(event.getScreenY() - yOffset[0]);
+        });
+
+        popup.setWidth(600);
+        popup.setHeight(340);
+
+        popup.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        popup.initOwner(this.mainStage);
+
+        popup.setOnCloseRequest(event -> {
+            if (popUpData.getOnCancel() != null) popUpData.getOnCancel().run();
+        });
+
+        Runnable closePopup = popup::close;
+        loader.getController().setCloseAction(closePopup);
+
+        popup.showAndWait();
     }
 }

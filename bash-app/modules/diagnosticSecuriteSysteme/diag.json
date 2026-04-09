@@ -1,0 +1,21 @@
+{
+    "categorie 1": [
+        "firewallChecker",
+        "firewallRulesAudit",
+        "antivirusChecker",
+        "malwareScan",
+        "privilegesChecker",
+        "sudoConfigChecker",
+        "sshConfigChecker",
+        "suidSgidChecker",
+        "secureBootChecker",
+        "encryptionChecker",
+        "updateConfigChecker",
+        "processChecker",
+        "userAccountChecker",
+        "cronChecker",
+        "serviceChecker",
+        "majChecker",
+        "osInfo"
+    ]
+}
