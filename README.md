@@ -113,7 +113,6 @@ Le script `bash-app/main.sh` centralise tous les modules et modes.
 | ---------------------------- | ------------------------------------------------------------------- |
 | `--gui`                      | Lance l’interface graphique (`graphicInterface`)                    |
 | `--cli`                      | Lance l’interface textuelle (`cliInterface`)                        |
-| `--test`                     | Lance les tests globaux des modules via `utils/test_modules.sh`     |
 | `--script <module> [args...]`| Exécute un module en ligne de commande avec ses arguments éventuels |
 | `--interface <module_name>`  | Lance un module d’interface spécifique                              |
 
